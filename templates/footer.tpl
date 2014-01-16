@@ -4,8 +4,7 @@
 
 </div> <!-- End footer -->
 
-</div> <!-- End columns -->
-</div> <!-- End row -->
+</div> <!-- End container -->
 </body>
 
 </html>
