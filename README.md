@@ -1,4 +1,0 @@
-tso-cotizador
-=============
-
-TSO Cotizador
