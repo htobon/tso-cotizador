@@ -1,12 +1,12 @@
 <?php
 require_once "../../config/smarty.php";
-$accesorios = array();
-//$audio->id = "1";
-//$audio->nombre = "Audio Jit";
-//array_push($accesorios, $audio);
+require_once '../../config/db.php';
 
+$sql = "SELECT * FROM accesorios";
+$stmt = $conn->query($sql);
+$rows = $stmt->fetchAll();
 
-$smarty->assign("accesorios", $accesorios);
+$smarty->assign("accesorios", $rows);
 
 $smarty->display("simulador.tpl");
 
