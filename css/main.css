@@ -1,1 +1,61 @@
 /* General style */
+
+@font-face {
+    font-family: 'myriad_probold';
+    src: url('/fonts/myriadpro-bold-webfont.eot');
+    src: url('/fonts/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/myriadpro-bold-webfont.woff') format('woff'),
+         url('/fonts/myriadpro-bold-webfont.ttf') format('truetype'),
+         url('/fonts/myriadpro-bold-webfont.svg#myriad_probold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+} 
+
+@font-face {
+    font-family: 'myriad_prolight';
+    src: url('/fonts/myriadpro-light-webfont.eot');
+    src: url('/fonts/myriadpro-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/myriadpro-light-webfont.woff') format('woff'),
+         url('/fonts/myriadpro-light-webfont.ttf') format('truetype'),
+         url('/fonts/myriadpro-light-webfont.svg#myriad_prolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+} 
+
+@font-face {
+    font-family: 'myriad_prolight_italic';
+    src: url('/fonts/myriadpro-lightit-webfont.eot');
+    src: url('/fonts/myriadpro-lightit-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/myriadpro-lightit-webfont.woff') format('woff'),
+         url('/fonts/myriadpro-lightit-webfont.ttf') format('truetype'),
+         url('/fonts/myriadpro-lightit-webfont.svg#myriad_prolight_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body { 
+	font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
+	/*background: url(/images/bg.png);*/
+}
+
+
+.top-bar {
+	height: 72px;
+	padding: 12px 9px;
+}
+
+.top-bar a {
+	color: #FFF;
+	font-size: 19px;
+}
+
+.crm {
+	border-radius: 8px;
+}
+
+.crm:hover {
+	background: #272727;
+}
