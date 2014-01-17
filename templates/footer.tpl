@@ -1,6 +1,6 @@
-<div id="footer">    
+<div id="footer" class="row">    
 
-    <p>Footer here</p>
+    <p></p>
 
 </div> <!-- End footer -->
 
