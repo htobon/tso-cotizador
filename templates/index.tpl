@@ -4,6 +4,10 @@
     <div class="row">
       <div class="large-12 columns"> 
         <form>
+            {foreach from=$infos item=info}
+                <p>{$info["name"]}</p>
+                
+            {/foreach}
 		  <fieldset>
 		    <legend>Iniciar sesion</legend> 
 		    <label>Usuario:</label> <input type="text" placeholder="Nombre de usuario"><br>
