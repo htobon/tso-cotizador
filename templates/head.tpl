@@ -2,7 +2,8 @@
 <html>
     <head>
         <title>{$pageTitle|default:'TSO Mobile'}</title>
-        
+        <meta charset="utf-8" />
+   		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- Main Stylesheets and javascripts -->
         <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" />
         <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/css/foundation.css" />
