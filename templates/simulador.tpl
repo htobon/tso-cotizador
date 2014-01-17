@@ -11,6 +11,10 @@
 
       </div>
     </div> 
+    {foreach from=$accesorios item=accesorio}
+        <p>{$accesorio["id"]} - {$accesorio["nombre"]}</p>
+    {/foreach}
+        
 {include file='footer.tpl'}
 
 
