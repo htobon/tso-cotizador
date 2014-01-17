@@ -59,3 +59,16 @@ body {
 .crm:hover {
 	background: #272727;
 }
+
+
+#audio-cabina {
+	top: 65%;
+	left: 30%;
+}
+.point {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background: #3C3C3C;
+	border-radius: 10px;
+}
