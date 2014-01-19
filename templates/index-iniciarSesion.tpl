@@ -7,12 +7,12 @@
 </div>
 <div class="row">
     <div class="large-12 columns"> 
-        <form>
+        <form method="post" action="{$accion}">
             <fieldset>
-                <legend>Iniciar sesion</legend> 
-                <label>Usuario:</label> <input type="text" placeholder="Nombre de usuario"><br>
-                <label>Contraseña:</label> <input type="password" placeholder="Contraseña"><br>
-                <a href="#" class="button [radius round]">Entrar</a>
+                <legend>Iniciar sesión</legend> 
+                <label>Usuario:</label> <input type="text" name="usuario" placeholder="Nombre de usuario"><br>
+                <label>Contraseña:</label> <input type="password" name="contrasena" placeholder="Contraseña"><br>
+                <button type="submit" name="enviar">Entrar</button>
             </fieldset>
         </form>
     </div>

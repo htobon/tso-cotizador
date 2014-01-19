@@ -13,7 +13,7 @@ class Sesion {
      * 
      * @return Retorna verdadero si la sesión ya exst y falso en caso contrario.
      */
-    public function existeSesion() {
+    public static function existeSesion() {
         if (session_id() == '') {
             return false;
         } else {
@@ -21,8 +21,8 @@ class Sesion {
         }
     }
     
-    public function iniciarSesion() {
-        if ($this->existeSesion() == false) {
+    public static function iniciarSesion() {
+        if (self::existeSesion() == false) {
             session_start();
         }
     }
@@ -32,8 +32,8 @@ class Sesion {
      * @param type $nombreVariable
      * @return boolean
      */
-    public function existeVariable($nombreVariable) {
-        if ($this->existeSesion() == false) {
+    public static function existeVariable($nombreVariable) {
+        if (self::existeSesion() == false) {
             session_start();
         }
         if (isset($_SESSION[$nombreVariable])) {
@@ -50,12 +50,12 @@ class Sesion {
      * @param type $valorVariable
      * @throws Exception
      */
-    public function setVariable($nombreVariable, $valorVariable) {
-        if ($this->existeSesion() != true) {
+    public static function setVariable($nombreVariable, $valorVariable) {
+        if (self::existeSesion() != true) {
             session_start();
         }
         $_SESSION[$nombreVariable] = $valorVariable;
-        if ($this->existeVariable($nombreVariable) == false) {
+        if (self::existeVariable($nombreVariable) == false) {
             throw new Exception('No se pudo crear la sesión');
         }
     }
@@ -67,11 +67,45 @@ class Sesion {
      * @return type
      * @throws Exception
      */
-    public function getVariable($variable) {
+    public static function getVariable($variable) {
         if (isset($_SESSION[$variable])) {
             return $_SESSION[$variable];
         } else {
             throw new Exception('El valor de la sesión no existe.');
+        }
+    }
+    
+    /**
+     * Esta función termina la sesión del usuario. Retorna true si la sesión
+     * fue terminada exitosamente y false en caso contrario.
+     * @return boolean
+     */
+    public static function terminarSesion() {
+        if (self::existeSesion() == false) {
+            session_start();
+            session_destroy();
+        }
+        if(self::existeSesion() == false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Esta función elimina una variable de la sesión del usuario.
+     * @param type $nombreVariable
+     * @return boolean
+     */
+    public static function removerVariable($nombreVariable) {
+        if (self::existeSesion() != true) {
+            session_start();
+        }
+        unset($_SESSION[$nombreVariable]);
+        if(self::existeVariable($nombreVariable) == false) {
+            return true;
+        } else {
+            return false;
         }
     }
 
