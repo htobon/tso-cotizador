@@ -11,9 +11,9 @@ class Sesion {
 
     /**
      * 
-     * @return Retorna verdadero si la sesión ha sido iniciada. Falso en caso contrario.
+     * @return Retorna verdadero si la sesión ya exst y falso en caso contrario.
      */
-    private function estaIniciada() {
+    public function existeSesion() {
         if (session_id() == '') {
             return false;
         } else {
@@ -22,7 +22,7 @@ class Sesion {
     }
     
     public function iniciarSesion() {
-        if ($this->estaIniciada() == false) {
+        if ($this->existeSesion() == false) {
             session_start();
         }
     }
@@ -33,7 +33,7 @@ class Sesion {
      * @return boolean
      */
     public function existeVariable($nombreVariable) {
-        if ($this->estaIniciada() == false) {
+        if ($this->existeSesion() == false) {
             session_start();
         }
         if (isset($_SESSION[$nombreVariable])) {
@@ -51,7 +51,7 @@ class Sesion {
      * @throws Exception
      */
     public function setVariable($nombreVariable, $valorVariable) {
-        if ($this->estaIniciada() != true) {
+        if ($this->existeSesion() != true) {
             session_start();
         }
         $_SESSION[$nombreVariable] = $valorVariable;
