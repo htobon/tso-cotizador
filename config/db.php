@@ -1,10 +1,10 @@
 <?php
 
 require_once dirname(__FILE__) . '/' . 'config.php';
+require WORKSPACE_DIR . '/libs/DoctrineDBAL-2.3.4/Doctrine/Common/ClassLoader.php';
 
 use Doctrine\Common\ClassLoader;
 
-require WORKSPACE_DIR . '/libs/DoctrineDBAL-2.3.4/Doctrine/Common/ClassLoader.php';
 
 $classLoader = new ClassLoader('Doctrine', WORKSPACE_DIR . '/libs/DoctrineDBAL-2.3.4');
 $classLoader->register();

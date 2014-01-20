@@ -1,5 +1,7 @@
 <?php
 
+namespace model\utils;
+
 /**
  * Esta clase se encargará de manejar todas las variables de la sesión del usuario.
  * El objetivo entonces será poder acceder a las variables utilizando métodos y nunca utilizando
@@ -13,14 +15,28 @@ class Sesion {
      * 
      * @return Retorna verdadero si la sesión ya exst y falso en caso contrario.
      */
-    public static function existeSesion() {
+    private static function existeSesion() {
         if (session_id() == '') {
             return false;
         } else {
             return true;
         }
     }
-    
+
+    /**
+     * Esta función identifica si la sesión ya fue iniciada por algún usuario.
+     * @return boolean
+     */
+    public static function sesionActiva() {
+        if (self::existeSesion() == false) {
+            session_start();
+            if (self::existeVariable(Constantes::SESION_USER_ID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static function iniciarSesion() {
         if (self::existeSesion() == false) {
             session_start();
@@ -74,7 +90,7 @@ class Sesion {
             throw new Exception('El valor de la sesión no existe.');
         }
     }
-    
+
     /**
      * Esta función termina la sesión del usuario. Retorna true si la sesión
      * fue terminada exitosamente y false en caso contrario.
@@ -85,13 +101,13 @@ class Sesion {
             session_start();
             session_destroy();
         }
-        if(self::existeSesion() == false) {
+        if (self::existeSesion() == false) {
             return true;
         } else {
             return false;
         }
     }
-    
+
     /**
      * Esta función elimina una variable de la sesión del usuario.
      * @param type $nombreVariable
@@ -102,7 +118,7 @@ class Sesion {
             session_start();
         }
         unset($_SESSION[$nombreVariable]);
-        if(self::existeVariable($nombreVariable) == false) {
+        if (self::existeVariable($nombreVariable) == false) {
             return true;
         } else {
             return false;
@@ -110,3 +126,5 @@ class Sesion {
     }
 
 }
+
+
