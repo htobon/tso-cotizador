@@ -8,6 +8,10 @@
 <div class="row">
     <div class="large-12 columns"> 
         <h1>Ya inició Sesión! {$sesionId}</h1>
+        <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/b1.png"></a>
+        <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/b3.png"></a>
+        <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/b3.png"></a>
+
     </div>
 </div> 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
     <head>
         <title>{$pageTitle|default:'TSO Mobile'}</title>
         <meta charset="utf-8" />
