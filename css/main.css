@@ -37,38 +37,53 @@
 }
 
 body { 
-	font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
-	/*background: url(/images/bg.png);*/
+    font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
+    /*background: url(/images/bg.png);*/
+}
+
+#footer {
+    background: #2064ac;
+    color: white;
+    padding: 19px 0 1px 0;
+}
+
+/* Posicion de accesorios */
+
+#accesorio-0 {
+    top: 26%;
+    left: 35%;
+}
+
+#accesorio-1 {
+    top: 65%;
+    left: 30%;
 }
 
 
 .top-bar {
-	height: 72px;
-	padding: 12px 9px;
+    height: 72px;
+    padding: 12px 9px;
 }
 
 .top-bar a {
-	color: #FFF;
-	font-size: 19px;
+    color: #FFF;
+    font-size: 19px;
 }
 
 .crm {
-	border-radius: 8px;
+    border-radius: 8px;
 }
 
 .crm:hover {
-	background: #272727;
+    background: #272727;
 }
 
-
-#audio-cabina {
-	top: 65%;
-	left: 30%;
-}
 .point {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	background: #3C3C3C;
-	border-radius: 10px;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #3C3C3C;
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    opacity: 0.8;
 }

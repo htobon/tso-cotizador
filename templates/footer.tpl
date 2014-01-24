@@ -1,6 +1,6 @@
-<div id="footer" class="row">    
+<div id="footer" class="pagination-centered">    
 
-    <p></p>
+    <p> © 2014 TSO Mobile | Copyrigh </p>
 
 </div> <!-- End footer -->
 
