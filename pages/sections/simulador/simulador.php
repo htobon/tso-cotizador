@@ -6,6 +6,7 @@ require_once __DIR__ . "/../../../config/autoloader.php";
 use db\AccesoriosDB;
 use utils\Sesion;
 
+
 if (Sesion::sesionActiva()) {
     $accesorios = AccesoriosDB::getAccesorios();
     $smarty->assign("accesorios", $accesorios);
@@ -15,9 +16,3 @@ if (Sesion::sesionActiva()) {
     $smarty->assign("error", "Usted debe iniciar sesión primero.");
     $smarty->display("index-iniciarSesion.tpl");
 }
-
-
-
-
-
-
