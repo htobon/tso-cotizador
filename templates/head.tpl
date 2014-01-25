@@ -3,12 +3,11 @@
     <head>
         <title>{$pageTitle|default:'TSO Mobile'}</title>
         <meta charset="utf-8" />
-   		<meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
         <!-- Main Stylesheets and javascripts -->
-        
+
         <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/css/foundation.css" />
-        <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" /> 
-        <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/JS/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" />         
         <!-- Custom Stylesheets and Javascripts -->
         {if $jsIncludes}
             {foreach from=$jsIncludes item=jsToInclude}
@@ -24,13 +23,15 @@
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/reveal/jquery-1.4.4.min.js"></script> 
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/reveal/jquery.reveal.js"></script> 
                 {elseif $jsToInclude == "alert"} 
-                    <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.alert.js"></script>    
+                    <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.alert.js"></script>
+                {elseif $jsToInclude == "tablesorter"} 
+                    <script src="{$smarty.const.SMARTY_LIBS_URI}/JQuery-tablesorter-2.0.5/jquery.tablesorter.min.js"></script>  
                 {/if}
             {/foreach}
         {/if}
-        
+        <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
+
     </head>
-    
+
     <body>
-        
-    
+

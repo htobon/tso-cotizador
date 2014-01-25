@@ -96,26 +96,25 @@ class UsuarioDB {
         $sql = "SELECT * FROM tso_usuarios";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        $usuarios = $stmt->fetchAll();
-
-        foreach ($usuarios as $u) {
-            # code...
+        $resultado = $stmt->fetchAll();
+        if (isset($resultado)) {
+            $usuarios = array();
+            foreach ($resultado as $u) {
+                $usuario = new stdClass();
+                $usuario->id = $u["id"];
+                $usuario->codigo = $u["codigo"];
+                $usuario->nombres = $u["nombres"];
+                $usuario->apellidos = $u["apellidos"];
+                $usuario->telefono = $u["telefono"];
+                $usuario->correo = $u["correo"];
+                $usuario->estaActivo = $u["esta_activo"];
+                $usuario->rol = $u["rol"];
+                $usuario->fechaCreacion = $u["fecha_creacion"];
+                array_push($usuarios, $usuario);
+            }
+            return $usuarios;
         }
-        if (isset($u)) {
-            $usuario = new stdClass();
-            $usuario->id = $u["id"];
-            $usuario->codigo = $u["codigo"];
-            $usuario->nombres = $u["nombres"];
-            $usuario->apellidos = $u["apellidos"];
-            $usuario->telefono = $u["telefono"];
-            $usuario->correo = $u["correo"];
-            $usuario->estaActivo = $u["esta_activo"];
-            $usuario->rol = $u["rol"];
-            $usuario->fechaCreacion = $u["fecha_creacion"];
-            return $usuario;
-        } else {
-            return NULL;
-        }
+        return NULL;
     }
 
 }

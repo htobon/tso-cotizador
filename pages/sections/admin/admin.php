@@ -6,9 +6,7 @@ use db\UsuarioDB;
 use utils\Sesion;
 
 if (Sesion::sesionActiva()) {
-    $usuarios = array();
-    array_push($usuarios, UsuarioDB::getUsuarioPorID(1));
-    array_push($usuarios, UsuarioDB::getUsuarioPorID(2));
+    $usuarios = UsuarioDB::getUsuarios();
     
     $smarty->assign("usuarios", $usuarios);
     $smarty->display("sections/admin/admin.tpl");    
