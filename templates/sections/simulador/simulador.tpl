@@ -6,7 +6,7 @@
     <div class="row">
       <div class="large-12 columns camion" style=""> 
         {foreach from=$accesorios item=accesorio}  
-           <a href="#" data-reveal-id='accesorio-{$accesorio["id"]}' class="point" style="top: 26%;left: 35%;" data-reveal></a>
+           <a href="#" data-reveal-id='accesorio-{$accesorio["id"]}' class="point" style="top: {$accesorio['posicion_y']}%;left: {$accesorio['posicion_x']}%;" data-reveal></a>
            <div id='accesorio-{$accesorio["id"]}' class="reveal-modal" data-reveal>
               <h2>{$accesorio["nombre"]}</h2>
               <p class="lead">Your couch.  It is mine.</p>

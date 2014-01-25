@@ -47,17 +47,7 @@ body {
     padding: 19px 0 1px 0;
 }
 
-/* Posicion de accesorios */
 
-#accesorio-0 {
-    top: 26%;
-    left: 35%;
-}
-
-#accesorio-1 {
-    top: 65%;
-    left: 30%;
-}
 
 
 .top-bar {
@@ -82,8 +72,16 @@ body {
     position: absolute;
     width: 15px;
     height: 15px;
-    background: #3C3C3C;
-    border: 1px solid #FFFFFF;
+    background: #FAFAFA;
+    border: 1px solid #575757;
     border-radius: 50%;
     opacity: 0.8;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+
+    -moz-animation: spin .5s infinite linear;
+    -webkit-animation: spin .5s infinite linear;
+}
+
+.point:hover {
+    background: #E2E2E2;
 }
