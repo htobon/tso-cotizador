@@ -70,42 +70,36 @@ class AccesoriosDB {
      */
     static function actualizarAccesorio($accesorio){
         $conn = getConn();
-        
+        // Insertamos el nuevo registro
+        self::agregarAccesorio($accesorio);
+        // Desactivamos el accesorio actual
+        $conn->update("tso_accesorios", array('esta_activo' => false), array('id' => $accesorio["id"]));
 
         return (array) $std;
     }
 
     /**
      * Esta funcion permite agregar un nuevo accesorio a la base de datos.
-     * @param  [array] $accesorio [valores del accesorio]
+     * @param  [stdClass] $accesorio [valores del accesorio]
      * @return [boolean]          [true si el accesorio fue agregado 
      *                             correctamente, false si no]
      */
     static function agregarAccesorio($accesorio){
-        $conn = getConn();        
-        $sql = "INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion) WHERE esta_activo = TRUE";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $accesoriosData = $stmt->fetchAll();
-        $accesorios = array();
 
-        foreach ($accesoriosData as $a ) {
-            if(isset($a)){
-                $accesorio = new stdClass();
-                $accesorio->id = $a["id"];
-                $accesorio->nombre = $a["nombre"];
-                $accesorio->codAccesorio = $a["cod_accesorio"];
-                $accesorio->codInstalacion = $a["cod_instalacion"];
-                $accesorio->precioInstalacion = $a["precio_instalacion"];
-                $accesorio->precioAccesorio = $a["precio_accesorio"];
-                $accesorio->precioInstalacion = $a["precio_instalacion"];
-                $accesorio->descripcion = $a["descripcion"];
-                $accesorio->image = $a["image"];
-                $accesorio->posicionX = $a["posicion_x"];
-                $accesorio->posicionY = $a["posicion_y"];
-                array_push($accesorios, $accesorio);
-            }
-        }
+
+        /*
+        Aqui se debe pasar de atributos stdClass a arreglo
+        y escapar las entradas!!!
+         */
+
+        $conn = getConn();
+
+        // Quitamos del arreglo los valores que no queremos que sean guardados.
+        unset($accesorio["id"]);
+        unset($accesorio["esta_activo"]);
+        unset($accesorio["fecha_creacion"]);
+
+        $conn->insert("tso_accesorios", $accesorio );
 
         return (count($accesorios) <= 0 ) ? null : $accesorios;
     }
