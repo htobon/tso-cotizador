@@ -7,5 +7,6 @@ use utils\Sesion;
 
 Sesion::terminarSesion();
 global $smarty;
+$smarty->assign("ocultarLogout", 1);
 $smarty->display("index-iniciarSesion.tpl");
 ?>

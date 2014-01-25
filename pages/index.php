@@ -39,6 +39,7 @@ if (Sesion::sesionActiva()) {
 
 function irFormularioIniciarSesion() {
     global $smarty;
+    $smarty->assign("ocultarLogout", 1);
     $smarty->display("index-iniciarSesion.tpl");
 }
 
