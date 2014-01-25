@@ -17,6 +17,11 @@ if (Sesion::sesionActiva()) {
     if (isset($_POST["enviar"])) {
         // Se valida que el usuario exista en la base de datos y que la contraseña concuerde..
         $user = UserDB::getUser($_POST["email"]);
+        if($user != null) {
+            echo $user["nombres"];
+        } else {
+            echo "NULLLLLL";
+        }
         // Si el usuario existe y tiene correcto el password entonces crear sesión y cargar el menu principal.
         //Sesion::iniciarSesion();
         // Asignando id de usuario 0 por lo pronto mientras hay conexión
