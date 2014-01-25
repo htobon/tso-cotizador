@@ -2,6 +2,7 @@
 require_once "../../../config/smarty.php";
 require_once '../../../config/db.php';
 
+$conn = getConn();
 $sql = "SELECT * FROM accesorios";
 $stmt = $conn->query($sql);
 $accesorios = $stmt->fetchAll();
