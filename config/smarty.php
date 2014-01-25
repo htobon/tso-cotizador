@@ -19,12 +19,4 @@ ini_set("session.cookie_lifetime",$options["session.cookie_lifetime"]);
 ini_set("session.gc_maxlifetime", $options["session.gc_maxlifetime"]);
 //error_reporting(E_ALL ^ E_DEPRECATED);
 
-// Autoloader 
-spl_autoload_register(function($class){
-    $class = str_replace('\\', '/', $class);
-    if (file_exists(WORKSPACE_DIR.'/classes/'.$class.'.php')) {
-        require_once(WORKSPACE_DIR.'/classes/'.$class.'.php');
-    }    
-});
-
 ?>

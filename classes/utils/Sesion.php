@@ -2,6 +2,7 @@
 
 namespace utils;
 
+
 /**
  * Esta clase se encargará de manejar todas las variables de la sesión del usuario.
  * El objetivo entonces será poder acceder a las variables utilizando métodos y nunca utilizando
