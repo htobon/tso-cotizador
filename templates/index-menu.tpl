@@ -11,8 +11,8 @@
         <a href="{$smarty.const.SMARTY_ROOT_URI}/sections/simulador/simulador.php"><img src="{$smarty.const.SMARTY_IMG_URI}/b1.png"></a>
         <a href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php"><img src="{$smarty.const.SMARTY_IMG_URI}/b2.png"></a>
         <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/b3.png"></a>
-        <h5>Ya inició Sesión! {$sesionId}</h5>
+        <h5>Ya inició Sesión {$usuario->nombres}!</h5>
     </div>
-</div> 
+</div>
 
 {include file='footer.tpl'}
