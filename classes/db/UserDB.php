@@ -1,8 +1,6 @@
 <?php
 namespace db;
-
 require_once (__DIR__."/../../config/db.php");
-
 use stdClass;
 
 /**
@@ -14,7 +12,7 @@ class UserDB {
     /*
      * Busca un usuario con el correo que se le pasa por parámetro.
      */
-    static function getUser($email) {
+    static function getUsuario($email) {
         $conn = getConn();        
         $sql = "SELECT * FROM usuarios WHERE correo = ?";
         $stmt = $conn->prepare($sql);

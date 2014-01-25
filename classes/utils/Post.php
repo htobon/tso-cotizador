@@ -12,5 +12,23 @@ namespace utils;
  * @author hftobon
  */
 class Post {
-    //put your code here
+    static function getVar($variable) {
+        if(self::existe($variable)) {
+            filter_input(INPUT_POST, $variable);
+        } else {
+            return null;
+        }
+    }
+    
+    static function getArray($variable) {
+        if(self::existe($variable)) {
+            filter_input_array(INPUT_POST, $variable);
+        } else {
+            return null;
+        }
+    }
+    
+    static function existe($variable) {
+        return filter_has_var(INPUT_POST, $variable);
+    }
 }

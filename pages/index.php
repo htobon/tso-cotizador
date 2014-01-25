@@ -3,6 +3,7 @@ require_once __DIR__."/../config/smarty.php";
 require_once __DIR__."/../config/autoloader.php";
 
 use db\UserDB;
+use utils\Post;
 use utils\Sesion;
 // Descomentar la siguiente línea en caso de querer terminar la sesión.
 // Esto es mientras se desarrolla el botón logout.
@@ -12,15 +13,14 @@ if (Sesion::sesionActiva()) {
     irMenuPrincipal();
 } else {
     // Si no existe sesión de usuario entonces:
-    // El usuario acaba de oprimir el botón enviar?
-    //print_r($_POST);    
-    if (isset($_POST["enviar"])) {
+    // El usuario acaba de oprimir el botón enviar?        
+    if(Post::existe("enviar")) {
         // Se valida que el usuario exista en la base de datos y que la contraseña concuerde..
-        $user = UserDB::getUser($_POST["email"]);
+        $user = UserDB::getUsuario(Post::getVar("correo"));
         if($user != null) {
-            echo $user["nombres"];
+            print_r($user);
         } else {
-            echo "NULLLLLL";
+            
         }
         // Si el usuario existe y tiene correcto el password entonces crear sesión y cargar el menu principal.
         //Sesion::iniciarSesion();
