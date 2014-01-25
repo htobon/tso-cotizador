@@ -14,6 +14,8 @@
             {foreach from=$jsIncludes item=jsToInclude}
                 {if $jsToInclude == "jquery"}
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery/jquery-1.10.2.min.js"></script>   
+                {elseif $jsToInclude == "foundation"} 
+                    <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.js"></script>    
                 {elseif $jsToInclude == "modernizr"}
                     <!-- Reference: JavaScript library that detects HTML5 and CSS3 features in the user’s browser. -->
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/modernizr.js"></script> 
@@ -21,12 +23,11 @@
                     <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/reveal/reveal.css" /> 
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/reveal/jquery-1.4.4.min.js"></script> 
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/reveal/jquery.reveal.js"></script> 
-
+                {elseif $jsToInclude == "alert"} 
+                    <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.alert.js"></script>    
                 {/if}
             {/foreach}
         {/if}
-
-        
         
     </head>
     

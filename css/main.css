@@ -45,6 +45,7 @@ body {
     background: #2064ac;
     color: white;
     padding: 19px 0 1px 0;
+    position: relative;
 }
 
 
@@ -62,6 +63,10 @@ body {
 
 .crm {
     border-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 7px;
 }
 
 .crm:hover {
@@ -73,10 +78,10 @@ body {
     width: 15px;
     height: 15px;
     background: #FAFAFA;
-    border: 1px solid #575757;
+    border: 1px solid #3C3C3C;
     border-radius: 50%;
-    opacity: 0.8;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 
     -moz-animation: spin .5s infinite linear;
     -webkit-animation: spin .5s infinite linear;
@@ -84,4 +89,18 @@ body {
 
 .point:hover {
     background: #E2E2E2;
+}
+
+
+.error {
+    background-color: #A56767;
+    border-color: #9C3E3E;
+}
+
+#logout {
+    padding-top: 0.475rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.4375rem;
+    padding-left: 0.75rem;
+    font-size: 0.7125rem;
 }

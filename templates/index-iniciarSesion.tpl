@@ -1,4 +1,4 @@
-{include file='head.tpl' jsIncludes=["jquery"] pageTitle="TSO Cotizador"}
+{include file='head.tpl' jsIncludes=["jquery","foundation","alert"] pageTitle="TSO Cotizador"}
 
 {include file='header.tpl'} 
 
@@ -8,7 +8,11 @@
 <div class="row">
     <div class="large-12 columns"> 
         {if isset($error)}
-            <p style="background-color:#f0c040; color:black;">{$error}</p>
+            <div data-alert class="alert-box error radius">
+               {$error} 
+              <a href="#" class="close">&times;</a>
+            </div>
+            
         {/if}
         <form method="post" action="{$accion}">
             <fieldset>
