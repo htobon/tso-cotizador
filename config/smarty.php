@@ -4,7 +4,7 @@
  Configuring Smarty, Session and Autoloader.
  */
 
-require_once dirname(__FILE__).'/'.'config.php';
+require_once __DIR__.'/'.'config.php';
 
 require_once LIB_DIR . '/Smarty-3.1.16/Smarty.class.php';
 

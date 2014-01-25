@@ -10,7 +10,7 @@
         <form method="post" action="{$accion}">
             <fieldset>
                 <legend>Iniciar sesión</legend> 
-                <label>Usuario:</label> <input type="text" name="usuario" placeholder="Nombre de usuario"><br>
+                <label>Email:</label> <input type="text" name="email" placeholder="Email"><br>
                 <label>Contraseña:</label> <input type="password" name="contrasena" placeholder="Contraseña"><br>
                 <button type="submit" name="enviar">Entrar</button>
             </fieldset>
