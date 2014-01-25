@@ -2,6 +2,8 @@
 
 namespace utils;
 
+use Exception;
+
 
 /**
  * Esta clase se encargará de manejar todas las variables de la sesión del usuario.

@@ -14,7 +14,15 @@ namespace utils;
 class Post {
     static function getVar($variable) {
         if(self::existe($variable)) {
-            filter_input(INPUT_POST, $variable);
+            return filter_input(INPUT_POST, $variable, FILTER_SANITIZE_STRING);
+        } else {
+            return null;
+        }
+    }
+    
+    static function getVarAsURL($variable) {
+        if(self::existe($variable)) {
+            return filter_input(INPUT_POST, $variable, FILTER_SANITIZE_URL);
         } else {
             return null;
         }
@@ -22,7 +30,7 @@ class Post {
     
     static function getArray($variable) {
         if(self::existe($variable)) {
-            filter_input_array(INPUT_POST, $variable);
+            return filter_input_array(INPUT_POST, $variable);
         } else {
             return null;
         }

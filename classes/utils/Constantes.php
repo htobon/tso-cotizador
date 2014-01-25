@@ -9,4 +9,5 @@ namespace utils;
 class Constantes {
     // Sesiones:
     Const SESION_USER_ID = "user_id";
+    Const SESION_USER = "user";
 }

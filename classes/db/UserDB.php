@@ -18,7 +18,7 @@ class UserDB {
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $email);
         $stmt->execute();
-        $u = $stmt->fetch();        
+        $u = $stmt->fetch();
         if(isset($u)) {
             $usuario = new stdClass();
             $usuario->id = $u["id"];
@@ -35,7 +35,21 @@ class UserDB {
         }
     }
     
+    /*
+     * Valida nombre de usuario y contraseña contra la base de datos.
+     */
     static function validarUsuario($correo, $password) {
-        
+        $conn = getConn();
+        $sql = "SELECT count(id) as cantidad FROM usuarios WHERE correo = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $correo);
+        $stmt->bindValue(2, md5($password));
+        $stmt->execute();
+        $res = $stmt->fetch();        
+        if($res["cantidad"] == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

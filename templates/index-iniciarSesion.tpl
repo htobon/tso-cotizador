@@ -7,11 +7,14 @@
 </div>
 <div class="row">
     <div class="large-12 columns"> 
+        {if isset($error)}
+            <p style="background-color:#f0c040; color:black;">{$error}</p>
+        {/if}
         <form method="post" action="{$accion}">
             <fieldset>
                 <legend>Iniciar sesión</legend> 
                 <label>Email:</label> <input type="text" name="correo" placeholder="Correo"><br>
-                <label>Contraseña:</label> <input type="password" name="contrasena" placeholder="Contraseña"><br>
+                <label>Contraseña:</label> <input type="password" name="password" placeholder="Contraseña"><br>
                 <button type="submit" name="enviar">Entrar</button>
             </fieldset>
         </form>
