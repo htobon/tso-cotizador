@@ -5,12 +5,13 @@
 	</div>
     <div class="row">
       <div class="large-12 columns camion" style=""> 
-        {foreach $accesorios as $accesorio}  
-           <a href="#" data-reveal-id='accesorio-{$accesorio->id}' class="point" style="top: {$accesorio->posicionY}%;left: {$accesorio->posicionX}%;" data-reveal></a>
-           <div id='accesorio-{$accesorio->id}' class="reveal-modal" data-reveal>
-              <h2>{$accesorio->nombre}</h2>
-              <p class="lead">{$accesorio->descripcion}</p>
-              <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+
+        {foreach from=$accesorios item=accesorio}  
+           <a href="#" data-reveal-id='accesorio-{$accesorio->id}' title='{$accesorio->nombre}' class="point" style="top: {$accesorio->posicionY}%;left: {$accesorio->posicionx}%;" data-reveal></a>
+           <div id='accesorio-{$accesorio["id"]}' class="reveal-modal" data-reveal>
+              <h2>{$accesorio->nombre}</h2> 
+              <p class="descripcion">{$accesorio->descripcion}</p>
+
               <a class="close-reveal-modal">&#215;</a>
             </div>
         {/foreach} 
