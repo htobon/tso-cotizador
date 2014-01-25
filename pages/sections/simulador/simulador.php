@@ -1,12 +1,13 @@
 <?php
-require_once "../../../config/smarty.php";
-require_once '../../../config/db.php';
 
-$conn = getConn();
-$sql = "SELECT * FROM accesorios";
-$stmt = $conn->query($sql);
-$accesorios = $stmt->fetchAll();
+require_once __DIR__."/../../../config/smarty.php";
+require_once __DIR__."/../../../config/autoloader.php";
+
+use db\AccesoriosDB;
+use utils\Sesion;
+
+$accesorios = AccesoriosDB::getAccesorios();
+
 $smarty->assign("accesorios", $accesorios);
-
 $smarty->display("sections/simulador/simulador.tpl");
 
