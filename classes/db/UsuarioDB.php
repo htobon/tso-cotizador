@@ -8,15 +8,41 @@ use stdClass;
  *
  * @author hftobon
  */
-class UserDB {
+class UsuarioDB {
     /*
      * Busca un usuario con el correo que se le pasa por parámetro.
      */
-    static function getUsuario($email) {
+    static function getUsuarioPorCorreo($email) {
         $conn = getConn();        
         $sql = "SELECT * FROM usuarios WHERE correo = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $email);
+        $stmt->execute();
+        $u = $stmt->fetch();
+        if(isset($u)) {
+            $usuario = new stdClass();
+            $usuario->id = $u["id"];
+            $usuario->nombres = $u["nombres"];
+            $usuario->apellidos = $u["apellidos"];
+            $usuario->telefono = $u["telefono"];
+            $usuario->correo = $u["correo"];
+            $usuario->estaActivo = $u["esta_activo"];
+            $usuario->rol = $u["rol"];
+            $usuario->fechaCreacion = $u["fecha_creacion"];
+            return $usuario;
+        } else {
+            return NULL;
+        }
+    }
+    
+    /*
+     * Busca un usuario con el id que se le pasa por parámetro.
+     */
+    static function getUsuarioPorID($id) {
+        $conn = getConn();        
+        $sql = "SELECT * FROM usuarios WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
         $u = $stmt->fetch();
         if(isset($u)) {
