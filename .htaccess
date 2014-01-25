@@ -1,0 +1,13 @@
+###### BEGIN TSO COTIZADOR ######
+# default page to load.
+DirectoryIndex index.php pages/index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+# URL more readable and much shorter.
+RewriteCond %{REQUEST_URI} !^/pages/
+RewriteRule ^(.*)\.php /pages/$1.php [L]
+RewriteRule ^(.*)/$ /pages/$1.php [L]
+
+</IfModule>
