@@ -1,5 +1,5 @@
 <?php
-namespace model\utils;
+namespace utils;
 
 /**
  * Esta clase será utilizada para guardar todas las constanates del sistema.

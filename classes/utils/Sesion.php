@@ -1,6 +1,7 @@
 <?php
 
-namespace model\utils;
+namespace utils;
+
 
 /**
  * Esta clase se encargará de manejar todas las variables de la sesión del usuario.
