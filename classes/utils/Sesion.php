@@ -33,9 +33,7 @@ class Sesion {
     public static function sesionActiva() {
         if (self::existeSesion() == false) {
             session_start();
-            if (self::existeVariable(Constantes::SESION_USER_ID)) {
-                return true;
-            }
+            return self::existeVariable(Constantes::SESION_USER_ID);
         }
         return false;
     }
