@@ -5,7 +5,20 @@
 </div>
 <div class="row">
     {include file='sections/camion.tpl'}    
-</div>
+</div> 
+    <div id='accesorio-7' class="reveal-modal" data-reveal>
+
+        <form>
+		  <div class="row">
+		      <label>Seleccione una unidad GPS:  </label>
+		      {foreach from=$arregloGps item=gps}  
+        		 <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}"><label for="gps-{$gps->id}">{$gps->nombre}</label><br>
+        	  {/foreach} 
+		  </div>
+		</form>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
 
 
 {include file='footer.tpl'}

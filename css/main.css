@@ -42,7 +42,7 @@ body {
 }
 
 #footer {
-    background: #2064ac;
+    background: #2064AC;
     color: white;
     padding: 19px 0 1px 0;
     position: relative;
@@ -97,7 +97,7 @@ body {
 }
 
 .crm:hover {
-    background: #272727;
+    background: #1B5FA8;
 }
 
 .point {
