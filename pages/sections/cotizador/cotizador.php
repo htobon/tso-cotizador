@@ -1,8 +1,18 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once __DIR__ . "/../../../config/smarty.php";
+require_once __DIR__ . "/../../../config/autoloader.php";
+
+use db\AccesoriosDB;
+use utils\Sesion;
+
+if (Sesion::sesionActiva()) { 
+    $accesorios = AccesoriosDB::getAccesorios();
+    $smarty->assign("accesorios", $accesorios);
+    $smarty->display("sections/cotizador/cotizador.tpl");
+} else {
+    $smarty->assign("ocultarLogout", 1);
+    $smarty->assign("error", "Usted debe iniciar sesión primero.");
+    $smarty->display("index-iniciarSesion.tpl");
+}
 
