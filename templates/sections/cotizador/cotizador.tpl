@@ -12,7 +12,7 @@
 		  <div class="row">
 		      <label>Seleccione una unidad GPS:  </label>
 		      {foreach from=$arregloGps item=gps}  
-        		 <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}"><label for="gps-{$gps->id}">{$gps->nombre}</label><br>
+        		 <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}"><label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad} )</label><br>
         	  {/foreach} 
 		  </div>
 		</form>

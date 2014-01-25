@@ -13,21 +13,25 @@ if (Sesion::sesionActiva()) {
 	$gps1 = new stdClass();
     $gps1->id = "1";
     $gps1->nombre = "TSO-3500";
+    $gps1->precioUnidad = "36000";
     array_push($arregloGps, $gps1);
 
     $gps1 = new stdClass();
     $gps1->id = "2";
     $gps1->nombre = "TSO-4500";
+    $gps1->precioUnidad = "36000";
     array_push($arregloGps, $gps1);
 
     $gps1 = new stdClass();
     $gps1->id = "3";
     $gps1->nombre = "TSO-6000";
+    $gps1->precioUnidad = "28000";
     array_push($arregloGps, $gps1);
 
     $gps1 = new stdClass();
     $gps1->id = "4";
     $gps1->nombre = "TSO-9000";
+    $gps1->precioUnidad = "28000";
     array_push($arregloGps, $gps1);
 
 
