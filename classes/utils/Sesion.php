@@ -4,7 +4,6 @@ namespace utils;
 
 use Exception;
 
-
 /**
  * Esta clase se encargará de manejar todas las variables de la sesión del usuario.
  * El objetivo entonces será poder acceder a las variables utilizando métodos y nunca utilizando
@@ -32,8 +31,16 @@ class Sesion {
      */
     public static function sesionActiva() {
         if (self::existeSesion() == false) {
+            ini_set('session.use_trans_sid', false);
+            ini_set('session.use_cookies', true);
+            ini_set('session.use_only_cookies', true);
+            $https = false;
+            if (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] != 'off')
+                $https = true;
+            $dirname = rtrim(dirname($_SERVER['PHP_SELF']), '/') . '/';
+            session_name('some_name');
+            session_set_cookie_params(0, $dirname, $_SERVER['HTTP_HOST'], $https, true);
             session_start();
-            ob_flush();
             echo session_id();
             return self::existeVariable(Constantes::SESION_USER_ID);
         }
@@ -129,5 +136,3 @@ class Sesion {
     }
 
 }
-
-
