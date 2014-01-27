@@ -43,6 +43,7 @@ class Sesion {
         ini_set('session.use_cookies', true);
         ini_set('session.use_only_cookies', true);
         session_start();
+        ob_flush();
     }
 
     /**
