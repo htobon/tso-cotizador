@@ -24,7 +24,7 @@ if (Sesion::sesionActiva()) {
         if ($usuarioExiste) {
             // Si el usuario existe y tiene correcto el password entonces crear sesión y cargar el menu principal.
             $usuario = UsuarioDB::getUsuarioPorCorreo(Post::getVar("correo"));
-            Sesion::iniciarSesion();
+            //Sesion::iniciarSesion();
             Sesion::setVariable(Constantes::SESION_USER_ID, $usuario->id);
             irMenuPrincipal($usuario);
         } else {

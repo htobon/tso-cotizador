@@ -32,10 +32,9 @@ class Sesion {
     public static function sesionActiva() {
         if (self::existeSesion() == false) {
             self::iniciarSesion();
-            echo session_id();
-            return self::existeVariable(Constantes::SESION_USER_ID);
+            //echo session_id();            
         }
-        return false;
+        return self::existeVariable(Constantes::SESION_USER_ID);        
     }
 
     public static function iniciarSesion() {
@@ -101,14 +100,13 @@ class Sesion {
      */
     public static function terminarSesion() {
         if (self::existeSesion() == false) {
-            self::iniciarSesion();
-            session_destroy();
+            self::iniciarSesion();            
         }
         if (self::existeSesion() == false) {
             return true;
-        } else {
-            return false;
         }
+        session_destroy();
+        return true;
     }
 
     /**

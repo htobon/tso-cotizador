@@ -1,5 +1,7 @@
 <?php
-
+session_start();
+//utils\Sesion::iniciarSesion();
+echo session_id();
 /*
  Configuring Smarty, Session and Autoloader.
  */
