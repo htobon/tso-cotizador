@@ -31,16 +31,7 @@ class Sesion {
      */
     public static function sesionActiva() {
         if (self::existeSesion() == false) {
-            ini_set('session.use_trans_sid', false);
-            ini_set('session.use_cookies', true);
-            ini_set('session.use_only_cookies', true);
-            $https = false;
-            if (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] != 'off')
-                $https = true;
-            $dirname = rtrim(dirname($_SERVER['PHP_SELF']), '/') . '/';
-            session_name('some_name');
-            session_set_cookie_params(0, $dirname, $_SERVER['HTTP_HOST'], $https, true);
-            session_start();
+            self::iniciarSesion();
             echo session_id();
             return self::existeVariable(Constantes::SESION_USER_ID);
         }
@@ -48,9 +39,10 @@ class Sesion {
     }
 
     public static function iniciarSesion() {
-        if (self::existeSesion() == false) {
-            session_start();
-        }
+        ini_set('session.use_trans_sid', false);
+        ini_set('session.use_cookies', true);
+        ini_set('session.use_only_cookies', true);
+        session_start();
     }
 
     /**
@@ -60,7 +52,7 @@ class Sesion {
      */
     public static function existeVariable($nombreVariable) {
         if (self::existeSesion() == false) {
-            session_start();
+            self::iniciarSesion();
         }
         if (isset($_SESSION[$nombreVariable])) {
             return true;
@@ -78,7 +70,7 @@ class Sesion {
      */
     public static function setVariable($nombreVariable, $valorVariable) {
         if (self::existeSesion() != true) {
-            session_start();
+            self::iniciarSesion();
         }
         $_SESSION[$nombreVariable] = $valorVariable;
         if (self::existeVariable($nombreVariable) == false) {
@@ -108,7 +100,7 @@ class Sesion {
      */
     public static function terminarSesion() {
         if (self::existeSesion() == false) {
-            session_start();
+            self::iniciarSesion();
             session_destroy();
         }
         if (self::existeSesion() == false) {
@@ -125,7 +117,7 @@ class Sesion {
      */
     public static function removerVariable($nombreVariable) {
         if (self::existeSesion() != true) {
-            session_start();
+            self::iniciarSesion();
         }
         unset($_SESSION[$nombreVariable]);
         if (self::existeVariable($nombreVariable) == false) {
