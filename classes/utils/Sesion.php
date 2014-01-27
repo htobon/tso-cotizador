@@ -33,6 +33,7 @@ class Sesion {
     public static function sesionActiva() {
         if (self::existeSesion() == false) {
             session_start();
+            echo session_id();
             return self::existeVariable(Constantes::SESION_USER_ID);
         }
         return false;
