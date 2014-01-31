@@ -44,7 +44,7 @@ body {
 #footer {
     background: #2064AC;
     color: white;
-    padding: 19px 0 1px 0;
+    padding: 15px 0 1px 0;
     position: relative;
 }
 
@@ -54,6 +54,7 @@ body {
     padding-bottom: 0.4375rem;
     padding-left: 0.75rem;
     font-size: 0.7125rem;
+    margin-top: 6px;
 }
 
 .btn {
@@ -79,8 +80,8 @@ body {
 
 
 .top-bar {
-    height: 72px;
-    padding: 12px 9px;
+    height: 43px;
+    padding: 0px 9px;
 }
 
 .top-bar a {
@@ -102,8 +103,8 @@ body {
 
 .point {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background: #FAFAFA;
     border: 1px solid #3C3C3C;
     border-radius: 50%;
