@@ -26,23 +26,11 @@ class Sesion {
     }
 
     /**
-     * Esta función identifica si la sesión ya fue iniciada por algún usuario.
-     * @return boolean
+     * Esta función identifica si la sesión ya fue iniciada previamente por algún usuario.
+     * @return boolean Verdadero si fue iniciada. Falso en caso contario.
      */
     public static function sesionActiva() {
-        if (self::existeSesion() == false) {
-            self::iniciarSesion();
-            //echo session_id();            
-        }
-        return self::existeVariable(Constantes::SESION_USER_ID);        
-    }
-
-    public static function iniciarSesion() {
-        ini_set('session.use_trans_sid', false);
-        ini_set('session.use_cookies', true);
-        ini_set('session.use_only_cookies', true);
-        session_start();
-        ob_flush();
+        return self::existeVariable(Constantes::SESION_USER_ID);
     }
 
     /**
@@ -51,14 +39,12 @@ class Sesion {
      * @return boolean
      */
     public static function existeVariable($nombreVariable) {
-        if (self::existeSesion() == false) {
-            self::iniciarSesion();
+        if (self::existeSesion()) {
+            if (isset($_SESSION[$nombreVariable])) {
+                return true;
+            }
         }
-        if (isset($_SESSION[$nombreVariable])) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -69,12 +55,11 @@ class Sesion {
      * @throws Exception
      */
     public static function setVariable($nombreVariable, $valorVariable) {
-        if (self::existeSesion() != true) {
-            self::iniciarSesion();
-        }
-        $_SESSION[$nombreVariable] = $valorVariable;
-        if (self::existeVariable($nombreVariable) == false) {
-            throw new Exception('No se pudo crear la sesión');
+        if (self::existeSesion()) {
+            $_SESSION[$nombreVariable] = $valorVariable;
+            if (self::existeVariable($nombreVariable) == false) {
+                throw new Exception('No se pudo crear la sesión');
+            }
         }
     }
 
@@ -99,13 +84,9 @@ class Sesion {
      * @return boolean
      */
     public static function terminarSesion() {
-        if (self::existeSesion() == false) {
-            self::iniciarSesion();            
+        if (self::existeSesion()) {
+            session_destroy();
         }
-        if (self::existeSesion() == false) {
-            return true;
-        }
-        session_destroy();
         return true;
     }
 
@@ -115,15 +96,13 @@ class Sesion {
      * @return boolean
      */
     public static function removerVariable($nombreVariable) {
-        if (self::existeSesion() != true) {
-            self::iniciarSesion();
+        if (self::existeSesion()) {
+            unset($_SESSION[$nombreVariable]);
+            if (self::existeVariable($nombreVariable) == false) {
+                return true;
+            }
         }
-        unset($_SESSION[$nombreVariable]);
-        if (self::existeVariable($nombreVariable) == false) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
 }
