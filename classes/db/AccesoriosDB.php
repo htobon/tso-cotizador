@@ -13,7 +13,7 @@ class AccesoriosDB {
      * Busca todos los accesorios.
      */
     static function getAccesorios() {
-        $conn = getConn();        
+        $conn = getConn();
         $sql = "SELECT * FROM tso_accesorios WHERE esta_activo = TRUE";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
