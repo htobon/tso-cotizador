@@ -80,27 +80,58 @@ class AccesoriosDB {
 
     /**
      * Esta funcion permite agregar un nuevo accesorio a la base de datos.
-     * @param  [stdClass] $accesorio [valores del accesorio]
-     * @return [boolean]          [true si el accesorio fue agregado 
-     *                             correctamente, false si no]
+     * @param  [stdClass]   $accesorio [valores del accesorio]
+     * @return [boolean]    [true si el accesorio fue agregado correctamente, false si no]
      */
     static function agregarAccesorio($accesorio){
 
 
+        // Transformamos la clase en arreglo
         /*
-        Aqui se debe pasar de atributos stdClass a arreglo
-        y escapar las entradas!!!
-         */
+        $arregloAccesorio = array();
+        $arregloAccesorio["nombre"] = $accesorio->nombre . "anything' OR 'x'='x \as asdfoqw ñ asdf r$%& ";
+        $arregloAccesorio["cod_accesorio"] = $accesorio->codAccesorio;
+        $arregloAccesorio["cod_instalacion"] = $accesorio->codInstalacion;
+        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
+        $arregloAccesorio["precio_accesorio"] = $accesorio->precioAccesorio;
+        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
+        $arregloAccesorio["descripcion"] = $accesorio->descripcion;
+        $arregloAccesorio["image"] = $accesorio->image;
+        $arregloAccesorio["posicion_x"] = $accesorio->posicionX;
+        $arregloAccesorio["posicion_y"] = $accesorio->posicionY;
+        $conn->insert("tso_accesorios", $arregloAccesorio );
 
         $conn = getConn();
 
-        // Quitamos del arreglo los valores que no queremos que sean guardados.
-        unset($accesorio["id"]);
-        unset($accesorio["esta_activo"]);
-        unset($accesorio["fecha_creacion"]);
+        */
+        
+    }
 
-        $conn->insert("tso_accesorios", $accesorio );
+    static function pruebaInjection1(){
+        $conn = getConn();
+        $sql = "UPDATE tso_accesorios SET nombre = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $accesorio->nombre . " ' AND (select count(*) from fake) %3e0 OR '1'%3d' " );
+        $stmt->bindValue(2, 10 );
+        $stmt->execute();        
+    }
 
-        return (count($accesorios) <= 0 ) ? null : $accesorios;
+    static function pruebaInjection2(){
+
+        $arregloAccesorio = array();
+        $arregloAccesorio["nombre"] = $accesorio->nombre . "anything' OR 'x'='x \as asdfoqw ñ asdf r$%& ";
+        $arregloAccesorio["cod_accesorio"] = $accesorio->codAccesorio;
+        $arregloAccesorio["cod_instalacion"] = $accesorio->codInstalacion;
+        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
+        $arregloAccesorio["precio_accesorio"] = $accesorio->precioAccesorio;
+        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
+        $arregloAccesorio["descripcion"] = $accesorio->descripcion;
+        $arregloAccesorio["image"] = $accesorio->image;
+        $arregloAccesorio["posicion_x"] = $accesorio->posicionX;
+        $arregloAccesorio["posicion_y"] = $accesorio->posicionY;
+
+        $conn = getConn();
+
+        $conn->insert("tso_accesorios", $arregloAccesorio );
     }
 }
