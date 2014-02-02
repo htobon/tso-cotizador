@@ -73,28 +73,26 @@ class PlanesDB {
     }
 
     /**
-     * Esta funcion permite agregar un nuevo accesorio a la base de datos.
-     * @param  [stdClass] $accesorio [valores del accesorio]
-     * @return [boolean]          [true si el accesorio fue agregado 
+     * Esta funcion permite agregar un nuevo plan a la base de datos.
+     * @param  [stdClass] $plan [valores del plan]
+     * @return [boolean]          [true si el plan fue agregado 
      *                             correctamente, false si no]
      */
-    static function agregarPlan($accesorio){
-
+    static function agregarPlan($plan){
 
         /*
         Aqui se debe pasar de atributos stdClass a arreglo
         y escapar las entradas!!!
          */
-
         $conn = getConn();
 
         // Quitamos del arreglo los valores que no queremos que sean guardados.
-        unset($accesorio["id"]);
-        unset($accesorio["esta_activo"]);
-        unset($accesorio["fecha_creacion"]);
+        unset($plan["id"]);
+        unset($plan["esta_activo"]);
+        unset($plan["fecha_creacion"]);
 
-        $conn->insert("tso_accesorios", $accesorio );
+        $conn->insert("tso_planes_servicio", $plan );
 
-        return (count($accesorios) <= 0 ) ? null : $accesorios;
+        return (count($plan) <= 0 ) ? null : $plan;
     }
 }
