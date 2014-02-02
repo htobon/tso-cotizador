@@ -1,4 +1,4 @@
-{include file='head.tpl' jsIncludes=["jquery", "tablesorter"] pageTitle="TSO Cotizador"} 
+{include file='head.tpl' jsIncludes=["jquery-mobile", "tablesorter"] pageTitle="TSO Cotizador"} 
 {include file='header.tpl'} 
 
 <div id="usuarios">
@@ -11,6 +11,7 @@
             <th>Correo</th>
             <th>Rol</th>
             <th>Fecha de Creación</th>
+            <th>Activo</th>
             <th></th>
             <th></th>
         </tr>
@@ -22,8 +23,15 @@
                 <td>{$usuario->correo}</td>
                 <td>{$usuario->rol}</td>
                 <td>{$usuario->fechaCreacion}</td>
-                <td>[icono-Editar]-{$usuario->id}</td>
-                <td>[icono-Remover]-{$usuario->id}</td>
+                <td>
+                    {if $usuario->estaActivo == 1}
+                        <img src="{$smarty.const.SMARTY_IMG_URI}/icon-green-ball-16.png"/>
+                    {else}
+                        <img src="{$smarty.const.SMARTY_IMG_URI}/icon-red-ball-16.png"/>
+                    {/if}
+                </td>
+                <td><img id="editar-usuario-{$usuario->id}" class="editar-usuario" src="{$smarty.const.SMARTY_IMG_URI}/icon-edit-16.png"/></td>
+                <td><img id="eliminar-usuario-{$usuario->id}" class="eliminar-usuario" src="{$smarty.const.SMARTY_IMG_URI}/icon-delete-16.png"/></td>
             </tr>            
         {/foreach}
     </table>
@@ -47,8 +55,8 @@
                 <td>{$accesorio->codInstalacion}</td>
                 <td>${$accesorio->precioInstalacion|number_format:2}</td>
                 <td>${$accesorio->precioAccesorio|number_format:2}</td>
-                <td>[icono-Editar]-{$accesorio->id}</td>
-                <td>[icono-Remover]-{$accesorio->id}</td>
+                <td><img id="editar-accesorio-{$usuario->id}" class="editar-accesorio" src="{$smarty.const.SMARTY_IMG_URI}/icon-edit-16.png"/></td>
+                <td><img id="eliminar-accesorio-{$usuario->id}" class="eliminar-accesorio" src="{$smarty.const.SMARTY_IMG_URI}/icon-delete-16.png"/></td>
             </tr>            
         {/foreach}
     </table>

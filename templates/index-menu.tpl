@@ -11,7 +11,7 @@
         <div class="btn"><a href="{$smarty.const.SMARTY_ROOT_URI}/sections/simulador/simulador.php">S</a></div>
         <div class="btn"><a href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php">Q</a></div>
         {if $usuario->rol == "Admin"}
-        	<div class="btn"><a href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php">A</a></div>
+        	<div class="btn"><a href="{$smarty.const.SMARTY_ROOT_URI}/sections/admin/admin.php">A</a></div>
         {/if}
         <div class="btn"><a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/crmSmall.png"></a></div>
 

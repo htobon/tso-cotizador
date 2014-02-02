@@ -13,6 +13,8 @@
             {foreach from=$jsIncludes item=jsToInclude}
                 {if $jsToInclude == "jquery"}
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery/jquery-1.10.2.min.js"></script>   
+                {elseif $jsToInclude == "jquery-mobile"}
+                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery-mobile/jquery.mobile-1.4.0.min.js"></script>
                 {elseif $jsToInclude == "foundation"} 
                     <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.js"></script>    
                 {elseif $jsToInclude == "modernizr"}

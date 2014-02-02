@@ -10,9 +10,42 @@ use stdClass;
  */
 class AccesoriosDB {
     /*
-     * Busca todos los accesorios.
+     * Busca todos los accesorios independientemente si están activos o no.
      */
-    static function getAccesorios() {
+    public static function getAccesorios() {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_accesorios";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $accesoriosData = $stmt->fetchAll();
+        $accesorios = array();
+
+        foreach ($accesoriosData as $a ) {
+            if(isset($a)){
+                $accesorio = new stdClass();
+                $accesorio->id = $a["id"];
+                $accesorio->nombre = $a["nombre"];
+                $accesorio->codAccesorio = $a["cod_accesorio"];
+                $accesorio->codInstalacion = $a["cod_instalacion"];
+                $accesorio->precioInstalacion = $a["precio_instalacion"];
+                $accesorio->precioAccesorio = $a["precio_accesorio"];
+                $accesorio->precioInstalacion = $a["precio_instalacion"];
+                $accesorio->descripcion = $a["descripcion"];
+                $accesorio->image = $a["image"];
+                $accesorio->posicionX = $a["posicion_x"];
+                $accesorio->posicionY = $a["posicion_y"];
+                array_push($accesorios, $accesorio);
+            }
+        }
+
+        return (count($accesorios) <= 0 ) ? null : $accesorios;
+    }
+    
+    /**
+     * Busca todos los accesorios activos de la base de datos.
+     * @return type
+     */
+    public static function getAccesoriosActivos() {
         $conn = getConn();
         $sql = "SELECT * FROM tso_accesorios WHERE esta_activo = TRUE";
         $stmt = $conn->prepare($sql);
