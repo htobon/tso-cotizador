@@ -3,7 +3,7 @@
     <head>
         <title>{$pageTitle|default:'TSO Mobile'}</title>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <!-- Main Stylesheets and javascripts -->
 
         <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/css/foundation.css" />
@@ -14,7 +14,8 @@
                 {if $jsToInclude == "jquery"}
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery/jquery-1.10.2.min.js"></script>   
                 {elseif $jsToInclude == "jquery-mobile"}
-                    <!-- script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery/jquery-1.10.2.min.js"></script -->
+                    <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/JQuery-mobile/jquery.mobile-1.4.0.min.css" />
+                    <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery/jquery-1.10.2.min.js"></script>
                     <script type="text/javascript" src="{$smarty.const.SMARTY_LIBS_URI}/JQuery-mobile/jquery.mobile-1.4.0.min.js"></script>
                 {elseif $jsToInclude == "foundation"} 
                     <script src="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/js/foundation/foundation.js"></script>    
