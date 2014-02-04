@@ -7,7 +7,7 @@
         <!-- Main Stylesheets and javascripts -->
 
         <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_LIBS_URI}/Foundation-5.0.3/css/foundation.css" />
-        <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" />         
+               
         <!-- Custom Stylesheets and Javascripts -->
         {if $jsIncludes}
             {foreach from=$jsIncludes item=jsToInclude}
@@ -33,6 +33,7 @@
                 {/if}
             {/foreach}
         {/if}
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" />  
         <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
 
     </head>

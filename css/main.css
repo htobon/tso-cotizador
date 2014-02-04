@@ -4,9 +4,9 @@
     font-family: 'myriad_probold';
     src: url('/fonts/myriadpro-bold-webfont.eot');
     src: url('/fonts/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/myriadpro-bold-webfont.woff') format('woff'),
-         url('/fonts/myriadpro-bold-webfont.ttf') format('truetype'),
-         url('/fonts/myriadpro-bold-webfont.svg#myriad_probold') format('svg');
+        url('/fonts/myriadpro-bold-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-bold-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-bold-webfont.svg#myriad_probold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -16,9 +16,9 @@
     font-family: 'myriad_prolight';
     src: url('/fonts/myriadpro-light-webfont.eot');
     src: url('/fonts/myriadpro-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/myriadpro-light-webfont.woff') format('woff'),
-         url('/fonts/myriadpro-light-webfont.ttf') format('truetype'),
-         url('/fonts/myriadpro-light-webfont.svg#myriad_prolight') format('svg');
+        url('/fonts/myriadpro-light-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-light-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-light-webfont.svg#myriad_prolight') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -28,24 +28,36 @@
     font-family: 'myriad_prolight_italic';
     src: url('/fonts/myriadpro-lightit-webfont.eot');
     src: url('/fonts/myriadpro-lightit-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/myriadpro-lightit-webfont.woff') format('woff'),
-         url('/fonts/myriadpro-lightit-webfont.ttf') format('truetype'),
-         url('/fonts/myriadpro-lightit-webfont.svg#myriad_prolight_italic') format('svg');
+        url('/fonts/myriadpro-lightit-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-lightit-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-lightit-webfont.svg#myriad_prolight_italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
+
+/* ##################### GENERAL ########################## */
 
 body { 
     font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
     /*background: url(/images/bg.png);*/
 }
 
-#footer {
-    background: #2064AC;
-    color: white;
-    padding: 15px 0 1px 0;
-    position: relative;
+.error {
+    background-color: #A56767;
+    border-color: #9C3E3E;
+}
+
+/* ##################### HEADER ######################## */
+
+.top-bar {
+    height: 43px;
+    padding: 0px 9px;
+}
+
+.top-bar a {
+    color: #FFF;
+    font-size: 19px;
 }
 
 #logout {
@@ -57,6 +69,10 @@ body {
     margin-top: 6px;
 }
 
+
+/* #################### SECTIONS ##################### */
+
+/* -------- Menu Principal ----------- */
 .btn {
     width: 100px;
     height: 100px;
@@ -76,30 +92,7 @@ body {
     text-shadow: 1px 1px 2px #9C9C9C;
 }
 
-
-
-
-.top-bar {
-    height: 43px;
-    padding: 0px 9px;
-}
-
-.top-bar a {
-    color: #FFF;
-    font-size: 19px;
-}
-
-.crm {
-    border-radius: 8px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 7px;
-}
-
-.crm:hover {
-    background: #1B5FA8;
-}
+/* -------- Simulador -------- */
 
 .point {
     position: absolute;
@@ -119,10 +112,11 @@ body {
     background: #E2E2E2;
 }
 
-
-.error {
-    background-color: #A56767;
-    border-color: #9C3E3E;
+.modal-accesorio {
+    width: 60rem;
+    height: 22rem;
+    padding: 20px;
+    text-align: justify;
 }
 
 .accesorio-img {
@@ -135,3 +129,24 @@ body {
 .descripcion {
     font-size: 0.98em;
 }
+
+/* ---------- Footer -------- */
+
+#footer {
+    background: #2064AC;
+    color: white;
+    padding: 15px 0 1px 0;
+    position: relative;
+}
+.crm {
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 7px;
+}
+
+.crm:hover {
+    background: #1B5FA8;
+}
+
