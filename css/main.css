@@ -113,10 +113,11 @@ body {
 }
 
 .modal-accesorio {
-    width: 60rem;
-    height: 22rem;
+    width: 87%;
     padding: 20px;
     text-align: justify;
+    max-width: inherit;
+    display: inline-block;
 }
 
 .accesorio-img {
@@ -124,10 +125,11 @@ body {
     margin: 5px 19px 0px 0px;
     box-shadow: 2px 2px 10px #7C7C7C;
     border: 4px solid #FFF;
+    width: 25%;
 }
 
 .descripcion {
-    font-size: 0.98em;
+    font-size: 0.8em;
 }
 
 /* ---------- Footer -------- */
