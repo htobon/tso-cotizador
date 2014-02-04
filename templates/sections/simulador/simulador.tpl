@@ -1,7 +1,7 @@
 {include file='head.tpl' jsIncludes=["jquery-mobile"] pageTitle="TSO Cotizador"}
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/simulador.js"></script>
 {include file='header.tpl'} 
-{include file='menu.tpl'} 
+ 
 <div class="row">
     {include file='sections/camion.tpl'}    
 </div>

@@ -33,7 +33,7 @@
                 {/if}
             {/foreach}
         {/if}
-        
+        <link rel="stylesheet" type="text/css" href="{$smarty.const.SMARTY_CSS_URI}/main.css" />  
         <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
 
     </head>
