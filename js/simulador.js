@@ -1,7 +1,6 @@
 $(document).on('pageinit', function()
 {
-    
+
 }
 );
-
 
