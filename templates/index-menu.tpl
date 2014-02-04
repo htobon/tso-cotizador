@@ -4,11 +4,8 @@
 
 {include file='menu.tpl'} 
 
-<div class="row">
-    
-
-        <h5>Ya inició Sesión {$usuario->nombres}!</h5>
-    
+<div class="row"> 
+        <h5>Ya inició Sesión {$usuario->nombres}!</h5> 
 </div>
 
 {include file='footer.tpl'}

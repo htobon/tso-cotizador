@@ -14,15 +14,15 @@
             </div>
             
         {/if}
-        <form method="post" action="/pages/index.php">
+        <form method="post" action="/pages/index.php" data-ajax="false">
             <fieldset>
                 <legend>Iniciar sesión</legend> 
                 <label>Email:</label> <input type="text" name="correo" placeholder="Correo"><br>
                 <label>Contraseña:</label> <input type="password" name="password" placeholder="Contraseña"><br>
                 
-                <button data-ajax="false" type="submit" name="enviar" class="ui-shadow ui-btn ui-corner-all">Entrar</button>
+                <button type="submit" name="enviar" class="ui-shadow ui-btn ui-corner-all" data-role="none">Entrar</button>
 
-                <input type="button" data-theme="b" name="enviar" id="submit" value="Entrar">
+
             </fieldset>
         </form>
     </div>
