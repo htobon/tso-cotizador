@@ -1,4 +1,4 @@
-{include file='head.tpl' jsIncludes=["jquery","foundation","alert"] pageTitle="TSO Cotizador"}
+{include file='head.tpl' jsIncludes=["jquery","jquery-mobile"] pageTitle="TSO Cotizador"}
 
 {include file='header.tpl'}
 
@@ -19,7 +19,10 @@
                 <legend>Iniciar sesión</legend> 
                 <label>Email:</label> <input type="text" name="correo" placeholder="Correo"><br>
                 <label>Contraseña:</label> <input type="password" name="password" placeholder="Contraseña"><br>
-                <button type="submit" name="enviar">Entrar</button>
+                
+                <button data-ajax="false" type="submit" name="enviar" class="ui-shadow ui-btn ui-corner-all">Entrar</button>
+
+                <input type="button" data-theme="b" name="enviar" id="submit" value="Entrar">
             </fieldset>
         </form>
     </div>

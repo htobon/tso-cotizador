@@ -1,8 +1,7 @@
-<div id="footer" class="pagination-centered">    
-
-    <p> © 2014 TSO Mobile | Copyrigh </p>
-<div class="right crm"> <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/crmSmall.png"></a> </div>
-</div> <!-- End footer -->
+<div data-role="footer" style="overflow:hidden;">
+    <h4 style="text-align:center;">© 2014 TSO Mobile | Copyrigh</h4>
+    <div class="right crm"> <a href=""><img src="{$smarty.const.SMARTY_IMG_URI}/crmSmall.png"></a> </div>
+</div><!-- /footer -->
 
 </div> <!-- End container -->
 </body>
