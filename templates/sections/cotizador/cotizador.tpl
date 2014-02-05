@@ -6,18 +6,22 @@
 <div class="row">
     {include file='sections/camion.tpl'}    
 </div> 
-<div id='accesorio-7' class="reveal-modal" data-reveal>
 
+<div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
     <form>
         <div class="row">
-            <label>Seleccione una unidad GPS:  </label>
+           <fieldset data-role="controlgroup"> 
+            <legend>Seleccione una unidad GPS:  </legend>
             {foreach from=$arregloGps item=gps}
-                <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}"><label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad} )</label><br>
+                <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}">
+                <label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad} )</label>
             {/foreach} 
+           </fieldset>  
         </div>
     </form>
-    <a class="close-reveal-modal">&#215;</a>
 </div>
+
+
 
 
 
