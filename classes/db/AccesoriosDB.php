@@ -104,11 +104,11 @@ class AccesoriosDB {
     static function actualizarAccesorio($accesorio){
         $conn = getConn();
         // Insertamos el nuevo registro
-        self::agregarAccesorio($accesorio);
+        $agregado = self::agregarAccesorio($accesorio);
         // Desactivamos el accesorio actual
-        $conn->update("tso_accesorios", array('esta_activo' => false), array('id' => $accesorio["id"]));
+        $desactivado = self::desactivarAccesorio($accesorio->id);
 
-        return (array) $std;
+        return ($agregado && $desactivado);
     }
 
     /**
@@ -117,54 +117,23 @@ class AccesoriosDB {
      * @return [boolean]    [true si el accesorio fue agregado correctamente, false si no]
      */
     static function agregarAccesorio($accesorio){
-
-
-        // Transformamos la clase en arreglo
-        /*
-        $arregloAccesorio = array();
-        $arregloAccesorio["nombre"] = $accesorio->nombre . "anything' OR 'x'='x \as asdfoqw ñ asdf r$%& ";
-        $arregloAccesorio["cod_accesorio"] = $accesorio->codAccesorio;
-        $arregloAccesorio["cod_instalacion"] = $accesorio->codInstalacion;
-        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
-        $arregloAccesorio["precio_accesorio"] = $accesorio->precioAccesorio;
-        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
-        $arregloAccesorio["descripcion"] = $accesorio->descripcion;
-        $arregloAccesorio["image"] = $accesorio->image;
-        $arregloAccesorio["posicion_x"] = $accesorio->posicionX;
-        $arregloAccesorio["posicion_y"] = $accesorio->posicionY;
-        $conn->insert("tso_accesorios", $arregloAccesorio );
+        $sql = 'INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion, precio_instalacion, ';
+        $sql .= 'precio_accesorio, descripcion, image, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
 
         $conn = getConn();
-
-        */
-        
-    }
-
-    static function pruebaInjection1(){
-        $conn = getConn();
-        $sql = "UPDATE tso_accesorios SET nombre = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(1, $accesorio->nombre . " ' AND (select count(*) from fake) %3e0 OR '1'%3d' " );
-        $stmt->bindValue(2, 10 );
-        $stmt->execute();        
-    }
 
-    static function pruebaInjection2(){
+        $stmt->bindValue(1, $accesorio->nombre);
+        $stmt->bindValue(2, $accesorio->codAccesorio);
+        $stmt->bindValue(3, $accesorio->codInstalacion);
+        $stmt->bindValue(4, $accesorio->precioInstalacion);
+        $stmt->bindValue(5, $accesorio->precioAccesorio);
+        $stmt->bindValue(6, $accesorio->descripcion);
+        $stmt->bindValue(7, $accesorio->image);
+        $stmt->bindValue(8, $accesorio->posicionX);
+        $stmt->bindValue(9, $accesorio->posicionY);
 
-        $arregloAccesorio = array();
-        $arregloAccesorio["nombre"] = $accesorio->nombre . "anything' OR 'x'='x \as asdfoqw ñ asdf r$%& ";
-        $arregloAccesorio["cod_accesorio"] = $accesorio->codAccesorio;
-        $arregloAccesorio["cod_instalacion"] = $accesorio->codInstalacion;
-        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
-        $arregloAccesorio["precio_accesorio"] = $accesorio->precioAccesorio;
-        $arregloAccesorio["precio_instalacion"] = $accesorio->precioInstalacion;
-        $arregloAccesorio["descripcion"] = $accesorio->descripcion;
-        $arregloAccesorio["image"] = $accesorio->image;
-        $arregloAccesorio["posicion_x"] = $accesorio->posicionX;
-        $arregloAccesorio["posicion_y"] = $accesorio->posicionY;
-
-        $conn = getConn();
-
-        $conn->insert("tso_accesorios", $arregloAccesorio );
+        $inserted_rows = $stmt->execute();
+        return ($inserted_rows == 1);
     }
 }
