@@ -133,6 +133,13 @@ body {
     background: #E2E2E2;
 }
 
+.point.seleccionado {
+    border: 5px solid #38c;
+    width: 11px;
+    height: 11px;
+    opacity: 0.8;
+}
+
 .camion {
     position: relative;
 }
@@ -161,14 +168,15 @@ body {
     font-size: 0.8em;
 }
 
+/* ---------- Cotizador -------- */
+
+#accesorios-contenido label {
+    font-size: 14px;
+    font-weight: normal;
+}
+
 /* ---------- Footer -------- */
 
-#footer {
-    background: #2064AC;
-    color: white;
-    padding: 15px 0 1px 0;
-    position: relative;
-}
 .crm {
     border-radius: 8px;
     position: absolute;

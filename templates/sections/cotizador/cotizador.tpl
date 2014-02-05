@@ -6,6 +6,7 @@
 <div class="row">
     {include file='sections/camion.tpl'}    
 </div> 
+<a href="#mypanel" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Accesorios</a>
 
 <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
     <form>
@@ -21,7 +22,18 @@
     </form>
 </div>
 
-
+<div data-role="panel" data-position="right" data-display="overlay" id="mypanel">
+    <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
+        <fieldset data-role="controlgroup">
+        <legend>Accesorios Seleccionados:</legend>
+        {foreach from=$accesorios item=accesorio}   
+                <input type="checkbox" name="checkbox-accesorios" id="checkbox-{$accesorio->id}">
+                <label for="checkbox-{$accesorio->id}">{$accesorio->nombre}</label>  
+        {/foreach} 
+        </fieldset>
+    </div>    
+    <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a> 
+</div><!-- /panel -->
 
 
 
