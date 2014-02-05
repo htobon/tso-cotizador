@@ -83,20 +83,18 @@ class UnidadesGpsDB {
      */
     static function agregarUnidad($unidad){
         $sql = 'INSERT INTO tso_unidades_gps (nombre, cod_unidad, cod_instalacion, precio_instalacion, ';
-        $sql .= 'precio_unidad, descripcion, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        $sql .= 'precio_unidad, descripcion, image) VALUES (?, ?, ?, ?, ?, ?, ? );';
 
         $conn = getConn();
         $stmt = $conn->prepare($sql);
 
         $stmt->bindValue(1, $unidad->nombre);
-        $stmt->bindValue(2, $unidad->codAccesorio);
+        $stmt->bindValue(2, $unidad->codUnidad);
         $stmt->bindValue(3, $unidad->codInstalacion);
         $stmt->bindValue(4, $unidad->precioInstalacion);
-        $stmt->bindValue(5, $unidad->precioAccesorio);
+        $stmt->bindValue(5, $unidad->precioUnidad);
         $stmt->bindValue(6, $unidad->descripcion);
         $stmt->bindValue(7, $unidad->image);
-        $stmt->bindValue(8, $unidad->posicionX);
-        $stmt->bindValue(9, $unidad->posicionY);
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
