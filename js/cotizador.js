@@ -10,7 +10,7 @@ $(document).on('pageinit', function()
          * Si por el contrario, ningún GPS se ha seleccionado, entonces el
          * accesorio podrá ser seleccionado.
          */
-        alert($(event.target).attr("id"));
+        //alert($(event.target).attr("id"));
     });
 }
 );
