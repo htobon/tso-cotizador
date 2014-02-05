@@ -72,6 +72,13 @@ body {
 
 /* #################### SECTIONS ##################### */
 
+/* -------- Login ----------- */
+
+.login fieldset {
+    padding: 1em 5em;
+}
+
+
 /* -------- Menu Principal ----------- */
 .btn {
     width: 100px;
