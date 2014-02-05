@@ -1,4 +1,4 @@
-<div class="ui-body-a ui-body ui-corner-all">
+<div id="menu-principal" class="ui-body-a ui-body ui-corner-all">
     <h3>Menú de navegación</h3>
     <div data-role="navbar">
         <ul>
