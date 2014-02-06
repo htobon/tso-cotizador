@@ -10,11 +10,34 @@ $(document).on('pageinit', function()
          * Si por el contrario, ningún GPS se ha seleccionado, entonces el
          * accesorio podrá ser seleccionado.
          */
-        //alert( $(event.target).attr("id") );
-        $(event.target).toggleClass("seleccionado");
+        var checkbox = $( "#checkbox-"+$(event.target).attr("id") );  
 
-        //$( "#checkbox-"+$(event.target).attr("id") ).toggleClass("seleccionado");
+        // accesorio-7 -> Unidad Satelital (Dual) GPS
+        if($(event.target).attr("id") != "accesorio-7"){ 
+            // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
+            $(event.target).toggleClass("seleccionado"); 
+            // Se seleccionara automaticamente el listado que se visualiza en el panel derecho 
+            if( checkbox.is(':checked'))
+                checkbox.prop('checked', false).checkboxradio('refresh');
+            else
+                checkbox.prop('checked', true).checkboxradio('refresh');
+        }
+        
     });
+    
+    // Evento cuando selecciona una unidad GPS     
+    $("input[name^='losgps']").on("click", function(event) {  
+        $("#accesorio-7").addClass("seleccionado"); 
+        $( "#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
+        $( "#modal-accesorio-7" ).popup( "close" );
+    });    
+
+    //Evento para abrir panel deslizando el dedo a la izquierda
+    $("body").on( "swipeleft", swipeleftHandler ); 
+    function swipeleftHandler( event ){
+        $( "#mypanel" ).panel( "open" );
+    }
+
 }
 );
 
