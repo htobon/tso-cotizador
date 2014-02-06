@@ -27,8 +27,8 @@
         <fieldset data-role="controlgroup">
         <legend>Accesorios Seleccionados:</legend>
         {foreach from=$accesorios item=accesorio}   
-                <input type="checkbox" name="checkbox-accesorios" id="checkbox-{$accesorio->id}">
-                <label for="checkbox-{$accesorio->id}">{$accesorio->nombre}</label>  
+                <input type="checkbox" name="checkbox-accesorios" id="checkbox-accesorio-{$accesorio->id}" disabled="disabled">
+                <label for="checkbox-accesorio-{$accesorio->id}">{$accesorio->nombre}</label>  
         {/foreach} 
         </fieldset>
     </div>    
