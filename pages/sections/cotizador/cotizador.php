@@ -11,7 +11,7 @@ use utils\Sesion;
 if (Sesion::sesionActiva()) {
 
     $arregloGps = UnidadesGpsDB::getUnidadesGps();
-	$accesorios = AccesoriosDB::getAccesorios();
+    $accesorios = AccesoriosDB::getAccesorios();
     $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones();
 
     $gpsIncompatibles = array();
@@ -20,15 +20,17 @@ if (Sesion::sesionActiva()) {
     foreach ($restricciones as $restriccion) {
         $accesorioID = $restriccion["accesorio_id"];
         $gpsID = $restriccion["unidad_gps_id"];
-
-        if( !isset( $gpsIncompatibles[$accesorioID] ) ) $gpsIncompatibles[$accesorioID] = array();
-        if( !isset( $accesoriosIncompatibles[$gpsID] ) ) $accesoriosIncompatibles[$gpsID] = array();
-
+        if (!isset($gpsIncompatibles[$accesorioID])) {
+            $gpsIncompatibles[$accesorioID] = array();
+        }
+        if (!isset($accesoriosIncompatibles[$gpsID])) {
+            $accesoriosIncompatibles[$gpsID] = array();
+        }
         $gpsIncompatibles[$accesorioID][] = $gpsID;
         $accesoriosIncompatibles[$gpsID][] = $accesorioID;
     }
 
-    
+
     $smarty->assign("arregloGps", $arregloGps);
     $smarty->assign("accesorios", $accesorios);
     $smarty->assign("accesoriosIncompatibles", $accesoriosIncompatibles);
