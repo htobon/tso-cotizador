@@ -1,13 +1,17 @@
 {include file='head.tpl' jsIncludes=["jquery-mobile"] pageTitle="TSO Cotizador"}
+{include file='header.tpl' assign="header"} {* Asignando header como variable *}
+{include file='footer.tpl' assign="footer"} {* Asignando footer como variable *}
 <script>
   var gpsIncompatibles = {$gpsIncompatibles|@json_encode};
   var accesoriosIncompatibles = {$accesoriosIncompatibles|@json_encode};
 </script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
+
 <!-- Selección de Accesorios en el Camión -->
-<div id="seleccion-accesorios" data-role="page">
-  {include file='header.tpl'}
+<div id="seleccion-accesorios" data-role="page">  
+  {* Por lo pronto se usa el include manual para evitar que el icono return aparezca *}
+  {include file='header.tpl' ocultarReturn="1"}
   <div class="row">
     {include file='sections/camion.tpl'}
   </div> 
@@ -40,12 +44,12 @@
     </div>
     <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a>
   </div><!-- /panel -->
-  {include file='footer.tpl'}
+  {$footer}
 </div>
 
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
 <div id="seleccion-adicionales" data-role="page">
-  {include file='header.tpl'}
+  {$header}
   <div class="row">
     <br>
     <br>
@@ -55,5 +59,5 @@
       La segunda tabla que muestra la interfaz permite seleccionar el tipo de contrato (Compra o Comodato). Finalmente se selecciona la cantidad de vehículos y se presiona el botón siguiente para conocer la cotización.
     </p>  
   </div>
-  {include file='footer.tpl'}
+  {$footer}
 </div>
