@@ -30,6 +30,8 @@ $(document).on('pageinit', function()
         $("#accesorio-7").addClass("seleccionado"); 
         $( "#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
         $( "#modal-accesorio-7" ).popup( "close" );
+
+        deshabilitarAccesoriosIncompatibles();
     });    
 
     //Evento para abrir panel deslizando el dedo a la izquierda
@@ -37,8 +39,37 @@ $(document).on('pageinit', function()
     function swipeleftHandler( event ){
         $( "#mypanel" ).panel( "open" );
     }
+    
+});
 
+function habilitarAccesorios(){
+    $("[id^='accesorio']").removeClass("deshabilitado");
 }
-);
 
+function habilitarGps(){
+    $( "#checkbox-accesorio-7").removeClass("deshabilitado");
+}
 
+function deshabilitarAccesoriosIncompatibles(){
+    var gpsSeleccionado = $("input[name^='losgps']:checked");
+    var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
+    habilitarAccesorios();
+
+    $.each(accesoriosIncompatibles[gpsID], function(){
+        var accesorioID = this;
+        $("#accesorio-" + accesorioID).addClass("deshabilitado");
+    });
+}
+
+function deshabilitarGpsIncompatibles(){
+    var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
+    habilitarGps();
+
+    $(accesoriosSeleccionados).each(function(){
+        var accesorioID = $(this).prop("id").split("-")[2];
+
+        $.each(gpsIncompatibles[accesorioID], function(){
+            var gpsID = this;
+        });
+    });
+}

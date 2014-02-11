@@ -1,4 +1,8 @@
 {include file='head.tpl' jsIncludes=["jquery-mobile"] pageTitle="TSO Cotizador"}
+<script>
+    var gpsIncompatibles = {$gpsIncompatibles|@json_encode};
+    var accesoriosIncompatibles = {$accesoriosIncompatibles|@json_encode};
+</script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script> 
 {include file='header.tpl'} 
  
@@ -35,9 +39,4 @@
     <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a> 
 </div><!-- /panel -->
 
-
-
 {include file='footer.tpl'}
-
-
-

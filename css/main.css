@@ -140,6 +140,13 @@ body {
     opacity: 0.8;
 }
 
+.point.deshabilitado {
+    border: 5px solid red;
+    width: 11px;
+    height: 11px;
+    opacity: 0.8;
+}
+
 .camion {
     position: relative;
 }

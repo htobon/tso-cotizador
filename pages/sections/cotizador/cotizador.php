@@ -4,41 +4,35 @@ require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
 
 use db\AccesoriosDB;
+use db\UnidadesGpsDB;
+use db\AccesoriosGpsDB;
 use utils\Sesion;
 
 if (Sesion::sesionActiva()) {
 
-	$arregloGps = array();
-	
-	$gps1 = new stdClass();
-    $gps1->id = "1";
-    $gps1->nombre = "TSO-3500";
-    $gps1->precioUnidad = "36000";
-    array_push($arregloGps, $gps1);
+    $arregloGps = UnidadesGpsDB::getUnidadesGps();
+	$accesorios = AccesoriosDB::getAccesorios();
+    $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones();
 
-    $gps1 = new stdClass();
-    $gps1->id = "2";
-    $gps1->nombre = "TSO-4500";
-    $gps1->precioUnidad = "36000";
-    array_push($arregloGps, $gps1);
+    $gpsIncompatibles = array();
+    $accesoriosIncompatibles = array();
 
-    $gps1 = new stdClass();
-    $gps1->id = "3";
-    $gps1->nombre = "TSO-6000";
-    $gps1->precioUnidad = "28000";
-    array_push($arregloGps, $gps1);
+    foreach ($restricciones as $restriccion) {
+        $accesorioID = $restriccion["accesorio_id"];
+        $gpsID = $restriccion["unidad_gps_id"];
 
-    $gps1 = new stdClass();
-    $gps1->id = "4";
-    $gps1->nombre = "TSO-9000";
-    $gps1->precioUnidad = "28000";
-    array_push($arregloGps, $gps1);
+        if( !isset( $gpsIncompatibles[$accesorioID] ) ) $gpsIncompatibles[$accesorioID] = array();
+        if( !isset( $accesoriosIncompatibles[$gpsID] ) ) $accesoriosIncompatibles[$gpsID] = array();
 
+        $gpsIncompatibles[$accesorioID][] = $gpsID;
+        $accesoriosIncompatibles[$gpsID][] = $accesorioID;
+    }
 
-   
-    $accesorios = AccesoriosDB::getAccesorios();
+    
     $smarty->assign("arregloGps", $arregloGps);
     $smarty->assign("accesorios", $accesorios);
+    $smarty->assign("accesoriosIncompatibles", $accesoriosIncompatibles);
+    $smarty->assign("gpsIncompatibles", $gpsIncompatibles);
     $smarty->display("sections/cotizador/cotizador.tpl");
 } else {
     $smarty->assign("ocultarLogout", 1);
