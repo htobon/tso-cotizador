@@ -1,6 +1,10 @@
 {include file='head.tpl' jsIncludes=["jquery-mobile"] pageTitle="TSO Cotizador"}
-{include file='header.tpl' assign="header"} {* Asignando header como variable *}
-{include file='footer.tpl' assign="footer"} {* Asignando footer como variable *}
+
+{* Asignando header como variable sin el boton return *}
+{include file='header.tpl' assign="header" ocultarReturn="1"}
+
+{* Asignando footer como variable *}
+{include file='footer.tpl' assign="footer"}
 <script>
   var gpsIncompatibles = {$gpsIncompatibles|@json_encode};
   var accesoriosIncompatibles = {$accesoriosIncompatibles|@json_encode};
@@ -10,29 +14,29 @@
 
 <!-- Selección de Accesorios en el Camión -->
 <div id="seleccion-accesorios" data-role="page">  
-  {* Por lo pronto se usa el include manual para evitar que el icono return aparezca *}
-  {include file='header.tpl' ocultarReturn="1"}
-  <div class="row">
+  {$header}
+  {include file='sidebar-flecha.tpl' direccion="derecha" link="#seleccion-adicionales"}
+  <div class="row" data-role="content">    
     {include file='sections/camion.tpl'}
+    <a href="#mypanel" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Accesorios</a>
+    <a href="#seleccion-adicionales" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Datos Adicionales</a>
+
+    <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
+      <form>
+        <div class="row">
+          <fieldset data-role="controlgroup"> 
+            <legend>Seleccione una unidad GPS:</legend>
+            {foreach from=$arregloGps item=gps}
+              <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}">
+              <label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad})</label>
+            {/foreach}
+          </fieldset>
+        </div>
+      </form>
+    </div>    
   </div> 
-  <a href="#mypanel" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Accesorios</a>
-  <a href="#seleccion-adicionales" data-transition="flip" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-btn-icon-left ui-icon-bars">Datos Adicionales</a>
 
-  <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
-    <form>
-      <div class="row">
-        <fieldset data-role="controlgroup"> 
-          <legend>Seleccione una unidad GPS:</legend>
-          {foreach from=$arregloGps item=gps}
-            <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}">
-            <label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad})</label>
-          {/foreach}
-        </fieldset>
-      </div>
-    </form>
-  </div>
-
-  <div id="mypanel" data-role="panel" data-position="right" data-display="overlay">
+  <div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
     <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
       <fieldset data-role="controlgroup">
         <legend>Accesorios Seleccionados:</legend>
@@ -49,7 +53,8 @@
 
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
 <div id="seleccion-adicionales" data-role="page">
-  {$header}
+  {$header}  
+  {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}  
   <div class="row">
     <br>
     <br>
