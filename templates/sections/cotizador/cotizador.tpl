@@ -13,7 +13,7 @@
 
 
 <!-- Selección de Accesorios en el Camión -->
-<div id="seleccion-accesorios" data-role="page" class="con">  
+<div id="seleccion-accesorios" data-role="page" class="container">  
   {$header}  
   <div class="row content" data-role="content">
     {include file='sections/camion.tpl'}    
@@ -31,27 +31,28 @@
         </div>
       </form>
     </div>    
-  </div>   
+  </div> 
+  <div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
+    <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
+      <fieldset data-role="controlgroup">
+        <legend>Accesorios Seleccionados:</legend>
+        {foreach from=$accesorios item=accesorio}
+          <input type="checkbox" name="checkbox-accesorios" id="checkbox-accesorio-{$accesorio->id}" disabled="disabled">
+          <label for="checkbox-accesorio-{$accesorio->id}">{$accesorio->nombre}</label>  
+        {/foreach}
+      </fieldset>
+    </div>
+    <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a>
+  </div><!-- /panel -->
   {$footer}
 </div>
 
 
-<!-- div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
-  <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
-    <fieldset data-role="controlgroup">
-      <legend>Accesorios Seleccionados:</legend>
-{foreach from=$accesorios item=accesorio}
-  <input type="checkbox" name="checkbox-accesorios" id="checkbox-accesorio-{$accesorio->id}" disabled="disabled">
-  <label for="checkbox-accesorio-{$accesorio->id}">{$accesorio->nombre}</label>  
-{/foreach}
-</fieldset>
-</div>
-<a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a>
-</div --><!-- /panel -->
+
 
 
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
-<div id="seleccion-adicionales" data-role="page">
+<div id="seleccion-adicionales" data-role="page" class="container">
   {$header}  
   {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}  
   <div class="row">
