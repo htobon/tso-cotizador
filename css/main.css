@@ -84,9 +84,10 @@ body {
   position:absolute;
   width:40px;  
   z-index: 1;
+  display: flex;
 }
 .sidebar-right a, .sidebar-left a {
-  display: table-row-group;
+  /* display: table-row-group;*/
 }
 .sidebar-right { 
   top: 0; right: 0; bottom: 0;
