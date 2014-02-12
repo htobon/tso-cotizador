@@ -56,6 +56,11 @@ body {
   width: 60%;
 }
 
+.content {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
 /* ##################### HEADER ######################## */
 
 .top-bar {
@@ -95,6 +100,7 @@ body {
 .sidebar-left {
   top: 0; left: 0; bottom: 0;
 }
+
 
 
 /* #################### SECTIONS ##################### */
@@ -199,6 +205,13 @@ body {
 #accesorios-contenido label {
   font-size: 14px;
   font-weight: normal;
+}
+
+/* --------- Seleccion adicionales */
+#planes-servicio, #descuentos {
+  width: 40%;
+  float: left;
+  padding: 10px;
 }
 
 /* ---------- Footer -------- */

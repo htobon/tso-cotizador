@@ -34,6 +34,28 @@ class PlanesDB {
         }
         return (count($planes) <= 0 ) ? null : $planes;
     }
+    
+    public static function getPlanesActivos() {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_planes_servicio WHERE esta_activo = 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $planesData = $stmt->fetchAll();
+        $planes = array();
+        foreach ($planesData as $p ) {
+            if(isset($p)){
+                $plan = new stdClass();
+                $plan->id = $p["id"];
+                $plan->nombre = $p["nombre"];
+                $plan->codigo = $p["codigo"];
+                $plan->precio = $p["precio"];
+                $plan->estaActivo = $p["esta_activo"];
+                $plan->fechaCreacion = $p["fecha_creacion"];                
+                array_push($planes, $plan);
+            }
+        }
+        return (count($planes) <= 0 ) ? null : $planes;
+    }
 
     /**
      * desactivarPlan Desactiva el plan indentificado con el identificador

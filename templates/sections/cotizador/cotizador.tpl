@@ -48,21 +48,30 @@
 </div>
 
 
-
-
-
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
 <div id="seleccion-adicionales" data-role="page" class="container">
   {$header}  
   {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}  
-  <div class="row">
-    <br>
-    <br>
-    <h1>Datos Adicionales</h1>
-    <p>
-      Para este paso la interfaz gráfica mostrará dos tablas. La primera contendrá los diferentes planes que ofrece la empresa, opcionalmente se puede agregar una descripción detallada del plan que se despliega al hacer clic en el ícono correspondiente.
-      La segunda tabla que muestra la interfaz permite seleccionar el tipo de contrato (Compra o Comodato). Finalmente se selecciona la cantidad de vehículos y se presiona el botón siguiente para conocer la cotización.
-    </p>  
+  <div class="row content" data-role="content">
+    <div id="planes-servicio">
+      <br>
+      <br>
+      <h1>Planes de servicio</h1>
+      {foreach from=$planes item=plan}
+        <input type="radio" name="planes" value="{$plan->id}" id="plan-{$plan->id}">
+        <label for="plan-{$plan->id}">{$plan->nombre} ({$plan->precio})</label> 
+      {/foreach}
+    </div>
+    <div id="descuentos">
+      <br>
+      <br>
+      <h1>Descuentos</h1>
+      {foreach from=$descuentos item=descuento}
+        <input type="radio" name="descuentos" value="{$descuento->id}" id="descuento-{$descuento->id}">
+        <label for="descuento-{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} ({$descuento->descuento}%)</label> 
+      {/foreach}
+    </div>
   </div>
+
   {$footer}
 </div>
