@@ -11,10 +11,12 @@ use utils\Sesion;
 
 if (Sesion::sesionActiva()) {
 
-  $arregloGps = UnidadesGpsDB::getUnidadesGps();
-  $accesorios = AccesoriosDB::getAccesorios();
-  $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones();
+  $arregloGps = UnidadesGpsDB::getUnidadesGps(); // FAVOR REVISAR. Solo se deben devolver las unidades activas.
+  
+  $accesorios = AccesoriosDB::getAccesoriosActivos();
+  $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones(); // FAVOR REVISAR. Solo se deben devolver las restricciones activas.
   $planes = PlanesDB::getPlanesActivos();
+  $descuentos = db\DescuentosDB::getDescuentosActivos();
 
   $gpsIncompatibles = array();
   $accesoriosIncompatibles = array();
@@ -30,53 +32,9 @@ if (Sesion::sesionActiva()) {
     }
     $gpsIncompatibles[$accesorioID][] = $gpsID;
     $accesoriosIncompatibles[$gpsID][] = $accesorioID;
-  }
-
-  // TEMPORAL
-  $descuentos = array();
+  }  
   
-  $descuento1 = new stdClass();
-  $descuento1->id = 1;
-  $descuento1->cantidadMin = 5;
-  $descuento1->cantidadMax = 10;
-  $descuento1->descuento = 5;  
-  array_push($descuentos, $descuento1);
-  
-  $descuento2 = new stdClass();
-  $descuento2->id = 2;
-  $descuento2->cantidadMin = 11;
-  $descuento2->cantidadMax = 20;
-  $descuento2->descuento = 8;  
-  array_push($descuentos, $descuento2);
-  
-  $descuento3 = new stdClass();
-  $descuento3->id = 3;
-  $descuento3->cantidadMin = 21;
-  $descuento3->cantidadMax = 30;
-  $descuento3->descuento = 10;  
-  array_push($descuentos, $descuento3);
-  
-  $descuento4 = new stdClass();
-  $descuento4->id = 4;
-  $descuento4->cantidadMin = 31;
-  $descuento4->cantidadMax = 40;
-  $descuento4->descuento = 12;  
-  array_push($descuentos, $descuento4);
-
-  $descuento5 = new stdClass();
-  $descuento5->id = 5;
-  $descuento5->cantidadMin = 41;
-  $descuento5->cantidadMax = 50;
-  $descuento5->descuento = 15;  
-  array_push($descuentos, $descuento5);
-
-  $descuento6 = new stdClass();
-  $descuento6->id = 6;
-  $descuento6->cantidadMin = 51;
-  $descuento6->cantidadMax = 999999;
-  $descuento6->descuento = 20;  
-  array_push($descuentos, $descuento6);
-  
+  // Asignación de variables Smarty.
   $smarty->assign("arregloGps", $arregloGps);
   $smarty->assign("accesorios", $accesorios);
   $smarty->assign("accesoriosIncompatibles", $accesoriosIncompatibles);

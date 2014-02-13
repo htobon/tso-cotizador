@@ -136,8 +136,7 @@ class AccesoriosDB {
      * @return [boolean]          [true si el accesorio fue actualizado, 
      *                             false si no]
      */
-    static function actualizarAccesorio($accesorio){
-        $conn = getConn();
+    static function actualizarAccesorio($accesorio){        
         // Insertamos el nuevo registro
         $agregado = self::agregarAccesorio($accesorio);
         // Desactivamos el accesorio actual
@@ -145,7 +144,7 @@ class AccesoriosDB {
 
         // Obtenemos las restricciones con gps del accesorio actual
         $restricciones = AccesoriosGpsDB::getRestriccionesPorAccesorio($accesorio->id);
-        // Obtenemos el id del regidtro insertado
+        // Obtenemos el id del registro insertado
         $accesorioActualizado = self::getAccesorioActivoPorCodigo($accesorio->codAccesorio);
 
         // Actualizamos las restricciones con el nuevo id y las agregamos a la bd
