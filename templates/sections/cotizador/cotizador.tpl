@@ -62,6 +62,7 @@
         <label for="plan-{$plan->id}">{$plan->nombre} ({$plan->precio})</label> 
       {/foreach}
     </div>
+    
     <div id="descuentos">
       <br>
       <br>
@@ -70,6 +71,16 @@
         <input type="radio" name="descuentos" value="{$descuento->id}" id="descuento-{$descuento->id}">
         <label for="descuento-{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} ({$descuento->descuento}%)</label> 
       {/foreach}
+    </div>
+    
+    <div id="descuentos">
+      <br>
+      <br>
+      <h1>Tipo de contrato</h1>
+      <input type="radio" name="contratos" value="1" id="contrato-1">
+      <label for="contrato-1">Compra</label> 
+      <input type="radio" name="contratos" value="2" id="contrato-2">
+      <label for="contrato-2">Comodato</label>      
     </div>
   </div>
 
