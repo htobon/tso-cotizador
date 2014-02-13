@@ -24,7 +24,7 @@
           <fieldset data-role="controlgroup"> 
             <legend>Seleccione una unidad GPS:</legend>
             {foreach from=$arregloGps item=gps}
-              <input type="radio" name="losgps" value="{$gps->id}" id="gps-{$gps->id}">
+              <input type="radio" name="gps" value="{$gps->id}" id="gps-{$gps->id}">
               <label for="gps-{$gps->id}">{$gps->nombre} ({$gps->precioUnidad})</label>
             {/foreach}
           </fieldset>
