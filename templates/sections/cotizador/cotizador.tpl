@@ -57,28 +57,27 @@
         <div id="planes-servicio" class="seccion">
           <br>
           <h1>Planes de servicio</h1>
-          <fieldset data-role="controlgroup" data-mini="true">
+          <select name="planes" id="plan" data-native-menu="false" data-mini="true">              
+            <option value="-1" data-placeholder="true">Seleccione un Plan</option>
             {foreach from=$planes item=plan}
-              <input type="radio" name="planes" value="{$plan->id}" id="plan-{$plan->id}">
-              <label for="plan-{$plan->id}">{$plan->nombre} ({$plan->precio})</label> 
+              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
             {/foreach}
-          </fieldset>
+          </select>
         </div>
         <div id="descuentos" class="seccion">
           <br>
-          <h1>Descuentos</h1>
-          <fieldset data-role="controlgroup" data-mini="true">
+          <h1>Cantidad de Vehículos</h1>
+          <select name="descuentos" id="plan" data-native-menu="false" data-mini="true">              
+            <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$descuentos item=descuento}
-              <input type="radio" name="descuentos" value="{$descuento->id}" id="descuento-{$descuento->id}">
-              <label for="descuento-{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} ({$descuento->descuento}%)</label> 
+              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
             {/foreach}
-          </fieldset>
+          </select>
         </div>
       </div>
-          
+
       <div id="segunda-fila" class="fila">
         <div id="contratos" class="seccion">
-          <br>
           <br>
           <h1>Tipo de contrato</h1>
           <fieldset data-role="controlgroup" data-mini="true">
@@ -90,7 +89,6 @@
         </div>
 
         <div id="duraciones" class="seccion">
-          <br>
           <br>
           <h1>Número de meses</h1>
           <fieldset data-role="controlgroup" data-mini="true">
