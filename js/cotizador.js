@@ -62,8 +62,8 @@ function deshabilitarAccesoriosIncompatibles() {
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
   habilitarAccesorios();
 
-  if (accesoriosIncompatibles[gpsID] ){
-    $.each(accesoriosIncompatibles[gpsID], function() {
+  if (accesoriosIncompatiblesGPS[gpsID] ){
+    $.each(accesoriosIncompatiblesGPS[gpsID], function() {
       var accesorioID = this;
       $("#accesorio-" + accesorioID).addClass("deshabilitado");
     });
@@ -78,8 +78,8 @@ function deshabilitarGpsIncompatibles() {
   $(accesoriosSeleccionados).each(function() {
     var accesorioID = $(this).prop("id").split("-")[2];
 
-    if(gpsIncompatibles[accesorioID]){
-      $.each(gpsIncompatibles[accesorioID], function() {
+    if(gpsIncompatiblesAccesorio[accesorioID]){
+      $.each(gpsIncompatiblesAccesorio[accesorioID], function() {
         var gpsID = this;
         console.log("#gps-" + gpsID);
         $("#gps-" + gpsID).checkboxradio({ disabled: true });

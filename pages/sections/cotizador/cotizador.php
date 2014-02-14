@@ -9,39 +9,66 @@ use db\DescuentosDB;
 use db\DuracionesContratoDB;
 use db\PlanesDB;
 use db\UnidadesGpsDB;
+use db\AccesoriosPlanesDB;
 use utils\Sesion;
 
 if (Sesion::sesionActiva()) {
 
-  $arregloGps = UnidadesGpsDB::getUnidadesGps(); // FAVOR REVISAR. Solo se deben devolver las unidades activas.
-  
+  $arregloGps = UnidadesGpsDB::getUnidadesGpsActivas();
   $accesorios = AccesoriosDB::getAccesoriosActivos();
-  $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones(); // FAVOR REVISAR. Solo se deben devolver las restricciones activas.
+
+  $restriccionesAccesoriosGps = AccesoriosGpsDB::getAccesoriosGpsRestriccionesAccesoriosGps();
+  $restriccionesAccesoriosPlanes = AcecsoriosPlanesDB::getAccesoriosPlanesRestricciones();
+
   $planes = PlanesDB::getPlanesActivos();
   $descuentos = DescuentosDB::getDescuentosActivos();
   $duraciones = DuracionesContratoDB::getDuracionesContratoActivas();
 
-  $gpsIncompatibles = array();
-  $accesoriosIncompatibles = array();
+  $gpsIncompatiblesAccesorio = array();
+  $planesIncompatiblesAccesorio = array();
+  $accesoriosIncompatiblesGPS = array();
+  $accesoriosIncompatiblesPlanes = array();
 
-  foreach ($restricciones as $restriccion) {
+  // Crear arreglos con restricciones entre Accesorios y GPS
+  foreach ($restriccionesAccesoriosGps as $restriccion) {
     $accesorioID = $restriccion["accesorio_id"];
     $gpsID = $restriccion["unidad_gps_id"];
-    if (!isset($gpsIncompatibles[$accesorioID])) {
-      $gpsIncompatibles[$accesorioID] = array();
+    if (!isset($gpsIncompatiblesAccesorio[$accesorioID])) {
+      $gpsIncompatiblesAccesorio[$accesorioID] = array();
     }
-    if (!isset($accesoriosIncompatibles[$gpsID])) {
-      $accesoriosIncompatibles[$gpsID] = array();
+    if (!isset($accesoriosIncompatiblesGPS[$gpsID])) {
+      $accesoriosIncompatiblesGPS[$gpsID] = array();
     }
-    $gpsIncompatibles[$accesorioID][] = $gpsID;
-    $accesoriosIncompatibles[$gpsID][] = $accesorioID;
-  }  
-  
+
+    $gpsIncompatiblesAccesorio[$accesorioID][] = $gpsID;
+    $accesoriosIncompatiblesGPS[$gpsID][] = $accesorioID;
+  }
+
+  // Crear arreglos con restricciones entre Accesorios y planes
+  foreach ($restriccionesAccesoriosPlanes as $restriccion) {
+    $accesorioID = $restriccion["accesorio_id"];
+    $planID = $restriccion["planes_id"];
+
+    if(!isset($accesoriosIncompatiblesPlanes[$planID])){
+      $accesoriosIncompatiblesPlanes[$planID] = array();
+    }
+    if(!isset($planesIncompatiblesAccesorio[$accesorioID])){
+      $planesIncompatiblesAccesorio[$accesorioID] = array();
+    }
+
+    $accesoriosIncompatiblesPlanes[$planID] = $accesorioID;
+    $planesIncompatiblesAccesorio[$accesorioID] = $planID;
+  }
+
   // Asignación de variables Smarty.
   $smarty->assign("arregloGps", $arregloGps);
   $smarty->assign("accesorios", $accesorios);
-  $smarty->assign("accesoriosIncompatibles", $accesoriosIncompatibles);
-  $smarty->assign("gpsIncompatibles", $gpsIncompatibles);
+
+  $smarty->assign("accesoriosIncompatiblesGPS", $accesoriosIncompatiblesGPS);
+  $smarty->assign("gpsIncompatiblesAccesorio", $gpsIncompatiblesAccesorio);
+  $smarty->assign("planesIncompatiblesAccesorio", $planesIncompatiblesAccesorio);
+  $smarty->assign("accesoriosIncompatiblesPlanes", $accesoriosIncompatiblesPlanes);
+  
   $smarty->assign("planes", $planes);
   $smarty->assign("descuentos", $descuentos);
   $smarty->assign("duraciones", $duraciones);

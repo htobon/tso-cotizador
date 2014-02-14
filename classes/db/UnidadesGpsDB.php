@@ -14,7 +14,7 @@ class UnidadesGpsDB {
      * @return array(stdClass) Un arreglo de clases unidadGPS con la informacion
      *                             o null si no hay unidades en la bd.
      */
-    static function getUnidadesGps() {
+    static function getUnidadesGpsActivas() {
         $conn = getConn();
         $sql = "SELECT * FROM tso_unidades_gps WHERE esta_activo = TRUE";
         $stmt = $conn->prepare($sql);

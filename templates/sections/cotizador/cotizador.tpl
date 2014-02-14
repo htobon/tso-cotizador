@@ -6,8 +6,8 @@
 {* Asignando footer como variable *}
 {include file='footer.tpl' assign="footer"}
 <script>
-  var gpsIncompatibles = {$gpsIncompatibles|@json_encode};
-  var accesoriosIncompatibles = {$accesoriosIncompatibles|@json_encode};
+  var gpsIncompatiblesAccesorio = {$gpsIncompatiblesAccesorio|@json_encode};
+  var accesoriosIncompatiblesGPS = {$accesoriosIncompatiblesGPS|@json_encode};
 </script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
