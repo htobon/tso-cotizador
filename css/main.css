@@ -208,15 +208,22 @@ body {
 }
 
 /* --------- Seleccion adicionales */
+#adicionales .fila {
+  display: inline-block;
+  width: 100%;
+}
+
+#adicionales .seccion h1 {
+  font-size: 1.2em;
+}
+
 #planes-servicio, #descuentos, #contratos, #duraciones {
   width: 40%;
   float: left;
   padding: 10px;
 }
 
-#adicionales .seccion h1 {
-  font-size: 1.2em;
-}
+
 
 /* ---------- Footer -------- */
 
