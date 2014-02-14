@@ -12,14 +12,14 @@
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
 
+<form>
 <!-- Selección de Accesorios en el Camión -->
-<div id="seleccion-accesorios" data-role="page" class="container">  
-  {$header}  
-  <div class="row content" data-role="content">
-    {include file='sections/camion.tpl'}    
-    {include file='sidebar-flecha.tpl' direccion="derecha" link="#adicionales"}
-    <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
-      <form>
+  <div id="seleccion-accesorios" data-role="page" class="container">  
+    {$header}  
+    <div class="row content" data-role="content">
+      {include file='sections/camion.tpl'}    
+      {include file='sidebar-flecha.tpl' direccion="derecha" link="#adicionales"}
+      <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
         <div class="row">
           <fieldset data-role="controlgroup"> 
             <legend>Seleccione una unidad GPS:</legend>
@@ -29,23 +29,22 @@
             {/foreach}
           </fieldset>
         </div>
-      </form>
-    </div>    
-  </div> 
-  <div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
-    <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
-      <fieldset data-role="controlgroup">
-        <legend>Accesorios Seleccionados:</legend>
-        {foreach from=$accesorios item=accesorio}
-          <input type="checkbox" name="checkbox-accesorios" id="checkbox-accesorio-{$accesorio->id}" disabled="disabled">
-          <label for="checkbox-accesorio-{$accesorio->id}">{$accesorio->nombre}</label>  
-        {/foreach}
-      </fieldset>
-    </div>
-    <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a>
-  </div><!-- /panel -->
-  {$footer}
-</div>
+      </div>
+    </div> 
+    <div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
+      <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
+        <fieldset data-role="controlgroup">
+          <legend>Accesorios Seleccionados:</legend>
+          {foreach from=$accesorios item=accesorio}
+            <input type="checkbox" name="checkbox-accesorios" id="checkbox-accesorio-{$accesorio->id}" disabled="disabled">
+            <label for="checkbox-accesorio-{$accesorio->id}">{$accesorio->nombre}</label>  
+          {/foreach}
+        </fieldset>
+      </div>
+      <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" data-rel="close">Cerrar</a>
+    </div><!-- /panel -->
+    {$footer}
+  </div>
 
 
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->

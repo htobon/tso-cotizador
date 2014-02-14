@@ -25,26 +25,35 @@ function eventoPuntosTap(event){
   var puntoID = $(punto).attr("id");  
   var accesorioCheckbox = $("#checkbox-" + puntoID);
 
-    // accesorio-7 -> Unidad Satelital (Dual) GPS
+  // accesorio-7 -> Unidad Satelital (Dual) GPS
     if ($(punto).attr("id") != "accesorio-7") {
-      // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
-      $(punto).toggleClass("seleccionado");
-      // Se seleccionara automaticamente el listado que se visualiza en el panel derecho 
-      if (accesorioCheckbox.is(':checked'))
-        accesorioCheckbox.prop('checked', false).checkboxradio('refresh');
-      else
-        accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
+
+        // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
+        $(punto).toggleClass("seleccionado");
+        // Se seleccionara automaticamente el listado que se visualiza en el panel derecho 
+        if (accesorioCheckbox.is(':checked')){
+          accesorioCheckbox.prop('checked', false).checkboxradio('refresh');
+        } else {
+          accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
+        }
+
+      deshabilitarGpsIncompatibles();
     }
+
 }
 
 
 function habilitarAccesorios() {
-  $("[id^='accesorio']").removeClass("deshabilitado");
+  if($("[id^='accesorio']").hasClass("deshabilitado")){
+    $("[id^='accesorio']").removeClass("deshabilitado");
+    $("[id^='accesorio']").on("tap", eventoPuntosTap );
+  }
 }
 
 
 function habilitarGps() {
-  $("#checkbox-accesorio-7").removeClass("deshabilitado");
+  $("[name='gps']").checkboxradio({ disabled: false });
+  $("[name='gps']").checkboxradio('refresh');
 }
 
 
@@ -53,10 +62,13 @@ function deshabilitarAccesoriosIncompatibles() {
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
   habilitarAccesorios();
 
-  $.each(accesoriosIncompatibles[gpsID], function() {
-    var accesorioID = this;
-    $("#accesorio-" + accesorioID).addClass("deshabilitado");
-  });
+  if (accesoriosIncompatibles[gpsID] ){
+    $.each(accesoriosIncompatibles[gpsID], function() {
+      var accesorioID = this;
+      $("#accesorio-" + accesorioID).addClass("deshabilitado");
+      $("#accesorio-" + accesorioID).off("tap");
+    });
+  }
 }
 
 
@@ -67,8 +79,13 @@ function deshabilitarGpsIncompatibles() {
   $(accesoriosSeleccionados).each(function() {
     var accesorioID = $(this).prop("id").split("-")[2];
 
-    $.each(gpsIncompatibles[accesorioID], function() {
-      var gpsID = this;
-    });
+    if(gpsIncompatibles[accesorioID]){
+      $.each(gpsIncompatibles[accesorioID], function() {
+        var gpsID = this;
+        console.log("#gps-" + gpsID);
+        $("#gps-" + gpsID).checkboxradio({ disabled: true });
+        $("#gps-" + gpsID).checkboxradio('refresh');
+      });
+    }
   });
 }
