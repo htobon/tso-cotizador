@@ -17,8 +17,8 @@ if (Sesion::sesionActiva()) {
   $arregloGps = UnidadesGpsDB::getUnidadesGpsActivas();
   $accesorios = AccesoriosDB::getAccesoriosActivos();
 
-  $restriccionesAccesoriosGps = AccesoriosGpsDB::getAccesoriosGpsRestriccionesAccesoriosGps();
-  $restriccionesAccesoriosPlanes = AcecsoriosPlanesDB::getAccesoriosPlanesRestricciones();
+  $restriccionesAccesoriosGps = AccesoriosGpsDB::getAccesoriosGpsRestricciones();
+  $restriccionesAccesoriosPlanes = AccesoriosPlanesDB::getAccesoriosPlanesRestricciones();
 
   $planes = PlanesDB::getPlanesActivos();
   $descuentos = DescuentosDB::getDescuentosActivos();
