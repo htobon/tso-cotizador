@@ -5,6 +5,8 @@ require_once __DIR__ . "/../../../config/autoloader.php";
 
 use db\AccesoriosDB;
 use db\AccesoriosGpsDB;
+use db\DescuentosDB;
+use db\DuracionesContratoDB;
 use db\PlanesDB;
 use db\UnidadesGpsDB;
 use utils\Sesion;
@@ -16,7 +18,8 @@ if (Sesion::sesionActiva()) {
   $accesorios = AccesoriosDB::getAccesoriosActivos();
   $restricciones = AccesoriosGpsDB::getAccesoriosGpsRestricciones(); // FAVOR REVISAR. Solo se deben devolver las restricciones activas.
   $planes = PlanesDB::getPlanesActivos();
-  $descuentos = db\DescuentosDB::getDescuentosActivos();
+  $descuentos = DescuentosDB::getDescuentosActivos();
+  $duraciones = DuracionesContratoDB::getDuracionesContratoActivas();
 
   $gpsIncompatibles = array();
   $accesoriosIncompatibles = array();
@@ -41,6 +44,7 @@ if (Sesion::sesionActiva()) {
   $smarty->assign("gpsIncompatibles", $gpsIncompatibles);
   $smarty->assign("planes", $planes);
   $smarty->assign("descuentos", $descuentos);
+  $smarty->assign("duraciones", $duraciones);
   $smarty->display("sections/cotizador/cotizador.tpl");
 } else {
   $smarty->assign("ocultarLogout", 1);
