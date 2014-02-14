@@ -28,6 +28,7 @@ function eventoPuntosTap(event){
   // accesorio-7 -> Unidad Satelital (Dual) GPS
     if ($(punto).attr("id") != "accesorio-7") {
 
+      if(! $(punto).hasClass("deshabilitado")){
         // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
         $(punto).toggleClass("seleccionado");
         // Se seleccionara automaticamente el listado que se visualiza en el panel derecho 
@@ -36,8 +37,8 @@ function eventoPuntosTap(event){
         } else {
           accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
         }
-
-      deshabilitarGpsIncompatibles();
+        deshabilitarGpsIncompatibles();
+      }
     }
 
 }
@@ -46,7 +47,6 @@ function eventoPuntosTap(event){
 function habilitarAccesorios() {
   if($("[id^='accesorio']").hasClass("deshabilitado")){
     $("[id^='accesorio']").removeClass("deshabilitado");
-    $("[id^='accesorio']").on("tap", eventoPuntosTap );
   }
 }
 
@@ -66,7 +66,6 @@ function deshabilitarAccesoriosIncompatibles() {
     $.each(accesoriosIncompatibles[gpsID], function() {
       var accesorioID = this;
       $("#accesorio-" + accesorioID).addClass("deshabilitado");
-      $("#accesorio-" + accesorioID).off("tap");
     });
   }
 }
