@@ -14,6 +14,14 @@ $(document).on('pageinit', function()
   //Evento para abrir panel deslizando el dedo a la izquierda
   $("body").on("swipeleft", abrirPanel);
 
+  //Evento para mostrar el número de meses si se ha seleccionado tipo de plan "comodato".
+  $("#adicionales #contrato").on("change", function(event) {
+    if($(event.target).val() == "1") {
+      $("#adicionales #duraciones").show("slow");
+    } else {
+      $("#adicionales #duraciones").hide("slow");
+    }
+  });
 });
 
 function abrirPanel() {

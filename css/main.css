@@ -217,12 +217,18 @@ body {
   font-size: 1.2em;
 }
 
-#planes-servicio, #descuentos, #contratos, #duraciones {
+#adicionales #planes-servicio, 
+#adicionales #descuentos, 
+#adicionales #contratos, 
+#adicionales #duraciones {
   width: 40%;
   float: left;
   padding: 10px;
 }
 
+#adicionales #duraciones {
+  display: none;
+}
 
 
 /* ---------- Footer -------- */

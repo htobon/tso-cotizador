@@ -82,8 +82,8 @@
           <h1>Tipo de contrato</h1>
           <select name="contrato" id="contrato" data-native-menu="false" data-mini="true"> 
             <option value="-1" data-placeholder="true">Seleccione un contrato</option>
-            <option value="1" data-placeholder="true">Comodato</option>
-            <option value="2" data-placeholder="true">Compra</option>            
+            <option value="1">Comodato</option>
+            <option value="2">Compra</option>
           </select>
         </div>
 
@@ -93,7 +93,7 @@
           <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">          
             <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$duraciones item=duracion}
-              <option value="{$duracion->id}" data-placeholder="true">{$duracion->cantidadMeses} Meses</option>              
+              <option value="{$duracion->id}">{$duracion->cantidadMeses} Meses</option>              
             {/foreach}
           </select>
         </div>
