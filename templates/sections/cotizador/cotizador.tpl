@@ -57,26 +57,22 @@
         <div id="planes-servicio" class="seccion">
           <br>
           <h1>Planes de servicio</h1>
-          <div class="ui-field-contain">
-            <select name="planes" id="plan" data-native-menu="false" data-mini="true">              
-              <option value="-1" data-placeholder="true">Seleccione un Plan</option>
-              {foreach from=$planes item=plan}
-                <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
-              {/foreach}
-            </select>
-          </div>
+          <select name="plan" id="plan" data-native-menu="false" data-mini="true">              
+            <option value="-1" data-placeholder="true">Seleccione un Plan</option>
+            {foreach from=$planes item=plan}
+              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
+            {/foreach}
+          </select>          
         </div>
         <div id="descuentos" class="seccion">
           <br>
-          <h1>Cantidad de Vehículos</h1>
-          <div class="ui-field-contain">
-            <select name="descuentos" id="descuento" data-native-menu="false" data-mini="true">              
-              <option value="-1" data-placeholder="true">Seleccione un rango</option>
-              {foreach from=$descuentos item=descuento}
-                <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
-              {/foreach}
-            </select>
-          </DIV>
+          <h1>Cantidad de Vehículos</h1>          
+          <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">              
+            <option value="-1" data-placeholder="true">Seleccione un rango</option>
+            {foreach from=$descuentos item=descuento}
+              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
+            {/foreach}
+          </select>          
         </div>
       </div>
 
@@ -84,23 +80,22 @@
         <div id="contratos" class="seccion">
           <br>
           <h1>Tipo de contrato</h1>
-          <fieldset data-role="controlgroup" data-mini="true">
-            <input type="radio" name="contratos" value="1" id="contrato-1">
-            <label for="contrato-1">Compra</label> 
-            <input type="radio" name="contratos" value="2" id="contrato-2">
-            <label for="contrato-2">Comodato</label>
-          </fieldset>
+          <select name="contrato" id="contrato" data-native-menu="false" data-mini="true"> 
+            <option value="-1" data-placeholder="true">Seleccione un contrato</option>
+            <option value="1" data-placeholder="true">Comodato</option>
+            <option value="2" data-placeholder="true">Compra</option>            
+          </select>
         </div>
 
         <div id="duraciones" class="seccion">
           <br>
           <h1>Número de meses</h1>
-          <fieldset data-role="controlgroup" data-mini="true">
+          <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">          
+            <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$duraciones item=duracion}
-              <input type="radio" name="duraciones" value="{$duracion->id}" id="duracion-{$duracion->id}">
-              <label for="duracion-{$duracion->id}">{$duracion->cantidadMeses} Meses</label> 
+              <option value="{$duracion->id}" data-placeholder="true">{$duracion->cantidadMeses} Meses</option>              
             {/foreach}
-          </fieldset>
+          </select>
         </div>
       </div>
     </div> 
