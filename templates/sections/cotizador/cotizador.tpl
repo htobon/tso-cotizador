@@ -17,7 +17,7 @@
   {$header}  
   <div class="row content" data-role="content">
     {include file='sections/camion.tpl'}    
-    {include file='sidebar-flecha.tpl' direccion="derecha" link="#seleccion-adicionales"}
+    {include file='sidebar-flecha.tpl' direccion="derecha" link="#adicionales"}
     <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
       <form>
         <div class="row">
@@ -49,40 +49,61 @@
 
 
 <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
-<div id="seleccion-adicionales" data-role="page" class="container">
+<div id="adicionales" data-role="page" class="container">
   {$header}  
   {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}  
   <div class="row content" data-role="content">
-    <div id="planes-servicio">
+    <div id="planes-servicio" class="seccion">
       <br>
       <br>
       <h1>Planes de servicio</h1>
-      {foreach from=$planes item=plan}
-        <input type="radio" name="planes" value="{$plan->id}" id="plan-{$plan->id}">
-        <label for="plan-{$plan->id}">{$plan->nombre} ({$plan->precio})</label> 
-      {/foreach}
+      <fieldset data-role="controlgroup" data-mini="true">
+        {foreach from=$planes item=plan}
+          <input type="radio" name="planes" value="{$plan->id}" id="plan-{$plan->id}">
+          <label for="plan-{$plan->id}">{$plan->nombre} ({$plan->precio})</label> 
+        {/foreach}
+      </fieldset>
     </div>
-    
-    <div id="descuentos">
+
+    <div id="descuentos" class="seccion">
       <br>
       <br>
       <h1>Descuentos</h1>
-      {foreach from=$descuentos item=descuento}
-        <input type="radio" name="descuentos" value="{$descuento->id}" id="descuento-{$descuento->id}">
-        <label for="descuento-{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} ({$descuento->descuento}%)</label> 
-      {/foreach}
+      <fieldset data-role="controlgroup" data-mini="true">
+        {foreach from=$descuentos item=descuento}
+          <input type="radio" name="descuentos" value="{$descuento->id}" id="descuento-{$descuento->id}">
+          <label for="descuento-{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} ({$descuento->descuento}%)</label> 
+        {/foreach}
+      </fieldset>
     </div>
-    
-    <div id="descuentos">
+
+    <div id="contratos" class="seccion">
       <br>
       <br>
       <h1>Tipo de contrato</h1>
-      <input type="radio" name="contratos" value="1" id="contrato-1">
-      <label for="contrato-1">Compra</label> 
-      <input type="radio" name="contratos" value="2" id="contrato-2">
-      <label for="contrato-2">Comodato</label>      
+      <fieldset data-role="controlgroup" data-mini="true">
+        <input type="radio" name="contratos" value="1" id="contrato-1">
+        <label for="contrato-1">Compra</label> 
+        <input type="radio" name="contratos" value="2" id="contrato-2">
+        <label for="contrato-2">Comodato</label>
+      </fieldset>
     </div>
-  </div>
+
+    <div id="duraciones" class="seccion">
+      <br>
+      <br>
+      <h1>Número de meses</h1>
+      <fieldset data-role="controlgroup" data-mini="true">
+        {foreach from=$duraciones item=duracion}
+          <input type="radio" name="duraciones" value="{$duracion->id}" id="duracion-{$duracion->id}">
+          <label for="duracion-{$duracion->id}">{$duracion->cantidadMeses} Meses</label> 
+        {/foreach}
+      </fieldset>
+    </div>
+
+  </div> 
 
   {$footer}
 </div>
+
+</form>
