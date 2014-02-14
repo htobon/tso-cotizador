@@ -57,22 +57,26 @@
         <div id="planes-servicio" class="seccion">
           <br>
           <h1>Planes de servicio</h1>
-          <select name="planes" id="plan" data-native-menu="false" data-mini="true">              
-            <option value="-1" data-placeholder="true">Seleccione un Plan</option>
-            {foreach from=$planes item=plan}
-              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
-            {/foreach}
-          </select>
+          <div class="ui-field-contain">
+            <select name="planes" id="plan" data-native-menu="false" data-mini="true">              
+              <option value="-1" data-placeholder="true">Seleccione un Plan</option>
+              {foreach from=$planes item=plan}
+                <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
+              {/foreach}
+            </select>
+          </div>
         </div>
         <div id="descuentos" class="seccion">
           <br>
           <h1>Cantidad de Vehículos</h1>
-          <select name="descuentos" id="plan" data-native-menu="false" data-mini="true">              
-            <option value="-1" data-placeholder="true">Seleccione un rango</option>
-            {foreach from=$descuentos item=descuento}
-              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
-            {/foreach}
-          </select>
+          <div class="ui-field-contain">
+            <select name="descuentos" id="plan" data-native-menu="false" data-mini="true">              
+              <option value="-1" data-placeholder="true">Seleccione un rango</option>
+              {foreach from=$descuentos item=descuento}
+                <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
+              {/foreach}
+            </select>
+          </DIV>
         </div>
       </div>
 
