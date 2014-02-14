@@ -70,7 +70,7 @@
           <br>
           <h1>Cantidad de Vehículos</h1>
           <div class="ui-field-contain">
-            <select name="descuentos" id="plan" data-native-menu="false" data-mini="true">              
+            <select name="descuentos" id="descuento" data-native-menu="false" data-mini="true">              
               <option value="-1" data-placeholder="true">Seleccione un rango</option>
               {foreach from=$descuentos item=descuento}
                 <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
