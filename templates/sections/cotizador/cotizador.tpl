@@ -29,9 +29,9 @@
             {/foreach}
           </fieldset>
         </div>
-      </div>
+      </div>      
     </div> 
-    <div id="mypanel" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
+    <div id="accesorios-seleccionados" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
       <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
         <fieldset data-role="controlgroup">
           <legend>Accesorios Seleccionados:</legend>
@@ -70,7 +70,9 @@
           <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">              
             <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$descuentos item=descuento}
-              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} --> ({$descuento->descuento}%)</option>              
+              {if $descuento->cantidadMax > 9999}
+              {/if}
+              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>              
             {/foreach}
           </select>          
         </div>
