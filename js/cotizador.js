@@ -43,7 +43,7 @@ function eventoPuntosTap(event) {
   var puntoID = $(punto).attr("id");
   var $accesorioCheckbox = $("#checkbox-" + puntoID);
 
-  // accesorio-7 -> Unidad Satelital (Dual) GPS
+  // accesorio-7 -> Unidad Satelital (Dual) GPS  
   if ($(punto).attr("id") != "accesorio-7") {
     if (!$(punto).hasClass("deshabilitado")) {
       // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
@@ -57,9 +57,7 @@ function eventoPuntosTap(event) {
       deshabilitarGpsIncompatibles();
     }
   }
-
-  return false;
-
+  
 }
 
 
