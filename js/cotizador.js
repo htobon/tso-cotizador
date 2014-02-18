@@ -29,15 +29,10 @@ function abrirPanel() {
 }
 
 function eventoPuntosTap(event) {
-  /* //prevent same event from firing twice
-   var lastclickpoint = $(this).attr('data-clickpoint');
-   var curclickpoint = event.clientX + 'x' + event.clientY;
-   if (lastclickpoint == curclickpoint) {
-   return false;
-   }
-   $(this).attr('data-clickpoint', curclickpoint);
-   */
-  /* ... do your stuff here ... */
+  
+  if(isJqmGhostClick(event)){
+    return false;
+  }
 
   var punto = event.target;
   var puntoID = $(punto).attr("id");
@@ -98,7 +93,7 @@ function deshabilitarGpsIncompatibles() {
     if (gpsIncompatiblesAccesorio[accesorioID]) {
       $.each(gpsIncompatiblesAccesorio[accesorioID], function() {
         var gpsID = this;
-        console.log("#gps-" + gpsID);
+
         $("#gps-" + gpsID).checkboxradio({disabled: true});
         $("#gps-" + gpsID).checkboxradio('refresh');
       });
