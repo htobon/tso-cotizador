@@ -119,7 +119,7 @@
     <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}</div>     
     <div class="row content" data-role="content">
       <h1>Condiciones de venta:</h1>
-      <table border="1">
+      <table border="0">
         <!-- Unidad GPS -->
         <tr>
           <th>Unidad GPS</th>

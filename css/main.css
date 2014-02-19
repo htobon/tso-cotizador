@@ -94,14 +94,13 @@ body {
   padding: 0;
 }
 .container {
-  height: 100%
+  height: 100%;
 }
 
 .container .content {
   float: left;
-  width: 85.95%;
-  margin-top: 2em;
-}
+  width: 82.00%;
+  padding: 4% 2%;}
 .container .sidebar {
   float: left;
   width: 7%;
@@ -172,7 +171,7 @@ body {
 }
 
 .point.deshabilitado {
-  border: 5px solid red;
+  border: 5px solid #ADADAD;
   width: 11px;
   height: 11px;
   opacity: 0.8;
@@ -227,16 +226,29 @@ body {
 #adicionales #descuentos, 
 #adicionales #contratos, 
 #adicionales #duraciones {
+  min-width: 250px;
   width: 40%;
   float: left;
-  padding: 5px 25px;
+  padding: 2% 2px;
 }
 
 #adicionales #duraciones {
   display: none;
 }
-
 /* --------- Previsualización de Cotizacion ------- */
+#prev-cotizacion table{
+  width: 100% 
+}
+#prev-cotizacion th{
+    font-size: 1.5em;
+    padding: 5px 0px;
+    text-align: left;
+    border-bottom: 0.12em solid #40588A;
+  
+}
+#prev-cotizacion td:last-of-type{
+    text-align: right;
+}
 
 
 /* ---------- Footer -------- */
