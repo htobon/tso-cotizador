@@ -3,7 +3,7 @@ $(document).on('pageinit', function()
   $(".point").bind("tap", eventoPuntosTap);
 
   // Evento cuando selecciona una unidad GPS     
-  $("input[name='gps']").on("change", function(event) {
+  $("input[name='gps']").on("click", function(event) {
     $("#accesorio-7").addClass("seleccionado");
     $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
     $("#modal-accesorio-7").popup("close");
@@ -22,20 +22,6 @@ $(document).on('pageinit', function()
       $("#adicionales #duraciones").hide("slow");
     }
   });
-
-  // Se corre este evento antes de que el div de previsualización se muestre.
-  $("#prev-cotizacion").on("pagebeforeshow", function(event) {
-    // TEMPORAL Mientras Hernán desarrolla el método para evitar el Ghost Click.
-    var lastclickpoint = $(this).attr('data-clickpoint');
-    var curclickpoint = event.clientX + 'x' + event.clientY;
-    if (lastclickpoint == curclickpoint) {
-      return false;
-    }
-    $(this).attr('data-clickpoint', curclickpoint);
-    // FIN TEMPORAL
-    
-    //alert("Alerta");
-  });
 });
 
 function abrirPanel() {
@@ -44,16 +30,17 @@ function abrirPanel() {
 
 function eventoPuntosTap(event) {
 
-  if(isJqmGhostClick(event)){
-    return false;
-  }
-
   var punto = event.target;
   var puntoID = $(punto).attr("id");
   var $accesorioCheckbox = $("#checkbox-" + puntoID);
 
   // accesorio-7 -> Unidad Satelital (Dual) GPS  
   if ($(punto).attr("id") != "accesorio-7") {
+
+    if(isJqmGhostClick(event)){
+      return false;
+    }
+
     if (!$(punto).hasClass("deshabilitado")) {
       // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
       $(punto).toggleClass("seleccionado");
@@ -63,10 +50,12 @@ function eventoPuntosTap(event) {
       } else {
         $accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
       }
+
       deshabilitarGpsIncompatiblesConAccesorios();
+      //deshabilitarPlanesIncompatiblesAccesorios();
     }
   }
-
+  
 }
 
 /* ---------------------------------------------
@@ -84,6 +73,11 @@ function habilitarGps() {
   $("[name='gps']").checkboxradio('refresh');
 }
 
+function habilitarPlanesServicio(){
+  $("#adicionales select#plan").attr('disabled', false);
+  $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
+}
+
 function deshabilitarAccesorio(accesorioID){
   $("#accesorio-" + accesorioID).addClass("deshabilitado");
 }
@@ -91,6 +85,12 @@ function deshabilitarAccesorio(accesorioID){
 function deshabilitarGps(gpsID){
   $("#gps-" + gpsID).checkboxradio({disabled: true});
   $("#gps-" + gpsID).checkboxradio('refresh');
+}
+
+function deshabilitarPlanServicio(planServicioID){
+  $("#adicionales option#plan-" + planServicioID).attr("disabled", true);
+  $("#adicionales option#plan-" + planServicioID).selectmenu();
+  $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
 }
 
 /**
@@ -108,6 +108,22 @@ function deshabilitarAccesoriosIncompatibleConGPS(){
       deshabilitarAccesorio(this);
     });
   }
+}
+
+function deshabilitarPlanesIncompatiblesAccesorios(){
+  var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
+  habilitarPlanesServicio();
+
+  $(accesoriosSeleccionados).each(function() {
+    var accesorioID = $(this).prop("id").split("-")[2];
+
+    if (planesIncompatiblesAccesorio[accesorioID]) {
+      $.each(planesIncompatiblesAccesorio[accesorioID], function() {
+        console.log(this);
+        deshabilitarPlanServicio(this);
+      });
+    }
+  });
 }
 
 /**
@@ -130,23 +146,6 @@ function deshabilitarGpsIncompatiblesConAccesorios() {
   });
 }
 
-function deshabilitarGpsIncompatibles() {
-  var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
-  habilitarGps();
-
-  $(accesoriosSeleccionados).each(function() {
-    var accesorioID = $(this).prop("id").split("-")[2];
-
-    if (gpsIncompatiblesAccesorio[accesorioID]) {
-      $.each(gpsIncompatiblesAccesorio[accesorioID], function() {
-        var gpsID = this;
-
-        $("#gps-" + gpsID).checkboxradio({disabled: true});
-        $("#gps-" + gpsID).checkboxradio('refresh');
-      });
-    }
-  });
-}
 
 
 /* ---------------------------------------------

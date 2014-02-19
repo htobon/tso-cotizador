@@ -66,7 +66,7 @@
           <select name="plan" id="plan" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un Plan</option>
             {foreach from=$planes item=plan}
-              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>
+              <option value="{$plan->id}" id="plan-{$plan->id}" >{$plan->nombre} ({$plan->precio})</option>
             {/foreach}
           </select>          
         </div>
