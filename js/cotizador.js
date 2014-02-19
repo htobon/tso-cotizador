@@ -8,7 +8,7 @@ $(document).on('pageinit', function()
     $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
     $("#modal-accesorio-7").popup("close");
 
-    deshabilitarAccesoriosIncompatibles();
+    deshabilitarAccesoriosIncompatibleConGPS();
   });
 
   //Evento para abrir panel deslizando el dedo a la izquierda
@@ -43,7 +43,7 @@ function abrirPanel() {
 }
 
 function eventoPuntosTap(event) {
-  
+
   if(isJqmGhostClick(event)){
     return false;
   }
@@ -63,12 +63,15 @@ function eventoPuntosTap(event) {
       } else {
         $accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
       }
-      deshabilitarGpsIncompatibles();
+      deshabilitarGpsIncompatiblesConAccesorios();
     }
   }
 
 }
 
+/* ---------------------------------------------
+          Validacion de restricciones
+-------------------------------------------------  */
 
 function habilitarAccesorios() {
   if ($("[id^='accesorio']").hasClass("deshabilitado")) {
@@ -76,26 +79,56 @@ function habilitarAccesorios() {
   }
 }
 
-
 function habilitarGps() {
   $("[name='gps']").checkboxradio({disabled: false});
   $("[name='gps']").checkboxradio('refresh');
 }
 
+function deshabilitarAccesorio(accesorioID){
+  $("#accesorio-" + accesorioID).addClass("deshabilitado");
+}
 
-function deshabilitarAccesoriosIncompatibles() {
+function deshabilitarGps(gpsID){
+  $("#gps-" + gpsID).checkboxradio({disabled: true});
+  $("#gps-" + gpsID).checkboxradio('refresh');
+}
+
+/**
+ * Esta funcion desahibilita los accesorios que no se puedan
+ * seleccionar dado el gps que se encuentre seleccionado
+ * 
+ */
+function deshabilitarAccesoriosIncompatibleConGPS(){
   var gpsSeleccionado = $("input[name^='gps']:checked");
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
   habilitarAccesorios();
 
   if (accesoriosIncompatiblesGPS[gpsID]) {
     $.each(accesoriosIncompatiblesGPS[gpsID], function() {
-      var accesorioID = this;
-      $("#accesorio-" + accesorioID).addClass("deshabilitado");
+      deshabilitarAccesorio(this);
     });
   }
 }
 
+/**
+ * Esta funcion deshabilita los gps que no se puedan seleccionar
+ * dados los accesorios que se encuentren seleccionados
+ */
+
+function deshabilitarGpsIncompatiblesConAccesorios() {
+  var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
+  habilitarGps();
+
+  $(accesoriosSeleccionados).each(function() {
+    var accesorioID = $(this).prop("id").split("-")[2];
+
+    if (gpsIncompatiblesAccesorio[accesorioID]) {
+      $.each(gpsIncompatiblesAccesorio[accesorioID], function() {
+        deshabilitarGps(this);
+      });
+    }
+  });
+}
 
 function deshabilitarGpsIncompatibles() {
   var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
@@ -114,3 +147,8 @@ function deshabilitarGpsIncompatibles() {
     }
   });
 }
+
+
+/* ---------------------------------------------
+      Hasta aqui validacion de restricciones
+-------------------------------------------------  */

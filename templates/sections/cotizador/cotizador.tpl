@@ -8,6 +8,8 @@
 <script>
   var gpsIncompatiblesAccesorio = {$gpsIncompatiblesAccesorio|@json_encode};
   var accesoriosIncompatiblesGPS = {$accesoriosIncompatiblesGPS|@json_encode};
+  var planesIncompatiblesAccesorio = {$planesIncompatiblesAccesorio|@json_encode};
+  var accesoriosIncompatiblesPlanes = {$accesoriosIncompatiblesPlanes|@json_encode};
 </script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
