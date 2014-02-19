@@ -153,12 +153,58 @@
             <td>${$accesorio->precioInstalacion|number_format:0}</td>
           </tr>
         {/foreach}
+        <!-- Tipo de plan -->
         <tr>
           <th>Tipo de Plan</th>
           <th></th>
         </tr>
-        
-
+        {foreach from=$planes item=plan}
+          <tr id="plan-{$plan->id}" class="item">
+            <td>{$plan->nombre}</td>
+            <td>${$plan->precio|number_format:0}</td>
+          </tr>
+        {/foreach}
+        <!-- Tipo de contrato -->
+        <tr>
+          <th>Tipo de Contrato</th>
+          <th class="item">Comodato/Compra</th>
+        </tr>
+        <!-- Duración del contrato -->
+        <tr id="duracion">
+          <th>Duración del contrato</th>
+          <th></th>
+        </tr>
+        {foreach from=$duraciones item=duracion}
+          <tr id="duracion-{$duracion->id}">
+            <td>{$duracion->cantidadMeses}</td>
+            <td class="item">$10.000</td>
+          </tr>
+        {/foreach}
+        <!-- Número de Vehículos -->
+        <tr id="numero-vehiculos">
+          <th>Número de vehículos</th>
+          <th class="item">25</th>
+        </tr>
+        <!-- Porcentaje de descuento -->
+        <tr id="porcentaje-descuento">
+          <th>Porcentaje de descuento</th>
+          <th class="item">5%</th>
+        </tr>
+        <!-- Valor del descuento -->
+        <tr id="valor-descuento">
+          <th>Valor del descuento</th>
+          <th class="item">$9,985</th>
+        </tr>
+        <!-- Valor del descuento -->
+        <tr id="valor-unidad">
+          <th>Valor Unidad</th>
+          <th class="item">$70,150</th>
+        </tr>
+        <!-- TOTAL -->
+        <tr id="total">
+          <th>TOTAL</th>
+          <th class="item">$700,560</th>
+        </tr>
       </table>
     </div>
     <div id="sidebar" class="sidebar"></div>  
