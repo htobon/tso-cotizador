@@ -56,8 +56,8 @@ if (Sesion::sesionActiva()) {
       $planesIncompatiblesAccesorio[$accesorioID] = array();
     }
 
-    $accesoriosIncompatiblesPlanes[$planID] = $accesorioID;
-    $planesIncompatiblesAccesorio[$accesorioID] = $planID;
+    $accesoriosIncompatiblesPlanes[$planID][] = $accesorioID;
+    $planesIncompatiblesAccesorio[$accesorioID][] = $planID;
   }
 
   // Asignación de variables Smarty.
