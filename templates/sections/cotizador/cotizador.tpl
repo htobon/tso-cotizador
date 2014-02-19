@@ -15,7 +15,7 @@
 
 <form>
   <!-- Selección de Accesorios en el Camión -->
-  <div id="seleccion-accesorios" data-role="page" class="container">  
+  <div id="seleccion-accesorios" data-role="page" class="container">
     {$header}
     <div class="row content" data-role="content">
       {include file='sections/camion.tpl'}    
@@ -51,31 +51,32 @@
   <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
   <div id="adicionales" data-role="page" class="container">
     {$header}  
-    {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}  
+    {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}
+    {include file='sidebar-flecha.tpl' direccion="derecha" link="#prev-cotizacion"}
     <div class="row content" data-role="content">
       <!-- Esto representa toda una fila horizontal -->
       <div id="primer-fila" class="fila">
         <div id="planes-servicio" class="seccion">
           <br>
           <h1>Planes de servicio</h1>
-          <select name="plan" id="plan" data-native-menu="false" data-mini="true">              
+          <select name="plan" id="plan" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un Plan</option>
             {foreach from=$planes item=plan}
-              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>              
+              <option value="{$plan->id}">{$plan->nombre} ({$plan->precio})</option>
             {/foreach}
           </select>          
         </div>
         <div id="descuentos" class="seccion">
           <br>
           <h1>Cantidad de Vehículos</h1>          
-          <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">              
+          <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$descuentos item=descuento}
               {if $descuento->cantidadMax > 9999}
               {/if}
-              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>              
+              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>
             {/foreach}
-          </select>          
+          </select>
         </div>
       </div>
 
@@ -83,7 +84,7 @@
         <div id="contratos" class="seccion">
           <br>
           <h1>Tipo de contrato</h1>
-          <select name="contrato" id="contrato" data-native-menu="false" data-mini="true"> 
+          <select name="contrato" id="contrato" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un contrato</option>
             <option value="1">Comodato</option>
             <option value="2">Compra</option>
@@ -93,16 +94,33 @@
         <div id="duraciones" class="seccion">
           <br>
           <h1>Número de meses</h1>
-          <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">          
+          <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un rango</option>
             {foreach from=$duraciones item=duracion}
-              <option value="{$duracion->id}">{$duracion->cantidadMeses} Meses</option>              
+              <option value="{$duracion->id}">{$duracion->cantidadMeses} Meses</option>
             {/foreach}
           </select>
         </div>
       </div>
-    </div> 
+    </div>
+    {$footer}
+  </div>
 
+  <!-- Previsualización de la cotización dependiendo de la información seleccionada con anterioridad -->
+  <div id="prev-cotizacion" data-role="page" class="container">
+    {$header}  
+    {include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}    
+    <div class="row content" data-role="content">
+      <h1>Condiciones de venta:</h1>
+      <div id="unidades-gps">
+        <h2>Unidad GPS</h2>
+        {foreach from=$arregloGps item=gps}
+          <div id="{$gps->id}" class="item">
+            <span class="item-nombre">{$gps->nombre}</span> | <span class="precio">${$gps->precioUnidad}</span>
+          </div>
+        {/foreach}
+      </div>
+    </div>
     {$footer}
   </div>
 

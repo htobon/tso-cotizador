@@ -63,7 +63,6 @@ if (Sesion::sesionActiva()) {
   // Asignación de variables Smarty.
   $smarty->assign("arregloGps", $arregloGps);
   $smarty->assign("accesorios", $accesorios);
-
   $smarty->assign("accesoriosIncompatiblesGPS", $accesoriosIncompatiblesGPS);
   $smarty->assign("gpsIncompatiblesAccesorio", $gpsIncompatiblesAccesorio);
   $smarty->assign("planesIncompatiblesAccesorio", $planesIncompatiblesAccesorio);

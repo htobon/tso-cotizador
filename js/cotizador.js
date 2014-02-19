@@ -3,7 +3,7 @@ $(document).on('pageinit', function()
   $(".point").bind("tap", eventoPuntosTap);
 
   // Evento cuando selecciona una unidad GPS     
-  $("input[name='gps']").on("click", function(event) {
+  $("input[name='gps']").on("change", function(event) {
     $("#accesorio-7").addClass("seleccionado");
     $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
     $("#modal-accesorio-7").popup("close");
@@ -21,6 +21,20 @@ $(document).on('pageinit', function()
     } else {
       $("#adicionales #duraciones").hide("slow");
     }
+  });
+
+  // Se corre este evento antes de que el div de previsualización se muestre.
+  $("#prev-cotizacion").on("pagebeforeshow", function(event) {
+    // TEMPORAL Mientras Hernán desarrolla el método para evitar el Ghost Click.
+    var lastclickpoint = $(this).attr('data-clickpoint');
+    var curclickpoint = event.clientX + 'x' + event.clientY;
+    if (lastclickpoint == curclickpoint) {
+      return false;
+    }
+    $(this).attr('data-clickpoint', curclickpoint);
+    // FIN TEMPORAL
+    
+    //alert("Alerta");
   });
 });
 
@@ -52,7 +66,7 @@ function eventoPuntosTap(event) {
       deshabilitarGpsIncompatibles();
     }
   }
-  
+
 }
 
 
