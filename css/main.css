@@ -41,6 +41,7 @@
 body { 
   font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
   /*background: url(/images/bg.png);*/
+  height:100%;
 }
 
 .error {
@@ -57,8 +58,8 @@ body {
 }
 
 .content {
-  margin-left: 80px;
-  margin-right: 80px;
+  /*margin-left: 80px;*/
+  /*margin-right: 80px;*/
 }
 
 /* ##################### HEADER ######################## */
@@ -84,23 +85,26 @@ body {
 
 
 /* ##################### SIDEBAR: NEXT - BEFORE ######################## */
-.sidebar-right, .sidebar-left {  
+
+
+/* ---------- Container GRID -------- */
+#sidebar a {
   height: 100%;
-  position:absolute;
-  width:40px;  
-  z-index: 1;
-  display: flex;
 }
-.sidebar-right a, .sidebar-left a {
-  /* display: table-row-group;*/
-}
-.sidebar-right { 
-  top: 0; right: 0; bottom: 0;
-}
-.sidebar-left {
-  top: 0; left: 0; bottom: 0;
+.container {
+  height: 100%
 }
 
+.content {
+  float: left;
+  width: 85.95%;
+}
+.sidebar {
+  float: left;
+  width: 7%;
+  height: 95%;
+  min-height: 10px;
+}
 
 
 /* #################### SECTIONS ##################### */
@@ -244,4 +248,5 @@ body {
 .crm:hover {
   background: #1B5FA8;
 }
+
 

@@ -19,9 +19,9 @@
   <!-- Selección de Accesorios en el Camión -->
   <div id="seleccion-accesorios" data-role="page" class="container">
     {$header}
+    <div id="sidebar" class="sidebar"></div>
     <div class="row content" data-role="content">
-      {include file='sections/camion.tpl'}    
-      {include file='sidebar-flecha.tpl' direccion="derecha" link="#adicionales"}
+      {include file='sections/camion.tpl'}     
       <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
         <div class="row">
           <fieldset data-role="controlgroup"> 
@@ -34,6 +34,8 @@
         </div>
       </div>      
     </div> 
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="derecha" link="#adicionales"}</div>
+
     <div id="accesorios-seleccionados" data-role="panel" data-position="right" data-display="overlay" data-fullscreen="true">
       <div id="accesorios-contenido" class="ui-body-a ui-body ui-corner-all">
         <fieldset data-role="controlgroup">
@@ -52,14 +54,14 @@
 
   <!-- Selección de datos adicionales (Planes, tipo de contrato, etc.). -->
   <div id="adicionales" data-role="page" class="container">
-    {$header}  
-    {include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}
-    {include file='sidebar-flecha.tpl' direccion="derecha" link="#prev-cotizacion"}
+    {$header}    
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#seleccion-accesorios"}</div> 
+
     <div class="row content" data-role="content">
       <!-- Esto representa toda una fila horizontal -->
       <div id="primer-fila" class="fila">
         <div id="planes-servicio" class="seccion">
-          <br>
+          <br> 
           <h1>Planes de servicio</h1>
           <select name="plan" id="plan" data-native-menu="false" data-mini="true">
             <option value="-1" data-placeholder="true">Seleccione un Plan</option>
@@ -103,15 +105,16 @@
             {/foreach}
           </select>
         </div>
-      </div>
-    </div>
+      </div> 
+    </div> 
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="derecha" link="#prev-cotizacion"}</div>  
     {$footer}
   </div>
 
   <!-- Previsualización de la cotización dependiendo de la información seleccionada con anterioridad -->
   <div id="prev-cotizacion" data-role="page" class="container">
     {$header}  
-    {include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}    
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}</div>     
     <div class="row content" data-role="content">
       <h1>Condiciones de venta:</h1>
       <div id="unidades-gps">
@@ -123,7 +126,10 @@
         {/foreach}
       </div>
     </div>
+    <div id="sidebar" class="sidebar"></div>  
     {$footer}
+    </div> 
+    
   </div>
 
 </form>
