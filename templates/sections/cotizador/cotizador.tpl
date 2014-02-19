@@ -122,8 +122,8 @@
       <table border="1">
         <!-- Unidad GPS -->
         <tr>
-          <td class="titulo">Unidad GPS</td>
-          <td></td>
+          <th>Unidad GPS</th>
+          <th></th>
         </tr>
         {foreach from=$arregloGps item=gps}
           <tr id="gps-{$gps->id}" class="item">
@@ -133,8 +133,8 @@
         {/foreach}
         <!-- Accesorios -->
         <tr>
-          <td class="titulo">Accesorios</td>
-          <td></td>
+          <th>Accesorios</th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="accesorio-{$accesorio->id}" class="item">
@@ -144,8 +144,8 @@
         {/foreach}
         <!-- Instalación de accesorios-->
         <tr>
-          <td class="titulo">Instalaciones</td>
-          <td></td>
+          <th>Instalaciones</th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="instalacion-{$accesorio->id}" class="item">
@@ -153,6 +153,7 @@
             <td>${$accesorio->precioInstalacion|number_format:0}</td>
           </tr>
         {/foreach}
+        
       </table>
     </div>
     <div id="sidebar" class="sidebar"></div>  

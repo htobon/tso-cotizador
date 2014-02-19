@@ -213,7 +213,7 @@ body {
   font-weight: normal;
 }
 
-/* --------- Seleccion adicionales */
+/* --------- Seleccion adicionales -------- */
 #adicionales .fila {
   display: inline-block;
   width: 100%;
@@ -235,6 +235,8 @@ body {
 #adicionales #duraciones {
   display: none;
 }
+
+/* --------- Previsualización de Cotizacion ------- */
 
 
 /* ---------- Footer -------- */
