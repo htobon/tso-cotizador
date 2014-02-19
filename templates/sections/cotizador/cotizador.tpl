@@ -59,53 +59,53 @@
 
     <div class="row content" data-role="content">
       <!-- Esto representa toda una fila horizontal -->
-      
-        <div id="planes-servicio" class="seccion">
-          <br> 
-          <h1>Planes de servicio</h1>
-          <select name="plan" id="plan" data-native-menu="false" data-mini="true">
-            <option value="-1" data-placeholder="true">Seleccione un Plan</option>
-            {foreach from=$planes item=plan}
-              <option value="{$plan->id}" id="plan-{$plan->id}" >{$plan->nombre} ({$plan->precio})</option>
-            {/foreach}
-          </select>          
-        </div>
-        <div id="descuentos" class="seccion">
-          <br>
-          <h1>Cantidad de Vehículos</h1>          
-          <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">
-            <option value="-1" data-placeholder="true">Seleccione un rango</option>
-            {foreach from=$descuentos item=descuento}
-              {if $descuento->cantidadMax > 9999}
-              {/if}
-              <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>
-            {/foreach}
-          </select>
-        </div>
-     
 
-      
-        <div id="contratos" class="seccion">
-          <br>
-          <h1>Tipo de contrato</h1>
-          <select name="contrato" id="contrato" data-native-menu="false" data-mini="true">
-            <option value="-1" data-placeholder="true">Seleccione un contrato</option>
-            <option value="1">Comodato</option>
-            <option value="2">Compra</option>
-          </select>
-        </div>
+      <div id="planes-servicio" class="seccion">
+        <br> 
+        <h1>Planes de servicio</h1>
+        <select name="plan" id="plan" data-native-menu="false" data-mini="true">
+          <option value="-1" data-placeholder="true">Seleccione un Plan</option>
+          {foreach from=$planes item=plan}
+            <option value="{$plan->id}" id="plan-{$plan->id}" >{$plan->nombre} ({$plan->precio})</option>
+          {/foreach}
+        </select>          
+      </div>
+      <div id="descuentos" class="seccion">
+        <br>
+        <h1>Cantidad de Vehículos</h1>          
+        <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">
+          <option value="-1" data-placeholder="true">Seleccione un rango</option>
+          {foreach from=$descuentos item=descuento}
+            {if $descuento->cantidadMax > 9999}
+            {/if}
+            <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>
+          {/foreach}
+        </select>
+      </div>
 
-        <div id="duraciones" class="seccion">
-          <br>
-          <h1>Número de meses</h1>
-          <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">
-            <option value="-1" data-placeholder="true">Seleccione un rango</option>
-            {foreach from=$duraciones item=duracion}
-              <option value="{$duracion->id}">{$duracion->cantidadMeses} Meses</option>
-            {/foreach}
-          </select>
-        </div>
-      
+
+
+      <div id="contratos" class="seccion">
+        <br>
+        <h1>Tipo de contrato</h1>
+        <select name="contrato" id="contrato" data-native-menu="false" data-mini="true">
+          <option value="-1" data-placeholder="true">Seleccione un contrato</option>
+          <option value="1">Comodato</option>
+          <option value="2">Compra</option>
+        </select>
+      </div>
+
+      <div id="duraciones" class="seccion">
+        <br>
+        <h1>Número de meses</h1>
+        <select name="duracion" id="duracion" data-native-menu="false" data-mini="true">
+          <option value="-1" data-placeholder="true">Seleccione un rango</option>
+          {foreach from=$duraciones item=duracion}
+            <option value="{$duracion->id}">{$duracion->cantidadMeses} Meses</option>
+          {/foreach}
+        </select>
+      </div>
+
 
     </div> <!-- end content-->
 
@@ -153,7 +153,12 @@
             <td>${$accesorio->precioInstalacion|number_format:0}</td>
           </tr>
         {/foreach}
+        <tr>
+          <th>Tipo de Plan</th>
+          <th></th>
+        </tr>
         
+
       </table>
     </div>
     <div id="sidebar" class="sidebar"></div>  
