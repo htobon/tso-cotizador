@@ -117,19 +117,46 @@
     <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}</div>     
     <div class="row content" data-role="content">
       <h1>Condiciones de venta:</h1>
-      <div id="unidades-gps">
-        <h2>Unidad GPS</h2>
+      <table border="1">
+        <!-- Unidad GPS -->
+        <tr>
+          <td class="titulo">Unidad GPS</td>
+          <td></td>
+        </tr>
         {foreach from=$arregloGps item=gps}
-          <div id="{$gps->id}" class="item">
-            <span class="item-nombre">{$gps->nombre}</span> | <span class="precio">${$gps->precioUnidad}</span>
-          </div>
+          <tr id="gps-{$gps->id}" class="item">
+            <td>{$gps->nombre}</td>
+            <td>${$gps->precioUnidad|number_format:2}</td>
+          </tr>
         {/foreach}
-      </div>
+        <!-- Accesorios -->
+        <tr>
+          <td class="titulo">Accesorios</td>
+          <td></td>
+        </tr>
+        {foreach from=$accesorios item=accesorio}
+          <tr id="accesorio-{$accesorio->id}" class="item">
+            <td>{$accesorio->nombre}</td>
+            <td>${$accesorio->precioAccesorio|number_format:0}</td>
+          </tr>
+        {/foreach}
+        <!-- Instalación de accesorios-->
+        <tr>
+          <td class="titulo">Instalaciones</td>
+          <td></td>
+        </tr>
+        {foreach from=$accesorios item=accesorio}
+          <tr id="instalacion-{$accesorio->id}" class="item">
+            <td>Instalación {$accesorio->nombre}</td>
+            <td>${$accesorio->precioInstalacion|number_format:0}</td>
+          </tr>
+        {/foreach}
+      </table>
     </div>
     <div id="sidebar" class="sidebar"></div>  
     {$footer}
-    </div> 
-    
-  </div>
+  </div> 
+
+</div>
 
 </form>
