@@ -22,6 +22,23 @@ $(document).on('pageinit', function()
       $("#adicionales #duraciones").hide("slow");
     }
   });
+
+  // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
+  $("#prev-cotizacion").on("pagebeforeshow", function(event) {
+    // Evitando Ghost Click
+    if (isJqmGhostClick(event)) {
+      return false;
+    }
+    
+    /*
+     * TODO -  
+     * 1. Resetear todos los items para que se oculten.
+     * 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
+     * 3. Calcular los valores.
+     *      
+     */ 
+
+  });
 });
 
 function abrirPanel() {
@@ -37,7 +54,7 @@ function eventoPuntosTap(event) {
   // accesorio-7 -> Unidad Satelital (Dual) GPS  
   if ($(punto).attr("id") != "accesorio-7") {
 
-    if(isJqmGhostClick(event)){
+    if (isJqmGhostClick(event)) {
       return false;
     }
 
@@ -55,12 +72,12 @@ function eventoPuntosTap(event) {
       //deshabilitarPlanesIncompatiblesAccesorios();
     }
   }
-  
+
 }
 
 /* ---------------------------------------------
-          Validacion de restricciones
--------------------------------------------------  */
+ Validacion de restricciones
+ -------------------------------------------------  */
 
 function habilitarAccesorios() {
   if ($("[id^='accesorio']").hasClass("deshabilitado")) {
@@ -73,21 +90,21 @@ function habilitarGps() {
   $("[name='gps']").checkboxradio('refresh');
 }
 
-function habilitarPlanesServicio(){
+function habilitarPlanesServicio() {
   $("#adicionales select#plan").attr('disabled', false);
   $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
 }
 
-function deshabilitarAccesorio(accesorioID){
+function deshabilitarAccesorio(accesorioID) {
   $("#accesorio-" + accesorioID).addClass("deshabilitado");
 }
 
-function deshabilitarGps(gpsID){
+function deshabilitarGps(gpsID) {
   $("#gps-" + gpsID).checkboxradio({disabled: true});
   $("#gps-" + gpsID).checkboxradio('refresh');
 }
 
-function deshabilitarPlanServicio(planServicioID){
+function deshabilitarPlanServicio(planServicioID) {
   $("#adicionales option#plan-" + planServicioID).attr("disabled", true);
   $("#adicionales option#plan-" + planServicioID).selectmenu();
   $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
@@ -98,7 +115,7 @@ function deshabilitarPlanServicio(planServicioID){
  * seleccionar dado el gps que se encuentre seleccionado
  * 
  */
-function deshabilitarAccesoriosIncompatibleConGPS(){
+function deshabilitarAccesoriosIncompatibleConGPS() {
   var gpsSeleccionado = $("input[name^='gps']:checked");
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
   habilitarAccesorios();
@@ -110,7 +127,7 @@ function deshabilitarAccesoriosIncompatibleConGPS(){
   }
 }
 
-function deshabilitarPlanesIncompatiblesAccesorios(){
+function deshabilitarPlanesIncompatiblesAccesorios() {
   var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
   habilitarPlanesServicio();
 
@@ -149,5 +166,5 @@ function deshabilitarGpsIncompatiblesConAccesorios() {
 
 
 /* ---------------------------------------------
-      Hasta aqui validacion de restricciones
--------------------------------------------------  */
+ Hasta aqui validacion de restricciones
+ -------------------------------------------------  */
