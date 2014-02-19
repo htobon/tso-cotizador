@@ -59,7 +59,7 @@
 
     <div class="row content" data-role="content">
       <!-- Esto representa toda una fila horizontal -->
-      <div id="primer-fila" class="fila">
+      
         <div id="planes-servicio" class="seccion">
           <br> 
           <h1>Planes de servicio</h1>
@@ -82,9 +82,9 @@
             {/foreach}
           </select>
         </div>
-      </div>
+     
 
-      <div id="segunda-fila" class="fila">
+      
         <div id="contratos" class="seccion">
           <br>
           <h1>Tipo de contrato</h1>
@@ -105,8 +105,10 @@
             {/foreach}
           </select>
         </div>
-      </div> 
-    </div> 
+      
+
+    </div> <!-- end content-->
+
     <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="derecha" link="#prev-cotizacion"}</div>  
     {$footer}
   </div>
