@@ -77,22 +77,25 @@
           <input id="cantidad-vehiculos" name="cantidad-vehiculos" type="number" data-clear-btn="false" value="" class="TEST">
         </div>
         <a href="#tabla-descuentos" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup" data-position-to="window" data-transition="pop">Tabla</a>
-        <table id="tabla-descuentos" border="1" data-role="popup" class="ui-content">
-          <thead>
-            <tr>
-              <th>Rango</th>              
-              <th>Descuento</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foreach from=$descuentos item=descuento}
+        <div id="tabla-descuentos" data-role="popup" class="ui-content">
+          <table border="1" >
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <thead>
               <tr>
-                <th>{if $descuento->cantidadMax > 9999} {$descuento->cantidadMin-1} > {else}{$descuento->cantidadMin} - {$descuento->cantidadMax}{/if}</th>
-                <th>{$descuento->descuento}%</th>
+                <th>Rango</th>              
+                <th>Descuento</th>
               </tr>
-          {/foreach}            
-          </tbody>
-        </table>        
+            </thead>
+            <tbody>
+              {foreach from=$descuentos item=descuento}
+                <tr>
+                  <th>{if $descuento->cantidadMax > 9999} {$descuento->cantidadMin-1} > {else}{$descuento->cantidadMin} - {$descuento->cantidadMax}{/if}</th>
+                  <th>{$descuento->descuento}%</th>
+                </tr>
+              {/foreach}            
+            </tbody>
+          </table>
+        </div>
       </div>
 
 
