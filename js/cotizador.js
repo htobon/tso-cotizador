@@ -29,14 +29,52 @@ $(document).on('pageinit', function()
     if (isJqmGhostClick(event)) {
       return false;
     }
+
+    // 1. Resetear todos los items para que se oculten.
+    $("#prev-cotizacion .item").hide();
+
+    // 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
+    // Gps:
+    var gpsId = $("input[name=gps]:checked", "#seleccion-accesorios").val();
+    if (gpsId !== undefined) {
+      $("#prev-cotizacion #gps-" + gpsId).show();
+    }
+    // Accesorios e Instalaciones:
+    var accesoriosIds = $(".point.seleccionado", "#seleccion-accesorios");
+    accesoriosIds.each(function() {
+      $("#prev-cotizacion #" + $(this).attr("id")).show();
+      $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
+    });
+
+    // Plan de Servicio:
+    var planServicio = $("#plan", "#adicionales").val();
+    if (planServicio !== -1) {
+      $("#prev-cotizacion #plan-" + planServicio).show();
+    }
+
+    // Tipo Contrato
+    var tipoContrato = $("#contrato", "#adicionales").val();
+    if(tipoContrato !== -1) {
+      $("#prev-cotizacion #contrato-" + tipoContrato).show();
+    }
     
-    /*
-     * TODO -  
-     * 1. Resetear todos los items para que se oculten.
-     * 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
-     * 3. Calcular los valores.
-     *      
-     */ 
+    // Cantidad vehiculos
+    var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();    
+    if(cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
+      $("#numero-vehiculos .item", "#prev-cotizacion").show();
+      $("#numero-vehiculos .item", "#prev-cotizacion").text(cantidadVehiculos);      
+    }
+    
+    // Porcentaje de descuento
+    
+    // 3. Calcular los valores.
+    
+    // Valor del descuento
+    
+    // Valor unidad
+    
+    // Total
+    
 
   });
 });

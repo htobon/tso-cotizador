@@ -233,7 +233,7 @@ body {
 }
 
 #adicionales #div-cantidad-vehiculos {
-  width: 50%;
+  width: 80%;
   display: inline-block;
 }
 
@@ -257,7 +257,7 @@ body {
 /* Ocultando todos los items */
 #prev-cotizacion .item {
   /* display: none;*/
-  color: red;
+  /*color: red;*/
 }
 
 /* ---------- Footer -------- */
