@@ -232,6 +232,11 @@ body {
   padding: 2% 2px;
 }
 
+#adicionales #div-cantidad-vehiculos {
+  width: 50%;
+  display: inline-block;
+}
+
 #adicionales #duraciones {
   display: none;
 }
@@ -249,7 +254,11 @@ body {
 #prev-cotizacion td:last-of-type{
     text-align: right;
 }
-
+/* Ocultando todos los items */
+#prev-cotizacion .item {
+  /* display: none;*/
+  color: red;
+}
 
 /* ---------- Footer -------- */
 

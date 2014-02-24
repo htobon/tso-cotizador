@@ -72,15 +72,27 @@
       </div>
       <div id="descuentos" class="seccion">
         <br>
-        <h1>Cantidad de Vehículos</h1>          
-        <select name="descuento" id="descuento" data-native-menu="false" data-mini="true">
-          <option value="-1" data-placeholder="true">Seleccione un rango</option>
-          {foreach from=$descuentos item=descuento}
-            {if $descuento->cantidadMax > 9999}
-            {/if}
-            <option value="{$descuento->id}">{$descuento->cantidadMin} - {$descuento->cantidadMax} vehiculos ({$descuento->descuento}%)</option>
-          {/foreach}
-        </select>
+        <h1>Cantidad de Vehículos</h1>
+        <div id="div-cantidad-vehiculos">
+          <input id="cantidad-vehiculos" name="cantidad-vehiculos" type="number" data-clear-btn="false" value="" class="TEST">
+        </div>
+        <a href="#tabla-descuentos" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup" data-position-to="window" data-transition="pop">Tabla</a>
+        <table id="tabla-descuentos" border="1" data-role="popup" class="ui-content">
+          <thead>
+            <tr>
+              <th>Rango</th>              
+              <th>Descuento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {foreach from=$descuentos item=descuento}
+              <tr>
+                <th>{if $descuento->cantidadMax > 9999} {$descuento->cantidadMin-1} > {else}{$descuento->cantidadMin} - {$descuento->cantidadMax}{/if}</th>
+                <th>{$descuento->descuento}%</th>
+              </tr>
+          {/foreach}            
+          </tbody>
+        </table>        
       </div>
 
 
