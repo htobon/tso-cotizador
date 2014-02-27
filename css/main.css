@@ -218,28 +218,28 @@ body {
   width: 100%;
 }
 
-#adicionales .seccion h1 {
-  font-size: 1.2em;
-}
-
-#adicionales #planes-servicio, 
-#adicionales #descuentos, 
-#adicionales #contratos, 
-#adicionales #duraciones {
+#adicionales .seccion {
   min-width: 250px;
   width: 40%;
   float: left;
   padding: 2% 2px;
 }
+#adicionales .seccion h1 {
+  font-size: 1.2em;
+}
 
-#adicionales #div-cantidad-vehiculos {
-  width: 80%;
-  display: inline-block;
+#adicionales #accesorios-seleccionados .cantidad label {
+  width: 50%;
+}
+
+#adicionales #accesorios-seleccionados .cantidad .ui-input-text {
+  width: 30%;
 }
 
 #adicionales #duraciones {
   display: none;
 }
+
 /* --------- Previsualización de Cotizacion ------- */
 #prev-cotizacion table{
   width: 100% 

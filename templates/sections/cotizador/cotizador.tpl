@@ -59,7 +59,6 @@
 
     <div class="row content" data-role="content">
       <!-- Esto representa toda una fila horizontal -->
-
       <div id="planes-servicio" class="seccion">
         <br> 
         <h1>Planes de servicio</h1>
@@ -70,16 +69,38 @@
           {/foreach}
         </select>          
       </div>
-      <div id="descuentos" class="seccion">
+
+      <div id="cantidades" class="seccion">
         <br>
-        <h1>Cantidad de Vehículos</h1>
-        <div id="div-cantidad-vehiculos">
-          <input id="cantidad-vehiculos" name="cantidad-vehiculos" type="number" data-clear-btn="false" data-mini="true" value="" class="TEST">
+        <h1>Cantidad Accesorios</h1>
+        <div id="accesorios-seleccionados">
+          <a href="#tabla-cantidad-accesorios" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-mini" data-rel="popup" data-position-to="window" data-transition="pop">Definir Cantidades</a>
+          <div id="tabla-cantidad-accesorios" data-role="popup" class="ui-content">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <table>
+              <thead>
+                <tr>
+                  <th>Accesorio</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach from=$accesorios item=accesorio}
+                  <tr id="accesorio-{$accesorio->id}">
+                    <th><label for="cantidad-accesorio-{$accesorio->id}">{$accesorio->nombre}</label></th>
+                    <th><input id="cantidad-accesorio-{$accesorio->id}" name="cantidad-accesorio-{$accesorio->id}" type="number" data-clear-btn="false" data-mini="true" value=""></th>
+                  </tr>
+                {/foreach}
+              </tbody>
+            </table>
+          </div>
+
         </div>
+
         <a href="#tabla-descuentos" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-mini" data-rel="popup" data-position-to="window" data-transition="pop">Tabla</a>
         <div id="tabla-descuentos" data-role="popup" class="ui-content">
+          <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
           <table border="1" >
-            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <thead>
               <tr>
                 <th>Rango</th>
@@ -97,8 +118,6 @@
           </table>
         </div>
       </div>
-
-
 
       <div id="contratos" class="seccion">
         <br>
