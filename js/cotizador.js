@@ -7,8 +7,16 @@ $(document).on('pageinit', function()
     $("#accesorio-7").addClass("seleccionado");
     $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
     $("#modal-accesorio-7").popup("close");
-
     deshabilitarAccesoriosIncompatibleConGPS();
+    
+    if (isJqmGhostClick(event)) {
+      return false;
+    }
+    // Actualizando Cantidad Accesorios en #adicionales.
+    var $point = $(event.target);
+    var $labelGPS = $("#seleccion-accesorios #modal-accesorio-7").find("label[for='gps-" + $point.val() + "']");
+    var $labelCantidadGPS = $("#tabla-cantidad-accesorios #unidad-gps").find("label");    
+    $labelCantidadGPS.text($labelGPS.text());
   });
 
   //Evento para abrir panel deslizando el dedo a la izquierda
@@ -54,27 +62,27 @@ $(document).on('pageinit', function()
 
     // Tipo Contrato
     var tipoContrato = $("#contrato", "#adicionales").val();
-    if(tipoContrato !== -1) {
+    if (tipoContrato !== -1) {
       $("#prev-cotizacion #contrato-" + tipoContrato).show();
     }
-    
+
     // Cantidad vehiculos
-    var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();    
-    if(cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
+    var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();
+    if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();
-      $("#numero-vehiculos .item", "#prev-cotizacion").text(cantidadVehiculos);      
+      $("#numero-vehiculos .item", "#prev-cotizacion").text(cantidadVehiculos);
     }
-    
+
     // Porcentaje de descuento
-    
+
     // 3. Calcular los valores.
-    
+
     // Valor del descuento
-    
+
     // Valor unidad
-    
+
     // Total
-    
+
 
   });
 });

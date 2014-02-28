@@ -85,6 +85,10 @@
                 </tr>
               </thead>
               <tbody>
+                <tr id="unidad-gps">
+                  <th><label for="cantidad-unidad-gps">Unidad Satelital</label></th>
+                  <th><input id="cantidad-unidad-gps" name="cantidad-unidad-gps" type="number" data-clear-btn="false" data-mini="true" value=""></th>
+                </tr>
                 {foreach from=$accesorios item=accesorio}
                   <tr id="accesorio-{$accesorio->id}">
                     <th><label for="cantidad-accesorio-{$accesorio->id}">{$accesorio->nombre}</label></th>
