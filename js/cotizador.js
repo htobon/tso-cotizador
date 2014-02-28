@@ -38,6 +38,7 @@ $(document).on('pageinit', function()
       return false;
     }
 
+
     // 1. Resetear todos los items para que se oculten.
     $("#prev-cotizacion .item").hide();
 
@@ -73,16 +74,13 @@ $(document).on('pageinit', function()
       $("#numero-vehiculos .item", "#prev-cotizacion").text(cantidadVehiculos);
     }
 
-    // Porcentaje de descuento
-
-    // 3. Calcular los valores.
-
-    // Valor del descuento
-
-    // Valor unidad
-
-    // Total
-
+    /*
+     * TODO -  
+     * 1. Resetear todos los items para que se oculten.
+     * 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
+     * 3. Calcular los valores.
+     *      
+     */ 
 
   });
 });
@@ -115,7 +113,7 @@ function eventoPuntosTap(event) {
       }
 
       deshabilitarGpsIncompatiblesConAccesorios();
-      //deshabilitarPlanesIncompatiblesAccesorios();
+      deshabilitarPlanesIncompatiblesAccesorios();
     }
   }
 
@@ -137,8 +135,12 @@ function habilitarGps() {
 }
 
 function habilitarPlanesServicio() {
-  $("#adicionales select#plan").attr('disabled', false);
-  $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
+  $( "#planes-servicio #plan").attr("disabled", false);
+  
+  // El refresh solo debe realizarse cuando el selectmenu se ha inicializado. De lo contrario no cargará bien.
+  if ( $( "#planes-servicio #plan" ).data( "mobileSelectmenu" ) !== undefined ){
+    $( "#planes-servicio #plan" ).selectmenu("refresh", true);
+  }
 }
 
 function deshabilitarAccesorio(accesorioID) {
@@ -151,9 +153,12 @@ function deshabilitarGps(gpsID) {
 }
 
 function deshabilitarPlanServicio(planServicioID) {
-  $("#adicionales option#plan-" + planServicioID).attr("disabled", true);
-  $("#adicionales option#plan-" + planServicioID).selectmenu();
-  $("#adicionales option#plan-" + planServicioID).selectmenu("refresh");
+  $( "#plan-servicio-" + planServicioID ).attr("disabled", true);
+  
+  // El refresh solo debe realizarse cuando el selectmenu se ha inicializado. De lo contrario no cargará bien.
+  if ( $( "#planes-servicio #plan" ).data( "mobileSelectmenu" ) !== undefined ){
+    $( "#planes-servicio #plan" ).selectmenu("refresh", true);
+  }
 }
 
 /**
@@ -178,7 +183,7 @@ function deshabilitarPlanesIncompatiblesAccesorios() {
   habilitarPlanesServicio();
 
   $(accesoriosSeleccionados).each(function() {
-    var accesorioID = $(this).prop("id").split("-")[2];
+    var accesorioID = $(this).attr("id").split("-")[2];
 
     if (planesIncompatiblesAccesorio[accesorioID]) {
       $.each(planesIncompatiblesAccesorio[accesorioID], function() {
