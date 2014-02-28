@@ -4,7 +4,7 @@
            id="accesorio-{$accesorio->id}" 
            class="point" data-rel="popup" 
            data-position-to="window" 
-           data-transition="pop" 
+           data-transition="none" 
            style="top: {$accesorio->posicionY}%;left: {$accesorio->posicionX}%;"></a>            
     {/foreach} 
     <img src="{$smarty.const.SMARTY_IMG_URI}/camion.jpg">
