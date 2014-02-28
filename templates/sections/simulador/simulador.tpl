@@ -7,10 +7,32 @@
 </div>
 {foreach from=$accesorios item=accesorio}    
     <div id='modal-accesorio-{$accesorio->id}' class="modal-accesorio" data-role="popup">
-        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-        <h2>{$accesorio->nombre}</h2> 
-        <img class="accesorio-img" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/><p class="descripcion">{$accesorio->descripcion}</p>
-    </div>
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a> 
+       	<div class="titulo"><h2>{$accesorio->nombre}</h2> </div>
+       	<div class="imagen"><img class="accesorio-img" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/></div>
+       	<div class="contenido"> 
+       		<div data-role="collapsible-set" data-content-theme="a" data-iconpos="right" id="set">
+					    <div data-role="collapsible" id="set1" data-collapsed="false">
+					        <h3>Descripción</h3>
+					        <p class="descripcion">{$accesorio->descripcion}</p>
+					    </div>
+					    <div data-role="collapsible" id="set2" data-collapsed="true">
+					        <h3>Beneficions</h3>
+					        <p class="descripcion">{$accesorio->descripcion}</p>
+					    </div>
+					    <div data-role="collapsible" id="set3" data-collapsed="true">
+					        <h3>Aplicación</h3>
+					        <p class="descripcion">{$accesorio->descripcion}</p>
+					        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/>
+					        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/>
+					    </div>
+					</div>
+       	</div>
+       	<div class="clear"></div>
+				
+				
+				        
+	  </div>
 {/foreach}
 
 {include file='footer.tpl'}
