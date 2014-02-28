@@ -147,12 +147,12 @@ body {
 
 .point {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #FAFAFA;
+  width: 23px;
+  height: 23px;
+  background: #FFFFFF;
   border: 1px solid #3C3C3C;
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.6;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 
   -moz-animation: spin .5s infinite linear;
@@ -164,14 +164,14 @@ body {
 }
 
 .point.seleccionado {
-  border: 5px solid #38c;
-  width: 11px;
-  height: 11px;
+  border: 5px solid #9689F7;
+  width: 13px;
+  height: 13px;
   opacity: 0.8;
 }
 
 .point.deshabilitado {
-  border: 5px solid #ADADAD;
+  border: 5px solid #E98080;
   width: 11px;
   height: 11px;
   opacity: 0.8;
