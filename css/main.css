@@ -242,9 +242,15 @@ body {
   width: 30%;
 }
 
+#adicionales #tabla-cantidad-accesorios .item {
+  display: none;
+}
+
 #adicionales #duraciones {
   display: none;
 }
+
+
 
 /* --------- Previsualización de Cotizacion ------- */
 #prev-cotizacion table{

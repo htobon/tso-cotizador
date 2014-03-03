@@ -21,7 +21,7 @@
     {$header}
     <div id="sidebar" class="sidebar"></div>
     <div class="row content" data-role="content">
-      {include file='sections/camion.tpl'}     
+      {include file='sections/camion.tpl'}
       <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
         <div class="row">
           <fieldset data-role="controlgroup"> 
@@ -69,8 +69,7 @@
           {/foreach}
         </select>
       </div>
-
-
+        
       <div id="cantidades" class="seccion">
         <br>
         <h1>Cantidad Accesorios</h1>
@@ -91,7 +90,7 @@
                   <th><input id="cantidad-unidad-gps" name="cantidad-unidad-gps" type="number" data-clear-btn="false" data-mini="true" value=""></th>
                 </tr>
                 {foreach from=$accesorios item=accesorio}
-                  <tr id="accesorio-{$accesorio->id}">
+                  <tr id="accesorio-{$accesorio->id}" class="item">
                     <th><label for="cantidad-accesorio-{$accesorio->id}">{$accesorio->nombre}</label></th>
                     <th><input id="cantidad-accesorio-{$accesorio->id}" name="cantidad-accesorio-{$accesorio->id}" type="number" data-clear-btn="false" data-mini="true" value=""></th>
                   </tr>

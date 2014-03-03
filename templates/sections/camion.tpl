@@ -1,4 +1,4 @@
-<div class="large-12 columns camion" style="">
+<div id="camion" class="large-12 columns camion" style="">
     {foreach from=$accesorios item=accesorio}  
         <a href="#modal-accesorio-{$accesorio->id}" 
            id="accesorio-{$accesorio->id}" 
