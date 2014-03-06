@@ -151,9 +151,10 @@ function habilitarGps() {
 }
 
 function habilitarPlanesServicio() {
-  $("#planes-servicio #plan").attr("disabled", false);
+  $("#planes-servicio #plan option").attr("disabled", false);
 
-  // El refresh solo debe realizarse cuando el selectmenu se ha inicializado. De lo contrario no cargará bien.
+  // El refresh solo debe realizarse cuando el selectmenu se ha inicializado. 
+  // De lo contrario no cargará bien.
   if ($("#planes-servicio #plan").data("mobileSelectmenu") !== undefined) {
     $("#planes-servicio #plan").selectmenu("refresh", true);
   }
