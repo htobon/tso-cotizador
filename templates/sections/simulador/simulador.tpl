@@ -12,26 +12,23 @@
        	<div class="imagen"><img class="accesorio-img" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/></div>
        	<div class="contenido"> 
        		<div data-role="collapsible-set" data-content-theme="a" data-iconpos="right" id="set">
-					    <div data-role="collapsible" id="set1" data-collapsed="false">
-					        <h3>Descripción</h3>
-					        <p class="descripcion">{$accesorio->descripcion}</p>
-					    </div>
-					    <div data-role="collapsible" id="set2" data-collapsed="true">
-					        <h3>Beneficions</h3>
-					        <p class="descripcion">{$accesorio->descripcion}</p>
-					    </div>
-					    <div data-role="collapsible" id="set3" data-collapsed="true">
-					        <h3>Aplicación</h3>
-					        <p class="descripcion">{$accesorio->descripcion}</p>
-					        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/>
-					        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/>
-					    </div>
-					</div>
+			    <div data-role="collapsible" id="set1" data-collapsed="false">
+			        <h3>Descripción</h3>
+			        <p class="descripcion">{$accesorio->descripcion}</p>
+			    </div>
+			    <div data-role="collapsible" id="set2" data-collapsed="true">
+			        <h3>Beneficios</h3>
+			        <p class="descripcion">{$accesorio->beneficios}</p>
+			    </div>
+			    <div data-role="collapsible" id="set3" data-collapsed="true">
+			        <h3>Aplicación</h3>
+			        <p class="descripcion">{$accesorio->aplicacion}</p>
+			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->imagen_aplicacion_uno}.jpg"/>
+			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->imagen_aplicacion_dos}.jpg"/>
+			    </div>
+			</div>
        	</div>
        	<div class="clear"></div>
-				
-				
-				        
 	  </div>
 {/foreach}
 

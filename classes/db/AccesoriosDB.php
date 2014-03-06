@@ -33,7 +33,11 @@ class AccesoriosDB {
                 $accesorio->precioAccesorio = $a["precio_accesorio"];
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
                 $accesorio->descripcion = $a["descripcion"];
-                $accesorio->image = $a["image"];
+                $accesorio->beneficios = $a["beneficios"];
+                $accesorio->aplicacion = $a["aplicacion"];
+                $accesorio->image = $a["imagen"];
+                $accesorio->imagen_aplicacion_uno = $a["imagen_aplicacion_uno"];
+                $accesorio->imagen_aplicacion_dos = $a["imagen_aplicacion_dos"];
                 $accesorio->posicionX = $a["posicion_x"];
                 $accesorio->posicionY = $a["posicion_y"];
                 array_push($accesorios, $accesorio);
@@ -66,7 +70,11 @@ class AccesoriosDB {
                 $accesorio->precioAccesorio = $a["precio_accesorio"];
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
                 $accesorio->descripcion = $a["descripcion"];
-                $accesorio->image = $a["image"];
+                $accesorio->beneficios = $a["beneficios"];
+                $accesorio->aplicacion = $a["aplicacion"];
+                $accesorio->imagen_aplicacion_uno = $a["imagen_aplicacion_uno"];
+                $accesorio->imagen_aplicacion_dos = $a["imagen_aplicacion_dos"];
+                $accesorio->image = $a["imagen"];
                 $accesorio->posicionX = $a["posicion_x"];
                 $accesorio->posicionY = $a["posicion_y"];
                 array_push($accesorios, $accesorio);
@@ -101,7 +109,11 @@ class AccesoriosDB {
             $accesorio->precioAccesorio = $_accesorio["precio_accesorio"];
             $accesorio->precioInstalacion = $_accesorio["precio_instalacion"];
             $accesorio->descripcion = $_accesorio["descripcion"];
-            $accesorio->image = $_accesorio["image"];
+            $accesorio->beneficios = $_accesorio["beneficios"];
+            $accesorio->aplicacion = $_accesorio["aplicacion"];
+            $accesorio->image = $_accesorio["imagen"];
+            $accesorio->imagen_aplicacion_uno = $_accesorio["imagen_aplicacion_uno"];
+            $accesorio->imagen_aplicacion_dos = $_accesorio["imagen_aplicacion_dos"];
             $accesorio->posicionX = $_accesorio["posicion_x"];
             $accesorio->posicionY = $_accesorio["posicion_y"];
         }
@@ -163,7 +175,8 @@ class AccesoriosDB {
      */
     static function agregarAccesorio($accesorio){
         $sql = 'INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion, precio_instalacion, ';
-        $sql .= 'precio_accesorio, descripcion, image, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        $sql .= 'precio_accesorio, descripcion, beneficios, aplicacion, imagen, imagen_aplicacion_uno, ';
+        $sql .= 'imagen_aplicacion_dos, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
 
         $conn = getConn();
         $stmt = $conn->prepare($sql);
@@ -174,7 +187,11 @@ class AccesoriosDB {
         $stmt->bindValue(4, $accesorio->precioInstalacion);
         $stmt->bindValue(5, $accesorio->precioAccesorio);
         $stmt->bindValue(6, $accesorio->descripcion);
+        $stmt->bindValue(6, $accesorio->beneficios);
+        $stmt->bindValue(6, $accesorio->aplicacion);
         $stmt->bindValue(7, $accesorio->image);
+        $stmt->bindValue(7, $accesorio->imagen_aplicacion_uno);
+        $stmt->bindValue(7, $accesorio->imagen_aplicacion_dos);
         $stmt->bindValue(8, $accesorio->posicionX);
         $stmt->bindValue(9, $accesorio->posicionY);
 
