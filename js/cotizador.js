@@ -34,7 +34,7 @@ $(document).on('pageinit', function()
   });
 
   /*
-   * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN
+   * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
    */
 
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.

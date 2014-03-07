@@ -161,11 +161,13 @@
         <!-- Unidad GPS -->
         <tr>
           <th>Unidad GPS</th>
+          <th>Cantidad</th>
           <th></th>
         </tr>
         {foreach from=$arregloGps item=gps}
           <tr id="gps-{$gps->id}" class="item">
             <td>{$gps->nombre}</td>
+            <td></td>
             <td>${$gps->precioUnidad|number_format:2}</td>
           </tr>
         {/foreach}
@@ -173,10 +175,12 @@
         <tr>
           <th>Accesorios</th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="accesorio-{$accesorio->id}" class="item">
             <td>{$accesorio->nombre}</td>
+            <td></td>
             <td>${$accesorio->precioAccesorio|number_format:0}</td>
           </tr>
         {/foreach}
@@ -184,10 +188,12 @@
         <tr>
           <th>Instalaciones</th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="instalacion-accesorio-{$accesorio->id}" class="item">
             <td>Instalación {$accesorio->nombre}</td>
+            <td></td>
             <td>${$accesorio->precioInstalacion|number_format:0}</td>
           </tr>
         {/foreach}
@@ -195,16 +201,19 @@
         <tr>
           <th>Tipo de Plan</th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$planes item=plan}
           <tr id="plan-{$plan->id}" class="item">
             <td>{$plan->nombre}</td>
+            <td></td>
             <td>${$plan->precio|number_format:0}</td>
           </tr>
         {/foreach}
         <!-- Tipo de contrato -->
         <tr>
           <th>Tipo de Contrato</th>
+          <th></th>
           <th id="contrato-1" class="item">Comodato</th>
           <th id="contrato-2" class="item">Compra</th>
         </tr>
@@ -212,10 +221,12 @@
         <tr id="duracion">
           <th>Duración del contrato</th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$duraciones item=duracion}
           <tr id="duracion-{$duracion->id}">
             <td>{$duracion->cantidadMeses}</td>
+            <td></td>
             <td class="item">$10.000</td>
           </tr>
         {/foreach}
@@ -223,25 +234,30 @@
         <tr id="numero-vehiculos">
           <th>Número de vehículos</th>
           <th class="item">25</th>
+          <th></th>
         </tr>
         <!-- Porcentaje de descuento -->
         <tr id="porcentaje-descuento">
           <th>Porcentaje de descuento</th>
+          <th></th>
           <th class="item">5%</th>
         </tr>
         <!-- Valor del descuento -->
         <tr id="valor-descuento">
           <th>Valor del descuento</th>
+          <th></th>
           <th class="item">$9,985</th>
         </tr>
         <!-- Valor del descuento -->
         <tr id="valor-unidad">
           <th>Valor Unidad</th>
+          <th></th>
           <th class="item">$70,150</th>
         </tr>
         <!-- TOTAL -->
         <tr id="total">
           <th>TOTAL</th>
+          <th></th>
           <th class="item">$700,560</th>
         </tr>
       </table>
