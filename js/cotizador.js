@@ -79,10 +79,18 @@ $(document).on('pageinit', function()
     var accesoriosIds = $(".point.seleccionado", "#seleccion-accesorios");
 
     accesoriosIds.each(function() {
+      // id = accesorio-##
       accesorioId = $(this).attr("id").split("-")[1];
-      //console.log("------" + accesorioId);
-      $("#prev-cotizacion #" + $(this).attr("id")).show();
-      $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
+      // Accesorio 7 es el GPS y no se necesita aquí.
+      if (accesorioId !== "7") {
+        // Mostrando el item de accesorio.
+        $("#prev-cotizacion #" + $(this).attr("id")).show();
+        // Actualizando cantidad.
+        console.log($("#tabla-cantidad-accesorios #" + $(this).attr("id")).find(label));
+
+        // Mostrando el item de instalación de accesorio.
+        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
+      }
     });
 
     ////// Plan de Servicio:
