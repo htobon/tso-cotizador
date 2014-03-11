@@ -7,7 +7,7 @@ $(document).on('pageinit', function()
     $("#accesorio-7").addClass("seleccionado");
     $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
     $("#modal-accesorio-7").popup("close");
-    deshabilitarAccesoriosIncompatibleConGPS();
+    filtrarAccesorios();
 
     if (isJqmGhostClick(event)) {
       return false;
@@ -20,6 +20,9 @@ $(document).on('pageinit', function()
     $labelCantidadGPS.text($labelGPS.text());
 
   });
+
+  // Evento cuando se selecciona un plan
+  $("#planes-servicio select#plan").on("change", filtrarAccesorios);
 
   //Evento para abrir panel deslizando el dedo a la izquierda
   $("body").on("swipeleft", abrirPanel);
@@ -135,9 +138,16 @@ function eventoPuntosTap(event) {
 
 }
 
+
 /* ---------------------------------------------
  Validacion de restricciones
  -------------------------------------------------  */
+
+ function filtrarAccesorios(){
+  habilitarAccesorios();
+  deshabilitarAccesoriosIncompatiblesConPlan();
+  deshabilitarAccesoriosIncompatibleConGPS();
+ }
 
 function habilitarAccesorios() {
   if ($("[id^='accesorio']").hasClass("deshabilitado")) {
@@ -186,10 +196,19 @@ function deshabilitarPlanServicio(planServicioID) {
 function deshabilitarAccesoriosIncompatibleConGPS() {
   var gpsSeleccionado = $("input[name^='gps']:checked");
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
-  habilitarAccesorios();
 
   if (accesoriosIncompatiblesGPS[gpsID]) {
     $.each(accesoriosIncompatiblesGPS[gpsID], function() {
+      deshabilitarAccesorio(this);
+    });
+  }
+}
+
+function deshabilitarAccesoriosIncompatiblesConPlan(){
+  var planSeleccionado = $("#planes-servicio select#plan").val();
+
+  if(accesoriosIncompatiblesPlanes[planSeleccionado]) {
+    $.each(accesoriosIncompatiblesPlanes[planSeleccionado], function(){
       deshabilitarAccesorio(this);
     });
   }
@@ -204,7 +223,6 @@ function deshabilitarPlanesIncompatiblesAccesorios() {
 
     if (planesIncompatiblesAccesorio[accesorioID]) {
       $.each(planesIncompatiblesAccesorio[accesorioID], function() {
-        console.log(this);
         deshabilitarPlanServicio(this);
       });
     }
