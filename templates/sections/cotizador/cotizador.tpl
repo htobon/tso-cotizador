@@ -10,6 +10,9 @@
   var accesoriosIncompatiblesGPS = {$accesoriosIncompatiblesGPS|@json_encode};
   var planesIncompatiblesAccesorio = {$planesIncompatiblesAccesorio|@json_encode};
   var accesoriosIncompatiblesPlanes = {$accesoriosIncompatiblesPlanes|@json_encode};
+  var arregloGpsJSON = {$arregloGps|@json_encode};
+  var accesoriosJSON = {$accesorios|@json_encode};
+  
 </script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
@@ -167,8 +170,8 @@
         {foreach from=$arregloGps item=gps}
           <tr id="gps-{$gps->id}" class="item">
             <td>{$gps->nombre}</td>
-            <td></td>
-            <td>${$gps->precioUnidad|number_format:2}</td>
+            <td class="cantidad">999</td>
+            <td class="precio">${$gps->precioUnidad|number_format:2}</td>
           </tr>
         {/foreach}
         <!-- Accesorios -->
@@ -180,7 +183,7 @@
         {foreach from=$accesorios item=accesorio}
           <tr id="accesorio-{$accesorio->id}" class="item">
             <td>{$accesorio->nombre}</td>
-            <td></td>
+            <td class="cantidad"></td>
             <td>${$accesorio->precioAccesorio|number_format:0}</td>
           </tr>
         {/foreach}
@@ -193,7 +196,7 @@
         {foreach from=$accesorios item=accesorio}
           <tr id="instalacion-accesorio-{$accesorio->id}" class="item">
             <td>Instalación {$accesorio->nombre}</td>
-            <td></td>
+            <td class="cantidad"></td>
             <td>${$accesorio->precioInstalacion|number_format:0}</td>
           </tr>
         {/foreach}

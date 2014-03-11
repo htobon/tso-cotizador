@@ -39,7 +39,7 @@ $(document).on('pageinit', function()
   /*
    * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
    */
-
+  var total;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -50,6 +50,7 @@ $(document).on('pageinit', function()
 
     // 1. Resetear todos los items para que se oculten.
     $("#prev-cotizacion .item").hide();
+    total = 0;
 
     // 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
 
@@ -57,10 +58,29 @@ $(document).on('pageinit', function()
     var gpsId = $("input[name=gps]:checked", "#seleccion-accesorios").val();
     if (gpsId !== undefined) {
       $("#prev-cotizacion #gps-" + gpsId).show();
+      // Cantidad.
+      var cantidad = $("#tabla-cantidad-accesorios #cantidad-unidad-gps").val();
+      $("#prev-cotizacion #gps-" + gpsId).find(".cantidad").html(cantidad);
+
+      // arregloGpsJSON es una variable en JSON que proviene desde el TPL.
+      // Encontrando al GPS y cambiando el label de nombre.
+      for (var i = 0; i < arregloGpsJSON.length; i++) {
+        if (arregloGpsJSON[i].id === gpsId) {
+          var numero = arregloGpsJSON[i].precioUnidad * cantidad;
+          total += numero;
+          numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
+          $("#prev-cotizacion #gps-" + gpsId).find(".precio").html("$" + numero);
+          i = arregloGpsJSON.length;
+        }
+      }
+
     }
     ////// Accesorios e Instalaciones:
     var accesoriosIds = $(".point.seleccionado", "#seleccion-accesorios");
+
     accesoriosIds.each(function() {
+      accesorioId = $(this).attr("id").split("-")[1];
+      //console.log("------" + accesorioId);
       $("#prev-cotizacion #" + $(this).attr("id")).show();
       $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
     });
@@ -110,7 +130,7 @@ function eventoPuntosTap(event) {
 
     if (isJqmGhostClick(event)) {
       return false;
-    }  
+    }
 
     if (!$(punto).hasClass("deshabilitado")) {
       // Se cambiara el estilo cuando el punto es "tapeado(clickeado)"
@@ -121,7 +141,7 @@ function eventoPuntosTap(event) {
         // Actualizando la lista de cantidades de la interfaz de adicionales.
         // ocultando item de la lista porque se está des-habilitando desde el camión.                
         var $itemCantidadAccesorio = $("#adicionales #tabla-cantidad-accesorios").find("#" + puntoID);
-        $itemCantidadAccesorio.find("input").val("");        
+        $itemCantidadAccesorio.find("input").val("");
         $itemCantidadAccesorio.hide();
       } else {
         // Actualizando la lista de cantidades de la interfaz de adicionales.
