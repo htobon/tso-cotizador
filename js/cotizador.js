@@ -86,7 +86,30 @@ $(document).on('pageinit', function()
         // Mostrando el item de accesorio.
         $("#prev-cotizacion #" + $(this).attr("id")).show();
         // Actualizando cantidad.
-        console.log($("#tabla-cantidad-accesorios #" + $(this).attr("id")).find(label));
+        var cantidadAccesorio = $("#tabla-cantidad-accesorios #" + $(this).attr("id")).find("input").val();
+        var valorAccesorio = 0;
+        var valorInstalacionAccesorio = 0;
+        // accesoriosJSON es una variable en JSON que proviene desde el TPL.
+        // Encontrando el accesorio y calculando el valor por cantidad.
+        for(var i = 0; i < accesoriosJSON.length; i++) {
+          if (accesoriosJSON[i].id === accesorioId) {
+            valorAccesorio = accesoriosJSON[i].precioAccesorio * cantidadAccesorio;
+            valorInstalacionAccesorio = accesoriosJSON[i].precioInstalacion * cantidadAccesorio;
+            i = accesoriosJSON.length;
+          }
+        }
+        // Actualizando cantidad y valor del accesorio.
+        $("#prev-cotizacion #"+$(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
+        var numero = Number(valorAccesorio.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #"+$(this).attr("id")).find(".precio").html("$"+numero);
+        // Actualizando cantidad y valor de la instalación del accesorio.
+        $("#prev-cotizacion #instalacion-"+$(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
+        numero = Number(valorInstalacionAccesorio.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #instalacion-"+$(this).attr("id")).find(".precio").html("$"+numero);
+        
+        // Sumando el valor total de la cotización.
+        total += valorAccesorio;
+        total += valorInstalacionAccesorio;        
 
         // Mostrando el item de instalación de accesorio.
         $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();

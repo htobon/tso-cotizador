@@ -165,7 +165,7 @@
         <tr>
           <th>Unidad GPS</th>
           <th>Cantidad</th>
-          <th></th>
+          <th>Precio</th>
         </tr>
         {foreach from=$arregloGps item=gps}
           <tr id="gps-{$gps->id}" class="item">
@@ -184,7 +184,7 @@
           <tr id="accesorio-{$accesorio->id}" class="item">
             <td>{$accesorio->nombre}</td>
             <td class="cantidad"></td>
-            <td>${$accesorio->precioAccesorio|number_format:0}</td>
+            <td class="precio">0</td>
           </tr>
         {/foreach}
         <!-- Instalación de accesorios-->
@@ -197,7 +197,7 @@
           <tr id="instalacion-accesorio-{$accesorio->id}" class="item">
             <td>Instalación {$accesorio->nombre}</td>
             <td class="cantidad"></td>
-            <td>${$accesorio->precioInstalacion|number_format:0}</td>
+            <td class="precio">0</td>
           </tr>
         {/foreach}
         <!-- Tipo de plan -->
