@@ -1,13 +1,12 @@
 <div id="menu-principal" class="ui-body-a ui-body ui-corner-all">
+  
+  <div id="nav-bar"> 
     <h3>Menú de navegación</h3>
-    <div data-role="navbar">
-        <ul>
-            <li><a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/simulador/simulador.php" data-icon="grid">Simulador</a></li>
-            <li><a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php" data-icon="star">Cotizador</a></li>
-            {if $usuario->rol == "Admin"}
-            <li><a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/admin/admin.php" data-icon="gear">Admin</a></li>
-            {/if}
-            
-        </ul>
-    </div><!-- /navbar -->
+    <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/simulador/simulador.php" data-icon="grid"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b1.png" alt="Simulador"></a>
+    <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php" data-icon="star"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b2.png" alt="Cotizador"></a>
+    <a data-ajax="false" href="#" data-icon="star"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b3.png" alt="SalesForce"></a> 
+  </div><!-- /navbar -->
+  {if $usuario->rol == "Admin"}
+      <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/admin/admin.php" data-icon="gear">Admin</a>
+      {/if}
 </div><!-- /container -->

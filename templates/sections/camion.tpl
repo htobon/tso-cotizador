@@ -7,6 +7,6 @@
            data-transition="none" 
            style="top: {$accesorio->posicionY}%;left: {$accesorio->posicionX}%;"></a>            
     {/foreach} 
-    <img src="{$smarty.const.SMARTY_IMG_URI}/camion.jpg">
+    <img src="{$smarty.const.SMARTY_IMG_URI}/camion.png">
 
 </div>
