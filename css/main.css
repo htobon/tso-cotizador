@@ -167,10 +167,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', end
 
 .point {
   position: absolute;
-  width: 23px;
-  height: 23px;
+  width: 2.5%;
+  height: 4%;
   background: #FFFFFF;
-  border: 1px solid #3C3C3C;
+  border: 1px solid #2464ab;
   border-radius: 50%;
   opacity: 0.6;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
