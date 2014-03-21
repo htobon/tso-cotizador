@@ -9,7 +9,7 @@
     <div id='modal-accesorio-{$accesorio->id}' class="modal-accesorio" data-role="popup">
         <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a> 
        	<div class="titulo"><h2>{$accesorio->nombre|upper}</h2> </div>
-       	<div class="imagen"><img class="accesorio-img" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}.jpg"/></div>
+       	<div class="imagen"><img class="accesorio-img" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->image}.jpg"/></div>
        	<div class="contenido"> 
        		<div data-role="collapsible-set" data-content-theme="a" data-iconpos="right" id="set">
 			    <div data-role="collapsible" id="set1" data-collapsed="false">
@@ -23,8 +23,8 @@
 			    <div data-role="collapsible" id="set3" data-collapsed="true">
 			        <h3>Aplicación</h3>
 			        <p class="descripcion">{$accesorio->aplicacion}</p>
-			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}_1.jpg"/>
-			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->codAccesorio}_2.jpg"/>
+			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->imagen_aplicacion_uno}_1.jpg"/>
+			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/{$accesorio->imagen_aplicacion_dos}_2.jpg"/>
 			    </div>
 			</div>
        	</div>
