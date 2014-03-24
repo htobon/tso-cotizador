@@ -40,6 +40,7 @@ $(document).on('pageinit', function()
    * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
    */
   var total;
+  var totalEnMeses;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -130,16 +131,26 @@ $(document).on('pageinit', function()
       if (tipoContrato === "1") {
         // Si el tipo de contrato es comodato.
         // Averiguar la cantidad de meses (#duraciones).
-        mesesId = $("#duracion", "#adicionales").val();
+        var mesesId = $("#duracion", "#adicionales").val();
         // mostrando la cantidad respectiva.
         $("#prev-cotizacion #duracion-"+mesesId).show();
-        
+        var meses = 0;
+        for (var i = 0; i < duracionesJSON.length; i++) {
+          if (duracionesJSON[i].id === mesesId) {
+            meses = duracionesJSON[i].cantidadMeses;           
+            i = duracionesJSON.length;
+          }
+        }
+        totalEnMeses = total/meses;
+        var numero = Number(totalEnMeses.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #duracion-"+mesesId).find(".precio").html("$"+numero);
       } else {
         // Si el tipo de contato es compra.
       }
     }
 
-    // Cantidad vehiculos
+    // Cantidad vehiculos. La cantidad de vehículos está dada por la
+    // cantidad de unidades GPS.
     var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();
     if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();

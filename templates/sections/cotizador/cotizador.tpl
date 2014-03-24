@@ -11,6 +11,7 @@
   var planesIncompatiblesAccesorio = {$planesIncompatiblesAccesorio|@json_encode};
   var accesoriosIncompatiblesPlanes = {$accesoriosIncompatiblesPlanes|@json_encode};
   var arregloGpsJSON = {$arregloGps|@json_encode};
+  var duracionesJSON = {$duraciones|@json_encode};
   var accesoriosJSON = {$accesorios|@json_encode};
   
 </script>
@@ -230,7 +231,7 @@
           <tr id="duracion-{$duracion->id}" class="item">
             <td>{$duracion->cantidadMeses}</td>
             <td></td>
-            <td>$10.000</td>
+            <td class="precio">$10.000</td>
           </tr>
         {/foreach}
         <!-- Número de Vehículos -->
