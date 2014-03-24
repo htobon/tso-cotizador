@@ -41,6 +41,7 @@ $(document).on('pageinit', function()
    */
   var total;
   var totalEnMeses;
+  var totalPlanServicio;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -119,9 +120,18 @@ $(document).on('pageinit', function()
     });
 
     ////// Plan de Servicio:
-    var planServicio = $("#plan", "#adicionales").val();
-    if (planServicio !== -1) {
-      $("#prev-cotizacion #plan-" + planServicio).show();
+    var planServicioId = $("#plan", "#adicionales").val();
+    if (planServicioId !== -1) {
+      // Mostrando el plan de servicio.
+      $("#prev-cotizacion #plan-" + planServicioId).show();
+      // Buscando el precio del plan para guardarlo en variable totalPlanServicios
+      // para usarlo posteriormente.
+      for (var i = 0; i < planesJSON.length; i++) {
+        if (planesJSON[i].id === planServicioId) {
+          totalPlanServicio = planesJSON[i].precio;
+          i = planesJSON.length;
+        }
+      }
     }
 
     ////// Tipo Contrato
@@ -133,17 +143,17 @@ $(document).on('pageinit', function()
         // Averiguar la cantidad de meses (#duraciones).
         var mesesId = $("#duracion", "#adicionales").val();
         // mostrando la cantidad respectiva.
-        $("#prev-cotizacion #duracion-"+mesesId).show();
+        $("#prev-cotizacion #duracion-" + mesesId).show();
         var meses = 0;
         for (var i = 0; i < duracionesJSON.length; i++) {
           if (duracionesJSON[i].id === mesesId) {
-            meses = duracionesJSON[i].cantidadMeses;           
+            meses = duracionesJSON[i].cantidadMeses;
             i = duracionesJSON.length;
           }
         }
-        totalEnMeses = total/meses;
+        totalEnMeses = total / meses;
         var numero = Number(totalEnMeses.toFixed(1)).toLocaleString();
-        $("#prev-cotizacion #duracion-"+mesesId).find(".precio").html("$"+numero);
+        $("#prev-cotizacion #duracion-" + mesesId).find(".precio").html("$" + numero);
       } else {
         // Si el tipo de contato es compra.
       }
