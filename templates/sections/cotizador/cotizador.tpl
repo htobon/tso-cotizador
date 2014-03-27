@@ -11,6 +11,9 @@
   var planesIncompatiblesAccesorio = {$planesIncompatiblesAccesorio|@json_encode};
   var accesoriosIncompatiblesPlanes = {$accesoriosIncompatiblesPlanes|@json_encode};
   var arregloGpsJSON = {$arregloGps|@json_encode};
+  var planesJSON ={$planes|@json_encode};
+  var duracionesJSON = {$duraciones|@json_encode};
+  var descuentosJSON = {$descuentos|@json_encode};
   var accesoriosJSON = {$accesorios|@json_encode};
   
 </script>
@@ -129,7 +132,7 @@
       <div id="contratos" class="seccion">
         <br>
         <h1>Tipo de contrato</h1>
-        <select name="contrato" id="contrato" data-native-menu="false" data-mini="true">
+        <select id="contrato" name="contrato" data-native-menu="false" data-mini="true">
           <option value="-1" data-placeholder="true">Seleccione un contrato</option>
           <option value="1">Comodato</option>
           <option value="2">Compra</option>
@@ -214,7 +217,7 @@
           </tr>
         {/foreach}
         <!-- Tipo de contrato -->
-        <tr>
+        <tr id="tipo-contrato">
           <th>Tipo de Contrato</th>
           <th></th>
           <th id="contrato-1" class="item">Comodato</th>
@@ -227,10 +230,10 @@
           <th></th>
         </tr>
         {foreach from=$duraciones item=duracion}
-          <tr id="duracion-{$duracion->id}">
-            <td>{$duracion->cantidadMeses}</td>
+          <tr id="duracion-{$duracion->id}" class="item">
+            <td>{$duracion->cantidadMeses} meses</td>
             <td></td>
-            <td class="item">$10.000</td>
+            <td class="precio">$10.000</td>
           </tr>
         {/foreach}
         <!-- Número de Vehículos -->

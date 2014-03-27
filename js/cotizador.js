@@ -40,6 +40,8 @@ $(document).on('pageinit', function()
    * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
    */
   var total;
+  var totalEnMeses;
+  var totalPlanServicio;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -91,7 +93,7 @@ $(document).on('pageinit', function()
         var valorInstalacionAccesorio = 0;
         // accesoriosJSON es una variable en JSON que proviene desde el TPL.
         // Encontrando el accesorio y calculando el valor por cantidad.
-        for(var i = 0; i < accesoriosJSON.length; i++) {
+        for (var i = 0; i < accesoriosJSON.length; i++) {
           if (accesoriosJSON[i].id === accesorioId) {
             valorAccesorio = accesoriosJSON[i].precioAccesorio * cantidadAccesorio;
             valorInstalacionAccesorio = accesoriosJSON[i].precioInstalacion * cantidadAccesorio;
@@ -99,36 +101,66 @@ $(document).on('pageinit', function()
           }
         }
         // Actualizando cantidad y valor del accesorio.
-        $("#prev-cotizacion #"+$(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
+        $("#prev-cotizacion #" + $(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
         var numero = Number(valorAccesorio.toFixed(1)).toLocaleString();
-        $("#prev-cotizacion #"+$(this).attr("id")).find(".precio").html("$"+numero);
+        $("#prev-cotizacion #" + $(this).attr("id")).find(".precio").html("$" + numero);
         // Actualizando cantidad y valor de la instalación del accesorio.
-        $("#prev-cotizacion #instalacion-"+$(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
+        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
         numero = Number(valorInstalacionAccesorio.toFixed(1)).toLocaleString();
-        $("#prev-cotizacion #instalacion-"+$(this).attr("id")).find(".precio").html("$"+numero);
-        
+        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).find(".precio").html("$" + numero);
+
         // Sumando el valor total de la cotización.
         total += valorAccesorio;
-        total += valorInstalacionAccesorio;        
+        total += valorInstalacionAccesorio;
 
         // Mostrando el item de instalación de accesorio.
         $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
+
       }
     });
 
     ////// Plan de Servicio:
-    var planServicio = $("#plan", "#adicionales").val();
-    if (planServicio !== -1) {
-      $("#prev-cotizacion #plan-" + planServicio).show();
+    var planServicioId = $("#plan", "#adicionales").val();
+    if (planServicioId !== -1) {
+      // Mostrando el plan de servicio.
+      $("#prev-cotizacion #plan-" + planServicioId).show();
+      // Buscando el precio del plan para guardarlo en variable totalPlanServicios
+      // para usarlo posteriormente.
+      for (var i = 0; i < planesJSON.length; i++) {
+        if (planesJSON[i].id === planServicioId) {
+          totalPlanServicio = planesJSON[i].precio;
+          i = planesJSON.length;
+        }
+      }
     }
 
     ////// Tipo Contrato
     var tipoContrato = $("#contrato", "#adicionales").val();
     if (tipoContrato !== -1) {
       $("#prev-cotizacion #contrato-" + tipoContrato).show();
+      if (tipoContrato === "1") {
+        // Si el tipo de contrato es comodato.
+        // Averiguar la cantidad de meses (#duraciones).
+        var mesesId = $("#duracion", "#adicionales").val();
+        // mostrando la cantidad respectiva.
+        $("#prev-cotizacion #duracion-" + mesesId).show();
+        var meses = 0;
+        for (var i = 0; i < duracionesJSON.length; i++) {
+          if (duracionesJSON[i].id === mesesId) {
+            meses = duracionesJSON[i].cantidadMeses;
+            i = duracionesJSON.length;
+          }
+        }
+        totalEnMeses = total / meses;
+        var numero = Number(totalEnMeses.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #duracion-" + mesesId).find(".precio").html("$" + numero);
+      } else {
+        // Si el tipo de contato es compra.
+      }
     }
 
-    // Cantidad vehiculos
+    // Cantidad vehiculos. La cantidad de vehículos está dada por la
+    // cantidad de unidades GPS.
     var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();
     if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();
@@ -194,11 +226,11 @@ function eventoPuntosTap(event) {
  Validacion de restricciones
  -------------------------------------------------  */
 
- function filtrarAccesorios(){
+function filtrarAccesorios() {
   habilitarAccesorios();
   deshabilitarAccesoriosIncompatiblesConPlan();
   deshabilitarAccesoriosIncompatibleConGPS();
- }
+}
 
 function habilitarAccesorios() {
   if ($("[id^='accesorio']").hasClass("deshabilitado")) {
@@ -255,11 +287,11 @@ function deshabilitarAccesoriosIncompatibleConGPS() {
   }
 }
 
-function deshabilitarAccesoriosIncompatiblesConPlan(){
+function deshabilitarAccesoriosIncompatiblesConPlan() {
   var planSeleccionado = $("#planes-servicio select#plan").val();
 
-  if(accesoriosIncompatiblesPlanes[planSeleccionado]) {
-    $.each(accesoriosIncompatiblesPlanes[planSeleccionado], function(){
+  if (accesoriosIncompatiblesPlanes[planSeleccionado]) {
+    $.each(accesoriosIncompatiblesPlanes[planSeleccionado], function() {
       deshabilitarAccesorio(this);
     });
   }
