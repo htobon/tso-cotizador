@@ -22,9 +22,16 @@
 			    </div>
 			    <div data-role="collapsible" id="set3" data-collapsed="true">
 			        <h3>Aplicación</h3>
-			        <p class="descripcion">{$accesorio->aplicacion}</p>
-			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_uno}.jpg"/>
-			        <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_dos}.jpg"/>
+			        <p class="aplicacion">{$accesorio->aplicacion}</p>
+		        	<div class="imagenes-aplicacion" >
+				        {if !empty( $accesorio->imagen_aplicacion_uno ) }
+				        	<img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_uno}.jpg"/>
+			        	{/if}
+				        	
+				        {if !empty( $accesorio->imagen_aplicacion_dos ) }
+				        	<img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_dos}.jpg"/>
+			        	{/if}
+		        	</div>
 			    </div>
 			</div>
        	</div>

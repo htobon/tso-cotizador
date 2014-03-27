@@ -256,6 +256,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', end
   clear: both;
 }
 
+.imagenes-aplicacion{
+  text-align: center;
+}
+
 
 /* ---------- Cotizador -------- */
 
