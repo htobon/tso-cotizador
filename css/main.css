@@ -196,8 +196,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', end
 
 .point.deshabilitado {
   border: 5px solid #E98080;
-  width: 11px;
-  height: 11px;
+  width: 1.7%;
+  height: 2.7%;
   opacity: 0.8;
 }
 
