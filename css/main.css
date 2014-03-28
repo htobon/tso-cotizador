@@ -189,8 +189,8 @@ body   {
 
 .point.seleccionado {
   border: 5px solid #9689F7;
-  width: 13px;
-  height: 13px;
+  width: 1.7%;
+  height: 2.7%;
   opacity: 0.8;
 }
 
@@ -219,7 +219,8 @@ body   {
 }
 .modal-accesorio h2 {
   font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-weight: bold;
+  padding-left: 10px;
   color: #2164ac;
   background: #fff;
 }
