@@ -300,7 +300,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', end
   display: none;
 }
 
-
+.ui-popup-container.ui-popup-active{
+  width: 90%;
+}
 
 /* --------- Previsualización de Cotizacion ------- */
 #prev-cotizacion table{
