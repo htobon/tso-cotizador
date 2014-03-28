@@ -28,7 +28,7 @@
     <div id="sidebar" class="sidebar"></div>
     <div class="row content" data-role="content">
       {include file='sections/camion.tpl'}
-      <div id='modal-accesorio-7' class="modal-accesorio" data-role="popup">
+      <div id='modal-unidad-gps' class="modal-accesorio" data-role="popup">
         <div class="row">
           <fieldset data-role="controlgroup"> 
             <legend>Seleccione una unidad GPS:</legend>

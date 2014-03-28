@@ -4,9 +4,9 @@ $(document).on('pageinit', function()
 
   // Evento cuando selecciona una unidad GPS     
   $("input[name='gps']").on("click", function(event) {
-    $("#accesorio-7").addClass("seleccionado");
-    $("#checkbox-accesorio-7").prop('checked', true).checkboxradio('refresh');
-    $("#modal-accesorio-7").popup("close");
+    $("#unidad-gps").addClass("seleccionado");
+    $("#checkbox-unidad-gps").prop('checked', true).checkboxradio('refresh');
+    $("#modal-unidad-gps").popup("close");
     filtrarAccesorios();
 
     if (isJqmGhostClick(event)) {
@@ -15,7 +15,7 @@ $(document).on('pageinit', function()
 
     // Actualizando la lista de Cantidad Accesorios en el formulario de #adicionales.    
     var $point = $(event.target);
-    var $labelGPS = $("#seleccion-accesorios #modal-accesorio-7").find("label[for='gps-" + $point.val() + "']");
+    var $labelGPS = $("#seleccion-accesorios #modal-unidad-gps").find("label[for='gps-" + $point.val() + "']");
     var $labelCantidadGPS = $("#tabla-cantidad-accesorios #unidad-gps").find("label");
     $labelCantidadGPS.text($labelGPS.text());
 
@@ -82,9 +82,8 @@ $(document).on('pageinit', function()
 
     accesoriosIds.each(function() {
       // id = accesorio-##
-      accesorioId = $(this).attr("id").split("-")[1];
-      // Accesorio 7 es el GPS y no se necesita aquí.
-      if (accesorioId !== "7") {
+      // Accesorio id unidad-gps es el GPS y no se necesita aquí.
+      if ($(this).attr("id") !== "unidad-gps") {
         // Mostrando el item de accesorio.
         $("#prev-cotizacion #" + $(this).attr("id")).show();
         // Actualizando cantidad.
@@ -188,8 +187,8 @@ function eventoPuntosTap(event) {
   var puntoID = $(punto).attr("id"); // retorna accesorio-##
   var $accesorioCheckbox = $("#checkbox-" + puntoID);
 
-  // accesorio-7 -> Unidad Satelital (Dual) GPS  
-  if ($(punto).attr("id") !== "accesorio-7") {
+  // accesorio id unidad-gps -> Unidad Satelital (Dual) GPS  
+  if ($(punto).attr("id") !== "unidad-gps") {
 
     if (isJqmGhostClick(event)) {
       return false;
