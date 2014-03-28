@@ -1,7 +1,7 @@
 {include file='head.tpl' jsIncludes=["jquery-mobile"] pageTitle="TSO Cotizador"}
 
 {* Asignando header como variable sin el boton return *}
-{include file='header.tpl' assign="header" ocultarReturn="1"}
+{include file='header.tpl' assign="header" }
 
 {* Asignando footer como variable *}
 {include file='footer.tpl' assign="footer"}
