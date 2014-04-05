@@ -42,6 +42,7 @@ $(document).on('pageinit', function()
   var total;
   var totalEnMeses;
   var totalPlanServicio;
+  var porcentajeDescuento = 0;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -82,7 +83,7 @@ $(document).on('pageinit', function()
 
     accesoriosIds.each(function() {
       // id = accesorio-##
-      // Accesorio id unidad-gps es el GPS y no se necesita aquí.
+      // Accesorio id unidad-gps es el GPS y no se necesita aquí.     
       if ($(this).attr("id") !== "unidad-gps") {
         // Mostrando el item de accesorio.
         $("#prev-cotizacion #" + $(this).attr("id")).show();
@@ -93,7 +94,7 @@ $(document).on('pageinit', function()
         // accesoriosJSON es una variable en JSON que proviene desde el TPL.
         // Encontrando el accesorio y calculando el valor por cantidad.
         for (var i = 0; i < accesoriosJSON.length; i++) {
-          if (accesoriosJSON[i].id === accesorioId) {
+          if ("accesorio-"+accesoriosJSON[i].id === $(this).attr("id")) {
             valorAccesorio = accesoriosJSON[i].precioAccesorio * cantidadAccesorio;
             valorInstalacionAccesorio = accesoriosJSON[i].precioInstalacion * cantidadAccesorio;
             i = accesoriosJSON.length;
@@ -114,7 +115,6 @@ $(document).on('pageinit', function()
 
         // Mostrando el item de instalación de accesorio.
         $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
-
       }
     });
 
@@ -138,6 +138,8 @@ $(document).on('pageinit', function()
     if (tipoContrato !== -1) {
       $("#prev-cotizacion #contrato-" + tipoContrato).show();
       if (tipoContrato === "1") {
+        // Mostrar la duración del contrato.
+        $("#prev-cotizacion #duracion").show();
         // Si el tipo de contrato es comodato.
         // Averiguar la cantidad de meses (#duraciones).
         var mesesId = $("#duracion", "#adicionales").val();
@@ -155,16 +157,31 @@ $(document).on('pageinit', function()
         $("#prev-cotizacion #duracion-" + mesesId).find(".precio").html("$" + numero);
       } else {
         // Si el tipo de contato es compra.
+        // 
+        // Ocultar Duración del contrato porque se paga todo de una.
+        $("#prev-cotizacion #duracion").hide();
       }
     }
 
     // Cantidad vehiculos. La cantidad de vehículos está dada por la
     // cantidad de unidades GPS.
-    var cantidadVehiculos = $("#cantidad-vehiculos", "#adicionales").val();
+    var cantidadVehiculos = $("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val();
     if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();
-      $("#numero-vehiculos .item", "#prev-cotizacion").text(cantidadVehiculos);
+      $("#numero-vehiculos .item", "#prev-cotizacion").html(cantidadVehiculos);
     }
+    
+    // Descuento: El descuento depende de la variable anterior Cantidad de Vehiculos.
+    for (var i = 0; i < descuentosJSON.length; i++) {
+      if(cantidadVehiculos >= descuentosJSON[i].cantidadMin && 
+              cantidadVehiculos <= descuentosJSON[i].cantidadMax) {
+        $("#porcentaje-descuento .item", "#prev-cotizacion").show();
+        porcentajeDescuento = descuentosJSON[i].descuento;
+        $("#porcentaje-descuento .item", "#prev-cotizacion").html(porcentajeDescuento+"%");
+      }
+    }
+    
+    // Valor del descuento: 
 
     /*
      * TODO -  
