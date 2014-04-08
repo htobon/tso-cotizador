@@ -1,6 +1,6 @@
 <div id="camion" class="large-12 columns camion" style="">
     {foreach from=$accesorios item=accesorio}  
-    	{if $accesorio->id == -1}
+    	{if $accesorio->id == "-1"}
     		<a href="#modal-unidad-gps" 
 	           id="unidad-gps" 
 	           class="point" data-rel="popup" 
