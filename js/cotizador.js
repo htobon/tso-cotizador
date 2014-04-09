@@ -4,10 +4,11 @@ $(document).on('pageinit', function()
 
   // Evento cuando selecciona una unidad GPS     
   $("input[name='gps']").on("click", function(event) {
+
     $("#unidad-gps").addClass("seleccionado");
     $("#checkbox-unidad-gps").prop('checked', true).checkboxradio('refresh');
     $("#modal-unidad-gps").popup("close");
-    filtrarAccesorios();
+    validarRestricciones();
 
     if (isJqmGhostClick(event)) {
       return false;
@@ -22,7 +23,7 @@ $(document).on('pageinit', function()
   });
 
   // Evento cuando se selecciona un plan
-  $("#planes-servicio select#plan").on("change", filtrarAccesorios);
+  $("#planes-servicio select#plan").on("change", validarRestricciones);
 
   //Evento para abrir panel deslizando el dedo a la izquierda
   $("body").on("swipeleft", abrirPanel);
@@ -199,7 +200,6 @@ function abrirPanel() {
 }
 
 function eventoPuntosTap(event) {
-
   var punto = event.target;
   var puntoID = $(punto).attr("id"); // retorna accesorio-##
   var $accesorioCheckbox = $("#checkbox-" + puntoID);
@@ -229,9 +229,8 @@ function eventoPuntosTap(event) {
         $itemCantidadAccesorio.show();
         $accesorioCheckbox.prop('checked', true).checkboxradio('refresh');
       }
+      validarRestricciones();
 
-      deshabilitarGpsIncompatiblesConAccesorios();
-      deshabilitarPlanesIncompatiblesAccesorios();
     }
   }
 
@@ -242,10 +241,21 @@ function eventoPuntosTap(event) {
  Validacion de restricciones
  -------------------------------------------------  */
 
-function filtrarAccesorios() {
+/**
+ * Este metodo se encarga de activar todas las restricciones de los
+ * elementos que estén seleccionados
+ */
+function validarRestricciones() {
+  // Habilitamos todo de nuevo
+  habilitarGps();
   habilitarAccesorios();
+  habilitarPlanesServicio();
+
+  // Deshabilitamos elementos
+  deshabilitarPlanesIncompatiblesAccesorios();
   deshabilitarAccesoriosIncompatiblesConPlan();
   deshabilitarAccesoriosIncompatibleConGPS();
+  deshabilitarGpsIncompatiblesConAccesorios();
 }
 
 function habilitarAccesorios() {
@@ -294,6 +304,11 @@ function deshabilitarPlanServicio(planServicioID) {
  */
 function deshabilitarAccesoriosIncompatibleConGPS() {
   var gpsSeleccionado = $("input[name^='gps']:checked");
+  
+  // Si no se ha seleccionado gps
+  if(gpsSeleccionado.length == 0)
+    return;
+
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
 
   if (accesoriosIncompatiblesGPS[gpsID]) {
@@ -316,9 +331,9 @@ function deshabilitarAccesoriosIncompatiblesConPlan() {
 function deshabilitarPlanesIncompatiblesAccesorios() {
   var accesoriosSeleccionados = $("input[name$='accesorios']:checked");
   habilitarPlanesServicio();
-
   $(accesoriosSeleccionados).each(function() {
     var accesorioID = $(this).attr("id").split("-")[2];
+    planesIncompatiblesAccesorio
 
     if (planesIncompatiblesAccesorio[accesorioID]) {
       $.each(planesIncompatiblesAccesorio[accesorioID], function() {
