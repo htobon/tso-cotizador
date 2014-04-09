@@ -218,10 +218,10 @@
         {/foreach}
         <!-- Tipo de contrato -->
         <tr id="tipo-contrato">
-          <th>Tipo de Contrato</th>
-          <th></th>
+          <th>Tipo de Contrato</th>          
           <th id="contrato-1" class="item">Comodato</th>
           <th id="contrato-2" class="item">Compra</th>
+          <th></th>
         </tr>
         <!-- Duración del contrato -->
         <tr id="duracion">
@@ -245,14 +245,14 @@
         <!-- Porcentaje de descuento -->
         <tr id="porcentaje-descuento">
           <th>Porcentaje de descuento</th>
-          <th></th>
           <th class="item">5%</th>
+          <th></th>          
         </tr>
         <!-- Valor del descuento -->
         <tr id="valor-descuento">
           <th>Valor del descuento</th>
-          <th></th>
           <th class="item">$9,985</th>
+          <th></th>          
         </tr>
         <!-- Valor del descuento -->
         <tr id="valor-unidad">

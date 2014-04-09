@@ -43,7 +43,9 @@ $(document).on('pageinit', function()
   var total;
   var totalEnMeses;
   var totalPlanServicio;
-  var porcentajeDescuento = 0;
+  var porcentajeDescuento;
+  var valorDescuento;
+  var totalAccesorios;
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -55,6 +57,11 @@ $(document).on('pageinit', function()
     // 1. Resetear todos los items para que se oculten.
     $("#prev-cotizacion .item").hide();
     total = 0;
+    totalAccesorios = 0;
+    totalPlanServicio = 0;
+    totalEnMeses = 0;
+    valorDescuento = 0;
+
 
     // 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
 
@@ -71,7 +78,9 @@ $(document).on('pageinit', function()
       for (var i = 0; i < arregloGpsJSON.length; i++) {
         if (arregloGpsJSON[i].id === gpsId) {
           var numero = arregloGpsJSON[i].precioUnidad * cantidad;
+          // Sumando el valor del GPS.
           total += numero;
+          totalAccesorios += numero;
           numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
           $("#prev-cotizacion #gps-" + gpsId).find(".precio").html("$" + numero);
           i = arregloGpsJSON.length;
@@ -95,9 +104,9 @@ $(document).on('pageinit', function()
         // accesoriosJSON es una variable en JSON que proviene desde el TPL.
         // Encontrando el accesorio y calculando el valor por cantidad.
         for (var i = 0; i < accesoriosJSON.length; i++) {
-          if ("accesorio-"+accesoriosJSON[i].id === $(this).attr("id")) {
+          if ("accesorio-" + accesoriosJSON[i].id === $(this).attr("id")) {
             valorAccesorio = accesoriosJSON[i].precioAccesorio * cantidadAccesorio;
-            valorInstalacionAccesorio = accesoriosJSON[i].precioInstalacion * cantidadAccesorio;
+            valorInstalacionAccesorio = Number(accesoriosJSON[i].precioInstalacion) * cantidadAccesorio;
             i = accesoriosJSON.length;
           }
         }
@@ -110,9 +119,11 @@ $(document).on('pageinit', function()
         numero = Number(valorInstalacionAccesorio.toFixed(1)).toLocaleString();
         $("#prev-cotizacion #instalacion-" + $(this).attr("id")).find(".precio").html("$" + numero);
 
-        // Sumando el valor total de la cotización.
+        // Sumando el valor de los accesorios y su correspondiente instalación.
         total += valorAccesorio;
         total += valorInstalacionAccesorio;
+        totalAccesorios += valorAccesorio;
+        totalAccesorios += valorInstalacionAccesorio;
 
         // Mostrando el item de instalación de accesorio.
         $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
@@ -128,7 +139,7 @@ $(document).on('pageinit', function()
       // para usarlo posteriormente.
       for (var i = 0; i < planesJSON.length; i++) {
         if (planesJSON[i].id === planServicioId) {
-          totalPlanServicio = planesJSON[i].precio;
+          totalPlanServicio = Number(planesJSON[i].precio);
           i = planesJSON.length;
         }
       }
@@ -149,11 +160,11 @@ $(document).on('pageinit', function()
         var meses = 0;
         for (var i = 0; i < duracionesJSON.length; i++) {
           if (duracionesJSON[i].id === mesesId) {
-            meses = duracionesJSON[i].cantidadMeses;
+            meses = Number(duracionesJSON[i].cantidadMeses);
             i = duracionesJSON.length;
           }
         }
-        totalEnMeses = total / meses;
+        totalEnMeses = ((totalAccesorios / meses) + totalPlanServicio);
         var numero = Number(totalEnMeses.toFixed(1)).toLocaleString();
         $("#prev-cotizacion #duracion-" + mesesId).find(".precio").html("$" + numero);
       } else {
@@ -166,24 +177,30 @@ $(document).on('pageinit', function()
 
     // Cantidad vehiculos. La cantidad de vehículos está dada por la
     // cantidad de unidades GPS.
-    var cantidadVehiculos = $("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val();
+    var cantidadVehiculos = Number($("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val());
     if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();
       $("#numero-vehiculos .item", "#prev-cotizacion").html(cantidadVehiculos);
     }
-    
+
     // Descuento: El descuento depende de la variable anterior Cantidad de Vehiculos.
+    porcentajeDescuento = 0;
     for (var i = 0; i < descuentosJSON.length; i++) {
-      if(cantidadVehiculos >= descuentosJSON[i].cantidadMin && 
+      if (cantidadVehiculos >= descuentosJSON[i].cantidadMin &&
               cantidadVehiculos <= descuentosJSON[i].cantidadMax) {
         $("#porcentaje-descuento .item", "#prev-cotizacion").show();
-        porcentajeDescuento = descuentosJSON[i].descuento;
-        $("#porcentaje-descuento .item", "#prev-cotizacion").html(porcentajeDescuento+"%");
+        porcentajeDescuento = Number(descuentosJSON[i].descuento);
+        var numero = Number(porcentajeDescuento.toFixed(1)).toLocaleString();
+        $("#porcentaje-descuento .item", "#prev-cotizacion").html(numero + "%");
       }
     }
-    
-    // Valor del descuento: 
 
+    // Valor del descuento: 
+    valorDescuento = Number(totalAccesorios * porcentajeDescuento / 100);
+    $("#valor-descuento .item", "#prev-cotizacion").show();
+    var numero = Number(valorDescuento.toFixed(1)).toLocaleString();
+    $("#valor-descuento .item", "#prev-cotizacion").html("$"+numero);
+    
     /*
      * TODO -  
      * 1. Resetear todos los items para que se oculten.
