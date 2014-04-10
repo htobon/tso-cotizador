@@ -234,7 +234,8 @@ body   {
 }
 .modal-accesorio .accesorio-img-app { 
   padding-right: 5%;
-  height: 10%;
+  max-height: 30%;
+  max-width: 50%;
 }
 .modal-accesorio .imagen { 
   width: 25%;
