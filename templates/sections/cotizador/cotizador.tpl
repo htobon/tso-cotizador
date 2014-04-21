@@ -268,10 +268,45 @@
         </tr>
       </table>
     </div>
-    <div id="sidebar" class="sidebar"></div>  
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="derecha" link="#datos-cliente"}</div>
     {$footer}
   </div> 
 
-</div>
+  <div id="datos-cliente" data-role="page" class="container">
+    {$header}  
+    <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#prev-cotizacion"}</div>     
+    <div class="row content" data-role="content">
+      <h1>Datos de Contacto:</h1>
+      <table id="tbldatos-cliente">
+          <tr>
+              <td>Nombres</td>
+              <td><input type="text" id="nombres" name="nombres" placeholder="Nombre"></td>
+          </tr>
+          <tr>
+              <td>Apellidos</td>
+              <td><input type="text" id="apellidos" placeholder="Apellidos"></td>
+          </tr>
+          <tr>
+              <td>Teléfono</td>
+              <td><input type="text" id="telefono" name="telefono" placeholder="Teléfono"></td>
+          </tr>
+          <tr>
+              <td>Correo</td>
+              <td><input type="text" id="correo" name="correo" placeholder="Correo"></td>
+          </tr>
+          <tr>
+              <td>
+                  <input type="submit" id="" name="" value="Enviar Cotización"/>
+              </td>
+              <td>
+                  <input type="submit" id="" name="" value="Cancelar" onClick="history.go(-4);"/>
+              </td>
+          </tr>
+      </table>
+    </div>
+    <div id="sidebar" class="sidebar"></div>  
+    {$footer}
+  </div>
 
+</div>
 </form>
