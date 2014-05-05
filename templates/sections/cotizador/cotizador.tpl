@@ -21,7 +21,7 @@
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
 
-<form>
+<form name="cotizador" method="POST" target="../classes/db/cotizador_ctrl.php">
   <!-- Selección de Accesorios en el Camión -->
   <div id="seleccion-accesorios" data-role="page" class="container">
     {$header}
@@ -101,6 +101,11 @@
                     <th><input id="cantidad-accesorio-{$accesorio->id}" name="cantidad-accesorio-{$accesorio->id}" type="number" data-clear-btn="false" data-mini="true" value=""></th>
                   </tr>
                 {/foreach}
+                <tr>
+                    <td colspan="2">
+                        <a href="#" data-rel="back" class="ui-btn ui-shadow ui-btn-a">Guardar</a>
+                    </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -279,12 +284,20 @@
       <h1>Datos de Contacto:</h1>
       <table id="tbldatos-cliente">
           <tr>
-              <td>Nombres</td>
-              <td><input type="text" id="nombres" name="nombres" placeholder="Nombre"></td>
+              <td>Nit</td>
+              <td><input type="text" id="nit" name="Nit" placeholder="Nombre"></td>
           </tr>
           <tr>
-              <td>Apellidos</td>
-              <td><input type="text" id="apellidos" placeholder="Apellidos"></td>
+              <td>Empresa</td>
+              <td><input type="text" id="empresa" name="nombre" placeholder="Empresa"></td>
+          </tr>
+          <tr>
+              <td>Nombre contacto</td>
+              <td><input type="text" id="nombre" name="nombre" placeholder="Nombre"></td>
+          </tr>
+          <tr>
+              <td>Dirección</td>
+              <td><input type="text" id="direccion" placeholder="Dirección"></td>
           </tr>
           <tr>
               <td>Teléfono</td>
@@ -295,11 +308,15 @@
               <td><input type="text" id="correo" name="correo" placeholder="Correo"></td>
           </tr>
           <tr>
+              <td>Correo 2</td>
+              <td><input type="text" id="correo2" name="correo" placeholder="Correo 2"></td>
+          </tr>
+          <tr>
               <td>
-                  <input type="submit" id="" name="" value="Enviar Cotización"/>
+                  <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Enviar Cotización"/>
               </td>
               <td>
-                  <input type="submit" id="" name="" value="Cancelar" onClick="history.go(-4);"/>
+                  <a href="#seleccion-accesorios" class="ui-btn">Cancelar</a>
               </td>
           </tr>
       </table>

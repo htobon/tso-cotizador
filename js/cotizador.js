@@ -210,6 +210,8 @@ $(document).on('pageinit', function()
      */
 
   });
+  /************************ INGRESO DE DATOS DE CLIENTE *************************/
+  
 });
 
 function abrirPanel() {
