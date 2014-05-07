@@ -131,7 +131,8 @@ $(document).on('pageinit', function()
     });
 
     ////// Plan de Servicio:
-    var planServicioId = $("#plan", "#adicionales").val();
+    var cantidadVehiculos = Number($("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val());
+    var planServicioId = $("#plan", "#adicionales").val();    
     if (planServicioId !== -1) {
       // Mostrando el plan de servicio.
       $("#prev-cotizacion #plan-" + planServicioId).show();
@@ -139,13 +140,15 @@ $(document).on('pageinit', function()
       // para usarlo posteriormente.
       for (var i = 0; i < planesJSON.length; i++) {
         if (planesJSON[i].id === planServicioId) {
-          totalPlanServicio = Number(planesJSON[i].precio);
+          totalPlanServicio = Number(planesJSON[i].precio) * cantidadVehiculos;
+          var numero = Number(totalPlanServicio.toFixed(1)).toLocaleString();
+          $("#prev-cotizacion #plan-" + planServicioId).html("$"+numero);
           i = planesJSON.length;
         }
       }
     }
 
-    ////// Tipo Contrato
+    ////// Tipo Contrato    
     var tipoContrato = $("#contrato", "#adicionales").val();
     if (tipoContrato !== -1) {
       $("#prev-cotizacion #contrato-" + tipoContrato).show();
@@ -176,8 +179,7 @@ $(document).on('pageinit', function()
     }
 
     // Cantidad vehiculos. La cantidad de vehículos está dada por la
-    // cantidad de unidades GPS.
-    var cantidadVehiculos = Number($("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val());
+    // cantidad de unidades GPS.    
     if (cantidadVehiculos !== undefined && $.isNumeric(cantidadVehiculos)) {
       $("#numero-vehiculos .item", "#prev-cotizacion").show();
       $("#numero-vehiculos .item", "#prev-cotizacion").html(cantidadVehiculos);
