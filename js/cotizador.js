@@ -43,6 +43,7 @@ $(document).on('pageinit', function()
   // Variables Unidad GPS.
   var precioUnidadGPS;
   var totalPrecioUnidadGPS;
+  var cantidadUnidadesGPS;
 
   // Variables Accesorios.
   var totalPrecioUnitarioAccesorios;
@@ -88,8 +89,8 @@ $(document).on('pageinit', function()
     if (gpsId !== undefined) {
       $("#prev-cotizacion #gps-" + gpsId).show();
       // Cantidad.
-      var cantidad = $("#tabla-cantidad-accesorios #cantidad-unidad-gps").val();
-      $("#prev-cotizacion #gps-" + gpsId).find(".cantidad").html(cantidad);
+      cantidadUnidadesGPS = $("#tabla-cantidad-accesorios #cantidad-unidad-gps").val();
+      $("#prev-cotizacion #gps-" + gpsId).find(".cantidad").html(cantidadUnidadesGPS);
 
       precioUnidadGPS = 0;
       totalPrecioUnidadGPS = 0;
@@ -103,7 +104,7 @@ $(document).on('pageinit', function()
           numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
           $("#prev-cotizacion #gps-" + gpsId).find(".precioUnitario").html("$" + numero);
 
-          numero = precioUnidadGPS * cantidad;
+          numero = precioUnidadGPS * cantidadUnidadesGPS;
           // Asignando total unidad GPS.
           totalPrecioUnidadGPS = numero;
           numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
@@ -111,8 +112,8 @@ $(document).on('pageinit', function()
           i = arregloGpsJSON.length;
         }
       }
-
     }
+    
     ////// Accesorios e Instalaciones:
     var accesoriosIds = $(".point.seleccionado", "#seleccion-accesorios");
     
@@ -190,7 +191,41 @@ $(document).on('pageinit', function()
         $("#prev-cotizacion #instalacion-" + accesorioId).find(".precioTotal").html("$" + numero);        
       }
     });
+    
+    ////// Precios Instalación Unidad GPS.
+    if (gpsId !== undefined) {
+      $("#prev-cotizacion #instalacion-gps-" + gpsId).show();      
+      $("#prev-cotizacion #instalacion-gps-" + gpsId).find(".cantidad").html(cantidadUnidadesGPS);
 
+      var precioInstalacionUnidadGPS = 0;
+      var totalPrecioInstalacionUnidadGPS = 0;
+      // arregloGpsJSON es una variable en JSON que proviene desde el TPL.
+      // Encontrando al GPS y cambiando el label de nombre.
+      for (var i = 0; i < arregloGpsJSON.length; i++) {
+        if (arregloGpsJSON[i].id === gpsId) {
+          // Precio Unitario de la Instalacion
+          precioInstalacionUnidadGPS = Number(arregloGpsJSON[i].precioInstalacion);
+          var numero = Number(precioInstalacionUnidadGPS.toFixed(1)).toLocaleString(); // Formateando a moneda.
+          $("#prev-cotizacion #instalacion-gps-" + gpsId).find(".precioUnitario").html("$" + numero);
+          
+          totalPrecioInstalacionUnidadGPS = precioInstalacionUnidadGPS * cantidadUnidadesGPS;
+          numero = Number(totalPrecioInstalacionUnidadGPS.toFixed(1)).toLocaleString(); // Formateando a moneda.
+          $("#prev-cotizacion #instalacion-gps-" + gpsId).find(".precioTotal").html("$" + numero);
+          
+          // Sumando a los totales.
+          totalPrecioInstalacionUnitariaAccesorios += precioInstalacionUnidadGPS;
+          totalPrecioInstalacionAccesorios += totalPrecioInstalacionUnidadGPS;
+          i = arregloGpsJSON.length;
+        }
+      }
+    }
+    
+    
+    
+    
+    
+    
+    
     ////// Plan de Servicio:
     var cantidadVehiculos = Number($("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val());
     var planServicioId = $("#plan", "#adicionales").val();

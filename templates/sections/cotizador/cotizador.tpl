@@ -199,17 +199,25 @@
             <td class="precioTotal">0</td>
           </tr>
         {/foreach}
-        <!-- Instalación de accesorios-->
+        <!-- Instalación de Accesorios y Unidad GPS-->
         <tr>
           <th>Instalaciones</th>
           <th></th>
           <th></th>
           <th></th>
-        </tr>
+        </tr>        
         {foreach from=$accesorios item=accesorio}
           <tr id="instalacion-accesorio-{$accesorio->id}" class="item">
             <td>Instalación {$accesorio->nombre}</td>
             <td class="cantidad"></td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
+          </tr>
+        {/foreach}        
+        {foreach from=$arregloGps item=gps}
+          <tr id="instalacion-gps-{$gps->id}" class="item">
+            <td>{$gps->nombre}</td>
+            <td class="cantidad">999</td>
             <td class="precioUnitario">0</td>
             <td class="precioTotal">0</td>
           </tr>
