@@ -173,13 +173,15 @@
         <tr>
           <th>Unidad GPS</th>
           <th>Cantidad</th>
-          <th>Precio</th>
+          <th>Precio Unitario</th>
+          <th>Precio TOTAL</th>
         </tr>
         {foreach from=$arregloGps item=gps}
           <tr id="gps-{$gps->id}" class="item">
             <td>{$gps->nombre}</td>
             <td class="cantidad">999</td>
-            <td class="precio">${$gps->precioUnidad|number_format:2}</td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
           </tr>
         {/foreach}
         <!-- Accesorios -->
@@ -187,12 +189,14 @@
           <th>Accesorios</th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="accesorio-{$accesorio->id}" class="item">
             <td>{$accesorio->nombre}</td>
             <td class="cantidad"></td>
-            <td class="precio">0</td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
           </tr>
         {/foreach}
         <!-- Instalación de accesorios-->
@@ -200,12 +204,14 @@
           <th>Instalaciones</th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$accesorios item=accesorio}
           <tr id="instalacion-accesorio-{$accesorio->id}" class="item">
             <td>Instalación {$accesorio->nombre}</td>
             <td class="cantidad"></td>
-            <td class="precio">0</td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
           </tr>
         {/foreach}
         <!-- Tipo de plan -->
@@ -313,10 +319,10 @@
           </tr>
           <tr>
               <td>
-                  <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Enviar Cotización"/>
+                  <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Generar Cotización"/>
               </td>
               <td>
-                  <a href="#seleccion-accesorios" class="ui-btn">Cancelar</a>
+                  <a href="#seleccion-accesorios" class="ui-btn">Volver</a>
               </td>
           </tr>
       </table>

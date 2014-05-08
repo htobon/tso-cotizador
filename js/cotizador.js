@@ -40,12 +40,29 @@ $(document).on('pageinit', function()
   /*
    * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
    */
+  // Variables Unidad GPS.
+  var precioUnidadGPS;
+  var totalPrecioUnidadGPS;
+
+  // Variables Accesorios.
+  var totalPrecioUnitarioAccesorios;
+  var totalPrecioAccesorios;
+
+  // Variables Instalaciones (Unidad GPS + Accesorios).
+  var totalPrecioInstalacionUnitariaAccesorios;
+  var totalPrecioInstalacionAccesorios;
+  
+  // Variables Tipo de Plan.
+
+  // Variables Descuentos.
   var total;
   var totalEnMeses;
   var totalPlanServicio;
   var porcentajeDescuento;
   var valorDescuento;
   var totalAccesorios;
+  var totalAccesoriosUnitarios;
+
   // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
   $("#prev-cotizacion").on("pagebeforeshow", function(event) {
@@ -55,14 +72,15 @@ $(document).on('pageinit', function()
     }
 
     // 1. Resetear todos los items para que se oculten.
-    $("#prev-cotizacion .item").hide();
+    $("#prev-cotizacion .item").hide();    
+    
     total = 0;
     totalAccesorios = 0;
     totalPlanServicio = 0;
     totalEnMeses = 0;
     valorDescuento = 0;
-
-
+    totalAccesoriosUnitarios = 0;
+    
     // 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
 
     ////// Gps:
@@ -73,16 +91,23 @@ $(document).on('pageinit', function()
       var cantidad = $("#tabla-cantidad-accesorios #cantidad-unidad-gps").val();
       $("#prev-cotizacion #gps-" + gpsId).find(".cantidad").html(cantidad);
 
+      precioUnidadGPS = 0;
+      totalPrecioUnidadGPS = 0;
       // arregloGpsJSON es una variable en JSON que proviene desde el TPL.
       // Encontrando al GPS y cambiando el label de nombre.
       for (var i = 0; i < arregloGpsJSON.length; i++) {
         if (arregloGpsJSON[i].id === gpsId) {
-          var numero = arregloGpsJSON[i].precioUnidad * cantidad;
-          // Sumando el valor del GPS.
-          total += numero;
-          totalAccesorios += numero;
+          // Precio Unitario
+          var numero = Number(arregloGpsJSON[i].precioUnidad);
+          precioUnidadGPS = numero;
           numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
-          $("#prev-cotizacion #gps-" + gpsId).find(".precio").html("$" + numero);
+          $("#prev-cotizacion #gps-" + gpsId).find(".precioUnitario").html("$" + numero);
+
+          numero = precioUnidadGPS * cantidad;
+          // Asignando total unidad GPS.
+          totalPrecioUnidadGPS = numero;
+          numero = Number(numero.toFixed(1)).toLocaleString(); // Formateando a moneda.
+          $("#prev-cotizacion #gps-" + gpsId).find(".precioTotal").html("$" + numero);
           i = arregloGpsJSON.length;
         }
       }
@@ -90,49 +115,85 @@ $(document).on('pageinit', function()
     }
     ////// Accesorios e Instalaciones:
     var accesoriosIds = $(".point.seleccionado", "#seleccion-accesorios");
-
+    
+    ////// Precios Accesorios.
+    totalPrecioUnitarioAccesorios = 0;
+    totalPrecioAccesorios = 0;
     accesoriosIds.each(function() {
-      // id = accesorio-##
-      // Accesorio id unidad-gps es el GPS y no se necesita aquí.     
+      // Accesorio id unidad-gps es el GPS y no se necesita aquí.
+      // accesorioId = accesorio-##
+      var accesorioId = $(this).attr("id");
       if ($(this).attr("id") !== "unidad-gps") {
         // Mostrando el item de accesorio.
-        $("#prev-cotizacion #" + $(this).attr("id")).show();
+        $("#prev-cotizacion #" + accesorioId).show();
+        // Actualizando cantidad.
+        var cantidadAccesorio = $("#tabla-cantidad-accesorios #" + accesorioId).find("input").val();
+        var valorAccesorio = 0;
+        var valorAccesorioUnitario = 0;
+        // accesoriosJSON es una variable en JSON que proviene desde el TPL.
+        // Encontrando el accesorio y calculando el valor por cantidad.
+        for (var i = 0; i < accesoriosJSON.length; i++) {
+          if ("accesorio-" + accesoriosJSON[i].id === accesorioId) {
+            valorAccesorioUnitario = Number(accesoriosJSON[i].precioAccesorio);
+            valorAccesorio = valorAccesorioUnitario * cantidadAccesorio;
+            i = accesoriosJSON.length; // parando el ciclo.
+          }
+        }
+        
+        // Sumando a los totales
+        totalPrecioUnitarioAccesorios += valorAccesorioUnitario;
+        totalPrecioAccesorios += valorAccesorio;
+        
+        // Actualizando interfaz con cantidad y valores del accesorio.
+        $("#prev-cotizacion #" + accesorioId).find(".cantidad").html(cantidadAccesorio);
+        var numero = Number(valorAccesorioUnitario.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #" + accesorioId).find(".precioUnitario").html("$" + numero);
+        numero = Number(valorAccesorio.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #" + accesorioId).find(".precioTotal").html("$" + numero);
+      }      
+    });
+    
+    ////// Precios Instalación Accesorios.
+    totalPrecioInstalacionUnitariaAccesorios = 0;
+    totalPrecioInstalacionAccesorios = 0;
+    accesoriosIds.each(function() {
+      // id = accesorio-##
+      // Accesorio id unidad-gps es el GPS y no se necesita aquí.
+      var accesorioId = $(this).attr("id");
+      if ($(this).attr("id") !== "unidad-gps") {
+        // Mostrando el item de instalación accesorio.
+        $("#prev-cotizacion #instalacion-" + accesorioId).show();
         // Actualizando cantidad.
         var cantidadAccesorio = $("#tabla-cantidad-accesorios #" + $(this).attr("id")).find("input").val();
-        var valorAccesorio = 0;
+        
         var valorInstalacionAccesorio = 0;
+        var valorInstalacionAccesorioUnitario = 0;
         // accesoriosJSON es una variable en JSON que proviene desde el TPL.
         // Encontrando el accesorio y calculando el valor por cantidad.
         for (var i = 0; i < accesoriosJSON.length; i++) {
           if ("accesorio-" + accesoriosJSON[i].id === $(this).attr("id")) {
-            valorAccesorio = accesoriosJSON[i].precioAccesorio * cantidadAccesorio;
-            valorInstalacionAccesorio = Number(accesoriosJSON[i].precioInstalacion) * cantidadAccesorio;
-            i = accesoriosJSON.length;
+            valorInstalacionAccesorioUnitario = Number(accesoriosJSON[i].precioInstalacion);
+            valorInstalacionAccesorio = valorInstalacionAccesorioUnitario * cantidadAccesorio;
+            i = accesoriosJSON.length; // parando ciclo.
           }
         }
-        // Actualizando cantidad y valor del accesorio.
-        $("#prev-cotizacion #" + $(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
-        var numero = Number(valorAccesorio.toFixed(1)).toLocaleString();
-        $("#prev-cotizacion #" + $(this).attr("id")).find(".precio").html("$" + numero);
+        
+        // Sumando los totales
+        totalPrecioInstalacionUnitariaAccesorios += valorInstalacionAccesorioUnitario;
+        totalPrecioInstalacionAccesorios += valorInstalacionAccesorio;
+        
         // Actualizando cantidad y valor de la instalación del accesorio.
-        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).find(".cantidad").html(cantidadAccesorio);
+        $("#prev-cotizacion #instalacion-" + accesorioId).find(".cantidad").html(cantidadAccesorio);
+        var numero = Number(valorInstalacionAccesorioUnitario.toFixed(1)).toLocaleString();
+        $("#prev-cotizacion #instalacion-" + accesorioId).find(".precioUnitario").html("$" + numero);
         numero = Number(valorInstalacionAccesorio.toFixed(1)).toLocaleString();
-        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).find(".precio").html("$" + numero);
-
-        // Sumando el valor de los accesorios y su correspondiente instalación.
-        total += valorAccesorio;
-        total += valorInstalacionAccesorio;
-        totalAccesorios += valorAccesorio;
-        totalAccesorios += valorInstalacionAccesorio;
-
-        // Mostrando el item de instalación de accesorio.
-        $("#prev-cotizacion #instalacion-" + $(this).attr("id")).show();
+        $("#prev-cotizacion #instalacion-" + accesorioId).find(".precioTotal").html("$" + numero);        
       }
     });
 
     ////// Plan de Servicio:
     var cantidadVehiculos = Number($("#tabla-cantidad-accesorios #unidad-gps", "#adicionales").find("#cantidad-unidad-gps").val());
-    var planServicioId = $("#plan", "#adicionales").val();    
+    var planServicioId = $("#plan", "#adicionales").val();
     if (planServicioId !== -1) {
       // Mostrando el plan de servicio.
       $("#prev-cotizacion #plan-" + planServicioId).show();
@@ -142,7 +203,7 @@ $(document).on('pageinit', function()
         if (planesJSON[i].id === planServicioId) {
           totalPlanServicio = Number(planesJSON[i].precio) * cantidadVehiculos;
           var numero = Number(totalPlanServicio.toFixed(1)).toLocaleString();
-          $("#prev-cotizacion #plan-" + planServicioId).html("$"+numero);
+          $("#prev-cotizacion #plan-" + planServicioId).html("$" + numero);
           i = planesJSON.length;
         }
       }
@@ -201,8 +262,8 @@ $(document).on('pageinit', function()
     valorDescuento = Number(totalAccesorios * porcentajeDescuento / 100);
     $("#valor-descuento .item", "#prev-cotizacion").show();
     var numero = Number(valorDescuento.toFixed(1)).toLocaleString();
-    $("#valor-descuento .item", "#prev-cotizacion").html("$"+numero);
-    
+    $("#valor-descuento .item", "#prev-cotizacion").html("$" + numero);
+
     /*
      * TODO -  
      * 1. Resetear todos los items para que se oculten.
@@ -213,7 +274,7 @@ $(document).on('pageinit', function()
 
   });
   /************************ INGRESO DE DATOS DE CLIENTE *************************/
-  
+
 });
 
 function abrirPanel() {
@@ -325,9 +386,9 @@ function deshabilitarPlanServicio(planServicioID) {
  */
 function deshabilitarAccesoriosIncompatibleConGPS() {
   var gpsSeleccionado = $("input[name^='gps']:checked");
-  
+
   // Si no se ha seleccionado gps
-  if(gpsSeleccionado.length == 0)
+  if (gpsSeleccionado.length == 0)
     return;
 
   var gpsID = $(gpsSeleccionado).prop("id").split("-")[1];
