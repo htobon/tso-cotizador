@@ -32,6 +32,7 @@ class AccesoriosDB {
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
                 $accesorio->precioAccesorio = $a["precio_accesorio"];
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
+                $accesorio->precioMensualidad = $a["precio_mensualidad"];
                 $accesorio->descripcion = $a["descripcion"];
                 $accesorio->beneficios = $a["beneficios"];
                 $accesorio->aplicacion = $a["aplicacion"];
@@ -69,6 +70,7 @@ class AccesoriosDB {
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
                 $accesorio->precioAccesorio = $a["precio_accesorio"];
                 $accesorio->precioInstalacion = $a["precio_instalacion"];
+                $accesorio->precioMensualidad = $a["precio_mensualidad"];
                 $accesorio->descripcion = $a["descripcion"];
                 $accesorio->beneficios = $a["beneficios"];
                 $accesorio->aplicacion = $a["aplicacion"];
@@ -98,24 +100,25 @@ class AccesoriosDB {
         $accesorioData = $stmt->fetchAll();
 
         $accesorio = new stdClass();
-        $_accesorio = $accesorioData[0];
+        $a = $accesorioData[0];
 
-        if(!empty($_accesorio)){
-            $accesorio->id = $_accesorio["id"];
-            $accesorio->nombre = $_accesorio["nombre"];
-            $accesorio->codAccesorio = $_accesorio["cod_accesorio"];
-            $accesorio->codInstalacion = $_accesorio["cod_instalacion"];
-            $accesorio->precioInstalacion = $_accesorio["precio_instalacion"];
-            $accesorio->precioAccesorio = $_accesorio["precio_accesorio"];
-            $accesorio->precioInstalacion = $_accesorio["precio_instalacion"];
-            $accesorio->descripcion = $_accesorio["descripcion"];
-            $accesorio->beneficios = $_accesorio["beneficios"];
-            $accesorio->aplicacion = $_accesorio["aplicacion"];
-            $accesorio->image = $_accesorio["imagen"];
-            $accesorio->imagen_aplicacion_uno = $_accesorio["imagen_aplicacion_uno"];
-            $accesorio->imagen_aplicacion_dos = $_accesorio["imagen_aplicacion_dos"];
-            $accesorio->posicionX = $_accesorio["posicion_x"];
-            $accesorio->posicionY = $_accesorio["posicion_y"];
+        if(!empty($a)){
+            $accesorio->id = $a["id"];
+            $accesorio->nombre = $a["nombre"];
+            $accesorio->codAccesorio = $a["cod_accesorio"];
+            $accesorio->codInstalacion = $a["cod_instalacion"];
+            $accesorio->precioInstalacion = $a["precio_instalacion"];
+            $accesorio->precioAccesorio = $a["precio_accesorio"];
+            $accesorio->precioInstalacion = $a["precio_instalacion"];
+            $accesorio->precioMensualidad = $a["precio_mensualidad"];
+            $accesorio->descripcion = $a["descripcion"];
+            $accesorio->beneficios = $a["beneficios"];
+            $accesorio->aplicacion = $a["aplicacion"];
+            $accesorio->image = $a["imagen"];
+            $accesorio->imagen_aplicacion_uno = $a["imagen_aplicacion_uno"];
+            $accesorio->imagen_aplicacion_dos = $a["imagen_aplicacion_dos"];
+            $accesorio->posicionX = $a["posicion_x"];
+            $accesorio->posicionY = $a["posicion_y"];
         }
 
         return ( empty($accesorioData) ) ? null : $accesorio;
@@ -175,8 +178,8 @@ class AccesoriosDB {
      */
     static function agregarAccesorio($accesorio){
         $sql = 'INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion, precio_instalacion, ';
-        $sql .= 'precio_accesorio, descripcion, beneficios, aplicacion, imagen, imagen_aplicacion_uno, ';
-        $sql .= 'imagen_aplicacion_dos, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        $sql .= 'precio_accesorio, precio_mensualidad, descripcion, beneficios, aplicacion, imagen, imagen_aplicacion_uno, ';
+        $sql .= 'imagen_aplicacion_dos, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
 
         $conn = getConn();
         $stmt = $conn->prepare($sql);
@@ -186,14 +189,15 @@ class AccesoriosDB {
         $stmt->bindValue(3, $accesorio->codInstalacion);
         $stmt->bindValue(4, $accesorio->precioInstalacion);
         $stmt->bindValue(5, $accesorio->precioAccesorio);
-        $stmt->bindValue(6, $accesorio->descripcion);
-        $stmt->bindValue(6, $accesorio->beneficios);
-        $stmt->bindValue(6, $accesorio->aplicacion);
-        $stmt->bindValue(7, $accesorio->image);
-        $stmt->bindValue(7, $accesorio->imagen_aplicacion_uno);
-        $stmt->bindValue(7, $accesorio->imagen_aplicacion_dos);
-        $stmt->bindValue(8, $accesorio->posicionX);
-        $stmt->bindValue(9, $accesorio->posicionY);
+        $stmt->bindValue(6, $accesorio->precioMensualidad);
+        $stmt->bindValue(7, $accesorio->descripcion);
+        $stmt->bindValue(8, $accesorio->beneficios);
+        $stmt->bindValue(9, $accesorio->aplicacion);
+        $stmt->bindValue(10, $accesorio->image);
+        $stmt->bindValue(11, $accesorio->imagen_aplicacion_uno);
+        $stmt->bindValue(12, $accesorio->imagen_aplicacion_dos);
+        $stmt->bindValue(13, $accesorio->posicionX);
+        $stmt->bindValue(14, $accesorio->posicionY);
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
