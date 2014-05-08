@@ -216,7 +216,7 @@
         {/foreach}        
         {foreach from=$arregloGps item=gps}
           <tr id="instalacion-gps-{$gps->id}" class="item">
-            <td>{$gps->nombre}</td>
+            <td>Instalación {$gps->nombre}</td>
             <td class="cantidad">999</td>
             <td class="precioUnitario">0</td>
             <td class="precioTotal">0</td>
@@ -227,14 +227,24 @@
           <th>Tipo de Plan</th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
         {foreach from=$planes item=plan}
           <tr id="plan-{$plan->id}" class="item">
             <td>{$plan->nombre}</td>
-            <td></td>
-            <td>${$plan->precio|number_format:0}</td>
+            <td class="cantidad">999</td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>            
           </tr>
         {/foreach}
+        {foreach from=$accesorios item=accesorio}
+          <tr id="mensualidad-accesorio-{$accesorio->id}" class="item">
+            <td>Mensualidad {$accesorio->nombre}</td>
+            <td class="cantidad"></td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
+          </tr>
+        {/foreach}  
         <!-- Tipo de contrato -->
         <tr id="tipo-contrato">
           <th>Tipo de Contrato</th>          
