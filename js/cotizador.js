@@ -58,10 +58,13 @@ $(document).on('pageinit', function()
   var totalPrecioTipoPlan;
 
   // Variables Descuentos.
+  var porcentajeDescuento;
+    
+  
   var total;
   var totalEnMeses;
   var totalPlanServicio;
-  var porcentajeDescuento;
+  
   var valorDescuento;
   var totalAccesorios;
   var totalAccesoriosUnitarios;
@@ -282,30 +285,27 @@ $(document).on('pageinit', function()
               
               i = accesoriosJSON.length; // parando ciclo.
             }
-          }
-
-          // Sumando los totales
-          //totalPrecioInstalacionUnitariaAccesorios += valorInstalacionAccesorioUnitario;
-          //totalPrecioInstalacionAccesorios += valorInstalacionAccesorio;
-
-          // Actualizando cantidad y valor de la instalación del accesorio.
-          //$("#prev-cotizacion #instalacion-" + accesorioId).find(".cantidad").html(cantidadAccesorio);
-          //var numero = Number(valorInstalacionAccesorioUnitario.toFixed(1)).toLocaleString();
-          //$("#prev-cotizacion #instalacion-" + accesorioId).find(".precioUnitario").html("$" + numero);
-          //numero = Number(valorInstalacionAccesorio.toFixed(1)).toLocaleString();
-          //$("#prev-cotizacion #instalacion-" + accesorioId).find(".precioTotal").html("$" + numero);
+          }         
         }
       });
-
-
-
-
-
-
-
-
-
-
+    }
+    
+    /////// Cantidad vehiculos. La cantidad de vehículos está dada por la cantidad de unidades GPS.    
+    if (cantidadUnidadesGPS !== undefined && $.isNumeric(cantidadUnidadesGPS)) {
+      $("#numero-vehiculos .item", "#prev-cotizacion").show();
+      $("#numero-vehiculos .item", "#prev-cotizacion").html(cantidadUnidadesGPS);
+    }
+    
+    ////// Porcentaje de Descuento: El descuento depende de la variable anterior Cantidad de Vehiculos.
+    porcentajeDescuento = 0;
+    for (var i = 0; i < descuentosJSON.length; i++) {
+      if (cantidadUnidadesGPS >= descuentosJSON[i].cantidadMin &&
+              cantidadUnidadesGPS <= descuentosJSON[i].cantidadMax) {
+        $("#porcentaje-descuento .item", "#prev-cotizacion").show();
+        porcentajeDescuento = Number(descuentosJSON[i].descuento);
+        var numero = Number(porcentajeDescuento.toFixed(1)).toLocaleString();
+        $("#porcentaje-descuento .item", "#prev-cotizacion").html(numero + "%");
+      }
     }
 
     ////// Tipo Contrato    
@@ -336,28 +336,9 @@ $(document).on('pageinit', function()
         // Ocultar Duración del contrato porque se paga todo de una.
         $("#prev-cotizacion #duracion").hide();
       }
+    }   
 
-
-    }
-
-    // Cantidad vehiculos. La cantidad de vehículos está dada por la
-    // cantidad de unidades GPS.    
-    if (cantidadUnidadesGPS !== undefined && $.isNumeric(cantidadUnidadesGPS)) {
-      $("#numero-vehiculos .item", "#prev-cotizacion").show();
-      $("#numero-vehiculos .item", "#prev-cotizacion").html(cantidadUnidadesGPS);
-    }
-
-    // Descuento: El descuento depende de la variable anterior Cantidad de Vehiculos.
-    porcentajeDescuento = 0;
-    for (var i = 0; i < descuentosJSON.length; i++) {
-      if (cantidadUnidadesGPS >= descuentosJSON[i].cantidadMin &&
-              cantidadUnidadesGPS <= descuentosJSON[i].cantidadMax) {
-        $("#porcentaje-descuento .item", "#prev-cotizacion").show();
-        porcentajeDescuento = Number(descuentosJSON[i].descuento);
-        var numero = Number(porcentajeDescuento.toFixed(1)).toLocaleString();
-        $("#porcentaje-descuento .item", "#prev-cotizacion").html(numero + "%");
-      }
-    }
+    
 
     // Valor del descuento: 
     valorDescuento = Number(totalAccesorios * porcentajeDescuento / 100);

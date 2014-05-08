@@ -244,7 +244,22 @@
             <td class="precioUnitario">0</td>
             <td class="precioTotal">0</td>
           </tr>
-        {/foreach}  
+        {/foreach}          
+        <!-- Número de Vehículos -->
+        <tr id="numero-vehiculos">
+          <th>Número de vehículos</th>
+          <th class="item">25</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <!-- Porcentaje de descuento -->
+        <tr id="porcentaje-descuento">
+          <th>Porcentaje de descuento</th>
+          <th class="item">5%</th>
+          <th></th>          
+        </tr>
+        
         <!-- Tipo de contrato -->
         <tr id="tipo-contrato">
           <th>Tipo de Contrato</th>          
@@ -252,6 +267,7 @@
           <th id="contrato-2" class="item">Compra</th>
           <th></th>
         </tr>
+        
         <!-- Duración del contrato -->
         <tr id="duracion">
           <th>Duración del contrato</th>
@@ -264,19 +280,8 @@
             <td></td>
             <td class="precio">$10.000</td>
           </tr>
-        {/foreach}
-        <!-- Número de Vehículos -->
-        <tr id="numero-vehiculos">
-          <th>Número de vehículos</th>
-          <th class="item">25</th>
-          <th></th>
-        </tr>
-        <!-- Porcentaje de descuento -->
-        <tr id="porcentaje-descuento">
-          <th>Porcentaje de descuento</th>
-          <th class="item">5%</th>
-          <th></th>          
-        </tr>
+        {/foreach}        
+        
         <!-- Valor del descuento -->
         <tr id="valor-descuento">
           <th>Valor del descuento</th>
