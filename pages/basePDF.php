@@ -5,6 +5,7 @@ require_once __DIR__ . "/../libs/tcpdf/tcpdf-6_0_065.php";
 // Se hereda la clase TCPDF para personalizar la cabecera y el pie de página
 class MYPDF extends TCPDF {
 
+
   //Cabecera
   public function Header() {
     // Logo
@@ -19,6 +20,12 @@ class MYPDF extends TCPDF {
     // Separator line
     $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
     $this->line(10, 35, 195, 35);
+
+    $this->SetMargins(PDF_MARGIN_LEFT, 45, PDF_MARGIN_RIGHT);
+  }
+
+  public function getScaleFactor(){
+    return $this->k;
   }
 
   // Page footer
@@ -111,6 +118,10 @@ class MYPDF extends TCPDF {
 
   public function setTextBlue(){
     $this->setColor('text', 32, 100, 172);
+  } 
+
+  public function setTextBlack(){
+    $this->setColor('text', 25, 25, 25);
   }
 }
 
