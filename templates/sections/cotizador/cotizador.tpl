@@ -21,7 +21,7 @@
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
 
-<form name="cotizador" method="POST" target="../classes/db/cotizador_ctrl.php">
+<form name="cotizador" method="POST" action="../../../pages/sections/cotizador/generarCotizacion.php">
   <!-- Selección de Accesorios en el Camión -->
   <div id="seleccion-accesorios" data-role="page" class="container">
     {$header}
@@ -303,19 +303,11 @@
           </tr>
           <tr>
               <td>Empresa</td>
-              <td><input type="text" id="empresa" name="nombre" placeholder="Empresa"></td>
+              <td><input type="text" id="empresa" name="empresa" placeholder="Empresa"></td>
           </tr>
           <tr>
               <td>Nombre contacto</td>
               <td><input type="text" id="nombre" name="nombre" placeholder="Nombre"></td>
-          </tr>
-          <tr>
-              <td>Dirección</td>
-              <td><input type="text" id="direccion" placeholder="Dirección"></td>
-          </tr>
-          <tr>
-              <td>Teléfono</td>
-              <td><input type="text" id="telefono" name="telefono" placeholder="Teléfono"></td>
           </tr>
           <tr>
               <td>Correo</td>
@@ -323,8 +315,9 @@
           </tr>
           <tr>
               <td>Correo 2</td>
-              <td><input type="text" id="correo2" name="correo" placeholder="Correo 2"></td>
+              <td><input type="text" id="correo2" name="correo2" placeholder="Correo 2"></td>
           </tr>
+		  <tr><td colspan="2"><div id="msgError" style="text-align:center;"></div></td></tr>
           <tr>
               <td>
                   <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Generar Cotización"/>

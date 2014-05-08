@@ -309,7 +309,32 @@ $(document).on('pageinit', function()
 
   });
   /************************ INGRESO DE DATOS DE CLIENTE *************************/
+   /**VALIDACION FORMULARIO***/
+    $("form").validity(function() {
+        $("#nit").require();
+        $("#empresa").require();
+        $("#nombre").require();
+        $("#correo").require().match("email");
+        $("#correo2").match("email");
+    });
 
+    $("form").submit(function() {
+        //var contrato =$("#contrato").val();
+        //alert('envio'+contrato);
+        $("#msgError").empty();
+        if ($("#plan").val() == '-1') {
+            $("#msgError").append("No has ingresado el tipo de Plan");
+        }
+        if ($("#cantidad-unidad-gps").val() == '') {
+            $("#msgError").append("<br/>No has ingresado Cantidad de GPS");
+        }
+        if ($("#contrato").val() == '-1') {
+            $("#msgError").append("<br/>No has ingresado el tipo de Contrato");
+        }
+        else
+            return true;
+
+    });
 });
 
 function abrirPanel() {

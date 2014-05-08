@@ -214,6 +214,7 @@ body   {
   width: 80%;
 }
 .modal-accesorio {
+  margin:10%;
   min-width: 80%;
   padding: 1em;
 }
@@ -273,6 +274,9 @@ body   {
 #accesorios-contenido label {
   font-size: 14px;
   font-weight: normal;
+}
+#msgError{
+	color: rgba(255,0,0,0):
 }
 
 /* --------- Seleccion adicionales -------- */
