@@ -6,18 +6,18 @@ use stdClass;
 
 class ClienteDB{
 
-	public static function getCliente{
+	public static function getCliente() {
 		$conn = getConn();
 		$sql = "SELECT nit FROM tso_clientes WHERE nit=";
 	}
 
-	public static function agregarCliente{
+	public static function agregarCliente() {
 		$conn = getConn();
 		$sql = "INSERT INTO tso_clientes (nit,empresa,telefono,correo,correo2) 
 		VALUES (,,,,)";
 	}
 
-	public static function agregarContactoCliente{
+	public static function agregarContactoCliente() {
 		$conn = getConn();
 		$sql = "INSERT INTO tso_clientes_contactos (cliente_id,nombre)
 		VALUES (,)";
