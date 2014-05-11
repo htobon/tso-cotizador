@@ -41,6 +41,7 @@
 body   { 
   font-family: myriad_prolight, "Helvetica", Helvetica, Arial, sans-serif; 
   height: 99% !important;
+  font-size: 1.1em;
 }
 
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper , .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a{  
@@ -54,12 +55,11 @@ body   {
   background: -ms-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* IE10+ */
   background: linear-gradient(to right,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-8 */
-
-
-
-
 }
 
+.ui-popup-container {
+  left: 0 !important;
+}
 .ui-input-text input, .ui-input-search input {
   background: #fff;
 }
@@ -214,8 +214,9 @@ body   {
   width: 80%;
 }
 .modal-accesorio {
-  margin:10%;
-  min-width: 80%;
+  margin: 1% 10%;
+  min-width: 85%;
+  /* width: 95%; */
   padding: 1em;
 }
 .modal-accesorio h2 {
@@ -240,11 +241,11 @@ body   {
 }
 .modal-accesorio .imagen { 
   width: 25%;
-  float: left;
+  float: right;
 }
 .modal-accesorio .contenido {
   width: 72%;
-  float: right;
+  float: left;
 }
 
 .modal-accesorio .contenido .ui-corner-all {
@@ -276,7 +277,7 @@ body   {
   font-weight: normal;
 }
 #msgError{
-	color: rgba(255,0,0,0):
+  color: rgba(255,0,0,0):
 }
 
 /* --------- Seleccion adicionales -------- */

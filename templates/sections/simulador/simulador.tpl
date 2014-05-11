@@ -29,12 +29,14 @@
             <p class="aplicacion">{$accesorio->aplicacion}</p>
             <div class="imagenes-aplicacion" >
               {if !empty( $accesorio->imagen_aplicacion_uno ) }
-                <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_uno}.jpg"/>
-                
-              {/if}
-
+                <a href="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_uno}.jpg" target="_blank">
+                  <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_uno}.jpg"/>
+                </a>
+              {/if} 
               {if !empty( $accesorio->imagen_aplicacion_dos ) }
+              <a href="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_dos}.jpg" target="_blank">
                 <img class="accesorio-img-app" src="{$smarty.const.SMARTY_IMG_URI}/accesorios/aplicacion/{$accesorio->imagen_aplicacion_dos}.jpg"/>
+               </a>
               {/if}
             </div>
           </div>
