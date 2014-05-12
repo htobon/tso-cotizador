@@ -7,7 +7,7 @@
   </div>
   {foreach from=$accesorios item=accesorio}    
     {if $accesorio->id == -1}
-    <div id='modal-unidad-gps' class="modal-accesorio" data-role="popup">
+    <div id='modal-unidad-gps' class="modal-accesorio" data-role="popup" data-position-to="#simulador">
     {else}
     <div id='modal-accesorio-{$accesorio->id}' class="modal-accesorio" data-role="popup">
     {/if}
