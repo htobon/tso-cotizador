@@ -80,7 +80,7 @@
         <br>
         <h1>Cantidad Accesorios</h1>
         <div id="accesorios-seleccionados">
-          <a href="#tabla-cantidad-accesorios" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-mini" data-rel="popup" data-position-to="window" data-transition="pop">Definir Cantidades</a>
+          <a href="#tabla-cantidad-accesorios" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-mini" data-rel="popup" data-position-to="window" data-transition="pop">Definir Cantidades</a>          
           <div id="tabla-cantidad-accesorios" data-role="popup" class="ui-content">
             <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <table>
