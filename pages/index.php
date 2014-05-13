@@ -44,6 +44,7 @@ function irFormularioIniciarSesion() {
 }
 
 function irMenuPrincipal($usuario) {
+        
     global $smarty;
     $smarty->assign("usuario", $usuario);
     $smarty->display("index-menu.tpl");
