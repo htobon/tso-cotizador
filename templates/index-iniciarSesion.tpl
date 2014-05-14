@@ -14,7 +14,7 @@
             </div>
             
         {/if}
-        <form method="post" action="/pages/index.php" data-ajax="false">
+        <form method="post" action="pages/index.php" data-ajax="false">
             <fieldset>
                 <legend>Iniciar sesión</legend> 
                 <label>Email:</label> <input type="text" name="correo" placeholder="Correo"><br>

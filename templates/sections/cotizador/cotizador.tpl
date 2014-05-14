@@ -15,7 +15,7 @@
   var duracionesJSON = {$duraciones|@json_encode};
   var descuentosJSON = {$descuentos|@json_encode};
   var accesoriosJSON = {$accesorios|@json_encode};
-  
+
 </script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
@@ -75,7 +75,7 @@
           {/foreach}
         </select>
       </div>
-        
+
       <div id="cantidades" class="seccion">
         <br>
         <h1>Cantidad Accesorios</h1>
@@ -102,9 +102,9 @@
                   </tr>
                 {/foreach}
                 <tr>
-                    <td colspan="2">
-                        <a href="#" data-rel="back" class="ui-btn ui-shadow ui-btn-a">Guardar</a>
-                    </td>
+                  <td colspan="2">
+                    <a href="#" data-rel="back" class="ui-btn ui-shadow ui-btn-a">Guardar</a>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -257,31 +257,27 @@
         <tr id="porcentaje-descuento">
           <th>Porcentaje de descuento</th>
           <th class="item">5%</th>
-          <th></th>          
+          <th></th>
+          <th></th>
         </tr>
-        
+
         <!-- Tipo de contrato -->
         <tr id="tipo-contrato">
           <th>Tipo de Contrato</th>          
           <th id="contrato-1" class="item">Comodato</th>
           <th id="contrato-2" class="item">Compra</th>
           <th></th>
+          <th></th>
         </tr>
-        
+
         <!-- Duración del contrato -->
         <tr id="duracion">
           <th>Duración del contrato</th>
+          <th class="cantidad">0 meses</th>
           <th></th>
           <th></th>
-        </tr>
-        {foreach from=$duraciones item=duracion}
-          <tr id="duracion-{$duracion->id}" class="item">
-            <td>{$duracion->cantidadMeses} meses</td>
-            <td></td>
-            <td class="precio">$10.000</td>
-          </tr>
-        {/foreach}        
-        
+        </tr>             
+
         <!-- Valor del descuento -->
         <tr id="valor-descuento">
           <th>Valor del descuento</th>
@@ -312,35 +308,35 @@
     <div class="row content" data-role="content">
       <h1>Datos de Contacto:</h1>
       <table id="tbldatos-cliente">
-          <tr>
-              <td>Nit</td>
-              <td><input type="text" id="nit" name="Nit" placeholder="Nombre"></td>
-          </tr>
-          <tr>
-              <td>Empresa</td>
-              <td><input type="text" id="empresa" name="empresa" placeholder="Empresa"></td>
-          </tr>
-          <tr>
-              <td>Nombre contacto</td>
-              <td><input type="text" id="nombre" name="nombre" placeholder="Nombre"></td>
-          </tr>
-          <tr>
-              <td>Correo</td>
-              <td><input type="text" id="correo" name="correo" placeholder="Correo"></td>
-          </tr>
-          <tr>
-              <td>Correo 2</td>
-              <td><input type="text" id="correo2" name="correo2" placeholder="Correo 2"></td>
-          </tr>
-		  <tr><td colspan="2"><div id="msgError" style="text-align:center;"></div></td></tr>
-          <tr>
-              <td>
-                  <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Generar Cotización"/>
-              </td>
-              <td>
-                  <a href="#seleccion-accesorios" class="ui-btn">Volver</a>
-              </td>
-          </tr>
+        <tr>
+          <td>Nit</td>
+          <td><input type="text" id="nit" name="Nit" placeholder="Nombre"></td>
+        </tr>
+        <tr>
+          <td>Empresa</td>
+          <td><input type="text" id="empresa" name="empresa" placeholder="Empresa"></td>
+        </tr>
+        <tr>
+          <td>Nombre contacto</td>
+          <td><input type="text" id="nombre" name="nombre" placeholder="Nombre"></td>
+        </tr>
+        <tr>
+          <td>Correo</td>
+          <td><input type="text" id="correo" name="correo" placeholder="Correo"></td>
+        </tr>
+        <tr>
+          <td>Correo 2</td>
+          <td><input type="text" id="correo2" name="correo2" placeholder="Correo 2"></td>
+        </tr>
+        <tr><td colspan="2"><div id="msgError" style="text-align:center;"></div></td></tr>
+        <tr>
+          <td>
+            <input type="submit" id="enviar" name="enviar" class="ui-btn" value="Generar Cotización"/>
+          </td>
+          <td>
+            <a href="#seleccion-accesorios" class="ui-btn">Volver</a>
+          </td>
+        </tr>
       </table>
     </div>
     <div id="sidebar" class="sidebar"></div>  
