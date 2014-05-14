@@ -39,7 +39,7 @@ $(document).on('pageinit', function()
 
 
     // Validar Cantidades Ingresadas de los Accesorios Seleccionados
-    $("input[name^=cantidad-accesorio]").bind('keyup change', function(e) {
+    $("input[name*=cantidad-accesorio]").bind('keyup change', function(e) {
 
         if (isJqmGhostClick(e)) {
             return false;

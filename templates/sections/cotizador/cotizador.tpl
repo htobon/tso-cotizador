@@ -21,7 +21,8 @@
 <script type="text/javascript" src="{$smarty.const.SMARTY_ROOT_URI}/js/cotizador.js"></script>
 
 
-<form name="cotizador" method="POST" action="../../../pages/sections/cotizador/generarCotizacion.php">
+<!--form name="cotizador" method="POST" action="../../../pages/sections/cotizador/generarCotizacion.php"-->
+<form name="cotizador" data-ajax="false" method="POST" action="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/generarCotizacion.php">
   <!-- Selección de Accesorios en el Camión -->
   <div id="seleccion-accesorios" data-role="page" class="container">
     {$header}
@@ -98,7 +99,11 @@
                 {foreach from=$accesorios item=accesorio}
                   <tr id="accesorio-{$accesorio->id}" class="item">
                     <th><label for="cantidad-accesorio-{$accesorio->id}">{$accesorio->nombre}</label></th>
-                    <th><input id="cantidad-accesorio-{$accesorio->id}" name="cantidad-accesorio-{$accesorio->id}" type="number" data-clear-btn="false" data-mini="true" value=""></th>
+                    <!--th><input id="cantidad-accesorio-{$accesorio->id}" name="cantidad-accesorio-{$accesorio->id}" type="number" data-clear-btn="false" data-mini="true" value=""></th-->
+                    <th>
+                        <input id="cantidad-accesorio-{$accesorio->id}" name="accesorios[{$accesorio->id}][cantidad-accesorio]" type="number" data-clear-btn="false" data-mini="true" value="">
+                        <input id="" name="accesorios[{$accesorio->id}][id]" type="hidden" data-clear-btn="false" data-mini="true" value="{$accesorio->id}">
+                    </th>
                   </tr>
                 {/foreach}
                 <tr>
@@ -310,7 +315,7 @@
       <table id="tbldatos-cliente">
         <tr>
           <td>Nit</td>
-          <td><input type="text" id="nit" name="Nit" placeholder="Nombre"></td>
+          <td><input type="text" id="nit" name="nit" placeholder="Nombre"></td>
         </tr>
         <tr>
           <td>Empresa</td>
