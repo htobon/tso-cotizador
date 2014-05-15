@@ -3,10 +3,13 @@
 {include file='header.tpl'} 
 
 <div id="menu-principal" class="ui-body-a ui-body ui-corner-all">
-
-    <div id="nav-bar"> 
-        <h3>{$mensajeCotizacion}</h3>        
-    </div><!-- /navbar -->    
+    
+    <div id="nav-bar" class="center_content"> 
+        <h4>{$mensajeCotizacion}</h4>
+        <a data-ajax="false" target="_blank" rel="external" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/pdfCotizacion.php?cotizacion_id={$cotizacion_id}" data-icon="star">
+            <img src="{$smarty.const.SMARTY_ROOT_URI}/images/thumb_pdf.png" alt="Ver PDF">
+        </a>  
+    </div><!-- /navbar -->      
 </div>
 
 {include file='footer.tpl'}

@@ -1,6 +1,9 @@
 <?php
+
 namespace db;
-require_once (__DIR__."/../../config/db.php");
+
+require_once (__DIR__ . "/../../config/db.php");
+
 use stdClass;
 
 /**
@@ -9,6 +12,7 @@ use stdClass;
  * @author hdcarvajal
  */
 class UnidadesGpsDB {
+
     /**
      * [getUnidadesGps Retorna todas las unidades gps activas presentes en la bd]
      * @return array(stdClass) Un arreglo de clases unidadGPS con la informacion
@@ -23,7 +27,7 @@ class UnidadesGpsDB {
         $unidadesGps = array();
 
         foreach ($gpsData as $gps) {
-            if(isset($gps)){
+            if (isset($gps)) {
                 $unidadGps = new stdClass();
                 $unidadGps->id = $gps["id"];
                 $unidadGps->nombre = $gps["nombre"];
@@ -40,6 +44,31 @@ class UnidadesGpsDB {
         return (count($unidadesGps) <= 0 ) ? null : $unidadesGps;
     }
 
+    static function getUnidadesGpsPorId($id) {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_unidades_gps WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $gps = $stmt->fetch();
+
+        if (isset($gps)) {
+            $unidadGps = new stdClass();
+            $unidadGps->id = $gps["id"];
+            $unidadGps->nombre = $gps["nombre"];
+            $unidadGps->codUnidad = $gps["cod_unidad"];
+            $unidadGps->codInstalacion = $gps["cod_instalacion"];
+            $unidadGps->precioInstalacion = $gps["precio_instalacion"];
+            $unidadGps->precioUnidad = $gps["precio_unidad"];
+            $unidadGps->descripcion = $gps["descripcion"];
+            $unidadGps->image = $gps["image"];
+
+            return $unidadGps;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * desactivarUnidad Desactiva la unidad gps indentificada con el 
      * parametro recibido.
@@ -47,7 +76,7 @@ class UnidadesGpsDB {
      * @return [boolean] - retorna true si la unidad fue desactivado o 
      *                     falso si no se hizo
      */
-    static function desactivarUnidad($unidadID){
+    static function desactivarUnidad($unidadID) {
         $conn = getConn();
         $sql = "UPDATE tso_unidades_gps SET esta_activo = FALSE WHERE id = ?";
         $values = array($unidadID);
@@ -66,7 +95,7 @@ class UnidadesGpsDB {
      * @param  [array] $unidad [contiene todos los atributos de la unidad GPS]
      * @return [boolean]       [true si la unidad fue actualizada, false si no]
      */
-    static function actualizarUnidad($unidad){
+    static function actualizarUnidad($unidad) {
         $conn = getConn();
         // Insertamos el nuevo registro
         $agregado = self::agregarUnidad($unidad);
@@ -81,7 +110,7 @@ class UnidadesGpsDB {
      * @param  [stdClass]   $unidad [valores de la unidad gps]
      * @return [boolean]    [true si la unidad gps fue agregada correctamente, false si no]
      */
-    static function agregarUnidad($unidad){
+    static function agregarUnidad($unidad) {
         $sql = 'INSERT INTO tso_unidades_gps (nombre, cod_unidad, cod_instalacion, precio_instalacion, ';
         $sql .= 'precio_unidad, descripcion, image) VALUES (?, ?, ?, ?, ?, ?, ? );';
 
@@ -99,4 +128,5 @@ class UnidadesGpsDB {
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
     }
+
 }

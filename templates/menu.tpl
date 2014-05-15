@@ -6,7 +6,7 @@
             {if $usuario->rol != "Simulador"}
             <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/cotizador.php" data-icon="star"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b2.png" alt="Cotizador"></a>
             {/if}
-        <a data-ajax="false" href="#" data-icon="star"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b3.png" alt="SalesForce"></a> 
+        <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/generarCotizacion.php" data-icon="star"><img src="{$smarty.const.SMARTY_ROOT_URI}/images/b3.png" alt="SalesForce"></a> 
     </div><!-- /navbar -->
     {if $usuario->rol == "Admin"}
         <a data-ajax="false" href="{$smarty.const.SMARTY_ROOT_URI}/sections/admin/admin.php" data-icon="gear">Admin</a>

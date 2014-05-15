@@ -60,36 +60,65 @@ class CotizacionDB {
         return ($inserted_rows > 0);
     }
 
-    public static function getCotizacion() {
+    public static function getCotizacion($cotizacionId) {
         $conn = getConn();
         $sql = "SELECT * FROM tso_cotizaciones WHERE id = ?";
         $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $cotizacionId);
         $stmt->execute();
 
-        $cotizacion = $stmt->fetchAll();
+        $_cotizacion = $stmt->fetch();
 
-        return $cotizacion;
+        if (isset($_cotizacion)) {
+            $cotizacion = new stdClass();
+            $cotizacion->id = $_cotizacion['id'];
+            $cotizacion->usuario_id = $_cotizacion['usuario_id'];
+            $cotizacion->cliente_id = $_cotizacion['cliente_id'];
+            $cotizacion->unidad_gps_id = $_cotizacion['unidad_gps_id'];
+            $cotizacion->tipo_contrato_id = $_cotizacion['tipo_contrato_id'];
+            $cotizacion->plan_servicio_id = $_cotizacion['plan_servicio_id'];
+            $cotizacion->descuento_id = $_cotizacion['descuento_id'];
+            $cotizacion->duracion_contrato_id = $_cotizacion['duracion_contrato_id'];
+            $cotizacion->cantidad_vehiculos = $_cotizacion['cantidad_vehiculos'];
+            $cotizacion->fecha = $_cotizacion['fecha'];
+            $cotizacion->serial = $_cotizacion['serial'];
+
+            return $cotizacion;
+        } else {
+            return NULL;
+        }
     }
 
-    public static function getAccesoriosCotizados() {
+    public static function getAccesoriosCotizados($cotizacionId) {
         $conn = getConn();
         $sql = "SELECT * FROM tso_accesorios_cotizados WHERE cotizacion_id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(1, $gpsID);
+        $stmt->bindValue(1, $cotizacionId);
         $stmt->execute();
+        $accesorios = array();
+        $_accesorioCotizado = $stmt->fetchAll();
 
-        $accesorioCotizado = $stmt->fetchAll();
+        foreach ($_accesorioCotizado as $a) {
+            if (isset($a)) {
+                $accesorio = new stdClass();
+                $accesorio->id = $a["id"];
+                $accesorio->cotizacion_id = $a["cotizacion_id"];
+                $accesorio->accesorio_id = $a["accesorio_id"];
+                $accesorio->cantidad_accesorio = $a["cantidad_accesorio"];
+                array_push($accesorios, $accesorio);
+            }
+        }
 
-        return $accesorioCotizado;
+        return (count($accesorios) <= 0 ) ? null : $accesorios;
     }
 
-    public static function actualizarSerialCotizacion($cotizacion_id, $serial) {
-        
+    public static function actualizarSerialCotizacion($cotizacionId, $serial) {
+
         $conn = getConn();
         $sql = "UPDATE tso_cotizaciones set serial= ? where id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $serial);
-        $stmt->bindValue(2, $cotizacion_id);
+        $stmt->bindValue(2, $cotizacionId);
         $inserted_rows = $stmt->execute();
 
         return ($inserted_rows > 0) ? true : false;

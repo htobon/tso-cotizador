@@ -1,6 +1,9 @@
 <?php
+
 namespace db;
-require_once (__DIR__."/../../config/db.php");
+
+require_once (__DIR__ . "/../../config/db.php");
+
 use stdClass;
 
 /**
@@ -13,6 +16,7 @@ class PlanesDB {
     /*
      * Busca todos los planes de la base de datos.
      */
+
     public static function getPlanes() {
         $conn = getConn();
         $sql = "SELECT * FROM tso_planes_servicio";
@@ -20,21 +24,43 @@ class PlanesDB {
         $stmt->execute();
         $planesData = $stmt->fetchAll();
         $planes = array();
-        foreach ($planesData as $p ) {
-            if(isset($p)){
+        foreach ($planesData as $p) {
+            if (isset($p)) {
                 $plan = new stdClass();
                 $plan->id = $p["id"];
                 $plan->nombre = $p["nombre"];
                 $plan->codigo = $p["codigo"];
                 $plan->precio = $p["precio"];
                 $plan->estaActivo = $p["esta_activo"];
-                $plan->fechaCreacion = $p["fecha_creacion"];                
+                $plan->fechaCreacion = $p["fecha_creacion"];
                 array_push($planes, $plan);
             }
         }
         return (count($planes) <= 0 ) ? null : $planes;
     }
-    
+
+    public static function getPlanePorId($id) {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_planes_servicio where id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $p = $stmt->fetch();
+        
+        if (isset($p)) {
+            $plan = new stdClass();
+            $plan->id = $p["id"];
+            $plan->nombre = $p["nombre"];
+            $plan->codigo = $p["codigo"];
+            $plan->precio = $p["precio"];
+            $plan->estaActivo = $p["esta_activo"];
+            $plan->fechaCreacion = $p["fecha_creacion"];
+            return $plan;
+        } else {
+            return null;
+        }
+    }
+
     public static function getPlanesActivos() {
         $conn = getConn();
         $sql = "SELECT * FROM tso_planes_servicio WHERE esta_activo = 1";
@@ -42,15 +68,15 @@ class PlanesDB {
         $stmt->execute();
         $planesData = $stmt->fetchAll();
         $planes = array();
-        foreach ($planesData as $p ) {
-            if(isset($p)){
+        foreach ($planesData as $p) {
+            if (isset($p)) {
                 $plan = new stdClass();
                 $plan->id = $p["id"];
                 $plan->nombre = $p["nombre"];
                 $plan->codigo = $p["codigo"];
                 $plan->precio = $p["precio"];
                 $plan->estaActivo = $p["esta_activo"];
-                $plan->fechaCreacion = $p["fecha_creacion"];                
+                $plan->fechaCreacion = $p["fecha_creacion"];
                 array_push($planes, $plan);
             }
         }
@@ -64,7 +90,7 @@ class PlanesDB {
      * @return [boolean] - retorna true si el plab fue desactivado o 
      *                     falso si no se hizo
      */
-    public static function desactivarPlan($planID){
+    public static function desactivarPlan($planID) {
         $conn = getConn();
         $sql = "UPDATE tso_planes_servicio SET esta_activo = FALSE WHERE id = ?";
         $values = array($planID);
@@ -84,7 +110,7 @@ class PlanesDB {
      * @return [boolean]          [true si el accesorio fue actualizado, 
      *                             false si no]
      */
-    public static function actualizarPlan($plan){
+    public static function actualizarPlan($plan) {
         $conn = getConn();
         // Insertamos el nuevo registro
         self::agregarPlan($plan);
@@ -100,11 +126,11 @@ class PlanesDB {
      * @return [boolean]          [true si el plan fue agregado 
      *                             correctamente, false si no]
      */
-    static function agregarPlan($plan){
+    static function agregarPlan($plan) {
 
         /*
-        Aqui se debe pasar de atributos stdClass a arreglo
-        y escapar las entradas!!!
+          Aqui se debe pasar de atributos stdClass a arreglo
+          y escapar las entradas!!!
          */
         $conn = getConn();
 
@@ -113,8 +139,9 @@ class PlanesDB {
         unset($plan["esta_activo"]);
         unset($plan["fecha_creacion"]);
 
-        $conn->insert("tso_planes_servicio", $plan );
+        $conn->insert("tso_planes_servicio", $plan);
 
         return (count($plan) <= 0 ) ? null : $plan;
     }
+
 }

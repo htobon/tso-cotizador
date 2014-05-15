@@ -1,6 +1,8 @@
 <?php
+
 namespace db;
-require_once (__DIR__."/../../config/db.php");
+
+require_once (__DIR__ . "/../../config/db.php");
 
 use stdClass;
 use db\AccesoriosGpsDB;
@@ -14,6 +16,7 @@ class AccesoriosDB {
     /*
      * Busca todos los accesorios independientemente si están activos o no.
      */
+
     public static function getAccesorios() {
         $conn = getConn();
         $sql = "SELECT * FROM tso_accesorios";
@@ -22,8 +25,8 @@ class AccesoriosDB {
         $accesoriosData = $stmt->fetchAll();
         $accesorios = array();
 
-        foreach ($accesoriosData as $a ) {
-            if(isset($a)){
+        foreach ($accesoriosData as $a) {
+            if (isset($a)) {
                 $accesorio = new stdClass();
                 $accesorio->id = $a["id"];
                 $accesorio->nombre = $a["nombre"];
@@ -47,7 +50,43 @@ class AccesoriosDB {
 
         return (count($accesorios) <= 0 ) ? null : $accesorios;
     }
-    
+
+    public static function getAccesoriosPorId($id) {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_accesorios where id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $a = $stmt->fetch();
+
+
+        if (isset($a)) {
+            $accesorio = new stdClass();
+            $accesorio->id = $a["id"];
+            $accesorio->nombre = $a["nombre"];
+            $accesorio->codAccesorio = $a["cod_accesorio"];
+            $accesorio->codInstalacion = $a["cod_instalacion"];
+            $accesorio->precioInstalacion = $a["precio_instalacion"];
+            $accesorio->precioAccesorio = $a["precio_accesorio"];
+            $accesorio->precioInstalacion = $a["precio_instalacion"];
+            $accesorio->precioMensualidad = $a["precio_mensualidad"];
+            $accesorio->descripcion = $a["descripcion"];
+            $accesorio->beneficios = $a["beneficios"];
+            $accesorio->aplicacion = $a["aplicacion"];
+            $accesorio->image = $a["imagen"];
+            $accesorio->imagen_aplicacion_uno = $a["imagen_aplicacion_uno"];
+            $accesorio->imagen_aplicacion_dos = $a["imagen_aplicacion_dos"];
+            $accesorio->posicionX = $a["posicion_x"];
+            $accesorio->posicionY = $a["posicion_y"];
+            return $accesorio;
+        }else{
+            return null;
+        }
+
+
+        return (count($accesorios) <= 0 ) ? null : $accesorios;
+    }
+
     /**
      * Busca todos los accesorios activos de la base de datos.
      * @return type
@@ -60,8 +99,8 @@ class AccesoriosDB {
         $accesoriosData = $stmt->fetchAll();
         $accesorios = array();
 
-        foreach ($accesoriosData as $a ) {
-            if(isset($a)){
+        foreach ($accesoriosData as $a) {
+            if (isset($a)) {
                 $accesorio = new stdClass();
                 $accesorio->id = $a["id"];
                 $accesorio->nombre = $a["nombre"];
@@ -85,7 +124,7 @@ class AccesoriosDB {
 
         return (count($accesorios) <= 0 ) ? null : $accesorios;
     }
-    
+
     /**
      * Busca todos los accesorios activos con el código dado.
      * @return type
@@ -102,7 +141,7 @@ class AccesoriosDB {
         $accesorio = new stdClass();
         $a = $accesorioData[0];
 
-        if(!empty($a)){
+        if (!empty($a)) {
             $accesorio->id = $a["id"];
             $accesorio->nombre = $a["nombre"];
             $accesorio->codAccesorio = $a["cod_accesorio"];
@@ -131,7 +170,7 @@ class AccesoriosDB {
      * @return [boolean] - retorna true si el accesorio fue desactivado o 
      *                     falso si no se hizo
      */
-    static function desactivarAccesorio($accesorioID){
+    static function desactivarAccesorio($accesorioID) {
         $conn = getConn();
         $sql = "UPDATE tso_accesorios SET esta_activo = FALSE WHERE id = ?";
         $values = array($accesorioID);
@@ -151,7 +190,7 @@ class AccesoriosDB {
      * @return [boolean]          [true si el accesorio fue actualizado, 
      *                             false si no]
      */
-    static function actualizarAccesorio($accesorio){        
+    static function actualizarAccesorio($accesorio) {
         // Insertamos el nuevo registro
         $agregado = self::agregarAccesorio($accesorio);
         // Desactivamos el accesorio actual
@@ -163,8 +202,8 @@ class AccesoriosDB {
         $accesorioActualizado = self::getAccesorioActivoPorCodigo($accesorio->codAccesorio);
 
         // Actualizamos las restricciones con el nuevo id y las agregamos a la bd
-        for($i=0; $i < count($restricciones); $i++){
-            $restricciones[$i]["accesorio_id"] = $accesorioActualizado ->id;
+        for ($i = 0; $i < count($restricciones); $i++) {
+            $restricciones[$i]["accesorio_id"] = $accesorioActualizado->id;
         }
         $restriccionesAgregadas = AccesoriosGpsDB::agregarRestricciones($restricciones);
 
@@ -176,7 +215,7 @@ class AccesoriosDB {
      * @param  [stdClass]   $accesorio [valores del accesorio]
      * @return [boolean]    [true si el accesorio fue agregado correctamente, false si no]
      */
-    static function agregarAccesorio($accesorio){
+    static function agregarAccesorio($accesorio) {
         $sql = 'INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion, precio_instalacion, ';
         $sql .= 'precio_accesorio, precio_mensualidad, descripcion, beneficios, aplicacion, imagen, imagen_aplicacion_uno, ';
         $sql .= 'imagen_aplicacion_dos, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
@@ -202,4 +241,5 @@ class AccesoriosDB {
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
     }
+
 }

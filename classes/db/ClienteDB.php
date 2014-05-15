@@ -11,20 +11,41 @@ use stdClass;
 class ClienteDB {
 
     public static function getCliente($nit) {
-        
+
         $conn = getConn();
         $sql = "SELECT * FROM tso_clientes WHERE nit= ?";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $nit);
         $stmt->execute();
         $c = $stmt->fetch();
-        
+
         if (isset($c)) {
             $cliente = new stdClass();
             $cliente->id = $c["id"];
             $cliente->nit = $c["nit"];
             $cliente->nombre_cliente = $c["nombre_cliente"];
-            $cliente->telefono = $c["telefono"];            
+            $cliente->telefono = $c["telefono"];
+            return $cliente;
+        } else {
+            return NULL;
+        }
+    }
+
+    public static function getClientePorId($id) {
+
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_clientes WHERE id= ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $c = $stmt->fetch();
+
+        if (isset($c)) {
+            $cliente = new stdClass();
+            $cliente->id = $c["id"];
+            $cliente->nit = $c["nit"];
+            $cliente->nombre_cliente = $c["nombre_cliente"];
+            $cliente->telefono = $c["telefono"];
             return $cliente;
         } else {
             return NULL;

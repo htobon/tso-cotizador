@@ -82,6 +82,9 @@ body   {
   /*margin-right: 80px;*/
 }
 
+.center_content {
+    text-align: center;
+}
 /* ##################### HEADER ######################## */
 
 .top-bar {
