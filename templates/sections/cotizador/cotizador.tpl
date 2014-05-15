@@ -313,8 +313,50 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tr id="descuento-plan-{$plan->id}" class="item">
-                    <td>{$plan->nombre}</td>
+                <tr id="total-unidad-gps" class="item">
+                    <td>Total Unidad GPS</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-accesorios" class="item">
+                    <td>Total Accesorios</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-instalaciones" class="item">
+                    <td>Total Instalaciones</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-plan-sin-descuento" class="item">
+                    <td>Valor Plan Sin Descuento</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-plan-comodato-sin-descuento" class="item">
+                    <td>Valor Plan COMODATO Sin Descuento</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-descuento" class="item">
+                    <td>Descuento</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>               
+                <tr id="total-plan-mensual" class="item">
+                    <td>Valor Plan Mensual</td>
+                    <td class="cantidad">999</td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-plan-comodato-mensual" class="item">
+                    <td>Valor Plan COMODATO Mensual</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
