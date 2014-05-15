@@ -79,6 +79,8 @@ $(document).on('pageinit', function()
     // Variables Descuentos.
     var porcentajeDescuento;
     var cantidadMesesComodato;
+    var totalDescuentosUnitarios;
+    var totalDescuentos;
 
 
     var total;
@@ -347,9 +349,6 @@ $(document).on('pageinit', function()
                     }
                 }
                 $("#prev-cotizacion #duracion").find(".cantidad").html(cantidadMesesComodato + " meses");
-                totalEnMeses = ((totalAccesorios / cantidadMesesComodato) + totalPlanServicio);
-                //var numero = Number(totalEnMeses.toFixed(1)).toLocaleString();
-                //$("#prev-cotizacion #duracion-" + mesesId).find(".precio").html("$" + numero);
             } else {
                 // Si el tipo de contato es COMPRA.
                 // 
@@ -357,6 +356,70 @@ $(document).on('pageinit', function()
                 $("#prev-cotizacion #duracion").hide();
             }
         }
+
+        ////// Descuentos.
+        totalDescuentosUnitarios = 0;
+        totalDescuentos = 0;
+        // Calculando descuento del tipo de Plan.
+        var planServicioId = $("#plan", "#adicionales").val();
+        if (planServicioId !== -1) {
+            // Mostrando el descuento del plan de servicio.
+            $("#prev-cotizacion #descuento-plan-" + planServicioId).show();
+            // Buscando el precio del plan para usarlo posteriormente.
+            for (var i = 0; i < planesJSON.length; i++) {
+                if (planesJSON[i].id === planServicioId) {
+                    // Aplicando cantidad del plan dependiendo de las unidades GPS.
+                    $("#prev-cotizacion #descuento-plan-" + planServicioId).find(".cantidad").html(cantidadUnidadesGPS);
+
+                    // Calculando el descuento del tipo de plan.
+                    var descuentoTipoPlan = Number(planesJSON[i].precio) * porcentajeDescuento / 100;
+                    totalDescuentosUnitarios += descuentoTipoPlan;
+                    var numero = Number(descuentoTipoPlan.toFixed(1)).toLocaleString();
+                    $("#prev-cotizacion #descuento-plan-" + planServicioId).find(".precioUnitario").html("$" + numero);
+
+                    var descuentoTipoPlanTotal = descuentoTipoPlan * cantidadUnidadesGPS;
+                    totalDescuentos += descuentoTipoPlanTotal;
+                    numero = Number(descuentoTipoPlanTotal.toFixed(1)).toLocaleString();
+                    $("#prev-cotizacion #descuento-plan-" + planServicioId).find(".precioTotal").html("$" + numero);
+
+                    i = planesJSON.length; // Parando ciclo.
+                }
+            }
+        }
+        // Calculando descuentos de cada una de las mensualidades.
+        accesoriosIds.each(function() {
+            // id = accesorio-##
+            // Accesorio id unidad-gps es el GPS y no se necesita aquí.
+            var accesorioId = $(this).attr("id");
+            if ($(this).attr("id") !== "unidad-gps") {
+                // Mostrando el item de mensualidad accesorio.
+                $("#prev-cotizacion #descuento-mensualidad-" + accesorioId).show();
+
+                // Calculando la cantidad de accesorios.
+                var cantidadAccesorio = $("#tabla-cantidad-accesorios #" + accesorioId).find("input").val();
+
+                // accesoriosJSON es una variable en JSON que proviene desde el TPL.
+                // Encontrando el accesorio y calculando el valor por cantidad.
+                for (var i = 0; i < accesoriosJSON.length; i++) {
+                    if ("accesorio-" + accesoriosJSON[i].id === accesorioId) {
+                        // Aplicando valores a la interfaz.
+                        $("#prev-cotizacion #descuento-mensualidad-" + accesorioId).find(".cantidad").html(cantidadAccesorio);
+
+                        var descuentoMensualidadUnitario = Number(accesoriosJSON[i].precioMensualidad) * porcentajeDescuento / 100;
+                        totalDescuentosUnitarios += descuentoMensualidadUnitario;
+                        var numero = Number(descuentoMensualidadUnitario.toFixed(1)).toLocaleString();
+                        $("#prev-cotizacion #descuento-mensualidad-" + accesorioId).find(".precioUnitario").html("$" + numero);
+
+                        var descuentoMensualidadTotal = descuentoMensualidadUnitario * cantidadAccesorio;
+                        totalDescuentos += descuentoMensualidadTotal;
+                        numero = Number(descuentoMensualidadTotal.toFixed(1)).toLocaleString();
+                        $("#prev-cotizacion #descuento-mensualidad-" + accesorioId).find(".precioTotal").html("$" + numero);
+
+                        i = accesoriosJSON.length; // parando ciclo.
+                    }
+                }
+            }
+        });
 
 
 

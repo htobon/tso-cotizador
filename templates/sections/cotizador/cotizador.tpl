@@ -249,7 +249,7 @@
             <td class="precioUnitario">0</td>
             <td class="precioTotal">0</td>
           </tr>
-        {/foreach}          
+        {/foreach}
         <!-- Número de Vehículos -->
         <tr id="numero-vehiculos">
           <th>Número de vehículos</th>
@@ -284,11 +284,28 @@
         </tr>             
 
         <!-- Valor del descuento -->
-        <tr id="valor-descuento">
-          <th>Valor del descuento</th>
-          <th class="item">$9,985</th>
-          <th></th>          
+        <tr id="descuentos">
+          <th>Descuentos</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
+        {foreach from=$planes item=plan}
+          <tr id="descuento-plan-{$plan->id}" class="item">
+            <td>{$plan->nombre}</td>
+            <td class="cantidad">999</td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>            
+          </tr>
+        {/foreach}
+        {foreach from=$accesorios item=accesorio}
+          <tr id="descuento-mensualidad-accesorio-{$accesorio->id}" class="item">
+            <td>Mensualidad {$accesorio->nombre}</td>
+            <td class="cantidad"></td>
+            <td class="precioUnitario">0</td>
+            <td class="precioTotal">0</td>
+          </tr>
+        {/foreach}
         <!-- Valor del descuento -->
         <tr id="valor-unidad">
           <th>Valor Unidad</th>
