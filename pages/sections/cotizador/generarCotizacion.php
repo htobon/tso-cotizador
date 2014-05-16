@@ -12,7 +12,7 @@ use utils\Sesion;
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
-   
+
     $cotizacion_id = 0;
     $mensajeCotizacion = "";
 
@@ -24,6 +24,21 @@ if (Sesion::sesionActiva()) {
 
         $usuario = UsuarioDB::getUsuarioPorID(Sesion::getVariable(Constantes::SESION_USER_ID));
         $cliente = ClienteDB::getCliente($datos["nit"]);
+
+
+        // Si el Cliente no Existe lo creo
+        if ($cliente->id == null) {
+            
+            $cliente->nit = $datos["nit"];
+            $cliente->nombre = $datos["empresa"];
+            
+            $_c = ClienteDB::agregarCliente($cliente);
+            if($_c>0){
+                $cliente = ClienteDB::getCliente($datos["nit"]);
+            }            
+        }
+
+       
 
         // Cabecera Cotizacion
         $cotizacion["usuario_id"] = $usuario->id;
@@ -54,8 +69,8 @@ if (Sesion::sesionActiva()) {
 
             // Guardar cabecera cotizacion
             $cotizacion_id = CotizacionDB::agregarCotizacion($cotizacion);
-            
-            $serial = $usuario->codigo.'-'.$cotizacion_id;
+
+            $serial = $usuario->codigo . '-' . $cotizacion_id;
             $actualizarSerial = CotizacionDB::actualizarSerialCotizacion($cotizacion_id, $serial);
             //Validar qse guardo la cotizacion y actualizo el serial
             if ($cotizacion_id > 0 && $actualizarSerial) {

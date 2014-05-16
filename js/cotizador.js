@@ -56,6 +56,78 @@ $(document).on('pageinit', function()
     });
 
 
+    //buscar cliente por Nit
+    /*$('#nit').on('change', function(e) {
+        console.log('Search Client');
+        $.ajax({
+            url: 'actions.php',
+            data: {action: 'buscarClientePorNit', nit: $(this).val()},
+            dataType: 'json',
+            method: 'post',
+            success: function(response) {
+                $('#empresa').val("");
+                if (response.id !== null) {
+                    $('#empresa').val(response.nombre);
+                }
+            },
+            complete: function() {
+            },
+            error: function(e) {
+                console.log('error', e);
+            }
+        });
+    });*/
+
+    $("#autocomplete").on("filterablebeforefilter", function(e, data) {
+
+        //console.log('here');
+        var $ul = $(this);
+        var $input = $(data.input);
+        var value = $input.val();
+        var html = "";
+
+        $('#nit').val("");
+        $('#empresa').val($input.val());
+        $ul.html("");
+
+        // SI Ingresan Mas de Dos Caracteres-> Empiece a buscar
+        if (value && value.length > 2) {
+            //console.log('here');
+            $ul.html("<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>");
+            $ul.listview("refresh");
+
+            $.ajax({
+                url: 'actions.php',
+                data: {action: 'buscarClientePorNombre', empresa: $input.val()},
+                dataType: 'json',
+                method: 'post',
+            })
+                    .then(function(response) {
+                        //console.log(response);
+                        if (response !== null) {
+                            $.each(response, function(i, val) {
+                                //console.log(val);
+                                html += "<li id='" + val.nit + "'>" + val.nombre + "</li>";
+                            });
+                            $ul.html(html);
+                            $ul.listview("refresh");
+                            $ul.trigger("updatelayout");
+                        }
+                    });
+        }
+
+
+    });
+
+    //Cuando le da Click a la empresa seleccionada
+    $(document).on("click", "#autocomplete li", function() {
+        var selectedItem = $(this).html();
+        $('#nit').val($(this).attr('id'));
+        $('#empresa').val(selectedItem);
+        $(this).parent().parent().find('input').val(selectedItem);
+        $('#autocomplete').hide();
+    });
+
     /*
      * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
      */

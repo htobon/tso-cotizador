@@ -374,13 +374,18 @@
             <h1>Datos de Contacto:</h1>
             <table id="tbldatos-cliente">
                 <tr>
+                    <td>Empresa</td>
+                    <!--td><input type="text" id="empresa" name="empresa" placeholder="Empresa"></td-->
+                    <td>
+                        <input type="hidden" id="empresa" name="empresa">
+                        <ul id="autocomplete" name="empresa" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Buscar Empresa" data-filter-theme="a"></ul>
+                    </td>
+                </tr>
+                <tr>
                     <td>Nit</td>
                     <td><input type="text" id="nit" name="nit" placeholder="Nombre"></td>
                 </tr>
-                <tr>
-                    <td>Empresa</td>
-                    <td><input type="text" id="empresa" name="empresa" placeholder="Empresa"></td>
-                </tr>
+
                 <tr>
                     <td>Nombre contacto</td>
                     <td><input type="text" id="nombre" name="nombre" placeholder="Nombre"></td>

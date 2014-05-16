@@ -85,6 +85,10 @@ body   {
 .center_content {
     text-align: center;
 }
+
+.ui-filter-inset {
+    margin-top: 0;
+}
 /* ##################### HEADER ######################## */
 
 .top-bar {

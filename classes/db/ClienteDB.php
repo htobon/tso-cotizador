@@ -50,16 +50,40 @@ class ClienteDB {
         }
     }
 
-    public static function agregarCliente() {
+    public static function getClientePorNombre($nombre) {
+
         $conn = getConn();
-        $sql = "INSERT INTO tso_clientes (nit,empresa,telefono,correo,correo2) 
-		VALUES (,,,,)";
+        $sql = "SELECT * FROM tso_clientes WHERE nombre LIKE ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, "%{$nombre}%");
+        $stmt->execute();
+        $clienteData = $stmt->fetchAll();
+        $clientes = array();
+
+        foreach ($clienteData as $c) {
+            if (isset($c)) {
+                $cliente = new stdClass();
+                $cliente->id = $c["id"];
+                $cliente->nit = $c["nit"];
+                $cliente->nombre = $c["nombre"];
+                array_push($clientes, $cliente);
+            }
+        }
+        return (count($clientes) <= 0 ) ? null : $clientes;
     }
 
-    public static function agregarContactoCliente() {
+    public static function agregarCliente($cliente) {
         $conn = getConn();
-        $sql = "INSERT INTO tso_clientes_contactos (cliente_id,nombre)
-		VALUES (,)";
+
+        $sql = "INSERT INTO tso_clientes (nit,nombre) VALUES (?,?)";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(1, $cliente->nit);
+        $stmt->bindValue(2, $cliente->nombre);
+
+        $inserted_rows = $stmt->execute();
+        return ($inserted_rows == 1);
     }
 
 }

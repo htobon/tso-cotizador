@@ -78,3 +78,4 @@ if (Sesion::sesionActiva()) {
   $smarty->display("index-iniciarSesion.tpl");
 }
 
+
