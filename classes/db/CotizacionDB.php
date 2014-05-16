@@ -13,8 +13,8 @@ class CotizacionDB {
     public static function agregarCotizacion($cotizacion) {
 
         $conn = getConn();
-        $sql = "INSERT INTO tso_cotizaciones (usuario_id,cliente_id,unidad_gps_id,tipo_contrato_id,plan_servicio_id,descuento_id,duracion_contrato_id,cantidad_vehiculos,fecha,serial) 
-		VALUES (?,?,?,?,?,?,?,?,CURDATE(),?)";
+        $sql = "INSERT INTO tso_cotizaciones (usuario_id,cliente_id,unidad_gps_id,tipo_contrato_id,plan_servicio_id,descuento_id,duracion_contrato_id,cantidad_vehiculos,fecha,serial, 
+                nombre_contacto, correo_contacto, correo_alterno_contacto) VALUES (?,?,?,?,?,?,?,?,CURDATE(),?,?,?,?)";
 
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $cotizacion['usuario_id']);
@@ -26,6 +26,9 @@ class CotizacionDB {
         $stmt->bindValue(7, $cotizacion['duracion_contrato_id']);
         $stmt->bindValue(8, $cotizacion['cantidad_vehiculos']);
         $stmt->bindValue(9, $cotizacion['serial']);
+        $stmt->bindValue(10, $cotizacion['nombre_contacto']);
+        $stmt->bindValue(11, $cotizacion['correo_contacto']);
+        $stmt->bindValue(12, $cotizacion['correo_alterno_contacto']);
 
         // Exepcion en caso de que el Insert Falle
         try {
@@ -60,11 +63,11 @@ class CotizacionDB {
         return ($inserted_rows > 0);
     }
 
-    public static function getCotizacion($cotizacionId) {
+    public static function getCotizacion($id) {
         $conn = getConn();
         $sql = "SELECT * FROM tso_cotizaciones WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bindValue(1, $cotizacionId);
+        $stmt->bindValue(1, $id);
         $stmt->execute();
 
         $_cotizacion = $stmt->fetch();
@@ -74,6 +77,9 @@ class CotizacionDB {
             $cotizacion->id = $_cotizacion['id'];
             $cotizacion->usuario_id = $_cotizacion['usuario_id'];
             $cotizacion->cliente_id = $_cotizacion['cliente_id'];
+            $cotizacion->nombre_contacto = $_cotizacion['nombre_contacto'];
+            $cotizacion->correo_contacto = $_cotizacion['correo_contacto'];
+            $cotizacion->correo_alterno_contacto = $_cotizacion['correo_alterno_contacto'];
             $cotizacion->unidad_gps_id = $_cotizacion['unidad_gps_id'];
             $cotizacion->tipo_contrato_id = $_cotizacion['tipo_contrato_id'];
             $cotizacion->plan_servicio_id = $_cotizacion['plan_servicio_id'];

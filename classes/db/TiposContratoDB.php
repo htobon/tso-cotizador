@@ -14,29 +14,51 @@ use stdClass;
  */
 class TiposContratoDB {
 
-  /**
-   * getTiposContrato retorna los tipos de contrato almacenados en la bd
-   * @return array(StdClass) arreglo con clases TipoContrato con la info
-   */
-  static function getTiposContrato() {
-    $conn = getConn();
-    $sql = "SELECT * FROM tso_tipos_contrato";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+    /**
+     * getTiposContrato retorna los tipos de contrato almacenados en la bd
+     * @return array(StdClass) arreglo con clases TipoContrato con la info
+     */
+    static function getTiposContrato() {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_tipos_contrato";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
 
-    $tiposContratoData = $stmt->fetchAll();
-    $tiposContrato = array();
+        $tiposContratoData = $stmt->fetchAll();
+        $tiposContrato = array();
 
-    foreach ($tiposContratoData as $tc) {
-      if (isset($tc)) {
-        $tipoContrato = new stdClass();
-        $tipoContrato->id = $tc["id"];
-        $tipoContrato->nombre = $tc["nombre"];
-        array_push($tiposContrato, $tipoContrato);
-      }
+        foreach ($tiposContratoData as $tc) {
+            if (isset($tc)) {
+                $tipoContrato = new stdClass();
+                $tipoContrato->id = $tc["id"];
+                $tipoContrato->nombre = $tc["nombre"];
+                array_push($tiposContrato, $tipoContrato);
+            }
+        }
+
+        return (count($tiposContrato) <= 0 ) ? null : $tiposContrato;
     }
 
-    return (count($tiposContrato) <= 0 ) ? null : $tiposContrato;
-  }
+    static function getTiposContratoPorId($id) {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_tipos_contrato";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        $tc = $stmt->fetch();
+
+        if (isset($tc)) {
+            $tipoContrato = new stdClass();
+            $tipoContrato->id = $tc["id"];
+            $tipoContrato->nombre = $tc["nombre"];
+            return $tipoContrato;
+        } else {
+            return null;
+        }
+
+
+        return (count($tiposContrato) <= 0 ) ? null : $tiposContrato;
+    }
 
 }

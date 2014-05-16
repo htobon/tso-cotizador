@@ -25,8 +25,8 @@ class DuracionesContratoDB {
         $stmt->execute();
         $duracionContratoData = $stmt->fetchAll();
         $duracionesContrato = array();
-        foreach ($duracionContratoData as $dc ) {
-            if(isset($dc)){
+        foreach ($duracionContratoData as $dc) {
+            if (isset($dc)) {
                 $duracionContrato = new stdClass();
                 $duracionContrato->id = $dc["id"];
                 $duracionContrato->cantidadMeses = $dc["cantidad_meses"];
@@ -35,4 +35,23 @@ class DuracionesContratoDB {
         }
         return (count($duracionesContrato) <= 0 ) ? null : $duracionesContrato;
     }
+
+    public static function getDuracionContratoPorId($id) {
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_duracion_contratos WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        $dc = $stmt->fetch();
+
+        if (isset($dc)) {
+            $duracionContrato = new stdClass();
+            $duracionContrato->id = $dc["id"];
+            $duracionContrato->cantidadMeses = $dc["cantidad_meses"];
+            return $duracionContrato;
+        } else {
+            return null;
+        }
+    }
 }
+    

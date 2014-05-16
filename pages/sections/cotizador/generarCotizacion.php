@@ -12,6 +12,7 @@ use utils\Sesion;
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
+   
     $cotizacion_id = 0;
     $mensajeCotizacion = "";
 
@@ -27,6 +28,9 @@ if (Sesion::sesionActiva()) {
         // Cabecera Cotizacion
         $cotizacion["usuario_id"] = $usuario->id;
         $cotizacion["cliente_id"] = $cliente->id;
+        $cotizacion["nombre_contacto"] = $datos['nombre'];
+        $cotizacion["correo_contacto"] = $datos['correo'];
+        $cotizacion["correo_alterno_contacto"] = $datos['correo2'];
         $cotizacion["unidad_gps_id"] = $datos["gps"];
         $cotizacion["tipo_contrato_id"] = $datos["contrato"];
         $cotizacion["plan_servicio_id"] = $datos["plan"];

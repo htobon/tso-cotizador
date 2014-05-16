@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
 require_once __DIR__ . "/../../../pages/basePDF.php";
@@ -8,6 +9,10 @@ use db\ClienteDB;
 use db\AccesoriosDB;
 use db\UnidadesGpsDB;
 use db\PlanesDB;
+use db\DescuentosDB;
+use db\TiposContratoDB;
+use db\DuracionesContratoDB;
+
 
 // create new PDF document
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -17,6 +22,8 @@ $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
 $cotizacionDetalle = CotizacionDB::getAccesoriosCotizados($cotizacion_id);
 $cliente = ClienteDB::getClientePorId($cotizacion->cliente_id);
 $unidadGps = UnidadesGpsDB::getUnidadesGpsPorId($cotizacion->unidad_gps_id);
+$totalAccesorios =0;
+$totalInstalaciones =0;
 
 /* echo "<pre>";
   print_r($cotizacion);
@@ -32,6 +39,8 @@ imprimirDatosAccesorios();
 imprimirDatosInstalaciones();
 imprimirDatosPlanes();
 imprimirResumenCotizacion();
+imprimirDescuentos();
+imprimirTotales();
 
 //Close and output PDF document
 $pdf->Output('example_003.pdf', 'I');
@@ -89,8 +98,8 @@ function imprimirDatosCliente() {
 
     $pdf->Cell(getAnchoColumna1(), 5, 'Señor(a):', 0, 1, 'L', 0, '', 0, false, 'T', 'B');
     $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna1(), 8, $cliente->nombre_cliente, 0, 1, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna1(), 10, $cliente->nombre_cliente, 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->Cell(getAnchoColumna1(), 8, $cotizacion->nombre_contacto, 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->Cell(getAnchoColumna1(), 10, $cliente->nombre, 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
     $pdf->Ln();
 }
@@ -291,59 +300,123 @@ function imprimirDatosPlanes() {
 function imprimirResumenCotizacion() {
 
     global $pdf;
+    global $cotizacion;
+
+    $descuento = DescuentosDB::getDescuentosPorId($cotizacion->descuento_id);
+    $tipoContrato = TiposContratoDB::getTiposContratoPorId($cotizacion->tipo_contrato_id);
+    $duracionContrato = DuracionesContratoDB::getDuracionContratoPorId($cotizacion->duracion_contrato_id);
+
+
 
     $pdf->setTextBlue();
-    //$pdf->setBoldFont();
+    $pdf->setBoldFont();
+
     // set font
     $pdf->SetFont('times', 'B', 14);
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-    $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "No. Vehiculos", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "10", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-    $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "% Descuento", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "3%", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 5, "Numero Vehiculos", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 5, $cotizacion->cantidad_vehiculos, 0, 1, 'C', 0, '', 0, false, 'M', 'B');
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-    $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "Tipo Contrato", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "12 Meses", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 14, "Porcentaje de descuento", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 14, "{$descuento->descuento}%", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-    $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "Valor Descuento", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "$ 1.500", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 14, "Tipo de Contrato", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 14, $tipoContrato->nombre, 0, 1, 'C', 0, '', 0, false, 'M', 'B');
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-    $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "Valor Unidad", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "$ 0", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+    if ($tipoContrato->id == 2) {
+        // Detalle plan
+        $pdf->Cell(getAnchoColumna1(), 14, "Duración del contrato", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        // Cantidad
+        $pdf->Cell(getAnchoColumna2(), 14, "{$duracionContrato->cantidadMeses} Meses", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    }
 
-    $pdf->Cell(getAnchoColumna1(), 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    $pdf->Cell(getAnchoColumna2(), 10, "", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
+
+
+
+    $pdf->Ln();
+}
+
+function imprimirDescuentos() {
+    
+    global $pdf;
+
+    $pdf->setTextBlue();
     $pdf->setBoldFont();
-    $pdf->Cell(getAnchoColumna3(), 10, "Total", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
-    $pdf->setNormalFont();
-    $pdf->Cell(getAnchoColumna4(), 10, "$ 750.000", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+
+    // set font
+    $pdf->SetFont('times', 'B', 14);
+
+    // Title
+    $pdf->Cell(getAnchoColumna1(), 5, "Descuentos", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+
+    $pdf->SetFont('times', 'N', 12);
+    $pdf->setTextBlack();
+
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 14, "1", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 14, "2", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio unitario
+    $pdf->Cell(getAnchoColumna3(), 14, "3", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio total
+    $pdf->Cell(getAnchoColumna4(), 14, "4", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
+
+    $pdf->Ln();
+}
+
+function imprimirTotales() {
+    global $pdf;
+    global $totalAccesorios;
+    global $totalInstalaciones;
+
+    $pdf->setTextBlue();
+    $pdf->setBoldFont();
+
+    // set font
+    $pdf->SetFont('times', 'B', 14);
+
+    // Title
+    $pdf->Cell(getAnchoColumna1(), 5, "Totales", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+
+    $pdf->SetFont('times', 'N', 12);
+    $pdf->setTextBlack();
+
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 14, "Totales Accesorios", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 14, "2", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio unitario
+    $pdf->Cell(getAnchoColumna3(), 14, "3", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio total
+    $pdf->Cell(getAnchoColumna4(), 14, "4", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
+    
+    
+    // Detalle plan
+    $pdf->Cell(getAnchoColumna1(), 14, "Totales Instalaciones", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+
+    // Cantidad
+    $pdf->Cell(getAnchoColumna2(), 14, "2", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio unitario
+    $pdf->Cell(getAnchoColumna3(), 14, "3", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+    // Precio total
+    $pdf->Cell(getAnchoColumna4(), 14, "4", 0, 1, 'C', 0, '', 0, false, 'M', 'B');
+
+    $pdf->Ln();
 }
 
 function getAnchoColumna1() {

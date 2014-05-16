@@ -23,8 +23,7 @@ class ClienteDB {
             $cliente = new stdClass();
             $cliente->id = $c["id"];
             $cliente->nit = $c["nit"];
-            $cliente->nombre_cliente = $c["nombre_cliente"];
-            $cliente->telefono = $c["telefono"];
+            $cliente->nombre = $c["nombre"];
             return $cliente;
         } else {
             return NULL;
@@ -44,8 +43,7 @@ class ClienteDB {
             $cliente = new stdClass();
             $cliente->id = $c["id"];
             $cliente->nit = $c["nit"];
-            $cliente->nombre_cliente = $c["nombre_cliente"];
-            $cliente->telefono = $c["telefono"];
+            $cliente->nombre = $c["nombre"];
             return $cliente;
         } else {
             return NULL;
