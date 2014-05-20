@@ -37,7 +37,7 @@ class CotizacionDB {
 
             return $cotizacion_id;
         } catch (\Doctrine\DBAL\DBALException $exc) {
-            //echo $exc->getTraceAsString();
+            echo $exc->getTraceAsString();
             return 0;
         }
     }

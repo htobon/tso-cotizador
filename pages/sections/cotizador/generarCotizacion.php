@@ -78,10 +78,10 @@ if (Sesion::sesionActiva()) {
                 $accesoriosCotizados = CotizacionDB::agregarAccesoriosCotizados($cotizacion_id, $cotizacionDetalle);
             }
         } else {
-            $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION";
+            $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION.";
         }
     } else {
-        $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION";
+        $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION..";
     }
 
     $smarty->assign("cotizacion_id", $cotizacion_id);
