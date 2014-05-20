@@ -10,13 +10,13 @@ $fileatttype = "application/pdf";
 $fileattname = "cotizacion-CO-001.pdf";
 $headers = "From: $from";
 
-$fileatt = $pdf->Output($fileattname, 'S');
-//$attachment = chunk_split($fileatt);
+$fileatt = $pdf->Output($fileattname, 'E');
+$attachment = chunk_split($fileatt);
 
-$file = fopen($fileatt, 'rb');
+/*$file = fopen($fileatt, 'rb');
 $data = fread($file, filesize($fileatt));
 fclose($file);
-$attachment = chunk_split(base64_encode($data));
+$attachment = chunk_split(base64_encode($data));*/
 
 // This attaches the file
 $semi_rand = md5(time());
