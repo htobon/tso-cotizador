@@ -22,7 +22,8 @@
 
 
 <!--form name="cotizador" method="POST" action="../../../pages/sections/cotizador/generarCotizacion.php"-->
-<form name="cotizador" data-ajax="false" method="POST" action="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/generarCotizacion.php">
+<!--form name="cotizador" data-ajax="false" method="POST" action="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/generarCotizacion.php"-->
+<form name="cotizador" data-ajax="false" method="POST" action="generarCotizacion.php">
     <!-- Selección de Accesorios en el Camión -->
     <div id="seleccion-accesorios" data-role="page" class="container">
         {$header}
