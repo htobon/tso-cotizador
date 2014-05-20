@@ -45,6 +45,8 @@ imprimirTotales();
 //Close and output PDF document
 $pdf->Output('example_003.pdf', 'I');
 
+include './enviarEmail.php';
+
 function createDocument() {
     global $pdf;
     // set document information
