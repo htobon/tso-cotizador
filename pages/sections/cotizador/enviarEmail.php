@@ -1,11 +1,15 @@
 <?php
 
 // Settings
-$name = $cotizacion->nombre_contacto;//"Nombre Contacto";
-$email = $cotizacion->correo_contacto;//"camilo.o19@gmail.com";
-//$email_alterno = $cotizacion->correo_alterno_contacto;//"camilo.o19@gmail.com";
+$name = $cotizacion->nombre_contacto;
+$email = $cotizacion->correo_contacto;
 $to = "$name <$email>";
-$from = "{$usuario->nombres} {$usuario->apellidos}";//"Nombre Vendedor";
+$email_alterno = $cotizacion->correo_alterno_contacto;
+if(!empty($email_alterno)){
+    $to .= ", $name <$email_alterno>";
+}
+
+$from = "{$usuario->nombres}@tsomobile.com";
 $subject = "Cotizacion TSO-mobile";
 $fileatttype = "application/pdf";
 $fileattname = "cotizacion-{$cotizacion->serial}.pdf";
