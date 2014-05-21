@@ -12,6 +12,9 @@ use db\PlanesDB;
 use db\DescuentosDB;
 use db\TiposContratoDB;
 use db\DuracionesContratoDB;
+use db\UsuarioDB;
+use utils\Constantes;
+use utils\Sesion;
 
 
 // create new PDF document
@@ -22,6 +25,9 @@ $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
 $cotizacionDetalle = CotizacionDB::getAccesoriosCotizados($cotizacion_id);
 $cliente = ClienteDB::getClientePorId($cotizacion->cliente_id);
 $unidadGps = UnidadesGpsDB::getUnidadesGpsPorId($cotizacion->unidad_gps_id);
+
+$usuario = UsuarioDB::getUsuarioPorID(Sesion::getVariable(Constantes::SESION_USER_ID));
+
 $totalAccesorios =0;
 $totalInstalaciones =0;
 
