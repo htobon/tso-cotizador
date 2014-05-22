@@ -58,25 +58,25 @@ $(document).on('pageinit', function()
 
     //buscar cliente por Nit
     /*$('#nit').on('change', function(e) {
-        console.log('Search Client');
-        $.ajax({
-            url: 'actions.php',
-            data: {action: 'buscarClientePorNit', nit: $(this).val()},
-            dataType: 'json',
-            method: 'post',
-            success: function(response) {
-                $('#empresa').val("");
-                if (response.id !== null) {
-                    $('#empresa').val(response.nombre);
-                }
-            },
-            complete: function() {
-            },
-            error: function(e) {
-                console.log('error', e);
-            }
-        });
-    });*/
+     console.log('Search Client');
+     $.ajax({
+     url: 'actions.php',
+     data: {action: 'buscarClientePorNit', nit: $(this).val()},
+     dataType: 'json',
+     method: 'post',
+     success: function(response) {
+     $('#empresa').val("");
+     if (response.id !== null) {
+     $('#empresa').val(response.nombre);
+     }
+     },
+     complete: function() {
+     },
+     error: function(e) {
+     console.log('error', e);
+     }
+     });
+     });*/
 
     $("#autocomplete").on("filterablebeforefilter", function(e, data) {
 
@@ -156,14 +156,11 @@ $(document).on('pageinit', function()
     var totalDescuentosUnitarios;
     var totalDescuentos;
 
-
-    var total;
-    var totalEnMeses;
-    var totalPlanServicio;
-
-    var valorDescuento;
-    var totalAccesorios;
-    var totalAccesoriosUnitarios;
+    // Variables Totales.
+    var totalValorPlanSinDescuentoUnitario;
+    var totalValorPlanSinDescuento;
+    var totalDescuentoUnitarioTotal;
+    var totalDescuentoTotal;
 
     // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
@@ -175,13 +172,6 @@ $(document).on('pageinit', function()
 
         // 1. Resetear todos los items para que se oculten.
         $("#prev-cotizacion .item").hide();
-
-        total = 0;
-        totalAccesorios = 0;
-        totalPlanServicio = 0;
-        totalEnMeses = 0;
-        valorDescuento = 0;
-        totalAccesoriosUnitarios = 0;
 
         // 2. Mostrar la información de aquellos items que se seleccionaron en la cotización.
 
@@ -529,20 +519,52 @@ $(document).on('pageinit', function()
             numero = Number(totalPrecioInstalacionAccesorios.toFixed(1)).toLocaleString();
             $("#prev-cotizacion #total-instalaciones").find(".precioTotal").html("$" + numero);
 
-            // Sio tipo de contrato es COMODATO.
+            // Total Valor Plan Sin descuento
+            totalValorPlanSinDescuentoUnitario = 0;
             if (tipoContrato === "1") {
+                // Si tipo de contrato es COMODATO:
                 // Valor Plan COMODATO Sin Descuento
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").show();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".cantidad").html(cantidadUnidadesGPS);
-                var valor = Number((totalPrecioUnidadGPS / cantidadMesesComodato) + totalPrecioUnitarioTipoPlan);
-                numero = Number(valor.toFixed(1)).toLocaleString();
+                totalValorPlanSinDescuentoUnitario = Number((totalPrecioUnidadGPS / cantidadMesesComodato) + totalPrecioUnitarioTipoPlan);
+                numero = Number(totalValorPlanSinDescuentoUnitario.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".precioUnitario").html("$" + numero);
-                valor = valor * cantidadUnidadesGPS;
-                numero = Number(valor.toFixed(1)).toLocaleString();
+                totalValorPlanSinDescuento = totalValorPlanSinDescuentoUnitario * cantidadUnidadesGPS;
+                numero = Number(totalValorPlanSinDescuento.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".precioTotal").html("$" + numero);
             } else {
-                // TODO
+                // Si tipo de contrato es COMPRA:
+                // Valor Plan Sin Descuento
+                $("#prev-cotizacion #total-plan-sin-descuento").show();
+                $("#prev-cotizacion #total-plan-sin-descuento").find(".cantidad").html(cantidadUnidadesGPS);
+                totalValorPlanSinDescuentoUnitario = totalPrecioUnitarioTipoPlan;
+                numero = Number(totalValorPlanSinDescuentoUnitario.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-sin-descuento").find(".precioUnitario").html("$" + numero);
+                totalValorPlanSinDescuento = totalPrecioTipoPlan;
+                numero = Number(totalValorPlanSinDescuento.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-sin-descuento").find(".precioTotal").html("$" + numero);
             }
+
+            // Total Descuento
+            totalDescuentoUnitarioTotal = 0;
+            totalDescuentoTotal = 0;
+            $("#prev-cotizacion #total-descuento").show();
+            $("#prev-cotizacion #total-descuento").find(".cantidad").html(cantidadUnidadesGPS);
+            if (tipoContrato === "1") {
+                // Si tipo de contrato es COMODATO:
+                totalDescuentoUnitarioTotal = Number(totalValorPlanSinDescuentoUnitario * porcentajeDescuento / 100);
+                totalDescuentoTotal = Number(totalValorPlanSinDescuento * cantidadUnidadesGPS);
+            } else {
+                // Si tipo de contrato es COMPRA:
+                totalDescuentoUnitarioTotal = totalDescuentosUnitarios;
+                totalDescuentoTotal = totalDescuentos;
+            }
+            numero = Number(totalDescuentoUnitarioTotal.toFixed(1)).toLocaleString();
+            $("#prev-cotizacion #total-descuento").find(".precioUnitario").html("$" + numero);
+            numero = Number(totalDescuentoTotal.toFixed(1)).toLocaleString();
+            $("#prev-cotizacion #total-descuento").find(".precioTotal").html("$" + numero);
+
+
 
         }
 

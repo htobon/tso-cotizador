@@ -332,6 +332,7 @@
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>
+                <br>
                 <tr id="total-plan-sin-descuento" class="item">
                     <td>Valor Plan Sin Descuento</td>
                     <td class="cantidad">999</td>
