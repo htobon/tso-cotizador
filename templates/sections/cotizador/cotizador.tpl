@@ -353,13 +353,13 @@
                 </tr>               
                 <tr id="total-plan-mensual" class="item">
                     <td>Valor Plan Mensual</td>
-                    <td class="cantidad">999</td>
+                    <td class="cantidad"></td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>
                 <tr id="total-plan-comodato-mensual" class="item">
                     <td>Valor Plan COMODATO Mensual</td>
-                    <td class="cantidad">999</td>
+                    <td class="cantidad"></td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>

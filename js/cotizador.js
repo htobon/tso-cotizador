@@ -161,6 +161,8 @@ $(document).on('pageinit', function()
     var totalValorPlanSinDescuento;
     var totalDescuentoUnitarioTotal;
     var totalDescuentoTotal;
+    var totalValorPlanMensualUnitario;
+    var totalValorPlanMensual;
 
     // Se corre este evento antes de que la sección de previsualización de la cotización se muestre.
 
@@ -526,7 +528,7 @@ $(document).on('pageinit', function()
                 // Valor Plan COMODATO Sin Descuento
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").show();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".cantidad").html(cantidadUnidadesGPS);
-                totalValorPlanSinDescuentoUnitario = Number((totalPrecioUnidadGPS / cantidadMesesComodato) + totalPrecioUnitarioTipoPlan);
+                totalValorPlanSinDescuentoUnitario = Number((precioUnidadGPS / cantidadMesesComodato) + totalPrecioUnitarioTipoPlan);
                 numero = Number(totalValorPlanSinDescuentoUnitario.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".precioUnitario").html("$" + numero);
                 totalValorPlanSinDescuento = totalValorPlanSinDescuentoUnitario * cantidadUnidadesGPS;
@@ -553,7 +555,7 @@ $(document).on('pageinit', function()
             if (tipoContrato === "1") {
                 // Si tipo de contrato es COMODATO:
                 totalDescuentoUnitarioTotal = Number(totalValorPlanSinDescuentoUnitario * porcentajeDescuento / 100);
-                totalDescuentoTotal = Number(totalValorPlanSinDescuento * cantidadUnidadesGPS);
+                totalDescuentoTotal = Number(totalDescuentoUnitarioTotal * cantidadUnidadesGPS);
             } else {
                 // Si tipo de contrato es COMPRA:
                 totalDescuentoUnitarioTotal = totalDescuentosUnitarios;
@@ -564,7 +566,28 @@ $(document).on('pageinit', function()
             numero = Number(totalDescuentoTotal.toFixed(1)).toLocaleString();
             $("#prev-cotizacion #total-descuento").find(".precioTotal").html("$" + numero);
 
-
+            // Total Valor Plan Mensual
+            totalValorPlanMensualUnitario = 0;
+            totalValorPlanMensual = 0;
+            if (tipoContrato === "1") {
+                // Si tipo de contrato es COMODATO:
+                $("#prev-cotizacion #total-plan-comodato-mensual").show();
+                totalValorPlanMensualUnitario = Number(totalValorPlanSinDescuentoUnitario - totalDescuentoUnitarioTotal);
+                numero = Number(totalValorPlanMensualUnitario.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-comodato-mensual").find(".precioUnitario").html("$" + numero);
+                totalValorPlanMensual = Number(totalValorPlanSinDescuento - totalDescuentoTotal);
+                numero = Number(totalValorPlanMensual.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-comodato-mensual").find(".precioTotal").html("$" + numero);
+            } else {
+                // Si tipo de contrato es COMPRA:
+                $("#prev-cotizacion #total-plan-mensual").show();
+                totalValorPlanMensualUnitario = Number(totalValorPlanSinDescuentoUnitario - totalDescuentoUnitarioTotal);
+                numero = Number(totalValorPlanMensualUnitario.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-mensual").find(".precioUnitario").html("$" + numero);
+                totalValorPlanMensual = Number(totalValorPlanSinDescuento - totalDescuentoTotal);
+                numero = Number(totalValorPlanMensual.toFixed(1)).toLocaleString();
+                $("#prev-cotizacion #total-plan-mensual").find(".precioTotal").html("$" + numero);
+            }
 
         }
 
