@@ -390,13 +390,14 @@ $(document).on('pageinit', function()
 
         ////// Porcentaje de Descuento: El descuento depende de la variable anterior Cantidad de Vehiculos.
         porcentajeDescuento = 0;
+        $("#porcentaje-descuento .item", "#prev-cotizacion").show();
         for (var i = 0; i < descuentosJSON.length; i++) {
-            if (cantidadUnidadesGPS >= descuentosJSON[i].cantidadMin &&
-                    cantidadUnidadesGPS <= descuentosJSON[i].cantidadMax) {
-                $("#porcentaje-descuento .item", "#prev-cotizacion").show();
+            if ((Number(cantidadUnidadesGPS) >= Number(descuentosJSON[i].cantidadMin)) &&
+                    (Number(cantidadUnidadesGPS) <= Number(descuentosJSON[i].cantidadMax))) {
                 porcentajeDescuento = Number(descuentosJSON[i].descuento);
                 var numero = Number(porcentajeDescuento.toFixed(1)).toLocaleString();
                 $("#porcentaje-descuento .item", "#prev-cotizacion").html(numero + "%");
+                i = descuentosJSON.length; // parando ciclo.
             }
         }
 
