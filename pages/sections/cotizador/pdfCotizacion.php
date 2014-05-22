@@ -463,14 +463,14 @@ function imprimirDescuentos() {
 
         // Cantidad
         $pdf->setBoldFont(14);
-        $pdf->Cell(getAnchoColumna2(), 0, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->Cell(getAnchoColumna2(), 10, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio unitario
         $pdf->setNormalFont(14);
-        $pdf->Cell(getAnchoColumna3(), 0, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->Cell(getAnchoColumna3(), 10, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $pdf->Cell(0, 0, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $pdf->Cell(0, 10, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
     }
 
     $pdf->Ln();
