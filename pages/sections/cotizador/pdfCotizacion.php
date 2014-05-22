@@ -16,6 +16,14 @@ use db\UsuarioDB;
 use utils\Constantes;
 use utils\Sesion;
 
+if (!Sesion::sesionActiva()) {
+    $smarty->assign("ocultarLogout", 1);
+    $smarty->assign("error", "Usted debe iniciar sesión primero.");
+    $smarty->display("index-iniciarSesion.tpl");
+    exit();
+}
+
+
 // create new PDF document
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
