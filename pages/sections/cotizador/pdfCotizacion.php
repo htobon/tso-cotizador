@@ -71,6 +71,8 @@ $pdf->Output('example_003.pdf', 'I');
 
 include './enviarEmail.php';
 
+//ini_set('max_execution_time', 300);
+
 function createDocument() {
     global $pdf;
     // set document information
@@ -164,7 +166,7 @@ function imprimirDatosGPS() {
     $pdf->setBoldFont(14);
 
     // Title
-    $pdf->Cell(getAnchoColumna1(), 5, "Tipo Plan:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->Cell(getAnchoColumna1(), 5, "Unidad GPS", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
     // Nombre GPS
     $pdf->setNormalFont(14);
@@ -196,7 +198,8 @@ function imprimirDatosAccesorios() {
     $pdf->setBoldFont(14);
     // Title
     $pdf->Cell(getAnchoColumna1(), 5, "Accesorios:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
-
+    /**/
+    /**/
     $pdf->setNormalFont(14);
 
     foreach ($cotizacionDetalle as $detalle) {
@@ -206,24 +209,32 @@ function imprimirDatosAccesorios() {
         $cantidadAccesorios += $detalle->cantidad_accesorio;
         $valorAccesorios += $accesorio->precioAccesorio;
         $totalAccesorios += $precioTotal;
+
+        $h = 7;
+        if (strlen($accesorio->nombre) > 30)
+            $h = 13;
+
         // Detalle accesorios
         //$pdf->Cell(getAnchoColumna1(), 14, $accesorio->nombre, 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-        $pdf->MultiCell(getAnchoColumna1(), 14, $accesorio->nombre, 0, 'L', false, 0, '', '', true);
+        $pdf->MultiCell(getAnchoColumna1(), $h, $accesorio->nombre, 0, 'L', false, 0, '', '', true);
 
         // Cantidad
         $pdf->setBoldFont(14);
-        $pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna2(), $h, $detalle->cantidad_accesorio, 0, 'C', false, 0, '', '', true);
 
         // Precio Unitario
         $pdf->setNormalFont(14);
-        $pdf->Cell(getAnchoColumna3(), 14, "$" . $accesorio->precioAccesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna3(), 14, "$" . $accesorio->precioAccesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna3(), $h, "$" . $accesorio->precioAccesorio, 0, 'C', false, 0, '', '', true);
 
         // Precio total
         $pdf->setNormalFont(14);
-        $pdf->Cell(0, 14, '$' . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(0, 14, '$' . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
     }
 
-    $pdf->Ln(5);
+    //$pdf->Ln(5);
 }
 
 function imprimirDatosInstalaciones() {
@@ -238,26 +249,30 @@ function imprimirDatosInstalaciones() {
     $pdf->setTextBlack();
     $pdf->setBoldFont(14);
     // Title
-    $pdf->Cell(getAnchoColumna1(), 18, "Instalaciones:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->Cell(getAnchoColumna1(), 5, "Instalaciones:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
     $pdf->setNormalFont(14);
     $pdf->setTextBlack();
 
     // Detalle instalacion
-    $pdf->Cell(getAnchoColumna1(), 14, "Instalacion {$unidadGps->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna1(), 7, "Instalacion {$unidadGps->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna1(), 7, "Instalación {$unidadGps->nombre}", 0, 'L', false, 0, '', '', true);
 
     // Cantidad
     $pdf->setBoldFont(14);
-    $pdf->Cell(getAnchoColumna2(), 14, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna2(), 7, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna2(), 7, $cotizacion->cantidad_vehiculos, 0, 'C', false, 0, '', '', true);
 
     // Precio Unitario
     $pdf->setNormalFont(14);
-    $pdf->Cell(getAnchoColumna3(), 14, "$" . $unidadGps->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna3(), 7, "$" . $unidadGps->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna3(), 7, "$" . $unidadGps->precioInstalacion, 0, 'C', false, 0, '', '', true);
 
     // Precio total
     $pdf->setNormalFont(14);
     $precioInstalacionGps = $unidadGps->precioInstalacion * $cotizacion->cantidad_vehiculos;
-    $pdf->Cell(0, 14, "$" . $precioInstalacionGps, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(0, 14, "$" . $precioInstalacionGps, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(0, 7, '$' . $precioInstalacionGps, 0, 'R', false, 1, '', '', true);
 
     $cantidadInstalaciones = $cotizacion->cantidad_vehiculos;
     $valorInstalaciones = $unidadGps->precioInstalacion;
@@ -271,23 +286,31 @@ function imprimirDatosInstalaciones() {
         $cantidadInstalaciones += $detalle->cantidad_accesorio;
         $valorInstalaciones += $accesorio->precioInstalacion;
         $totalInstalaciones += $precioTotal;
+
+        $h = 7;
+        if (strlen("Instalacion {$accesorio->nombre}") > 36)
+            $h = 13;
+
         // Detalle instalacion
         //$pdf->Cell(getAnchoColumna1(), 14, "Instalacion {$accesorio->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-        $pdf->MultiCell(getAnchoColumna1(), 14, "Instalacion {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
+        $pdf->MultiCell(getAnchoColumna1(), $h, "Instalación {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
 
         // Cantidad
         $pdf->setBoldFont(14);
-        $pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna2(), $h, $detalle->cantidad_accesorio, 0, 'C', false, 0, '', '', true);
 
         $pdf->setNormalFont(14);
         // Precio unitario
-        $pdf->Cell(getAnchoColumna3(), 14, "$" . $accesorio->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna3(), 14, "$" . $accesorio->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna3(), $h, "$" . $accesorio->precioInstalacion, 0, 'C', false, 0, '', '', true);
 
         // Precio total
-        $pdf->Cell(0, 14, "$" . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(0, 14, "$" . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
     }
 
-    $pdf->Ln(5);
+    //$pdf->Ln(5);
 }
 
 function imprimirDatosPlanes() {
@@ -312,18 +335,22 @@ function imprimirDatosPlanes() {
     $pdf->setTextBlack();
 
     // Detalle plan
-    $pdf->Cell(getAnchoColumna1(), 14, "{$plan->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna1(), 14, "{$plan->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna1(), 7, "{$plan->nombre}", 0, 'L', false, 0, '', '', true);
 
     // Cantidad
     $pdf->setBoldFont(14);
-    $pdf->Cell(getAnchoColumna2(), 14, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna2(), 14, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna2(), 7, $cotizacion->cantidad_vehiculos, 0, 'C', false, 0, '', '', true);
 
     // Precio unitario
     $pdf->setNormalFont(14);
-    $pdf->Cell(getAnchoColumna3(), 14, "$ {$plan->precio}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna3(), 14, "$ {$plan->precio}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna3(), 7, "$ {$plan->precio}", 0, 'C', false, 0, '', '', true);
 
     // Precio total
-    $pdf->Cell(0, 14, "$ {$precioPlan}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(0, 14, "$ {$precioPlan}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(0, 7, '$' . $precioPlan, 0, 'R', false, 1, '', '', true);
 
     $valorPlan = $plan->precio;
 
@@ -333,23 +360,31 @@ function imprimirDatosPlanes() {
 
         $valorPlan += $accesorio->precioMensualidad;
         $totalPlan += $precioTotal;
+
+        $h = 7;
+        if (strlen("Mensualidad {$accesorio->nombre}") > 36)
+            $h = 13;
+
         // Detalle plan
         //$pdf->Cell(getAnchoColumna1(), 14, "Mensualidad {$accesorio->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-        $pdf->MultiCell(getAnchoColumna1(), 14, "Mensualidad {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
+        $pdf->MultiCell(getAnchoColumna1(), $h, "Mensualidad {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
 
         // Cantidad
         $pdf->setBoldFont(14);
-        $pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna2(), $h, $detalle->cantidad_accesorio, 0, 'C', false, 0, '', '', true);
 
         // Precio unitario
         $pdf->setNormalFont(14);
-        $pdf->Cell(getAnchoColumna3(), 14, "$ {$accesorio->precioMensualidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna3(), 14, "$ {$accesorio->precioMensualidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna3(), $h, "$ {$accesorio->precioMensualidad}", 0, 'C', false, 0, '', '', true);
 
         // Precio total
-        $pdf->Cell(0, 14, "$ {$precioTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(0, 14, "$ {$precioTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
     }
 
-    $pdf->Ln(6);
+    //$pdf->Ln();
 }
 
 function imprimirResumenCotizacion() {
@@ -402,14 +437,7 @@ function imprimirResumenCotizacion() {
     $pdf->setNormalFont(14);
     //$pdf->Cell(0, 14, "Valor", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
 
-    $pdf->Ln(5);
-
-    // TOTAL
-    //$pdf->setBoldFont(14);
-    //$pdf->Cell(getAnchoColumna1(), 0, "TOTAL", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-    // Cantidad
-    //$pdf->Cell(0, 0, "Valor", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-    //$pdf->Ln();
+    $pdf->Ln();
 }
 
 function imprimirDescuentos() {
@@ -440,24 +468,29 @@ function imprimirDescuentos() {
     $pdf->setTextBlack();
 
     // Detalle plan
-    $pdf->Cell(getAnchoColumna1(), 14, "{$plan->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna1(), 14, "{$plan->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna1(), 7, "{$plan->nombre}", 0, 'L', false, 0, '', '', true);
 
     // Cantidad
     $pdf->setBoldFont(14);
-    $pdf->Cell(getAnchoColumna2(), 14, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna2(), 14, $cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna2(), 7, $cotizacion->cantidad_vehiculos, 0, 'C', false, 0, '', '', true);
 
     // Precio unitario
     $pdf->setNormalFont(14);
-    $pdf->Cell(getAnchoColumna3(), 14, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(getAnchoColumna3(), 14, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(getAnchoColumna3(), 7, "$ {$decuentoUnidad}", 0, 'C', false, 0, '', '', true);
 
     // Precio total
-    $pdf->Cell(0, 14, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    //$pdf->Cell(0, 14, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+    $pdf->MultiCell(0, 7, '$' . $descuentoTotal, 0, 'R', false, 1, '', '', true);
 
     $valorDescuento = $decuentoUnidad;
     $totalDescuento = $descuentoTotal;
 
 
     foreach ($cotizacionDetalle as $detalle) {
+
         $accesorio = AccesoriosDB::getAccesoriosPorId($detalle->accesorio_id);
         $decuentoUnidad = $accesorio->precioMensualidad * ($descuento->descuento / 100);
         $descuentoTotal = $decuentoUnidad * $detalle->cantidad_accesorio;
@@ -465,23 +498,30 @@ function imprimirDescuentos() {
         $valorDescuento += $decuentoUnidad;
         $totalDescuento += $descuentoTotal;
 
+        $h = 7;
+        if (strlen("Mensualidad {$accesorio->nombre}") > 36)
+            $h = 13;
+
         // Detalle plan
         //$pdf->Cell(getAnchoColumna1(), 14, "Mensualidad {$accesorio->nombre}", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-        $pdf->MultiCell(getAnchoColumna1(), 14, "Mensualidad {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
+        $pdf->MultiCell(getAnchoColumna1(), $h, "Mensualidad {$accesorio->nombre}", 0, 'L', false, 0, '', '', true);
 
         // Cantidad
         $pdf->setBoldFont(14);
-        $pdf->Cell(getAnchoColumna2(), 10, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna2(), 14, $detalle->cantidad_accesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna2(), $h, $detalle->cantidad_accesorio, 0, 'C', false, 0, '', '', true);
 
         // Precio unitario
         $pdf->setNormalFont(14);
-        $pdf->Cell(getAnchoColumna3(), 10, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(getAnchoColumna3(), 14, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(getAnchoColumna3(), $h, "$ {$decuentoUnidad}", 0, 'C', false, 0, '', '', true);
 
         // Precio total
-        $pdf->Cell(0, 10, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        //$pdf->Cell(0, 14, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $pdf->MultiCell(0, $h, '$' . $descuentoTotal, 0, 'R', false, 1, '', '', true);
     }
 
-    $pdf->Ln();
+    //$pdf->Ln();
 }
 
 function imprimirTotales() {
