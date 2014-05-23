@@ -94,9 +94,10 @@ if (Sesion::sesionActiva()) {
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
-                /*$cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
-                include './enviarEmail.php';*/
-                
+
+                /* $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
+                  include './enviarEmail.php'; */
+
                 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);

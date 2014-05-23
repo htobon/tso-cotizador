@@ -80,7 +80,7 @@ class sendPdfEmail {
     public function enviar() {
 
         $to = $this->to;
-        $from = $this->from;
+        $from = "Hector Fabio@tsomobile.com";
         $subject = $this->subject;
         $fileatttype = "application/pdf";
         $fileattname = $this->fileName;
@@ -115,7 +115,14 @@ class sendPdfEmail {
                 "Content-Transfer-Encoding: base64\n\n" .
                 $attachment . "\n\n" .
                 "-{$mime_boundary}-\n";
-
+                
+         echo "<pre>";       
+         print_r($to);
+         print_r($subject);
+         print_r($message);
+         print_r($headers);
+         echo "</pre>";       
+         exit();
         if (mail($to, $subject, $message, $headers)) {
             return true;
         } else {

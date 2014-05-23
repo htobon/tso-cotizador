@@ -5,7 +5,7 @@ $name = $cotizacion->nombre_contacto;
 $email = $cotizacion->correo_contacto;
 $to = "$name <$email>";
 $email_alterno = $cotizacion->correo_alterno_contacto;
-if(!empty($email_alterno)){
+if (!empty($email_alterno)) {
     $to .= ", $name <$email_alterno>";
 }
 
@@ -19,10 +19,10 @@ $fileatt = $_pdf->getPdfbase64();
 //$fileatt = $pdf->Output($fileattname, 'E');
 $attachment = chunk_split($fileatt);
 
-/*$file = fopen($fileatt, 'rb');
-$data = fread($file, filesize($fileatt));
-fclose($file);
-$attachment = chunk_split(base64_encode($data));*/
+/* $file = fopen($fileatt, 'rb');
+  $data = fread($file, filesize($fileatt));
+  fclose($file);
+  $attachment = chunk_split(base64_encode($data)); */
 
 // This attaches the file
 $semi_rand = md5(time());
@@ -45,6 +45,15 @@ $message .= "--{$mime_boundary}\n" .
         "Content-Transfer-Encoding: base64\n\n" .
         $attachment . "\n\n" .
         "-{$mime_boundary}-\n";
+
+
+echo "<pre>";
+print_r($to);
+print_r($subject);
+print_r($message);
+print_r($headers);
+echo "</pre>";
+exit();
 
 if (mail($to, $subject, $message, $headers)) {
 
