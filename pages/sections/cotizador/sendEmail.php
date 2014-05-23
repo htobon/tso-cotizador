@@ -10,7 +10,7 @@ class sendPdfEmail {
 
     function __construct($subject, $fileName, $file) {
         $this->subject = $subject;
-        $this->fileName = $fileName . ".pdf";
+        $this->fileName = $fileName;
         $this->pdf = $file;
     }
 
@@ -24,7 +24,8 @@ class sendPdfEmail {
     }
 
     public function setFrom($nombre, $correo) {
-        $this->from = "{$nombre} <{$correo}>";
+        //$this->from = "{$nombre} <{$correo}>";
+        $this->from = "{$correo}";
     }
 
     public function enviarCorreo() {
@@ -116,12 +117,10 @@ class sendPdfEmail {
                 "-{$mime_boundary}-\n";
 
         if (mail($to, $subject, $message, $headers)) {
-
             return true;
         } else {
-
             return false;
-        }
+        }        
     }
 
 }

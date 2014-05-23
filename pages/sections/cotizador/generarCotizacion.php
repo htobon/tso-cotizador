@@ -93,11 +93,11 @@ if (Sesion::sesionActiva()) {
                 // Generar Pdf y enviar por Correo
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
+                $cotizacionPdf = $_pdf->getPdfbase64();
+                /*$cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
+                include './enviarEmail.php';*/
                 
-                $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
-                include './enviarEmail.php';
-                
-                /*$enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}", $_pdf->getPdfbase64());
+                $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
 
@@ -105,7 +105,7 @@ if (Sesion::sesionActiva()) {
                     echo "Se Envia Correo";
                 } else {
                     echo "No se envia correo";
-                }*/
+                }
             }
         } else {
             $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION.";
