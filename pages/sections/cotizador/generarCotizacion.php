@@ -95,7 +95,7 @@ if (Sesion::sesionActiva()) {
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
                 
-                if($enviarCorreo->enviarCorreo()){
+                if($enviarCorreo->enviar()){
                     echo "Se Envia Correo";
                 }else{
                     echo "No se envia correo";
