@@ -2,12 +2,25 @@
 
 require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
+require_once './generarPdf.php';
+require_once './sendEmail.php';
 
 use db\UsuarioDB;
 use db\ClienteDB;
 use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
+
+/* $_pdf = new generarPdf(7);
+  $_pdf->generarCotizacionPdf();
+  $enviar = new sendPdfEmail("Test","cotizacionCO456",$_pdf->getPdfbase64());
+  $enviar->setTo($nombre, $correo, $correo_alterno);
+  $enviar->setFrom($nombre, $correo);
+  $enviar->enviarCorreo();
+
+  //$_pdf->getPdf();
+
+  exit(); */
 
 if (Sesion::sesionActiva()) {
 
@@ -28,17 +41,15 @@ if (Sesion::sesionActiva()) {
 
         // Si el Cliente no Existe lo creo
         if ($cliente->id == null) {
-            
+
             $cliente->nit = $datos["nit"];
             $cliente->nombre = $datos["empresa"];
-            
-            $_c = ClienteDB::agregarCliente($cliente);
-            if($_c>0){
-                $cliente = ClienteDB::getCliente($datos["nit"]);
-            }            
-        }
 
-       
+            $_c = ClienteDB::agregarCliente($cliente);
+            if ($_c > 0) {
+                $cliente = ClienteDB::getCliente($datos["nit"]);
+            }
+        }
 
         // Cabecera Cotizacion
         $cotizacion["usuario_id"] = $usuario->id;
@@ -76,6 +87,19 @@ if (Sesion::sesionActiva()) {
             if ($cotizacion_id > 0 && $actualizarSerial) {
                 $mensajeCotizacion = "COTIZACION GENERADA!";
                 $accesoriosCotizados = CotizacionDB::agregarAccesoriosCotizados($cotizacion_id, $cotizacionDetalle);
+
+                // Generar Pdf y enviar por Correo
+                $_pdf = new generarPdf($cotizacion_id);
+                $_pdf->generarCotizacionPdf();
+                $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}", $_pdf->getPdfbase64());
+                $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
+                $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
+                
+                if($enviarCorreo->enviarCorreo()){
+                    echo "Se Envia Correo";
+                }else{
+                    echo "No se envia correo";
+                }
             }
         } else {
             $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION.";
