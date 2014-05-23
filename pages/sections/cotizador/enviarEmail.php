@@ -15,7 +15,8 @@ $fileatttype = "application/pdf";
 $fileattname = "cotizacion-{$cotizacion->serial}.pdf";
 $headers = "From: $from";
 
-$fileatt = $pdf->Output($fileattname, 'E');
+$fileatt = $_pdf->getPdfbase64();
+//$fileatt = $pdf->Output($fileattname, 'E');
 $attachment = chunk_split($fileatt);
 
 /*$file = fopen($fileatt, 'rb');

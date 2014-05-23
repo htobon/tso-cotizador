@@ -77,9 +77,9 @@ class sendPdfEmail {
     }
 
     public function enviar() {
-        
+
         $to = $this->to;
-        $from = $this->from;        
+        $from = $this->from;
         $subject = $this->subject;
         $fileatttype = "application/pdf";
         $fileattname = $this->fileName;
@@ -117,10 +117,10 @@ class sendPdfEmail {
 
         if (mail($to, $subject, $message, $headers)) {
 
-            echo "The email was sent.";
+            return true;
         } else {
 
-            echo "There was an error sending the mail.";
+            return false;
         }
     }
 
