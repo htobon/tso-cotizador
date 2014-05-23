@@ -116,13 +116,14 @@ class sendPdfEmail {
                 $attachment . "\n\n" .
                 "-{$mime_boundary}-\n";
                 
-         echo "<pre>";       
+         /*echo "<pre>";       
          print_r($to);
          print_r($subject);
          print_r($message);
          print_r($headers);
          echo "</pre>";       
-         exit();
+         exit();*/ 
+                
         if (mail($to, $subject, $message, $headers)) {
             return true;
         } else {
