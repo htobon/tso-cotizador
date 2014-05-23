@@ -6,7 +6,7 @@
     
     <div id="nav-bar" class="center_content"> 
         <h4>{$mensajeCotizacion}</h4>
-        <a data-ajax="false" target="_blank" rel="external" href="#" data-icon="star">
+        <a data-ajax="false" target="_blank" rel="external" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/pdfCotizacion.php" data-icon="star">
             <img src="{$smarty.const.SMARTY_ROOT_URI}/images/thumb_pdf.png" alt="Ver PDF">
         </a>  
     </div><!-- /navbar -->      
