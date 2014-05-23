@@ -24,8 +24,8 @@ class sendPdfEmail {
     }
 
     public function setFrom($nombre, $correo) {
-        //$this->from = "{$nombre} <{$correo}>";
-        $this->from = "{$correo}";
+        $this->from = "{$nombre} <{$correo}>";
+        //$this->from = "{$correo}";
     }
 
     public function enviarCorreo() {
@@ -80,7 +80,8 @@ class sendPdfEmail {
     public function enviar() {
 
         $to = $this->to;
-        $from = "Hector Fabio@tsomobile.com";
+        //$from = "Hector Fabio@tsomobile.com";
+        $from = $this->from;
         $subject = $this->subject;
         $fileatttype = "application/pdf";
         $fileattname = $this->fileName;

@@ -27,6 +27,8 @@ if (Sesion::sesionActiva()) {
 
     $cotizacion_id = 0;
     $mensajeCotizacion = "";
+    $mensajeCorreosEnviados = "";
+    $error = true;
 
 
 
@@ -90,6 +92,7 @@ if (Sesion::sesionActiva()) {
                 $mensajeCotizacion = "COTIZACION GENERADA!";
                 $accesoriosCotizados = CotizacionDB::agregarAccesoriosCotizados($cotizacion_id, $cotizacionDetalle);
 
+                $error = false;
                 // Generar Pdf y enviar por Correo
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
@@ -103,9 +106,26 @@ if (Sesion::sesionActiva()) {
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
 
                 if ($enviarCorreo->enviar()) {
-                    echo "Se Envia Correo";
+
+                    $mensajeCorreosEnviados = "Cotizacion Enviada a : {$cotizacion["correo_contacto"]}";
+                    if (!empty($cotizacion["correo_alterno_contacto"])) {
+                        $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
+                    }
+
+                    echo "Se Envia Correo - funcion Enviar";
                 } else {
-                    echo "No se envia correo";
+
+                    $mensajeCorreosEnviados = "No se Puedo enviar Email a : {$cotizacion["correo_contacto"]}";
+                    if (!empty($cotizacion["correo_alterno_contacto"])) {
+                        $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
+                    }
+                    echo "No se envia correo - funcion Enviar";
+                }
+
+                if ($enviarCorreo->enviarCorreo()) {
+                    echo "Se Envia Correo - enviarCorreo";
+                } else {
+                    echo "No se envia correo - enviarCorreo";
                 }
             }
         } else {
@@ -115,8 +135,10 @@ if (Sesion::sesionActiva()) {
         $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION..";
     }
 
-    $smarty->assign("cotizacion_id", $cotizacion_id);
+    //$smarty->assign("cotizacion_id", $cotizacion_id);
+    $smarty->assign("error", $error);
     $smarty->assign("mensajeCotizacion", $mensajeCotizacion);
+    $smarty->assign("mensajeCorreosEnviados", $mensajeCorreosEnviados);
     $smarty->display("sections/cotizador/generarCotizacion.tpl");
 } else {
     $smarty->assign("ocultarLogout", 1);
