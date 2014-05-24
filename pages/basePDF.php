@@ -31,7 +31,7 @@ class MYPDF extends TCPDF {
         $this->setBoldFont(25);
         $this->setTextBlue();
         // Title
-        $this->Cell(0, 40, 'Cotización', 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        //$this->Cell(0, 40, 'Cotización', 0, 1, 'R', 0, '', 0, false, 'M', 'B');
         // Separator line
         $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
         $this->line(16, 33, 195, 33);

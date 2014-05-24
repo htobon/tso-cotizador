@@ -70,9 +70,13 @@ class generarPdf {
         $this->imprimirDescuentos();
         $this->imprimirTotales();
     }
+    
+    public function getNamePdf() {
+        return "cotizacion-{$this->cotizacion->serial}.pdf";
+    }
 
     public function getPdf() {
-        return $this->pdf->Output('example_003.pdf', 'I');
+        return $this->pdf->Output(__DIR__ . "/../../../tmp/cotizacion-{$this->cotizacion->serial}.pdf", 'F');
     }
     public function getPdfbase64() {
         return $this->pdf->Output('example_003.pdf', 'E');

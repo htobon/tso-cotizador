@@ -128,6 +128,8 @@ $(document).on('pageinit', function()
         $('#autocomplete').hide();
     });
 
+    
+
     /*
      * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
      */

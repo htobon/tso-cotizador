@@ -29,6 +29,7 @@ if (Sesion::sesionActiva()) {
     $mensajeCotizacion = "";
     $mensajeCorreosEnviados = "";
     $error = true;
+    $nombreCotizacion="#";
 
 
 
@@ -96,7 +97,10 @@ if (Sesion::sesionActiva()) {
                 // Generar Pdf y enviar por Correo
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
+                $_pdf->getPdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
+                $nombreCotizacion = "/tmp/".$_pdf->getNamePdf();
+                
 
                 /* $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
                   include './enviarEmail.php'; */
@@ -105,28 +109,23 @@ if (Sesion::sesionActiva()) {
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
 
-                if ($enviarCorreo->enviar()) {
+                if ($enviarCorreo->enviarCorreo()) {
 
                     $mensajeCorreosEnviados = "Cotizacion Enviada a : {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {
                         $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
                     }
 
-                    echo "Se Envia Correo - funcion Enviar";
+                    //echo "Se Envia Correo - funcion Enviar";
                 } else {
 
                     $mensajeCorreosEnviados = "No se Puedo enviar Email a : {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {
                         $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
                     }
-                    echo "No se envia correo - funcion Enviar";
+                    //echo "No se envia correo - funcion Enviar";
                 }
 
-                if ($enviarCorreo->enviarCorreo()) {
-                    echo "Se Envia Correo - enviarCorreo";
-                } else {
-                    echo "No se envia correo - enviarCorreo";
-                }
             }
         } else {
             $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION.";
@@ -137,6 +136,7 @@ if (Sesion::sesionActiva()) {
 
     //$smarty->assign("cotizacion_id", $cotizacion_id);
     $smarty->assign("error", $error);
+    $smarty->assign("nombreCotizacion", $nombreCotizacion);
     $smarty->assign("mensajeCotizacion", $mensajeCotizacion);
     $smarty->assign("mensajeCorreosEnviados", $mensajeCorreosEnviados);
     $smarty->display("sections/cotizador/generarCotizacion.tpl");

@@ -2,6 +2,8 @@
 
 require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
+require_once './generarPdf.php';
+
 use db\ClienteDB;
 
 if (isset($_POST['action'])) {
@@ -22,12 +24,23 @@ class Action {
         
     }
 
-    public function buscarClientePorNit() {        
+    public function buscarClientePorNit() {
         echo json_encode(ClienteDB::getCliente($_POST['nit']));
     }
-    
-    public function buscarClientePorNombre() {        
+
+    public function buscarClientePorNombre() {
         echo json_encode(ClienteDB::getClientePorNombre($_POST['empresa']));
+    }
+
+    public function generarPdfCotizacion() {
+        
+        $cotizacion_id = $_POST['cotizacionId'];
+        $_pdf = new generarPdf($cotizacion_id);
+        $_pdf->generarCotizacionPdf();        
+        $_pdf->getPdf();
+        
+        echo json_encode(array('pdf'=>$_pdf->getNamePdf()));
+        
     }
 
 }
