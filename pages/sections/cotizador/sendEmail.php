@@ -33,7 +33,11 @@ class sendPdfEmail {
         $to = $this->to;
         $from = $this->from;
         $subject = $this->subject;
-        $message = "<p>Se envia cotizacion adjunta.</p>";
+        $message = "<p>Cordial Saludo.</p><br/>
+                    <p>Muchas gracias por su interés en nuestras soluciones.</p><br/>
+                    <p>Adjunto enviamos nuestra propuesta económica. Estamos seguros de que nuestra compañía podrá brindarle los mejores y más completos servicios de Monitoreo y Rastreo Satelital.
+                    Quedamos atentos para ayudarles en la toma de la mejor decisión y resolver todas sus inquietudes.</p><br/>
+                    <p>Atentamente,</p>";
 
         // a random hash will be necessary to send mixed content
         $separator = md5(time());
