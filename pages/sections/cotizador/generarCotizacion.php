@@ -11,15 +11,6 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
-//$_pdf = new generarPdf(7);
-//$_pdf->generarCotizacionPdf();
-/* $enviar = new sendPdfEmail("Test","cotizacionCO456",$_pdf->getPdfbase64());
-  $enviar->setTo($nombre, $correo, $correo_alterno);
-  $enviar->setFrom($nombre, $correo);
-  $enviar->enviarCorreo(); */
-
-//$_pdf->getPdf();
-//exit();
 
 if (Sesion::sesionActiva()) {
 
@@ -29,7 +20,7 @@ if (Sesion::sesionActiva()) {
     $mensajeCotizacion = "";
     $mensajeCorreosEnviados = "";
     $error = true;
-    $nombreCotizacion="#";
+    $nombreCotizacion = "#";
 
 
 
@@ -65,8 +56,12 @@ if (Sesion::sesionActiva()) {
         $cotizacion["unidad_gps_id"] = $datos["gps"];
         $cotizacion["tipo_contrato_id"] = $datos["contrato"];
         $cotizacion["plan_servicio_id"] = $datos["plan"];
-        $cotizacion["descuento_id"] = 1; //$datos["descuento"];
+        $cotizacion["descuento_id"] = $datos["descuento"];
         $cotizacion["duracion_contrato_id"] = $datos["duracion"];
+
+        if ($datos["duracion"] == "-1")
+            $cotizacion["duracion_contrato_id"] = 1;
+
         $cotizacion["cantidad_vehiculos"] = $datos["cantidad-unidad-gps"];
         $cotizacion["serial"] = "C0-10";
 
@@ -99,8 +94,8 @@ if (Sesion::sesionActiva()) {
                 $_pdf->generarCotizacionPdf();
                 $_pdf->getPdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
-                $nombreCotizacion = "/tmp/".$_pdf->getNamePdf();
-                
+                $nombreCotizacion = "/tmp/" . $_pdf->getNamePdf();
+
 
                 /* $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
                   include './enviarEmail.php'; */
@@ -125,7 +120,6 @@ if (Sesion::sesionActiva()) {
                     }
                     //echo "No se envia correo - funcion Enviar";
                 }
-
             }
         } else {
             $mensajeCotizacion = "NO EXISTEN DATOS PARA GENERAR UNA COTIZACION.";

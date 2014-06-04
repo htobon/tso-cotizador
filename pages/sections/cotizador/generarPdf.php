@@ -52,6 +52,11 @@ class generarPdf {
         $this->tipoContrato = TiposContratoDB::getTiposContratoPorId($this->cotizacion->tipo_contrato_id);
         $this->duracionContrato = DuracionesContratoDB::getDuracionContratoPorId($this->cotizacion->duracion_contrato_id);
 
+        /* echo "<pre>";
+          print_r($this->tipoContrato);
+          echo "</pre>";
+          exit(); */
+
         foreach ($this->cotizacionDetalle as $detalle) {
             $accesorio = AccesoriosDB::getAccesoriosPorId($detalle->accesorio_id);
             $accesorio->cantidad_accesorio = $detalle->cantidad_accesorio;
@@ -70,7 +75,7 @@ class generarPdf {
         $this->imprimirDescuentos();
         $this->imprimirTotales();
     }
-    
+
     public function getNamePdf() {
         return "cotizacion-{$this->cotizacion->serial}.pdf";
     }
@@ -78,6 +83,7 @@ class generarPdf {
     public function getPdf() {
         return $this->pdf->Output(__DIR__ . "/../../../tmp/cotizacion-{$this->cotizacion->serial}.pdf", 'F');
     }
+
     public function getPdfbase64() {
         return $this->pdf->Output('example_003.pdf', 'E');
     }
@@ -336,6 +342,7 @@ class generarPdf {
         $this->pdf->MultiCell(0, 7, '$' . $precioPlan, 0, 'R', false, 1, '', '', true);
 
         $this->valorPlan = $this->plan->precio;
+        $this->totalPlan = $precioPlan;
 
         foreach ($this->accesoriosCotizados as $accesorio) {
             //$accesorio = AccesoriosDB::getAccesoriosPorId($accesorio->accesorio_id);
@@ -383,7 +390,8 @@ class generarPdf {
         //$this->pdf->Cell(0, 14, "Valor", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
 
         $this->pdf->setBoldFont(14);
-        if ($this->tipoContrato->id == 2) {
+        // COMODATO
+        if ($this->tipoContrato->id == 1) {
             // Duracion Contrato
             $this->pdf->Cell($this->getAnchoColumna1(), 14, "Duración del contrato", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
             // Cantidad
@@ -480,7 +488,7 @@ class generarPdf {
     }
 
     private function imprimirTotales() {
-        
+
         $valorPlanSinDescuento = $this->valorPlan;
         $totalPlanSinDescuento = $this->totalPlan;
 
@@ -493,18 +501,28 @@ class generarPdf {
 
         // COMODATO
         $contrato = "";
-        if ($this->tipoContrato->id == 2) {
+        if ($this->tipoContrato->id == 1) {
             $contrato = "COMODATO";
 
             $valorPlanSinDescuento = ($this->unidadGps->precioUnidad / $this->duracionContrato->cantidadMeses) + $this->valorPlan;
             $totalPlanSinDescuento = $this->cotizacion->cantidad_vehiculos * $valorPlanSinDescuento;
 
-            $valorDescuento = $this->duracionContrato->cantidadMeses * ($this->descuento->descuento / 100);
+            $valorDescuento = $valorPlanSinDescuento * ($this->descuento->descuento / 100);
             $totalDescuento = $this->cotizacion->cantidad_vehiculos * $valorDescuento;
 
             $valorPlanMensual = $valorPlanSinDescuento - $valorDescuento;
             $totalPlanMensual = $totalPlanSinDescuento - $totalDescuento;
         }
+
+        $valorPlanSinDescuento = number_format($valorPlanSinDescuento, 2, ",", ".");
+        $totalPlanSinDescuento = number_format($totalPlanSinDescuento, 2, ",", ".");
+                
+        $valorDescuento = number_format($valorDescuento, 2, ",", ".");
+        $totalDescuento = number_format($totalDescuento, 2, ",", ".");
+
+        $valorPlanMensual = number_format($valorPlanMensual, 2, ",", ".");
+        $totalPlanMensual = number_format($totalPlanMensual, 2, ",", ".");
+
 
         $this->pdf->setTextBlack();
         $this->pdf->setBoldFont(14);
@@ -515,6 +533,23 @@ class generarPdf {
 
         $this->pdf->setNormalFont(14);
         $this->pdf->setTextBlack();
+
+        if ($this->tipoContrato->id == 2) {
+            // COMPRA
+            $totalGps = $this->cotizacion->cantidad_vehiculos * $this->unidadGps->precioUnidad;
+
+            // Detalle plan
+            $this->pdf->Cell($this->getAnchoColumna1(), 14, "Total Unidad GPS ", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+
+            // Cantidad
+            $this->pdf->Cell($this->getAnchoColumna2(), 14, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+            // Precio unitario
+            $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$this->unidadGps->precioUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+
+            // Precio total
+            $this->pdf->Cell(0, 14, "$ {$totalGps}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        }
 
         // Detalle plan
         $this->pdf->Cell($this->getAnchoColumna1(), 14, "Totales Accesorios", 0, 0, 'L', 0, '', 0, false, 'M', 'B');

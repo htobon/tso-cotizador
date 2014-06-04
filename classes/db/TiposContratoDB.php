@@ -41,7 +41,7 @@ class TiposContratoDB {
 
     static function getTiposContratoPorId($id) {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_tipos_contrato";
+        $sql = "SELECT * FROM tso_tipos_contrato where id = ? ";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();

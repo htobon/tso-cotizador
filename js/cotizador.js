@@ -396,9 +396,11 @@ $(document).on('pageinit', function()
         for (var i = 0; i < descuentosJSON.length; i++) {
             if ((Number(cantidadUnidadesGPS) >= Number(descuentosJSON[i].cantidadMin)) &&
                     (Number(cantidadUnidadesGPS) <= Number(descuentosJSON[i].cantidadMax))) {
+                //console.log(' Descuentos ',descuentosJSON[i]);
                 porcentajeDescuento = Number(descuentosJSON[i].descuento);
                 var numero = Number(porcentajeDescuento.toFixed(1)).toLocaleString();
                 $("#porcentaje-descuento .item", "#prev-cotizacion").html(numero + "%");
+                $("#descuento").val(descuentosJSON[i].id);
                 i = descuentosJSON.length; // parando ciclo.
             }
         }

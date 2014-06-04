@@ -263,7 +263,7 @@
                 <tr id="porcentaje-descuento">
                     <th>Porcentaje de descuento</th>
                     <th class="item">0%</th>
-                    <th></th>
+                    <th><input type="hidden" id="descuento" name="descuento" value=""/></th>
                     <th></th>
                 </tr>
 
