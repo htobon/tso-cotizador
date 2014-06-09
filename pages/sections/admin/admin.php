@@ -14,7 +14,7 @@ if (Sesion::sesionActiva()) {
     $smarty->assign("accesorios", $accesorios);
     
     //$smarty->display("sections/admin/admin.tpl");
-    $smarty->display("sections/admin/cotizacionesGeneradas.tpl");
+    $smarty->display("sections/admin/index.tpl");
 } else {
     $smarty->assign("ocultarLogout", 1);
     $smarty->assign("error", "Usted debe iniciar sesión primero.");

@@ -6,5 +6,12 @@ $(document).ready(function() {
         "ordering": false,
         "info": false
     });
+    
+    // Tabla Cotizaciones Generadas
+    $('#clientes_').dataTable({
+        "paging": false,
+        "ordering": false,
+        "info": false
+    });
 });
 

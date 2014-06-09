@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 
     <head>
 
@@ -20,6 +20,7 @@
         <!-- SB Admin CSS - Include with every page -->
         <link href="{$smarty.const.SMARTY_CSS_URI}/admin/sb-admin.css" rel="stylesheet">
 
+        
     </head>
 
     <body>
@@ -88,7 +89,7 @@
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="">Cotizaciones Generadas</a>
+                                        <a href="#" ui-sref="cotizacionesGeneradas" >Cotizaciones Generadas</a>
                                     </li>                                    
                                 </ul>
                             </li>
