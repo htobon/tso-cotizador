@@ -13,14 +13,12 @@ if (Sesion::sesionActiva()) {
     $accesorios = AccesoriosDB::getAccesorios();
     $smarty->assign("accesorios", $accesorios);
     
-    $smarty->display("sections/admin/admin.tpl");
+    //$smarty->display("sections/admin/admin.tpl");
+    $smarty->display("sections/admin/cotizacionesGeneradas.tpl");
 } else {
     $smarty->assign("ocultarLogout", 1);
     $smarty->assign("error", "Usted debe iniciar sesión primero.");
     $smarty->display("index-iniciarSesion.tpl");
 }
-
-
-
 
 ?>
