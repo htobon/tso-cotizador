@@ -4,3 +4,4 @@
 /cache
 /tmp/pdf/*
 /tmp/csv/*
+!.gitignore
