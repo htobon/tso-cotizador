@@ -7,6 +7,9 @@ require_once './generarCsv.php';
 require_once './sendEmail.php';
 
 
+$email = $_GET['email'];
+$email_a = $_GET['email_a'];
+
 // Generar Pdf 
 $_pdf = new generarPdf(17);
 $_pdf->generarCotizacionPdf();
@@ -18,8 +21,8 @@ $nombreCotizacion = "/tmp/pdf/" . $_pdf->getNamePdf();
 
 // Enviar por Correo Electronico
 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-123.pdf", $cotizacionPdf);
-$enviarCorreo->setTo("Edwin Camilo Orozco", "camilo.o19@gmail.com", "corozco@ecodev.com.co");
-$enviarCorreo->setFrom("Administrado", "corozco@tsomobile.com");
+$enviarCorreo->setTo("Edwin Camilo Orozco", $email, $email_a);
+$enviarCorreo->setFrom("Administrador", "corozco@tsomobile.com");
 
 if ($enviarCorreo->enviarCorreo()) {
 
