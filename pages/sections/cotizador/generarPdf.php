@@ -81,7 +81,7 @@ class generarPdf {
     }
 
     public function getPdf() {
-        return $this->pdf->Output(__DIR__ . "/../../../tmp/cotizacion-{$this->cotizacion->serial}.pdf", 'F');
+        return $this->pdf->Output(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf", 'F');
     }
 
     public function getPdfbase64() {

@@ -66,6 +66,43 @@ class CotizacionDB {
     public static function getCotizacion($id) {
         $conn = getConn();
         $sql = "SELECT * FROM tso_cotizaciones WHERE id = ?";
+
+        $sql = "SELECT
+                a.id,
+                a.usuario_id, 
+                b.salesforce_id,
+                b.nombres as nombre_vendedor, 
+                a.cliente_id,
+                c.nit, 
+                c.nombre as cliente,
+                a.nombre_contacto,
+                a.correo_contacto,
+                a.correo_alterno_contacto,
+                a.unidad_gps_id,
+                d.cod_unidad,
+                d.nombre as unidad_gps,
+                a.tipo_contrato_id,
+                e.nombre as tipo_contrato,
+                a.plan_servicio_id,
+                f.codigo as codigo_plan,
+                f.nombre as nombre_plan,
+                a.descuento_id,
+                g.descuento,
+                a.duracion_contrato_id,
+                h.cantidad_meses,
+                a.cantidad_vehiculos,
+                a.fecha,
+                a.serial
+                FROM tso_cotizaciones a
+                inner join tso_usuarios b on a.usuario_id = b.id
+                inner join tso_clientes c on a.cliente_id = c.id
+                inner join tso_unidades_gps d on a.unidad_gps_id = d.id
+                inner join tso_tipos_contrato e on a.tipo_contrato_id = e.id
+                inner join tso_planes_servicio f on a.plan_servicio_id = f.id
+                inner join tso_descuentos_cantidad_vehiculos g on a.descuento_id = g.id
+                inner join tso_duracion_contratos h on a.duracion_contrato_id = h.id 
+                WHERE a.id = ? ";
+
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();
@@ -76,15 +113,26 @@ class CotizacionDB {
             $cotizacion = new stdClass();
             $cotizacion->id = $_cotizacion['id'];
             $cotizacion->usuario_id = $_cotizacion['usuario_id'];
+            $cotizacion->salesforce_id = $_cotizacion['salesforce_id'];
+            $cotizacion->nombre_vendedor = $_cotizacion['nombre_vendedor'];
             $cotizacion->cliente_id = $_cotizacion['cliente_id'];
+            $cotizacion->nit = $_cotizacion['nit'];
+            $cotizacion->cliente = $_cotizacion['cliente'];
             $cotizacion->nombre_contacto = $_cotizacion['nombre_contacto'];
             $cotizacion->correo_contacto = $_cotizacion['correo_contacto'];
             $cotizacion->correo_alterno_contacto = $_cotizacion['correo_alterno_contacto'];
             $cotizacion->unidad_gps_id = $_cotizacion['unidad_gps_id'];
+            $cotizacion->cod_unidad = $_cotizacion['cod_unidad'];
+            $cotizacion->unidad_gps = $_cotizacion['unidad_gps'];            
             $cotizacion->tipo_contrato_id = $_cotizacion['tipo_contrato_id'];
+            $cotizacion->tipo_contrato = $_cotizacion['tipo_contrato'];
             $cotizacion->plan_servicio_id = $_cotizacion['plan_servicio_id'];
+            $cotizacion->codigo_plan = $_cotizacion['codigo_plan'];
+            $cotizacion->nombre_plan = $_cotizacion['nombre_plan'];
             $cotizacion->descuento_id = $_cotizacion['descuento_id'];
+            $cotizacion->descuento = $_cotizacion['descuento'];
             $cotizacion->duracion_contrato_id = $_cotizacion['duracion_contrato_id'];
+            $cotizacion->cantidad_meses = $_cotizacion['cantidad_meses'];
             $cotizacion->cantidad_vehiculos = $_cotizacion['cantidad_vehiculos'];
             $cotizacion->fecha = $_cotizacion['fecha'];
             $cotizacion->serial = $_cotizacion['serial'];

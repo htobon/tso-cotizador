@@ -20,7 +20,68 @@
         <!-- SB Admin CSS - Include with every page -->
         <link href="{$smarty.const.SMARTY_CSS_URI}/admin/sb-admin.css" rel="stylesheet">
 
-        
+        <!-- Angular JS -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+        <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+        <script>
+
+            var myApp = angular.module('myApp', ['ui.router']);
+
+            myApp.config(function($stateProvider, $urlRouterProvider) {
+                //
+                // For any unmatched url, redirect to /state1
+                $urlRouterProvider.otherwise("/dashboard");
+                //
+                // Now set up the states
+                $stateProvider
+                        .state('dashboard', {
+                            url: "/dashboard",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/dashboard.tpl"
+                        })
+                        .state('usuarios', {
+                            url: "/usuarios",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/usuarios.tpl"
+                        })
+                        .state('accesorios', {
+                            url: "/accesorios",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/accesorios.tpl"
+                        })
+                        .state('unidadgps', {
+                            url: "/unidadgps",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/unidad_gps.tpl"
+                        })
+                        .state('contratos', {
+                            url: "/contratos",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/contratos.tpl"
+                        })
+                        .state('planes', {
+                            url: "/planes",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/planes.tpl"
+                        })
+                        .state('clientes', {
+                            url: "/clientes",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/clientes.tpl"
+                        })
+                        .state('cotizacionesGeneradas', {
+                            url: "/cotizacionesGeneradas",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/cotizacionesGeneradas.tpl"
+                        })
+                        .state('archivos', {
+                            url: "/archivos",
+                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/archivos.tpl"
+                        })
+                        .state('state2.list', {
+                            url: "/list",
+                            templateUrl: "partials/state2.list.html",
+                            controller: function($scope) {
+                                $scope.things = ["A", "Set", "Of", "Things"];
+                            }
+                        })
+            });
+        </script>
+
+
+
     </head>
 
     <body>
@@ -65,25 +126,25 @@
                                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Parametrizacion <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="#">Usuarios</a>
+                                        <a href="#" ui-sref="usuarios" >Usuarios</a>
                                     </li>
                                     <li>
-                                        <a href="#">Accesorios</a>
+                                        <a href="#" ui-sref="accesorios" >Accesorios</a>
                                     </li>
                                     <li>
-                                        <a href="#">Unidades GPS</a>
+                                        <a href="#" ui-sref="unidadgps" >Unidades GPS</a>
                                     </li>
                                     <li>
-                                        <a href="#">Contratos</a>
+                                        <a href="#" ui-sref="contratos" >Contratos</a>
                                     </li>
                                     <li>
-                                        <a href="#">Planes</a>
+                                        <a href="#" ui-sref="planes">Planes</a>
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="admin.php"><i class="fa fa-user fa-fw"></i> Clientes</a>
+                                <a href="#" ui-sref="clientes" ><i class="fa fa-user fa-fw"></i> Clientes</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes<span class="fa arrow"></span></a>
@@ -94,7 +155,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-files-o fa-fw"></i> Generar CSV</a>                                
+                                <a href="#" ui-sref="archivos"><i class="fa fa-files-o fa-fw"></i> Descargar CSV</a>                                
                             </li>
                         </ul>
 

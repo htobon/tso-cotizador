@@ -8,7 +8,7 @@ $(document).ready(function() {
     });
     
     // Tabla Cotizaciones Generadas
-    $('#clientes_').dataTable({
+    $('#clientes').dataTable({
         "paging": false,
         "ordering": false,
         "info": false

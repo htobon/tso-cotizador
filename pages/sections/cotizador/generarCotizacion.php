@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
 require_once './generarPdf.php';
+require_once './generarCsv.php';
 require_once './sendEmail.php';
 
 use db\UsuarioDB;
@@ -10,7 +11,6 @@ use db\ClienteDB;
 use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
-
 
 if (Sesion::sesionActiva()) {
 
@@ -89,17 +89,18 @@ if (Sesion::sesionActiva()) {
                 $accesoriosCotizados = CotizacionDB::agregarAccesoriosCotizados($cotizacion_id, $cotizacionDetalle);
 
                 $error = false;
-                // Generar Pdf y enviar por Correo
+                // Generar Pdf 
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
                 $_pdf->getPdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
-                $nombreCotizacion = "/tmp/" . $_pdf->getNamePdf();
+                $nombreCotizacion = "/tmp/pdf/" . $_pdf->getNamePdf();
 
+                //Generar CSV
+                $csv = new generarCsv($cotizacion_id);
+                $csv->generarArchivosPlano();
 
-                /* $cotizacion = CotizacionDB::getCotizacion($cotizacion_id);
-                  include './enviarEmail.php'; */
-
+                // Enviar por Correo Electronico
                 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
