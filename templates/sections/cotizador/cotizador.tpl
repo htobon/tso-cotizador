@@ -330,9 +330,11 @@
                     <td>Total Instalaciones</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
-                    <td class="precioTotal">0</td>            
+                    <td class="precioTotal">0</td>
+
                 </tr>
                 <br>
+
                 <tr id="total-plan-sin-descuento" class="item">
                     <td>Valor Plan Sin Descuento</td>
                     <td class="cantidad">999</td>
@@ -343,8 +345,13 @@
                     <td>Valor Plan COMODATO Sin Descuento</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
-                    <td class="precioTotal">0</td>            
+                    <td class="precioTotal">0</td>   
                 </tr>
+                
+                <input type="hidden" id="valor_equipos" name="valor_equipos" value="0"/>
+                <input type="hidden" id="valor_recurrencia" name="valor_recurrencia" value="0"/>
+                <input type="hidden" id="valor_total" name="valor_total" value="0"/>
+
                 <tr id="total-descuento" class="item">
                     <td>Descuento</td>
                     <td class="cantidad">999</td>

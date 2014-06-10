@@ -14,7 +14,7 @@ class CotizacionDB {
 
         $conn = getConn();
         $sql = "INSERT INTO tso_cotizaciones (usuario_id,cliente_id,unidad_gps_id,tipo_contrato_id,plan_servicio_id,descuento_id,duracion_contrato_id,cantidad_vehiculos,fecha,serial, 
-                nombre_contacto, correo_contacto, correo_alterno_contacto) VALUES (?,?,?,?,?,?,?,?,CURDATE(),?,?,?,?)";
+                nombre_contacto, correo_contacto, correo_alterno_contacto, valor_recurrencia, valor_equipos, valor_total) VALUES (?,?,?,?,?,?,?,?,CURDATE(),?,?,?,?,?,?,?)";
 
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $cotizacion['usuario_id']);
@@ -29,6 +29,9 @@ class CotizacionDB {
         $stmt->bindValue(10, $cotizacion['nombre_contacto']);
         $stmt->bindValue(11, $cotizacion['correo_contacto']);
         $stmt->bindValue(12, $cotizacion['correo_alterno_contacto']);
+        $stmt->bindValue(13, $cotizacion['valor_recurrencia']);
+        $stmt->bindValue(14, $cotizacion['valor_equipos']);
+        $stmt->bindValue(15, $cotizacion['valor_total']);
 
         // Exepcion en caso de que el Insert Falle
         try {
@@ -91,6 +94,9 @@ class CotizacionDB {
                 a.duracion_contrato_id,
                 h.cantidad_meses,
                 a.cantidad_vehiculos,
+                a.valor_recurrencia, 
+                a.valor_equipos, 
+                a.valor_total,
                 a.fecha,
                 a.serial
                 FROM tso_cotizaciones a
@@ -123,7 +129,7 @@ class CotizacionDB {
             $cotizacion->correo_alterno_contacto = $_cotizacion['correo_alterno_contacto'];
             $cotizacion->unidad_gps_id = $_cotizacion['unidad_gps_id'];
             $cotizacion->cod_unidad = $_cotizacion['cod_unidad'];
-            $cotizacion->unidad_gps = $_cotizacion['unidad_gps'];            
+            $cotizacion->unidad_gps = $_cotizacion['unidad_gps'];
             $cotizacion->tipo_contrato_id = $_cotizacion['tipo_contrato_id'];
             $cotizacion->tipo_contrato = $_cotizacion['tipo_contrato'];
             $cotizacion->plan_servicio_id = $_cotizacion['plan_servicio_id'];
@@ -134,6 +140,9 @@ class CotizacionDB {
             $cotizacion->duracion_contrato_id = $_cotizacion['duracion_contrato_id'];
             $cotizacion->cantidad_meses = $_cotizacion['cantidad_meses'];
             $cotizacion->cantidad_vehiculos = $_cotizacion['cantidad_vehiculos'];
+            $cotizacion->valor_recurrencia = $_cotizacion['valor_recurrencia'];
+            $cotizacion->valor_equipos = $_cotizacion['valor_equipos'];
+            $cotizacion->valor_total = $_cotizacion['valor_total'];
             $cotizacion->fecha = $_cotizacion['fecha'];
             $cotizacion->serial = $_cotizacion['serial'];
 
@@ -159,6 +168,49 @@ class CotizacionDB {
                 $accesorio->cotizacion_id = $a["cotizacion_id"];
                 $accesorio->accesorio_id = $a["accesorio_id"];
                 $accesorio->cantidad_accesorio = $a["cantidad_accesorio"];
+                array_push($accesorios, $accesorio);
+            }
+        }
+
+        return (count($accesorios) <= 0 ) ? null : $accesorios;
+    }
+
+    public static function getDetalleCotizacion($cotizacionId) {
+        $conn = getConn();
+        
+        $sql = "SELECT 
+                a.id, 
+                a.cotizacion_id, 
+                a.accesorio_id, 
+                b.cod_accesorio as codigo_accesorio,  
+                b.precio_accesorio, 
+                a.cantidad_accesorio,
+                d.descuento,
+                CASE c.tipo_contrato_id when 1 then e.cantidad_meses else 0 end as cantidad_meses
+                FROM tso_accesorios_cotizados a
+                inner join tso_accesorios b on a.accesorio_id = b.id
+                inner join tso_cotizaciones c on a.cotizacion_id = c.id
+                inner join tso_descuentos_cantidad_vehiculos d on c.descuento_id = d.id
+                inner join tso_duracion_contratos e on c.duracion_contrato_id = e.id
+                WHERE a.cotizacion_id = ?";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $cotizacionId);
+        $stmt->execute();
+        $accesorios = array();
+        $_accesorioCotizado = $stmt->fetchAll();
+
+        foreach ($_accesorioCotizado as $a) {
+            if (isset($a)) {
+                $accesorio = new stdClass();
+                $accesorio->id = $a["id"];
+                $accesorio->cotizacion_id = $a["cotizacion_id"];
+                $accesorio->accesorio_id = $a["accesorio_id"];
+                $accesorio->codigo_accesorio = $a["codigo_accesorio"];
+                $accesorio->precio_accesorio = $a["precio_accesorio"];
+                $accesorio->cantidad_accesorio = $a["cantidad_accesorio"];
+                $accesorio->descuento = $a["descuento"];
+                $accesorio->cantidad_meses = $a["cantidad_meses"];
                 array_push($accesorios, $accesorio);
             }
         }

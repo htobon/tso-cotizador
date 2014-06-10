@@ -63,6 +63,9 @@ if (Sesion::sesionActiva()) {
             $cotizacion["duracion_contrato_id"] = 1;
 
         $cotizacion["cantidad_vehiculos"] = $datos["cantidad-unidad-gps"];
+        $cotizacion["valor_recurrencia"] = $datos["valor_recurrencia"];
+        $cotizacion["valor_equipos"] = $datos["valor_equipos"];
+        $cotizacion["valor_total"] = $datos["valor_total"];
         $cotizacion["serial"] = "C0-10";
 
         // Detalle Cotizacion    

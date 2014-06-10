@@ -128,7 +128,7 @@ $(document).on('pageinit', function()
         $('#autocomplete').hide();
     });
 
-    
+
 
     /*
      * ********************** PRE-VISUALIZACIÓN DE COTIZACIÓN ************************
@@ -500,6 +500,15 @@ $(document).on('pageinit', function()
         var tipoContrato = $("#contrato", "#adicionales").val();
         if (tipoContrato !== -1) {
             var numero;
+
+            var total_unidad_gps = 0;
+            var total_accesorios = 0;
+            var total_instalaciones = 0;
+
+            var valor_recurrencia = 0;
+            var valor_equipos = 0;
+            var valor_total = 0;
+
             // Si tipo de contrato es COMPRA.
             if (tipoContrato === "2") {
                 // Se debe incluir Total Unidad GPS.
@@ -509,6 +518,7 @@ $(document).on('pageinit', function()
                 $("#prev-cotizacion #total-unidad-gps").find(".precioUnitario").html("$" + numero);
                 numero = Number(totalPrecioUnidadGPS.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-unidad-gps").find(".precioTotal").html("$" + numero);
+                total_unidad_gps = Number(totalPrecioUnidadGPS.toFixed(1));
             }
             // Total Accesorios.
             $("#prev-cotizacion #total-accesorios").show();
@@ -517,6 +527,7 @@ $(document).on('pageinit', function()
             $("#prev-cotizacion #total-accesorios").find(".precioUnitario").html("$" + numero);
             numero = Number(totalPrecioAccesorios.toFixed(1)).toLocaleString();
             $("#prev-cotizacion #total-accesorios").find(".precioTotal").html("$" + numero);
+            total_accesorios = Number(totalPrecioAccesorios.toFixed(1));
 
             // Total Instalaciones
             $("#prev-cotizacion #total-instalaciones").show();
@@ -525,6 +536,12 @@ $(document).on('pageinit', function()
             $("#prev-cotizacion #total-instalaciones").find(".precioUnitario").html("$" + numero);
             numero = Number(totalPrecioInstalacionAccesorios.toFixed(1)).toLocaleString();
             $("#prev-cotizacion #total-instalaciones").find(".precioTotal").html("$" + numero);
+            total_instalaciones = Number(totalPrecioInstalacionAccesorios.toFixed(1));
+
+            //Valor Equipos
+            console.log(total_unidad_gps, total_accesorios, total_instalaciones);
+            valor_equipos = total_unidad_gps + total_accesorios + total_instalaciones;
+            $('#valor_equipos').val(valor_equipos);
 
             // Total Valor Plan Sin descuento
             totalValorPlanSinDescuentoUnitario = 0;
@@ -539,6 +556,8 @@ $(document).on('pageinit', function()
                 totalValorPlanSinDescuento = totalValorPlanSinDescuentoUnitario * cantidadUnidadesGPS;
                 numero = Number(totalValorPlanSinDescuento.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-plan-comodato-sin-descuento").find(".precioTotal").html("$" + numero);
+                valor_recurrencia = Number(totalValorPlanSinDescuento.toFixed(1));
+                $('#valor_recurrencia').val(valor_recurrencia);
             } else {
                 // Si tipo de contrato es COMPRA:
                 // Valor Plan Sin Descuento
@@ -550,7 +569,13 @@ $(document).on('pageinit', function()
                 totalValorPlanSinDescuento = totalPrecioTipoPlan;
                 numero = Number(totalValorPlanSinDescuento.toFixed(1)).toLocaleString();
                 $("#prev-cotizacion #total-plan-sin-descuento").find(".precioTotal").html("$" + numero);
+                valor_recurrencia = Number(totalValorPlanSinDescuento.toFixed(1));
+                $('#valor_recurrencia').val(valor_recurrencia);
             }
+            // Valor total
+            valor_total = parseFloat(valor_equipos)+ parseFloat(valor_recurrencia);
+            $('#valor_total').val(valor_total);
+
 
             // Total Descuento
             totalDescuentoUnitarioTotal = 0;
