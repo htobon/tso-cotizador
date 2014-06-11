@@ -25,10 +25,7 @@ $enviarCorreo->setTo("Edwin Camilo Orozco", $email, $email_a);
 $enviarCorreo->setFrom("Administrador", "corozco@tsomobile.com");
 
 if ($enviarCorreo->enviarCorreo()) {
-
-
-
-    echo "Se Envia Correo ";
+    echo "Se Envia Correo a {$email} y {$email_a}";
 } else {
 
     echo "No se envia correo";
