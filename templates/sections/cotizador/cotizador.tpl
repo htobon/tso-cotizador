@@ -174,7 +174,7 @@
         <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="izquierda" link="#adicionales"}</div>     
         <div class="row content" data-role="content">
             <h1>Condiciones de venta:</h1>
-            <table border="0">
+            <table border="0" cellpadding="0" cellspacing="0">
                 <!-- Unidad GPS -->
                 <tr>
                     <th>Unidad GPS</th>
@@ -314,19 +314,19 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tr id="total-unidad-gps" class="item">
+                <tr id="total-unidad-gps" class="item sombrear-tr">
                     <td>Total Unidad GPS</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>
-                <tr id="total-accesorios" class="item">
+                <tr id="total-accesorios" class="item sombrear-tr">
                     <td>Total Accesorios</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>
-                <tr id="total-instalaciones" class="item">
+                <tr id="total-instalaciones" class="item sombrear-tr">
                     <td>Total Instalaciones</td>
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
@@ -358,13 +358,13 @@
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>               
-                <tr id="total-plan-mensual" class="item">
+                <tr id="total-plan-mensual" class="item sombrear-tr">
                     <td>Valor Plan Mensual</td>
                     <td class="cantidad"></td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
                 </tr>
-                <tr id="total-plan-comodato-mensual" class="item">
+                <tr id="total-plan-comodato-mensual" class="item sombrear-tr">
                     <td>Valor Plan COMODATO Mensual</td>
                     <td class="cantidad"></td>
                     <td class="precioUnitario">0</td>

@@ -355,3 +355,7 @@ body   {
 }
 
 
+#prev-cotizacion .sombrear-tr{
+background-color: lightgray;
+font-weight: bolder;
+}
