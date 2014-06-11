@@ -106,7 +106,7 @@ if (Sesion::sesionActiva()) {
                 // Enviar por Correo Electronico
                 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
-                $enviarCorreo->setFrom($usuario->nombres, $usuario->correo);
+                $enviarCorreo->setFrom($usuario->nombres." ".$usuario->apellidos, $usuario->correo);
 
                 if ($enviarCorreo->enviarCorreo()) {
 
