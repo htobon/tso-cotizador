@@ -33,10 +33,10 @@ class sendPdfEmail {
         $to = $this->to;
         $from = $this->from;
         $subject = $this->subject;
-        $message = "<p>Cordial Saludo.</p><br/>
-                    <p>Muchas gracias por su interés en nuestras soluciones.</p><br/>
+        $message = "<p>Cordial Saludo.</p>
+                    <p>Muchas gracias por su interés en nuestras soluciones.</p>
                     <p>Adjunto enviamos nuestra propuesta económica. Estamos seguros de que nuestra compañía podrá brindarle los mejores y más completos servicios de Monitoreo y Rastreo Satelital.
-                    Quedamos atentos para ayudarles en la toma de la mejor decisión y resolver todas sus inquietudes.</p><br/>
+                    Quedamos atentos para ayudarles en la toma de la mejor decisión y resolver todas sus inquietudes.</p>
                     <p>Atentamente,</p>";
 
         // a random hash will be necessary to send mixed content
@@ -45,11 +45,19 @@ class sendPdfEmail {
         // carriage return type (we use a PHP end of line constant)
         $eol = PHP_EOL;
 
-        // attachment name
+        /* // attachment name
+          $filename = $this->fileName;
+          // encode data (puts attachment in proper format)
+          $pdfdoc = $this->pdf;
+          $attachment = chunk_split($pdfdoc); */
+
         $filename = $this->fileName;
-        // encode data (puts attachment in proper format)
-        $pdfdoc = $this->pdf;
-        $attachment = chunk_split($pdfdoc);
+        $fileatt = $nombreCotizacion = "/tmp/pdf/{$filename}";
+        $file = fopen($fileatt, 'rb');
+        $data = fread($file, filesize($fileatt));
+        fclose($file);
+        $attachment = chunk_split(base64_encode($data));
+
 
         // main header (multipart mandatory)
         $headers = "From: " . $from . $eol;
@@ -120,20 +128,20 @@ class sendPdfEmail {
                 "Content-Transfer-Encoding: base64\n\n" .
                 $attachment . "\n\n" .
                 "-{$mime_boundary}-\n";
-                
-         /*echo "<pre>";       
-         print_r($to);
-         print_r($subject);
-         print_r($message);
-         print_r($headers);
-         echo "</pre>";       
-         exit();*/ 
-                
+
+        /* echo "<pre>";       
+          print_r($to);
+          print_r($subject);
+          print_r($message);
+          print_r($headers);
+          echo "</pre>";
+          exit(); */
+
         if (mail($to, $subject, $message, $headers)) {
             return true;
         } else {
             return false;
-        }        
+        }
     }
 
 }
