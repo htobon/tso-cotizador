@@ -20,7 +20,7 @@ $nombreCotizacion = "/tmp/pdf/" . $_pdf->getNamePdf();
 
 
 // Enviar por Correo Electronico
-$enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-123.pdf", $cotizacionPdf);
+$enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", $_pdf->getNamePdf(), $cotizacionPdf);
 $enviarCorreo->setTo("Edwin Camilo Orozco", $email, $email_a);
 $enviarCorreo->setFrom("Administrador", "corozco@tsomobile.com");
 

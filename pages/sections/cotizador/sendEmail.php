@@ -52,7 +52,7 @@ class sendPdfEmail {
           $attachment = chunk_split($pdfdoc); */
 
         $filename = $this->fileName;
-        $fileatt = $nombreCotizacion = "/tmp/pdf/{$filename}";
+        $fileatt = __DIR__ . "/../../../tmp/pdf/{$filename}";
         $file = fopen($fileatt, 'rb');
         $data = fread($file, filesize($fileatt));
         fclose($file);
