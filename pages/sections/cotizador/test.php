@@ -34,7 +34,7 @@ if ($enviarCorreo->enviarCorreo()) {
 //set the recipient email address, where to send emails to
 $to_email = $email;
 //set the sender email address
-$your_email = "info@tsocotizador.info";
+$your_email = "admin@tsocotizador.info";
 //use your email address as the sender
 $header = "From: Camilo Orozco <" . $your_email . ">\r\n";
 //put the site visitor's address in the Reply-To header
