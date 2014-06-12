@@ -61,17 +61,16 @@ class sendPdfEmail {
 
         // main header (multipart mandatory)
         $headers = "From: " . $from . $eol;
-        $headers .= "Reply-To: admin@tsocotizador.info" . $eol;
         $headers .= "MIME-Version: 1.0" . $eol;
         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol . $eol;
         $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
         $headers .= "This is a MIME encoded message." . $eol . $eol;
 
         // message
-        //$headers .= "--" . $separator . $eol;
-        //$headers .= "Content-Type: text/html; charset=\"iso-8859-1\"" . $eol;
-        //$headers .= "Content-Transfer-Encoding: 8bit" . $eol . $eol;
-        //$headers .= $message . $eol . $eol;
+        $headers .= "--" . $separator . $eol;
+        $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"" . $eol;
+        $headers .= "Content-Transfer-Encoding: 8bit" . $eol . $eol;
+        $headers .= $message . $eol . $eol;
 
         // attachment
         $headers .= "--" . $separator . $eol;
@@ -82,13 +81,15 @@ class sendPdfEmail {
         $headers .= "--" . $separator . "--";
 
 
-        if (mail($to, $subject, $message, $headers)) {
+        if (mail($to, $subject, "", $headers)) {
             return true;
         } else {
 
             return false;
         }
     }
+    
+    
 
     public function enviar() {
 
