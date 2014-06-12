@@ -68,10 +68,10 @@ class sendPdfEmail {
         $headers .= "This is a MIME encoded message." . $eol . $eol;
 
         // message
-        $headers .= "--" . $separator . $eol;
-        $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"" . $eol;
-        $headers .= "Content-Transfer-Encoding: 8bit" . $eol . $eol;
-        $headers .= $message . $eol . $eol;
+        //$headers .= "--" . $separator . $eol;
+        //$headers .= "Content-Type: text/html; charset=\"iso-8859-1\"" . $eol;
+        //$headers .= "Content-Transfer-Encoding: 8bit" . $eol . $eol;
+        //$headers .= $message . $eol . $eol;
 
         // attachment
         $headers .= "--" . $separator . $eol;
@@ -82,7 +82,7 @@ class sendPdfEmail {
         $headers .= "--" . $separator . "--";
 
 
-        if (mail($to, $subject, "", $headers)) {
+        if (mail($to, $subject, $message, $headers)) {
             return true;
         } else {
 
