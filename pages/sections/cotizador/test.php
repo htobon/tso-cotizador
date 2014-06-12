@@ -36,9 +36,9 @@ $to_email = $email;
 //set the sender email address
 $your_email = "info@tsocotizador.info";
 //use your email address as the sender
-$header = "From: " . $your_email . "\r\n";
+$header = "From: Camilo Orozco <" . $your_email . ">\r\n";
 //put the site visitor's address in the Reply-To header
-$header .= "Reply-To: " . $your_email . "\r\n";
+$header .= "Reply-To: Dpto Ventas <" . $your_email . ">\r\n";
 //set the email Subject using the site visitor's name
 $subject = " TEST  ";
 //set the email body with all the site visitor's information
