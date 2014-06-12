@@ -61,7 +61,7 @@ class sendPdfEmail {
 
         // main header (multipart mandatory)
         $headers = "From: " . $from . $eol;
-        $headers = "Reply-To: admin@tsocotizador.info" . $eol;
+        $headers .= "Reply-To: admin@tsocotizador.info" . $eol;
         $headers .= "MIME-Version: 1.0" . $eol;
         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol . $eol;
         $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
