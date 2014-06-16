@@ -37,14 +37,17 @@ class sendPdfEmail {
         $from = $this->from;
         $subject = $this->subject;
 
-        // Convertir imagen en base64
+        /*// Convertir imagen en base64
         $path = __DIR__ . "/../../../firmas/{$this->firma}";
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         $firma_html = "<img src='{$base64}' alt='firma'  height='150' width='800'/>";
         if (empty($this->firma))
-            $firma_html = "";
+            $firma_html = "";*/
+        
+        //firma html
+        $firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
 
         $message = "<html>
                         <body>
@@ -56,7 +59,7 @@ class sendPdfEmail {
                             {$firma_html}
                         </body>
                     </html>";
-
+        
         // a random hash will be necessary to send mixed content
         $separator = md5(time());
 

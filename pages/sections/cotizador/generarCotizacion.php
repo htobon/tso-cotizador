@@ -12,6 +12,8 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
+
+
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
