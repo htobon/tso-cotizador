@@ -21,7 +21,7 @@
         <link href="{$smarty.const.SMARTY_CSS_URI}/admin/sb-admin.css" rel="stylesheet">
 
         <!-- Angular JS -->
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+        <!--script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
         <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
         <script>
 
@@ -78,7 +78,7 @@
                             }
                         })
             });
-        </script>
+        </script-->
 
 
 
@@ -120,7 +120,7 @@
                     <div class="sidebar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="admin.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="#" ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Parametrizacion <span class="fa arrow"></span></a>
@@ -132,7 +132,7 @@
                                         <a href="#" ui-sref="accesorios" >Accesorios</a>
                                     </li>
                                     <li>
-                                        <a href="#" ui-sref="unidadgps" >Unidades GPS</a>
+                                        <a href="#" ui-sref="unidad_gps" >Unidades GPS</a>
                                     </li>
                                     <li>
                                         <a href="#" ui-sref="contratos" >Contratos</a>

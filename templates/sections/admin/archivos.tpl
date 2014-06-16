@@ -9,7 +9,7 @@
                     Cotizaciones CSV
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="listaCotizaciones">
 
                 </div>
 
@@ -23,7 +23,7 @@
                     Detalles de Cotizacion.
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="listaDetalles">
                 </div>
             </div>
         </div>
