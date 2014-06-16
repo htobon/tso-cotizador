@@ -13,8 +13,8 @@ use utils\Constantes;
 use utils\Sesion;
 
 
-$x = new generarCsv(20);
-$x->generarArchivosPlano();
+$x = new sendPdfEmail(20,5,5);
+$x->enviarCorreo();
 exit();
 if (Sesion::sesionActiva()) {
 
@@ -110,7 +110,7 @@ if (Sesion::sesionActiva()) {
                 // Enviar por Correo Electronico
                 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
-                $enviarCorreo->setFrom($usuario->nombres." ".$usuario->apellidos, $usuario->correo);
+                $enviarCorreo->setFrom($usuario->nombres." ".$usuario->apellidos, $usuario->correo, $usuario->firma);
 
                 if ($enviarCorreo->enviarCorreo()) {
 

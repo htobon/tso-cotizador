@@ -33,6 +33,7 @@ class UsuarioDB {
             $usuario->correo = $u["correo"];
             $usuario->estaActivo = $u["esta_activo"];
             $usuario->rol = $u["rol"];
+            $usuario->firma = $u["firma_digital"];
             $usuario->fechaCreacion = $u["fecha_creacion"];
             return $usuario;
         } else {
@@ -61,6 +62,7 @@ class UsuarioDB {
             $usuario->correo = $u["correo"];
             $usuario->estaActivo = $u["esta_activo"];
             $usuario->rol = $u["rol"];
+            $usuario->firma = $u["firma_digital"];
             $usuario->fechaCreacion = $u["fecha_creacion"];
             return $usuario;
         } else {
@@ -109,6 +111,7 @@ class UsuarioDB {
                 $usuario->correo = $u["correo"];
                 $usuario->estaActivo = $u["esta_activo"];
                 $usuario->rol = $u["rol"];
+                $usuario->firma = $u["firma_digital"];
                 $usuario->fechaCreacion = $u["fecha_creacion"];
                 array_push($usuarios, $usuario);
             }

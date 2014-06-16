@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../../../config/smarty.php";
+
 class sendPdfEmail {
 
     private $to;
@@ -7,6 +9,7 @@ class sendPdfEmail {
     private $subject;
     private $fileName;
     private $pdf;
+    private $firma;
 
     function __construct($subject, $fileName, $file) {
         $this->subject = $subject;
@@ -23,9 +26,9 @@ class sendPdfEmail {
         }
     }
 
-    public function setFrom($nombre, $correo) {
+    public function setFrom($nombre, $correo, $firma) {
         $this->from = "{$nombre} <{$correo}>";
-        //$this->from = "{$correo}";
+        $this->firma = $firma;
     }
 
     public function enviarCorreo() {
@@ -33,11 +36,26 @@ class sendPdfEmail {
         $to = $this->to;
         $from = $this->from;
         $subject = $this->subject;
-        $message = "<p>Cordial Saludo.</p>
-                    <p>Muchas gracias por su inter&eacute;s en nuestras soluciones.</p>
-                    <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
-                    Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
-                    <p>Atentamente,</p>";
+
+        // Convertir imagen en base64
+        $path = __DIR__ . "/../../../firmas/{$this->firma}";
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $firma_html = "<img src='{$base64}' alt='firma'  height='150' width='800'/>";
+        if (empty($this->firma))
+            $firma_html = "";
+
+        $message = "<html>
+                        <body>
+                            <p>Cordial Saludo.</p>
+                            <p>Muchas gracias por su inter&eacute;s en nuestras soluciones.</p>
+                            <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
+                            Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
+                            <p>Atentamente,</p>
+                            {$firma_html}
+                        </body>
+                    </html>";
 
         // a random hash will be necessary to send mixed content
         $separator = md5(time());
@@ -88,8 +106,6 @@ class sendPdfEmail {
             return false;
         }
     }
-    
-    
 
     public function enviar() {
 
