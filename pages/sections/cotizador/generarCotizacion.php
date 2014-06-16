@@ -12,6 +12,10 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
+
+$x = new generarCsv(20);
+$x->generarArchivosPlano();
+exit();
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
