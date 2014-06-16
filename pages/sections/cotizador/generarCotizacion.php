@@ -12,10 +12,6 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
-
-$x = new sendPdfEmail(20,5,5);
-$x->enviarCorreo();
-exit();
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
