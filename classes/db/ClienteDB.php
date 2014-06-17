@@ -30,6 +30,26 @@ class ClienteDB {
         }
     }
 
+    public static function getClientes() {
+
+        $conn = getConn();
+        $sql = "SELECT * FROM tso_clientes";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $datos = $stmt->fetchAll();
+        $clientes = array();
+        foreach ($datos as $c) {
+            if (isset($c)) {
+                $cliente = new stdClass();
+                $cliente->id = $c["id"];
+                $cliente->nit = $c["nit"];
+                $cliente->nombre = $c["nombre"];
+                array_push($clientes, $cliente);
+            }
+        }
+        return $clientes;
+    }
+
     public static function getClientePorId($id) {
 
         $conn = getConn();

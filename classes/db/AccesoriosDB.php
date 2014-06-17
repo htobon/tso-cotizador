@@ -44,6 +44,7 @@ class AccesoriosDB {
                 $accesorio->imagen_aplicacion_dos = $a["imagen_aplicacion_dos"];
                 $accesorio->posicionX = $a["posicion_x"];
                 $accesorio->posicionY = $a["posicion_y"];
+                $accesorio->esta_activo = $a["esta_activo"];
                 array_push($accesorios, $accesorio);
             }
         }

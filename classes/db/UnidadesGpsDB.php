@@ -37,6 +37,7 @@ class UnidadesGpsDB {
                 $unidadGps->precioUnidad = $gps["precio_unidad"];
                 $unidadGps->descripcion = $gps["descripcion"];
                 $unidadGps->image = $gps["image"];
+                $unidadGps->esta_activo = $gps["esta_activo"];
                 array_push($unidadesGps, $unidadGps);
             }
         }

@@ -14,37 +14,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">                       
-                        <table class="table table-striped table-bordered table-hover" id="clientes">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nit</th>
-                                    <th>Nombre</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <table class="table table-striped table-bordered table-hover" id="clientes"></table>
                     </div>
                     <!-- /.table-responsive -->
                 </div>

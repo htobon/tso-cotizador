@@ -3,6 +3,13 @@
 require_once __DIR__ . "/../../../config/smarty.php";
 require_once __DIR__ . "/../../../config/autoloader.php";
 
+use db\CotizacionDB;
+use db\ClienteDB;
+use db\PlanesDB;
+use db\TiposContratoDB;
+use db\UnidadesGpsDB;
+use db\AccesoriosDB;
+use db\UsuarioDB;
 
 if (isset($_POST['action'])) {
     $action = new Action();
@@ -19,6 +26,47 @@ echo json_encode($response);
 class Action {
 
     public function __construct() {
+        
+    }
+
+    public function getUsuarios() {
+        $usuarios = UsuarioDB::getUsuarios();
+        //Success
+        return $this->_response(1, NULL, array('usuarios' => $usuarios));
+    }
+    
+    public function getAccesorios() {
+        $accesorios = AccesoriosDB::getAccesorios();
+        //Success
+        return $this->_response(1, NULL, array('accesorios' => $accesorios));
+    }
+    
+    public function getUnidadesGPS() {
+        $unidades = UnidadesGpsDB::getUnidadesGpsActivas();
+        //Success
+        return $this->_response(1, NULL, array('unidades' => $unidades));
+    }
+    public function getTiposContratos() {
+        $tiposContratos = TiposContratoDB::getTiposContrato();
+        //Success
+        return $this->_response(1, NULL, array('tiposContratos' => $tiposContratos));
+    }
+    public function getPlanes() {
+        $planes = PlanesDB::getPlanes();
+        //Success
+        return $this->_response(1, NULL, array('planes' => $planes));
+    }
+    
+    public function getClientes() {
+        $clientes = ClienteDB::getClientes();
+        //Success
+        return $this->_response(1, NULL, array('clientes' => $clientes));
+    }
+    
+    public function reporteCotizaciones() {
+        $cotizaciones = CotizacionDB::listarCotizaciones();
+        //Success
+        return $this->_response(1, NULL, array('cotizaciones' => $cotizaciones));
         
     }
 
