@@ -83,6 +83,7 @@ class generarCsv {
         $fp = fopen($this->ruta, 'a');
         if (!empty($cabecera))
             fputcsv($fp, $cabecera);
+
         foreach ($this->cotizacionDetalle as $value) {
             fputcsv($fp, array($value->cotizacion_id, $value->codigo_accesorio, $value->cantidad_meses, $value->precio_accesorio, $value->descuento));
         }
