@@ -55,8 +55,8 @@ class generarCsv {
             $this->cotizacion->nit,
             $this->cotizacion->cantidad_vehiculos,
             $this->cotizacion->valor_recurrencia,
-            $this->cotizacion->valor_equipos,
-            $this->cotizacion->valor_total,
+            "{$this->cotizacion->valor_equipos}",
+            "{$this->cotizacion->valor_total}",
             $this->cotizacion->salesforce_id);
 
         $fp = fopen($this->ruta, 'a');
