@@ -12,8 +12,6 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
-
-
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
@@ -108,7 +106,7 @@ if (Sesion::sesionActiva()) {
                 // Enviar por Correo Electronico
                 $enviarCorreo = new sendPdfEmail("Cotizacion TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
-                $enviarCorreo->setFrom($usuario->nombres." ".$usuario->apellidos, $usuario->correo, $usuario->firma);
+                $enviarCorreo->setFrom($usuario->nombres . " " . $usuario->apellidos, $usuario->correo, $usuario->firma);
 
                 if ($enviarCorreo->enviarCorreo()) {
 

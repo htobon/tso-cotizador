@@ -516,7 +516,7 @@ class generarPdf {
 
         $valorPlanSinDescuento = number_format($valorPlanSinDescuento, 2, ",", ".");
         $totalPlanSinDescuento = number_format($totalPlanSinDescuento, 2, ",", ".");
-                
+
         $valorDescuento = number_format($valorDescuento, 2, ",", ".");
         $totalDescuento = number_format($totalDescuento, 2, ",", ".");
 
@@ -529,52 +529,56 @@ class generarPdf {
 
 
         // Tipo Plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
-
+        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Ln();
+        
         $this->pdf->setNormalFont(14);
         $this->pdf->setTextBlack();
+        $this->pdf->SetFillColor(128, 128, 128);
 
         if ($this->tipoContrato->id == 2) {
             // COMPRA
             $totalGps = $this->cotizacion->cantidad_vehiculos * $this->unidadGps->precioUnidad;
 
             // Detalle plan
-            $this->pdf->Cell($this->getAnchoColumna1(), 14, "Total Unidad GPS ", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+            $this->pdf->Cell($this->getAnchoColumna1(), 0, "Total Unidad GPS ", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
             // Cantidad
-            $this->pdf->Cell($this->getAnchoColumna2(), 14, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+            $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
             // Precio unitario
-            $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$this->unidadGps->precioUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+            $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$this->unidadGps->precioUnidad}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
             // Precio total
-            $this->pdf->Cell(0, 14, "$ {$totalGps}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+            $this->pdf->Cell(0, 0, "$ {$totalGps}", 0, 0, 'R', true, '', 0, false, 'M', 'B');
+            $this->pdf->Ln();
         }
 
         // Detalle plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 14, "Totales Accesorios", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Totales Accesorios", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
         // Cantidad
-        $this->pdf->Cell($this->getAnchoColumna2(), 14, $this->cantidadAccesorios, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadAccesorios, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$this->valorAccesorios}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$this->valorAccesorios}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$this->totalAccesorios}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$ {$this->totalAccesorios}", 0, 0, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Ln();
 
 
         // Detalle plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 14, "Totales Instalaciones", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Totales Instalaciones", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
         // Cantidad
-        $this->pdf->Cell($this->getAnchoColumna2(), 14, $this->cantidadInstalaciones, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadInstalaciones, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ $this->valorInstalaciones", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ $this->valorInstalaciones", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$this->totalInstalaciones}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$ {$this->totalInstalaciones}", 0, 1, 'R', true, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln();
 
@@ -601,20 +605,21 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$valorDescuento}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$totalDescuento}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 14, "$ {$totalDescuento}", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Ln();
 
-
+        $this->pdf->SetFillColor(128, 128, 128);
         // Detalle plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 14, "Valor Plan {$contrato} Mensual", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Valor Plan {$contrato} Mensual", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
         // Cantidad
-        $this->pdf->Cell($this->getAnchoColumna2(), 14, "-", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna2(), 0, "-", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$valorPlanMensual}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$valorPlanMensual}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$totalPlanMensual}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$ {$totalPlanMensual}", 0, 1, 'R', true, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln();
     }
