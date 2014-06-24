@@ -28,7 +28,7 @@ class sendPdfEmail {
 
     public function setFrom($nombre, $correo, $firma) {
         //$this->from = "{$nombre} <{$correo}>";
-        $this->from = "Informacion <admin@tsocotizador.info>";
+        $this->from = "Informacion <info@tsocotizador.info>";
         $this->firma = $firma;
     }
 
