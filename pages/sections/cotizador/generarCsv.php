@@ -48,7 +48,7 @@ class generarCsv {
 
         $datos = array(
             $this->cotizacion_id,
-            "Cotización",
+            "Cotizacion",
             $fecha_cierre,
             $this->cotizacion->tipo_contrato,
             $this->cotizacion->codigo_plan,

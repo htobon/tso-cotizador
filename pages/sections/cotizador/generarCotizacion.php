@@ -12,6 +12,7 @@ use db\CotizacionDB;
 use utils\Constantes;
 use utils\Sesion;
 
+
 if (Sesion::sesionActiva()) {
 
     $datos = $_POST;
@@ -108,7 +109,7 @@ if (Sesion::sesionActiva()) {
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres . " " . $usuario->apellidos, $usuario->correo, $usuario->firma);
 
-                if ($enviarCorreo->enviarCorreo()) {
+                if ($enviarCorreo->enviarEmail()) {
 
                     $mensajeCorreosEnviados = "Cotizacion Enviada a : {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {

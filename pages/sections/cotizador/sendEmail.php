@@ -1,11 +1,17 @@
 <?php
 
 require_once __DIR__ . "/../../../config/smarty.php";
+require_once __DIR__ . "/../../../libs/PHPMailer/PHPMailerAutoload.php";
 
 class sendPdfEmail {
 
     private $to;
+    private $toName;
+    private $toEmail;
+    private $toEmail2;
     private $from;
+    private $fromName;
+    private $fromEmail;
     private $subject;
     private $fileName;
     private $pdf;
@@ -20,15 +26,22 @@ class sendPdfEmail {
     public function setTo($nombre, $correo, $correo_alterno) {
 
         $this->to = "{$nombre} <{$correo}>";
+        $this->toName = $nombre;
+        $this->toEmail = $correo;
+
+        $this->toEmail2 = "";
 
         if (!empty($correo_alterno)) {
             $this->to .= ", {$nombre} <{$correo_alterno}>";
+            $this->toEmail2 = $correo_alterno;
         }
     }
 
     public function setFrom($nombre, $correo, $firma) {
-        //$this->from = "{$nombre} <{$correo}>";
-        $this->from = "Informacion <info@tsocotizador.info>";
+        $this->from = "{$nombre} <{$correo}>";
+        $this->fromName = $nombre;
+        $this->fromEmail = $correo;
+        //$this->from = "Informacion <info@tsocotizador.info>";
         $this->firma = $firma;
     }
 
@@ -38,15 +51,15 @@ class sendPdfEmail {
         $from = $this->from;
         $subject = $this->subject;
 
-        /*// Convertir imagen en base64
-        $path = __DIR__ . "/../../../firmas/{$this->firma}";
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        $firma_html = "<img src='{$base64}' alt='firma'  height='150' width='800'/>";
-        if (empty($this->firma))
-            $firma_html = "";*/
-        
+        /* // Convertir imagen en base64
+          $path = __DIR__ . "/../../../firmas/{$this->firma}";
+          $type = pathinfo($path, PATHINFO_EXTENSION);
+          $data = file_get_contents($path);
+          $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+          $firma_html = "<img src='{$base64}' alt='firma'  height='150' width='800'/>";
+          if (empty($this->firma))
+          $firma_html = ""; */
+
         //firma html
         $firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
 
@@ -60,7 +73,7 @@ class sendPdfEmail {
                             {$firma_html}
                         </body>
                     </html>";
-        
+
         // a random hash will be necessary to send mixed content
         $separator = md5(time());
 
@@ -111,58 +124,61 @@ class sendPdfEmail {
         }
     }
 
-    public function enviar() {
+    public function enviarEmail() {
 
-        $to = $this->to;
-        //$from = "Hector Fabio@tsomobile.com";
-        $from = $this->from;
-        $subject = $this->subject;
-        $fileatttype = "application/pdf";
-        $fileattname = $this->fileName;
-        $headers = "From: $from";
+        $mail = new PHPMailer;
 
-        $fileatt = $this->pdf;
-        $attachment = chunk_split($fileatt);
+        $mail->isSMTP();                                      
+        $mail->Host = 'smtp.gmail.com';                   
+        $mail->SMTPAuth = true;                              
+        $mail->Username = '';          
+        $mail->Password = '';                     
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;                                
+        // ssl port 465
+        // tsl port 587
 
-        /* $file = fopen($fileatt, 'rb');
-          $data = fread($file, filesize($fileatt));
-          fclose($file);
-          $attachment = chunk_split(base64_encode($data)); */
+        $mail->From = "admin@tsocotizador.info"; //$this->fromEmail; 
+        $mail->FromName = "Administrador";//$this->fromName; 
+        $mail->addAddress($this->toEmail, $this->toName);    
 
-        // This attaches the file
-        $semi_rand = md5(time());
-        $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
-        $headers .= "\nMIME-Version: 1.0\n" .
-                "Content-Type: multipart/mixed;\n" .
-                " boundary=\"{$mime_boundary}\"";
-        $message = "";
-        $message = "This is a multi-part message in MIME format.\n\n" .
-                "-{$mime_boundary}\n" .
-                "Content-Type: text/plain; charset=\"iso-8859-1\n" .
-                "Content-Transfer-Encoding: 7bit\n\n" .
-                $message .= "\n\n";
+        if (!empty($this->toEmail2)) {
+            $mail->addAddress($this->toEmail2, $this->toName);          
+        }
+        $mail->addReplyTo('info@tsocotizador.info', 'Information');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
 
-        $message .= "--{$mime_boundary}\n" .
-                "Content-Type: {$fileatttype};\n" .
-                " name=\"{$fileattname}\"\n" .
-                "Content-Disposition: attachment;\n" .
-                " filename=\"{$fileattname}\"\n" .
-                "Content-Transfer-Encoding: base64\n\n" .
-                $attachment . "\n\n" .
-                "-{$mime_boundary}-\n";
+        $fileatt = __DIR__ . "/../../../tmp/pdf/{$this->fileName}";
 
-        /* echo "<pre>";       
-          print_r($to);
-          print_r($subject);
-          print_r($message);
-          print_r($headers);
-          echo "</pre>";
-          exit(); */
+        $mail->WordWrap = 50;                                 
+        $mail->addAttachment($fileatt);                               
+        $mail->isHTML(true);                                  
 
-        if (mail($to, $subject, $message, $headers)) {
-            return true;
-        } else {
+        $mail->Subject = $this->subject;
+
+        $firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
+
+        $message = "<html>
+                        <body>
+                            <p>Cordial Saludo.</p>
+                            <p>Muchas gracias por su inter&eacute;s en nuestras soluciones.</p>
+                            <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
+                            Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
+                            <p>Atentamente,</p>
+                            {$firma_html}
+                        </body>
+                    </html>";
+
+        $mail->Body = $message;
+
+        if (!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
             return false;
+        } else {
+            //echo 'Message has been sent';
+            return true;
         }
     }
 
