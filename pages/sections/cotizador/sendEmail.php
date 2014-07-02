@@ -149,7 +149,7 @@ class sendPdfEmail {
             $mail->addAddress($this->toEmail2, $this->toName);          
         }
         $mail->addReplyTo('info@tsocotizador.info', 'Information');
-        //$mail->addCC('cc@example.com');
+        $mail->addCC($this->fromEmail, $this->fromName);
         //$mail->addBCC('bcc@example.com');
 
         $fileatt = __DIR__ . "/../../../tmp/pdf/{$this->fileName}";
