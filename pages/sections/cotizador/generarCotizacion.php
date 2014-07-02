@@ -69,6 +69,7 @@ if (Sesion::sesionActiva()) {
         $cotizacion["valor_total"] = $datos["valor_total"];
         $cotizacion["serial"] = "C0-10";
 
+        
         // Detalle Cotizacion    
         foreach ($datos["accesorios"] as $accesorio) {
             $cantidad = $accesorio['cantidad-accesorio'];

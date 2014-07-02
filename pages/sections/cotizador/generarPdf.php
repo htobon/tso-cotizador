@@ -185,10 +185,10 @@ class generarPdf {
 
         // Precio Unitario
         $this->pdf->setNormalFont(14);
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$" . $this->unidadGps->precioUnidad, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$" . $this->formatMoney($this->unidadGps->precioUnidad), 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$" . $total, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 14, "$" . $this->formatMoney($total), 0, 1, 'R', 0, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln(5);
     }
@@ -229,12 +229,12 @@ class generarPdf {
             // Precio Unitario
             $this->pdf->setNormalFont(14);
             //$this->pdf->Cell($this->getAnchoColumna3()(), 14, "$" . $accesorio->precioAccesorio, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $accesorio->precioAccesorio, 0, 'C', false, 0, '', '', true);
+            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $this->formatMoney($accesorio->precioAccesorio), 0, 'C', false, 0, '', '', true);
 
             // Precio total
             $this->pdf->setNormalFont(14);
             //$this->pdf->Cell(0, 14, '$' . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
+            $this->pdf->MultiCell(0, $h, '$' . $this->formatMoney($precioTotal), 0, 'R', false, 1, '', '', true);
         }
 
         //$this->pdf->Ln(5);
@@ -262,13 +262,13 @@ class generarPdf {
         // Precio Unitario
         $this->pdf->setNormalFont(14);
         //$this->pdf->Cell($this->getAnchoColumna3()(), 7, "$" . $unidadGps->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$" . $this->unidadGps->precioInstalacion, 0, 'C', false, 0, '', '', true);
+        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$" . $this->formatMoney($this->unidadGps->precioInstalacion), 0, 'C', false, 0, '', '', true);
 
         // Precio total
         $this->pdf->setNormalFont(14);
         $precioInstalacionGps = $this->unidadGps->precioInstalacion * $this->cotizacion->cantidad_vehiculos;
         //$this->pdf->Cell(0, 14, "$" . $precioInstalacionGps, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell(0, 7, '$' . $precioInstalacionGps, 0, 'R', false, 1, '', '', true);
+        $this->pdf->MultiCell(0, 7, '$' . $this->formatMoney($precioInstalacionGps), 0, 'R', false, 1, '', '', true);
 
         $this->cantidadInstalaciones = $this->cotizacion->cantidad_vehiculos;
         $this->valorInstalaciones = $this->unidadGps->precioInstalacion;
@@ -299,11 +299,11 @@ class generarPdf {
             $this->pdf->setNormalFont(14);
             // Precio unitario
             //$this->pdf->Cell($this->getAnchoColumna3()(), 14, "$" . $accesorio->precioInstalacion, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $accesorio->precioInstalacion, 0, 'C', false, 0, '', '', true);
+            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $this->formatMoney($accesorio->precioInstalacion), 0, 'C', false, 0, '', '', true);
 
             // Precio total
             //$this->pdf->Cell(0, 14, "$" . $precioTotal, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
+            $this->pdf->MultiCell(0, $h, '$' . $this->formatMoney($precioTotal), 0, 'R', false, 1, '', '', true);
         }
 
         //$this->pdf->Ln(5);
@@ -335,11 +335,11 @@ class generarPdf {
         // Precio unitario
         $this->pdf->setNormalFont(14);
         //$this->pdf->Cell($this->getAnchoColumna3()(), 14, "$ {$plan->precio}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$ {$this->plan->precio}", 0, 'C', false, 0, '', '', true);
+        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$" . $this->formatMoney($this->plan->precio), 0, 'C', false, 0, '', '', true);
 
         // Precio total
         //$this->pdf->Cell(0, 14, "$ {$precioPlan}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell(0, 7, '$' . $precioPlan, 0, 'R', false, 1, '', '', true);
+        $this->pdf->MultiCell(0, 7, '$' . $this->formatMoney($precioPlan), 0, 'R', false, 1, '', '', true);
 
         $this->valorPlan = $this->plan->precio;
         $this->totalPlan = $precioPlan;
@@ -367,11 +367,11 @@ class generarPdf {
             // Precio unitario
             $this->pdf->setNormalFont(14);
             //$this->pdf->Cell($this->getAnchoColumna3()(), 14, "$ {$accesorio->precioMensualidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$ {$accesorio->precioMensualidad}", 0, 'C', false, 0, '', '', true);
+            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $this->formatMoney($accesorio->precioMensualidad), 0, 'C', false, 0, '', '', true);
 
             // Precio total
             //$this->pdf->Cell(0, 14, "$ {$precioTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell(0, $h, '$' . $precioTotal, 0, 'R', false, 1, '', '', true);
+            $this->pdf->MultiCell(0, $h, '$' . $this->formatMoney($precioTotal), 0, 'R', false, 1, '', '', true);
         }
 
         //$this->pdf->Ln();
@@ -442,11 +442,11 @@ class generarPdf {
         // Precio unitario
         $this->pdf->setNormalFont(14);
         //$this->pdf->Cell(getAnchoColumna3(), 14, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$ {$decuentoUnidad}", 0, 'C', false, 0, '', '', true);
+        $this->pdf->MultiCell($this->getAnchoColumna3(), 7, "$" . $this->formatMoney($decuentoUnidad), 0, 'C', false, 0, '', '', true);
 
         // Precio total
         //$this->pdf->Cell(0, 14, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-        $this->pdf->MultiCell(0, 7, '$' . $descuentoTotal, 0, 'R', false, 1, '', '', true);
+        $this->pdf->MultiCell(0, 7, '$' . $this->formatMoney($descuentoTotal), 0, 'R', false, 1, '', '', true);
 
         $this->valorDescuento = $decuentoUnidad;
         $this->totalDescuento = $descuentoTotal;
@@ -477,11 +477,11 @@ class generarPdf {
             // Precio unitario
             $this->pdf->setNormalFont(14);
             //$this->pdf->Cell(getAnchoColumna3(), 14, "$ {$decuentoUnidad}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$ {$decuentoUnidad}", 0, 'C', false, 0, '', '', true);
+            $this->pdf->MultiCell($this->getAnchoColumna3(), $h, "$" . $this->formatMoney($decuentoUnidad), 0, 'C', false, 0, '', '', true);
 
             // Precio total
             //$this->pdf->Cell(0, 14, "$ {$descuentoTotal}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
-            $this->pdf->MultiCell(0, $h, '$' . $descuentoTotal, 0, 'R', false, 1, '', '', true);
+            $this->pdf->MultiCell(0, $h, '$' . $this->formatMoney($descuentoTotal), 0, 'R', false, 1, '', '', true);
         }
 
         //$this->pdf->Ln();
@@ -514,14 +514,14 @@ class generarPdf {
             $totalPlanMensual = $totalPlanSinDescuento - $totalDescuento;
         }
 
-        $valorPlanSinDescuento = number_format($valorPlanSinDescuento, 2, ",", ".");
-        $totalPlanSinDescuento = number_format($totalPlanSinDescuento, 2, ",", ".");
+        $valorPlanSinDescuento = $this->formatMoney($valorPlanSinDescuento);
+        $totalPlanSinDescuento = $this->formatMoney($totalPlanSinDescuento);
 
-        $valorDescuento = number_format($valorDescuento, 2, ",", ".");
-        $totalDescuento = number_format($totalDescuento, 2, ",", ".");
+        $valorDescuento = $this->formatMoney($valorDescuento);
+        $totalDescuento = $this->formatMoney($totalDescuento);
 
-        $valorPlanMensual = number_format($valorPlanMensual, 2, ",", ".");
-        $totalPlanMensual = number_format($totalPlanMensual, 2, ",", ".");
+        $valorPlanMensual = $this->formatMoney($valorPlanMensual);
+        $totalPlanMensual = $this->formatMoney($totalPlanMensual);
 
 
         $this->pdf->setTextBlack();
@@ -531,7 +531,7 @@ class generarPdf {
         // Tipo Plan
         $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
         $this->pdf->Ln();
-        
+
         $this->pdf->setNormalFont(14);
         $this->pdf->setTextBlack();
         $this->pdf->SetFillColor(128, 128, 128);
@@ -547,10 +547,10 @@ class generarPdf {
             $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
             // Precio unitario
-            $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$this->unidadGps->precioUnidad}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
+            $this->pdf->Cell($this->getAnchoColumna3(), 0, "$" . $this->formatMoney($this->unidadGps->precioUnidad), 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
             // Precio total
-            $this->pdf->Cell(0, 0, "$ {$totalGps}", 0, 0, 'R', true, '', 0, false, 'M', 'B');
+            $this->pdf->Cell(0, 0, "$" . $this->formatMoney($totalGps), 0, 0, 'R', true, '', 0, false, 'M', 'B');
             $this->pdf->Ln();
         }
 
@@ -561,10 +561,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadAccesorios, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$this->valorAccesorios}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$".$this->formatMoney($this->valorAccesorios), 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$ {$this->totalAccesorios}", 0, 0, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$".$this->formatMoney($this->totalAccesorios), 0, 0, 'R', true, '', 0, false, 'M', 'B');
         $this->pdf->Ln();
 
 
@@ -575,10 +575,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadInstalaciones, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ $this->valorInstalaciones", 0, 0, 'C', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$" . $this->formatMoney($this->valorInstalaciones), 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$ {$this->totalInstalaciones}", 0, 1, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$" . $this->formatMoney($this->totalInstalaciones), 0, 1, 'R', true, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln();
 
@@ -638,6 +638,21 @@ class generarPdf {
 
     private function getAnchoColumna4() {
         return 35;
+    }
+
+    private function formatMoney($number, $fractional = false) {
+        if ($fractional) {
+            $number = sprintf('%.2f', $number);
+        }
+        while (true) {
+            $replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);
+            if ($replaced != $number) {
+                $number = $replaced;
+            } else {
+                break;
+            }
+        }
+        return $number;
     }
 
 }
