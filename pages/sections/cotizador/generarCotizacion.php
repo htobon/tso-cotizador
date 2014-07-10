@@ -106,7 +106,7 @@ if (Sesion::sesionActiva()) {
                 $csv->generarArchivosPlano();
 
                 // Enviar por Correo Electronico
-                $enviarCorreo = new sendPdfEmail("Cotizacion #{{$serial}} TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
+                $enviarCorreo = new sendPdfEmail("Cotizacion #{$serial} TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres . " " . $usuario->apellidos, $usuario->correo, $usuario->firma);
 
