@@ -18,11 +18,6 @@ var App = {
         $('a[ui-sref=cotizacionesGeneradas]').click(App.reporteCotizaciones);
         $('a[ui-sref=archivos]').click(App.getFiles);
 
-
-        $('#btn69').click(function() {
-            console.log('here')
-        });
-
     },
     changeView: function(e) {
 
@@ -43,15 +38,23 @@ var App = {
     getUsuarios: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nombre"},
-            {"title": "Apellidos"},
-            {"title": "Telefono"},
-            {"title": "Email"},
-            {"title": "Rol"},
-            {"title": "Estado"},
-            {"title": "Opciones"}
+            {"title": "Codigo", data : 'codigo'},
+            {"title": "Nombre", data : 'nombres'},
+            {"title": "Apellidos", data : 'apellidos'},
+            {"title": "Telefono", data : 'telefono'},
+            {"title": "Email", data : 'correo'},
+            {"title": "Rol", data : 'rol'},
+            {"title": "Opciones", class : 'text-center'}
         ];
+
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -59,13 +62,7 @@ var App = {
             },
             success: function(response) {
 
-                var dataSet = [];
-                $.each(response.usuarios, function(i, u) {
-                    var row = [u.codigo, u.nombres, u.apellidos, u.telefono, u.correo, u.rol, u.estaActivo, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('usuarios', dataSet, columns);
+                App.generateTable('usuarios', response.usuarios, columns, columnDefs);
             }
         });
 
@@ -81,8 +78,17 @@ var App = {
             {"title": "Mensualidad"},
             {"title": "Descripcion"},
             {"title": "Estado"},
-            {"title": "Opciones"}
+            {"title": "Opciones", class : 'text-center'}
         ];
+        
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -96,7 +102,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('accesorios', dataSet, columns);
+                App.generateTable('accesorios', dataSet, columns, columnDefs);
             }
         });
 
@@ -111,8 +117,17 @@ var App = {
             {"title": "Precio Instalacion"},
             {"title": "Descripcion"},
             {"title": "Estado"},
-            {"title": "Opciones"}
+            {"title": "Opciones", class : 'text-center'}
         ];
+        
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -126,7 +141,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('unidadesgps', dataSet, columns);
+                App.generateTable('unidadesgps', dataSet, columns, columnDefs);
             }
         });
 
@@ -136,8 +151,17 @@ var App = {
         var columns = [
             {"title": "Codigo"},
             {"title": "Nombre"},
-            {"title": "Opciones"}
+            {"title": "Opciones", class : 'text-center'}
         ];
+        
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -151,7 +175,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('contratos', dataSet, columns);
+                App.generateTable('contratos', dataSet, columns, columnDefs);
             }
         });
 
@@ -163,8 +187,17 @@ var App = {
             {"title": "Nombre"},
             {"title": "Precio"},
             {"title": "Estado"},
-            {"title": "Opciones"}
+            {"title": "Opciones", class : 'text-center'}
         ];
+        
+         var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -178,7 +211,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('planes', dataSet, columns);
+                App.generateTable('planes', dataSet, columns, columnDefs);
             }
         });
 
@@ -189,8 +222,17 @@ var App = {
             {"title": "Codigo"},
             {"title": "Nit"},
             {"title": "Nombre"},
-            {"title": "Opciones"}
+            {"title": "Opciones", class:'text-center'}
         ];
+        
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {                    
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                }
+            }];
 
         App.request({
             data: {
@@ -204,7 +246,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('clientes', dataSet, columns);
+                App.generateTable('clientes', dataSet, columns, columnDefs);
             }
         });
     },
@@ -227,18 +269,13 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, full, meta) {
-                    var id = window.btoa(full.id);                    
-                    return '<a href="/sections/cotizador/showPdf.php?cotizacion='+id+'" target="_blank">ver PDF</a>';
-                    //return "<button class='btn btn-outline btn-primary btn-xs ver_pdf' type='button' id='btn" + full.id + "' >ver PDF</button>";
+                    //var id = window.btoa(full.id);                    
+                    //return '<a href="/sections/cotizador/showPdf.php?cotizacion='+id+'" target="_blank">ver PDF</a>';
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='btn_" + full.id + "'>ver PDF</button>";
                 }
             }];
 
 
-        /*[{
-         "targets": -1,
-         "data": null,
-         "defaultContent": "<button class='btn btn-outline btn-primary btn-xs ver_pdf' type='button'>ver PDF</button>"
-         }];*/
 
         App.request({
             data: {
@@ -261,7 +298,21 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('cotizaciones', response.cotizaciones, columns, columnDefs);
+                var callback = function() {
+
+                    /*$('<button/>').addClass('btn btn-outline btn-default').prependTo($('#cotizaciones_length')).html('Agregar registro');
+                     
+                     $('#cotizaciones_length label').addClass('col-sm-offset-3');*/
+
+                    $('#cotizaciones').delegate('button', 'click', function(e) {
+                        var id = $(e.target).attr('id').split('_').pop();
+                        id = window.btoa(id);
+                        window.open("/sections/cotizador/showPdf.php?cotizacion=" + id, '_blank');
+
+                    });
+                };
+
+                App.generateTable('cotizaciones', response.cotizaciones, columns, columnDefs, callback);
             }
         });
     },
@@ -284,7 +335,7 @@ var App = {
                             }
                             name = name + '.' + file.extension;
                             var $label = $('<label/>').html(name).addClass('col-sm-6 col-sm-offset-1 text-left');
-                            var $button = $('<button/>').addClass('btn-delete-file');
+                            var $button = $('<button/>').addClass('btn btn-outline btn-primary btn-xs').html('Decargar');
                             $button.click({filename: file.filename}, App.deleteFile);
 
                             //add
@@ -305,7 +356,7 @@ var App = {
                             }
                             name = name + '.' + file.extension;
                             var $label = $('<label/>').html(name).addClass('col-sm-6 col-sm-offset-1 text-left');
-                            var $button = $('<button/>').addClass('btn-delete-file');
+                            var $button = $('<button/>').addClass('btn btn-outline btn-primary btn-xs').html('Decargar');;
                             $button.click({filename: file.filename}, App.deleteFile);
 
                             //add
@@ -342,7 +393,7 @@ var App = {
             }
         });
     },
-    generateTable: function(table, data, columns, columnDefs) {
+    generateTable: function(table, data, columns, columnDefs, callback) {
 
         $('#' + table).dataTable({
             "paging": true,
@@ -360,6 +411,12 @@ var App = {
             "columns": columns,
             "columnDefs": columnDefs
         });
+
+        if (typeof callback === 'function') {
+            callback();
+        }
+
+
 
     },
 }

@@ -9,7 +9,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Tipos Planes
+                    <button class="btn btn-outline btn-default" type="button">Agregar Plan</button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
