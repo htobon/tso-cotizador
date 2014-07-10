@@ -20,65 +20,7 @@
         <!-- SB Admin CSS - Include with every page -->
         <link href="{$smarty.const.SMARTY_CSS_URI}/admin/sb-admin.css" rel="stylesheet">
 
-        <!-- Angular JS -->
-        <!--script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
-        <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
-        <script>
-
-            var myApp = angular.module('myApp', ['ui.router']);
-
-            myApp.config(function($stateProvider, $urlRouterProvider) {
-                //
-                // For any unmatched url, redirect to /state1
-                $urlRouterProvider.otherwise("/dashboard");
-                //
-                // Now set up the states
-                $stateProvider
-                        .state('dashboard', {
-                            url: "/dashboard",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/dashboard.tpl"
-                        })
-                        .state('usuarios', {
-                            url: "/usuarios",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/usuarios.tpl"
-                        })
-                        .state('accesorios', {
-                            url: "/accesorios",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/accesorios.tpl"
-                        })
-                        .state('unidadgps', {
-                            url: "/unidadgps",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/unidad_gps.tpl"
-                        })
-                        .state('contratos', {
-                            url: "/contratos",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/contratos.tpl"
-                        })
-                        .state('planes', {
-                            url: "/planes",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/planes.tpl"
-                        })
-                        .state('clientes', {
-                            url: "/clientes",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/clientes.tpl"
-                        })
-                        .state('cotizacionesGeneradas', {
-                            url: "/cotizacionesGeneradas",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/cotizacionesGeneradas.tpl"
-                        })
-                        .state('archivos', {
-                            url: "/archivos",
-                            templateUrl: "{$smarty.const.SMARTY_ROOT_URI}/templates/sections/admin/archivos.tpl"
-                        })
-                        .state('state2.list', {
-                            url: "/list",
-                            templateUrl: "partials/state2.list.html",
-                            controller: function($scope) {
-                                $scope.things = ["A", "Set", "Of", "Things"];
-                            }
-                        })
-            });
-        </script-->
+        
 
 
 

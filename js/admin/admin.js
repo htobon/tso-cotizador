@@ -17,6 +17,12 @@ var App = {
         $('a[ui-sref=clientes]').click(App.getClientes);
         $('a[ui-sref=cotizacionesGeneradas]').click(App.reporteCotizaciones);
         $('a[ui-sref=archivos]').click(App.getFiles);
+
+
+        $('#btn69').click(function() {
+            console.log('here')
+        });
+
     },
     changeView: function(e) {
 
@@ -34,7 +40,6 @@ var App = {
         });
 
     },
-    
     getUsuarios: function() {
 
         var columns = [
@@ -87,7 +92,7 @@ var App = {
 
                 var dataSet = [];
                 $.each(response.accesorios, function(i, a) {
-                    var row = [a.codAccesorio, a.nombre, a.precioAccesorio, a.codInstalacion, a.precioInstalacion, a.precioMensualidad,  a.descripcion, a.esta_activo, ''];
+                    var row = [a.codAccesorio, a.nombre, a.precioAccesorio, a.codInstalacion, a.precioInstalacion, a.precioMensualidad, a.descripcion, a.esta_activo, ''];
                     dataSet.push(row);
                 });
 
@@ -206,16 +211,34 @@ var App = {
     reporteCotizaciones: function() {
 
         var columns = [
-            {"title": "Codigo Vendedor"},
-            {"title": "Empresa"},
-            {"title": "No. Cotización", "class": "center"},
-            {"title": "Tipo Contrato"},
-            {"title": "Plan"},
-            {"title": "Cnt. Unidades", "class": "center"},
-            {"title": "Valor Recurrente"},
-            {"title": "Valor Equipos"},
-            {"title": "Valor Total"}
+            {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
+            {"title": "Empresa", "data": 'cliente'},
+            {"title": "No. Cotización", "class": "center", data: 'id'},
+            {"title": "Tipo Contrato", data: 'tipo_contrato'},
+            {"title": "Plan", data: 'nombre_plan'},
+            {"title": "Cnt. Unidades", "class": "center", data: 'cantidad_vehiculos'},
+            {"title": "Valor Recurrente", data: 'valor_recurrencia'},
+            {"title": "Valor Equipos", data: 'valor_equipos'},
+            {"title": "Valor Total", data: 'valor_total'},
+            {"title": "Ver PDF"}
         ];
+
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {
+                    var id = window.btoa(full.id);                    
+                    return '<a href="/sections/cotizador/showPdf.php?cotizacion='+id+'" target="_blank">ver PDF</a>';
+                    //return "<button class='btn btn-outline btn-primary btn-xs ver_pdf' type='button' id='btn" + full.id + "' >ver PDF</button>";
+                }
+            }];
+
+
+        /*[{
+         "targets": -1,
+         "data": null,
+         "defaultContent": "<button class='btn btn-outline btn-primary btn-xs ver_pdf' type='button'>ver PDF</button>"
+         }];*/
 
         App.request({
             data: {
@@ -238,7 +261,7 @@ var App = {
                     dataSet.push(row);
                 });
 
-                App.generateTable('cotizaciones', dataSet, columns);
+                App.generateTable('cotizaciones', response.cotizaciones, columns, columnDefs);
             }
         });
     },
@@ -319,7 +342,7 @@ var App = {
             }
         });
     },
-    generateTable: function(table, data, columns) {
+    generateTable: function(table, data, columns, columnDefs) {
 
         $('#' + table).dataTable({
             "paging": true,
@@ -334,7 +357,8 @@ var App = {
                 }
             },
             "data": data,
-            "columns": columns
+            "columns": columns,
+            "columnDefs": columnDefs
         });
 
     },

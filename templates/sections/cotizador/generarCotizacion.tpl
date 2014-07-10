@@ -11,7 +11,7 @@
         <h4>{$mensajeCotizacion}</h4>
         <p><b>{$mensajeCorreosEnviados}</b></p>
         {if !$error }
-            <a data-ajax="false" target="_blank" rel="external" href="{$smarty.const.SMARTY_ROOT_URI}{$nombreCotizacion}" data-icon="star" class="getpdf" >
+            <a data-ajax="false" target="_blank" rel="external" href="{$smarty.const.SMARTY_ROOT_URI}/sections/cotizador/showPdf.php?cotizacion={$cotizacion_id}" data-icon="star" class="getpdf" >
                 <img src="{$smarty.const.SMARTY_ROOT_URI}/images/thumb_pdf.png" alt="Ver PDF">
             </a>  
         {/if} 

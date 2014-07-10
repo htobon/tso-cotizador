@@ -97,7 +97,7 @@ if (Sesion::sesionActiva()) {
                 // Generar Pdf 
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
-                $_pdf->getPdf();
+                //$_pdf->getPdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
                 $nombreCotizacion = "/tmp/pdf/" . $_pdf->getNamePdf();
 
@@ -136,7 +136,7 @@ if (Sesion::sesionActiva()) {
 
     //$smarty->assign("cotizacion_id", $cotizacion_id);
     $smarty->assign("error", $error);
-    $smarty->assign("nombreCotizacion", $nombreCotizacion);
+    $smarty->assign("cotizacion_id", base64_encode($cotizacion_id));
     $smarty->assign("mensajeCotizacion", $mensajeCotizacion);
     $smarty->assign("mensajeCorreosEnviados", $mensajeCorreosEnviados);
     $smarty->display("sections/cotizador/generarCotizacion.tpl");

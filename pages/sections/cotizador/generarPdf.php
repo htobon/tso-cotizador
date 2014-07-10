@@ -81,7 +81,8 @@ class generarPdf {
     }
 
     public function getPdf() {
-        return $this->pdf->Output(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf", 'F');
+        //return $this->pdf->Output(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf", 'F');    
+        return $this->pdf->Output('example_003.pdf', 'I');
     }
 
     public function getPdfbase64() {
@@ -589,10 +590,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 14, "{$this->cotizacion->cantidad_vehiculos}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$valorPlanSinDescuento}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$".$valorPlanSinDescuento, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$totalPlanSinDescuento}", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 14, "$".$totalPlanSinDescuento, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
 
 
         // Detalle plan
@@ -602,10 +603,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 14, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$ {$valorDescuento}", 0, 0, 'C', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 14, "$".$valorDescuento, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$ {$totalDescuento}", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 14, "$".$totalDescuento, 0, 0, 'R', 0, '', 0, false, 'M', 'B');
         $this->pdf->Ln();
 
         $this->pdf->SetFillColor(128, 128, 128);
@@ -616,10 +617,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 0, "-", 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$ {$valorPlanMensual}", 0, 0, 'C', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$".$valorPlanMensual, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$ {$totalPlanMensual}", 0, 1, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$".$totalPlanMensual, 0, 1, 'R', true, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln();
     }
