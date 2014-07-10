@@ -561,10 +561,10 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadAccesorios, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio unitario
-        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$".$this->formatMoney($this->valorAccesorios), 0, 0, 'C', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$" . $this->formatMoney($this->valorAccesorios), 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$".$this->formatMoney($this->totalAccesorios), 0, 0, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$" . $this->formatMoney($this->totalAccesorios), 0, 0, 'R', true, '', 0, false, 'M', 'B');
         $this->pdf->Ln();
 
 
@@ -640,19 +640,19 @@ class generarPdf {
         return 35;
     }
 
-    private function formatMoney($number, $fractional = false) {
-        if ($fractional) {
-            $number = sprintf('%.2f', $number);
+    private function formatMoney($number) {
+
+        if ($this->is_decimal($number)) {
+            $number = number_format($number, 2, ',', '.');
+        } else {
+            $number = number_format($number, 0, ',', '.');
         }
-        while (true) {
-            $replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);
-            if ($replaced != $number) {
-                $number = $replaced;
-            } else {
-                break;
-            }
-        }
+
         return $number;
+    }
+
+    private function is_decimal($val) {
+        return is_numeric($val) && floor($val) != $val;
     }
 
 }
