@@ -84,6 +84,14 @@ class generarPdf {
         //return $this->pdf->Output(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf", 'F');    
         return $this->pdf->Output('example_003.pdf', 'I');
     }
+    
+    public function savePdf() {
+        return $this->pdf->Output(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf", 'F');            
+    }
+    
+    public function deletePdf() {
+        unlink(__DIR__ . "/../../../tmp/pdf/cotizacion-{$this->cotizacion->serial}.pdf");            
+    }
 
     public function getPdfbase64() {
         return $this->pdf->Output('example_003.pdf', 'E');

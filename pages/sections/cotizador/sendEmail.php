@@ -46,85 +46,6 @@ class sendPdfEmail {
         $this->firma = $firma;
     }
 
-    public function enviarCorreo() {
-
-        $to = $this->to;
-        $from = $this->from;
-        $subject = $this->subject;
-
-        /* // Convertir imagen en base64
-          $path = __DIR__ . "/../../../firmas/{$this->firma}";
-          $type = pathinfo($path, PATHINFO_EXTENSION);
-          $data = file_get_contents($path);
-          $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-          $firma_html = "<img src='{$base64}' alt='firma'  height='150' width='800'/>";
-          if (empty($this->firma))
-          $firma_html = ""; */
-
-        //firma html
-        $firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
-
-        $message = "<html>
-                        <body>
-                            <p>Cordial Saludo.</p>
-                            <p>Muchas gracias por su inter&eacute;s en nuestras soluciones.</p>
-                            <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
-                            Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
-                            <p>Atentamente,</p>
-                            {$firma_html}
-                        </body>
-                    </html>";
-
-        // a random hash will be necessary to send mixed content
-        $separator = md5(time());
-
-        // carriage return type (we use a PHP end of line constant)
-        $eol = PHP_EOL;
-
-        /* // attachment name
-          $filename = $this->fileName;
-          // encode data (puts attachment in proper format)
-          $pdfdoc = $this->pdf;
-          $attachment = chunk_split($pdfdoc); */
-
-        $filename = $this->fileName;
-        $fileatt = __DIR__ . "/../../../tmp/pdf/{$filename}";
-        $file = fopen($fileatt, 'rb');
-        $data = fread($file, filesize($fileatt));
-        fclose($file);
-        $attachment = chunk_split(base64_encode($data));
-
-
-        // main header (multipart mandatory)
-        $headers = "From: " . $from . $eol;
-        $headers .= "MIME-Version: 1.0" . $eol;
-        $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol . $eol;
-        $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
-        $headers .= "This is a MIME encoded message." . $eol . $eol;
-
-        // message
-        $headers .= "--" . $separator . $eol;
-        $headers .= "Content-Type: text/html; charset=\"iso-8859-1\"" . $eol;
-        $headers .= "Content-Transfer-Encoding: 8bit" . $eol . $eol;
-        $headers .= $message . $eol . $eol;
-
-        // attachment
-        $headers .= "--" . $separator . $eol;
-        $headers .= "Content-Type: application/octet-stream; name=\"" . $filename . "\"" . $eol;
-        $headers .= "Content-Transfer-Encoding: base64" . $eol;
-        $headers .= "Content-Disposition: attachment" . $eol . $eol;
-        $headers .= $attachment . $eol . $eol;
-        $headers .= "--" . $separator . "--";
-
-
-        if (mail($to, $subject, "", $headers)) {
-            return true;
-        } else {
-
-            return false;
-        }
-    }
-
     public function enviarEmail() {
 
         $mail = new PHPMailer;
@@ -142,7 +63,7 @@ class sendPdfEmail {
         // tsl port 587
 
         $mail->From = "admin@tsocotizador.info"; //$this->fromEmail; 
-        $mail->FromName = "Administrador";//$this->fromName; 
+        $mail->FromName = $this->fromName;//"Administrador";//$this->fromName; 
         $mail->addAddress($this->toEmail, $this->toName);    
 
         if (!empty($this->toEmail2)) {
@@ -160,7 +81,10 @@ class sendPdfEmail {
 
         $mail->Subject = $this->subject;
 
-        $firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
+        //$firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
+        
+        //$mail->AddEmbeddedImage( __DIR__ . "/../../../firmas/{$this->firma}", 'logo_2u');
+        //$mail->AddEmbeddedImage("http://www.tsocotizador.info/firmas/{$this->firma}", 'logo_2u');
 
         $message = "<html>
                         <body>
@@ -169,7 +93,7 @@ class sendPdfEmail {
                             <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
                             Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
                             <p>Atentamente,</p>
-                            {$firma_html}
+                            <img src='http://www.tsocotizador.info/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>
                         </body>
                     </html>";
 

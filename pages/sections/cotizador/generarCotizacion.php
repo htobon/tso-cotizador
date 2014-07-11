@@ -97,7 +97,7 @@ if (Sesion::sesionActiva()) {
                 // Generar Pdf 
                 $_pdf = new generarPdf($cotizacion_id);
                 $_pdf->generarCotizacionPdf();
-                //$_pdf->getPdf();
+                $_pdf->savePdf();
                 $cotizacionPdf = $_pdf->getPdfbase64();
                 $nombreCotizacion = "/tmp/pdf/" . $_pdf->getNamePdf();
 
@@ -111,7 +111,7 @@ if (Sesion::sesionActiva()) {
                 $enviarCorreo->setFrom($usuario->nombres . " " . $usuario->apellidos, $usuario->correo, $usuario->firma);
 
                 if ($enviarCorreo->enviarEmail()) {
-
+                    $_pdf->deletePdf();
                     $mensajeCorreosEnviados = "Cotizacion Enviada a : {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {
                         $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
