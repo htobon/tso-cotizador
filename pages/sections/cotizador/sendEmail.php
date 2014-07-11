@@ -66,7 +66,7 @@ class sendPdfEmail {
         $mail->FromName = $this->fromName;//"Administrador";//$this->fromName; 
         $mail->addAddress($this->toEmail, $this->toName);    
 
-        if (!empty($this->toEmail2)) {
+        if (!empty($this->toEmail2)) {            
             $mail->addAddress($this->toEmail2, $this->toName);          
         }
         $mail->addReplyTo('info@tsocotizador.info', 'Information');
