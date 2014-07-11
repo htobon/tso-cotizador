@@ -11,12 +11,23 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Reporte Cotizaciones Generadas
+                    Reporte Cotizaciones Generadas.
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">                       
-                        <table class="table table-striped table-bordered table-hover" id="cotizaciones"></table>
+                        <table class="table table-striped table-bordered table-hover" id="cotizaciones">
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" style="text-align:right">Total:</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
