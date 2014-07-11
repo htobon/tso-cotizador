@@ -259,8 +259,11 @@ class CotizacionDB {
                 h.cantidad_meses,
                 a.cantidad_vehiculos,
                 a.valor_recurrencia, 
+                CONCAT('$', FORMAT(a.valor_recurrencia, 2)) as formato_valor_recurrencia,
                 a.valor_equipos, 
+                CONCAT('$', FORMAT(a.valor_equipos, 2)) as formato_valor_equipos,
                 a.valor_total,
+                CONCAT('$', FORMAT(a.valor_total, 2)) as formato_valor_total,
                 a.fecha,
                 a.serial
                 FROM tso_cotizaciones a
@@ -307,8 +310,11 @@ class CotizacionDB {
                 $cotizacion->cantidad_meses = $_cotizacion['cantidad_meses'];
                 $cotizacion->cantidad_vehiculos = $_cotizacion['cantidad_vehiculos'];
                 $cotizacion->valor_recurrencia = $_cotizacion['valor_recurrencia'];
+                $cotizacion->formato_valor_recurrencia = $_cotizacion['formato_valor_recurrencia'];
                 $cotizacion->valor_equipos = $_cotizacion['valor_equipos'];
+                $cotizacion->formato_valor_equipos = $_cotizacion['formato_valor_equipos'];
                 $cotizacion->valor_total = $_cotizacion['valor_total'];
+                $cotizacion->formato_valor_total = $_cotizacion['formato_valor_total'];
                 $cotizacion->fecha = $_cotizacion['fecha'];
                 $cotizacion->serial = $_cotizacion['serial'];
 

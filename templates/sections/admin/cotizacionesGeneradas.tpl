@@ -24,6 +24,9 @@
                                     <th class="text-center">$</th>
                                     <th class="text-center">$</th>
                                     <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
+                                    <th class="text-center">$</th>
                                     <th class="text-center"></th>
                                 </tr>
                             </tfoot>

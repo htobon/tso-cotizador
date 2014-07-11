@@ -65,7 +65,7 @@ class Action {
     
     public function reporteCotizaciones() {
         $cotizaciones = CotizacionDB::listarCotizaciones();
-        //Success
+        //Success        
         return $this->_response(1, NULL, array('cotizaciones' => $cotizaciones));
         
     }

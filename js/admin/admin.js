@@ -295,12 +295,20 @@ var App = {
             {"title": "Plan", data: 'nombre_plan'},
             {"title": "Cnt. Unidades", "class": "center", data: 'cantidad_vehiculos'},
             {"title": "Valor Recurrente", data: 'valor_recurrencia'},
+            {"title": "Valor Recurrente", data: 'formato_valor_recurrencia'},
             {"title": "Valor Equipos", data: 'valor_equipos'},
+            {"title": "Valor Equipos", data: 'formato_valor_equipos'},
             {"title": "Valor Total", data: 'valor_total'},
+            {"title": "Valor Total", data: 'formato_valor_total'},
             {"title": "Ver PDF"}
         ];
 
-        var columnDefs = [{
+        var columnDefs = [
+            {
+                "targets": [ 6,8,10 ],
+                "visible": false
+            },
+            {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, full, meta) {
@@ -310,12 +318,13 @@ var App = {
 
 
 
+
         App.request({
             data: {
                 action: 'reporteCotizaciones'
             },
             success: function(response) {
-
+                console.log(response.cotizaciones);
                 App.generateTable('cotizaciones', response.cotizaciones, columns, columnDefs, App.totalesReporte);
             }
         });
@@ -325,25 +334,33 @@ var App = {
         var api = this.api(), data;
 
         data = api.column(5, {page: 'current'}).data();
-        var total_unidades = data.length ? data.reduce(function(a, b) { return parseInt(a) + parseInt(b); }) : 0;
-        
+        var total_unidades = data.length ? data.reduce(function(a, b) {
+            return parseInt(a) + parseInt(b);
+        }) : 0;
+
         data = api.column(6, {page: 'current'}).data();
-        var total_recurrente = data.length ? data.reduce(function(a, b) { return parseFloat(a) + parseFloat(b); }) : 0;
+        var total_recurrente = data.length ? data.reduce(function(a, b) {
+            return parseFloat(a) + parseFloat(b);
+        }) : 0;
         total_recurrente = Number(total_recurrente.toFixed(1)).toLocaleString();
-        
-        
-        data = api.column(7, {page: 'current'}).data();
-        var total_equipos = data.length ? data.reduce(function(a, b) { return parseFloat(a) + parseFloat(b); }) : 0;
-        total_equipos = Number(total_equipos.toFixed(1)).toLocaleString();
-        
+
+
         data = api.column(8, {page: 'current'}).data();
-        var total = data.length ? data.reduce(function(a, b) { return parseFloat(a) + parseFloat(b); }) : 0;
+        var total_equipos = data.length ? data.reduce(function(a, b) {
+            return parseFloat(a) + parseFloat(b);
+        }) : 0;
+        total_equipos = Number(total_equipos.toFixed(1)).toLocaleString();
+
+        data = api.column(10, {page: 'current'}).data();
+        var total = data.length ? data.reduce(function(a, b) {
+            return parseFloat(a) + parseFloat(b);
+        }) : 0;
         total = Number(total.toFixed(1)).toLocaleString();
 
         $(api.column(5).footer()).html(total_unidades);
-        $(api.column(6).footer()).html('$'+total_recurrente);
-        $(api.column(7).footer()).html('$'+total_equipos);
-        $(api.column(8).footer()).html('$'+total);
+        $(api.column(7).footer()).html('$' + total_recurrente);
+        $(api.column(9).footer()).html('$' + total_equipos);
+        $(api.column(11).footer()).html('$' + total);
 
     },
     verPdf: function(e) {
