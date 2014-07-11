@@ -20,7 +20,9 @@ class UnidadesGpsDB {
      */
     static function getUnidadesGpsActivas() {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_unidades_gps WHERE esta_activo = TRUE";
+        $sql = "SELECT *, 
+                CONCAT('$', FORMAT(precio_unidad, 2)) as formato_precio_unidad,
+                CONCAT('$', FORMAT(precio_instalacion, 2)) as formato_precio_instalacion FROM tso_unidades_gps WHERE esta_activo = TRUE";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $gpsData = $stmt->fetchAll();
@@ -33,8 +35,10 @@ class UnidadesGpsDB {
                 $unidadGps->nombre = $gps["nombre"];
                 $unidadGps->codUnidad = $gps["cod_unidad"];
                 $unidadGps->codInstalacion = $gps["cod_instalacion"];
+                $unidadGps->formato_precio_instalacion = $gps["formato_precio_instalacion"];
                 $unidadGps->precioInstalacion = $gps["precio_instalacion"];
                 $unidadGps->precioUnidad = $gps["precio_unidad"];
+                $unidadGps->formato_precio_unidad = $gps["formato_precio_unidad"];
                 $unidadGps->descripcion = $gps["descripcion"];
                 $unidadGps->image = $gps["image"];
                 $unidadGps->esta_activo = $gps["esta_activo"];

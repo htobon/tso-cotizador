@@ -10,6 +10,7 @@
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/plugins/morris/morris.js"></script>
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/plugins/dataTables/jquery.dataTables.js"></script>
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/bootstrap-filestyle.js"></script>
 
 <!-- SB Admin Scripts - Include with every page -->
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/sb-admin.js"></script>

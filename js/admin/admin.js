@@ -5,6 +5,7 @@ $(document).ready(function() {
 var App = {
     init: function() {
         App.events();
+        App.changeView();
     },
     events: function() {
         $('a[ui-sref]').click(App.changeView);
@@ -19,12 +20,36 @@ var App = {
 
         $(document).on('click', 'button[ui-sref]', App.showModals);
 
+        // Administracion de Usuarios
         $(document).on('click', 'button[ui-sref=gestionarUsuarios]', App.showUser);
         $(document).on('click', 'button[sref=guardarUsuario]', App.saveUser);
         $(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUser);
 
+        // Administracion de Unidades GPS
+        $(document).on('click', 'button[ui-sref=gestionarUnidadGps]', App.showUnidadGps);
+        $(document).on('click', 'button[sref=guardarUnidadGps]', App.saveUnidadGps);
+        $(document).on('click', 'button[sref=inactivarUnidadGps]', App.inactiveUnidadGps);
 
+        // Administracion de Tipos de Contrato
+        $(document).on('click', 'button[ui-sref=gestionarContratos]', App.showContratos);
+        $(document).on('click', 'button[sref=guardarContrato]', App.saveContratos);
+        $(document).on('click', 'button[sref=inactivarContrato]', App.inactiveContratos);
+
+        // Administracion de Planes
+        $(document).on('click', 'button[ui-sref=gestionarPlanes]', App.showPlan);
+        $(document).on('click', 'button[sref=guardarPlan]', App.savePlan);
+        $(document).on('click', 'button[sref=inactivarPlan]', App.inactivePlan);
+        
+        // Administracion de Planes
+        $(document).on('click', 'button[ui-sref=gestionarClientes]', App.showCliente);
+        $(document).on('click', 'button[sref=guardarCliente]', App.saveCliente);
+        $(document).on('click', 'button[sref=inactivarCliente]', App.inactiveCliente);
+
+        //Reporte
         $(document).on('click', '#cotizaciones  button', App.verPdf);
+
+        //http://markusslima.github.io/bootstrap-filestyle/
+        $(":file").filestyle();
 
     },
     changeView: function(e) {
@@ -54,6 +79,7 @@ var App = {
             url: "/templates/sections/admin/" + view + ".tpl",
             success: function(msg) {
                 $('#modal').html(msg);
+                App.events();
             }
         });
     },
@@ -73,7 +99,7 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' id='user_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                    return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";
                 }
             }];
@@ -145,22 +171,21 @@ var App = {
     getUnidadesGPS: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nombre"},
-            {"title": "Precio"},
-            {"title": "Cod. Instalacion"},
-            {"title": "Precio Instalacion"},
-            {"title": "Descripcion"},
-            {"title": "Estado"},
+            {"title": "Codigo", data: 'codUnidad'},
+            {"title": "Nombre", data: 'nombre'},
+            {"title": "Precio", data: 'formato_precio_unidad'},
+            {"title": "Cod. Instalacion", data: 'codInstalacion'},
+            {"title": "Precio Instalacion", data: 'formato_precio_instalacion'},
+            {"title": "Descripcion", data: 'descripcion'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
         var columnDefs = [{
                 "targets": -1,
                 "data": "",
-                "render": function(data, type, full, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                "render": function(data, type, obj, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";
                 }
             }];
 
@@ -170,31 +195,40 @@ var App = {
             },
             success: function(response) {
 
-                var dataSet = [];
-                $.each(response.unidades, function(i, u) {
-                    var row = [u.codUnidad, u.nombre, u.precioUnidad, u.codInstalacion, u.precioInstalacion, u.descripcion, u.esta_activo, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('unidadesgps', dataSet, columns, columnDefs);
+                App.generateTable('unidadesgps', response.unidades, columns, columnDefs);
             }
         });
 
     },
+    showUnidadGps: function(e) {
+        var action = $(e.target).attr('rel');
+        if (action == "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Unidad Gps', id);
+        } else {
+            console.log('Agregar Unidad Gps');
+        }
+    },
+    saveUnidadGps: function() {
+        console.log('Guardar/Modificar Unidad');
+    },
+    inactiveUnidadGps: function() {
+        console.log('Inactivar Unidad');
+    },
     getContratos: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nombre"},
+            {"title": "Codigo", data: 'id'},
+            {"title": "Nombre", data: 'nombre'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
         var columnDefs = [{
                 "targets": -1,
                 "data": "",
-                "render": function(data, type, full, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                "render": function(data, type, obj, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";
                 }
             }];
 
@@ -204,33 +238,41 @@ var App = {
             },
             success: function(response) {
 
-                var dataSet = [];
-                $.each(response.tiposContratos, function(i, c) {
-                    var row = [c.id, c.nombre, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('contratos', dataSet, columns, columnDefs);
+                App.generateTable('contratos', response.tiposContratos, columns, columnDefs);
             }
         });
 
     },
+    showContratos: function(e) {
+        var action = $(e.target).attr('rel');
+        if (action == "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Tipo Contrato', id);
+        } else {
+            console.log('Agregar Tipo Contrato');
+        }
+    },
+    saveContratos: function() {
+        console.log('Guardar/Modificar Tipo Contrato');
+    },
+    inactiveContratos: function() {
+        console.log('Inactivar Tipo Contrato');
+    },
     getPlanes: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nombre"},
-            {"title": "Precio"},
-            {"title": "Estado"},
+            {"title": "Codigo", data: 'codigo'},
+            {"title": "Nombre", data: 'nombre'},
+            {"title": "Precio", data: 'precio'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
         var columnDefs = [{
                 "targets": -1,
                 "data": "",
-                "render": function(data, type, full, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                "render": function(data, type, obj, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";
                 }
             }];
 
@@ -239,33 +281,41 @@ var App = {
                 action: 'getPlanes'
             },
             success: function(response) {
-
-                var dataSet = [];
-                $.each(response.planes, function(i, p) {
-                    var row = [p.codigo, p.nombre, p.precio, p.estaActivo, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('planes', dataSet, columns, columnDefs);
+                App.generateTable('planes', response.planes, columns, columnDefs);
             }
         });
 
     },
+    showPlan: function(e) {
+        var action = $(e.target).attr('rel');
+        if (action == "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Plan', id);
+        } else {
+            console.log('Agregar Plan');
+        }
+    },
+    savePlan: function() {
+        console.log('Guardar/Modificar Plan');
+    },
+    inactivePlan: function() {
+        console.log('Inactivar Plan');
+    },
     getClientes: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nit"},
-            {"title": "Nombre"},
+            {"title": "Codigo", data: 'id'},
+            {"title": "Nit", data: 'nit'},
+            {"title": "Nombre", data: 'nombre'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
         var columnDefs = [{
                 "targets": -1,
                 "data": "",
-                "render": function(data, type, full, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                "render": function(data, type, obj, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarClientes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarCliente'>Desactivar</button>";
                 }
             }];
 
@@ -274,16 +324,24 @@ var App = {
                 action: 'getClientes'
             },
             success: function(response) {
-
-                var dataSet = [];
-                $.each(response.clientes, function(i, c) {
-                    var row = [c.id, c.nit, c.nombre, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('clientes', dataSet, columns, columnDefs);
+                App.generateTable('clientes', response.clientes, columns, columnDefs);
             }
         });
+    },
+    showCliente: function(e) {
+        var action = $(e.target).attr('rel');
+        if (action == "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Cliente', id);
+        } else {
+            console.log('Agregar Cliente');
+        }
+    },
+    saveCliente: function() {
+        console.log('Guardar/Modificar Cliente');
+    },
+    inactiveCliente: function() {
+        console.log('Inactivar Cliente');
     },
     reporteCotizaciones: function() {
 
@@ -305,7 +363,7 @@ var App = {
 
         var columnDefs = [
             {
-                "targets": [ 6,8,10 ],
+                "targets": [6, 8, 10],
                 "visible": false
             },
             {
@@ -465,12 +523,5 @@ var App = {
             "columnDefs": columnDefs,
             "footerCallback": footerCallback
         });
-
-        /*if (typeof callback === 'function') {
-         callback();
-         }*/
-
-
-
     },
 }
