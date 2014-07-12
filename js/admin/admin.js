@@ -104,8 +104,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -150,8 +152,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal' >Desactivar</button>";
                 }
             }];
 
@@ -197,8 +201,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -240,8 +246,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -284,8 +292,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -327,8 +337,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarClientes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarCliente'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarClientes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarCliente'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
