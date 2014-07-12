@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 var App = {
     init: function() {
+        App.initSpiner();
         App.events();
         App.changeView();
     },
@@ -55,7 +56,6 @@ var App = {
 
         //http://markusslima.github.io/bootstrap-filestyle/
         $(":file").filestyle();
-
     },
     changeView: function(e) {
 
@@ -105,7 +105,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
@@ -138,13 +138,13 @@ var App = {
     getAccesorios: function() {
 
         var columns = [
-            {"title": "Codigo", data : 'codAccesorio'},
-            {"title": "Nombre", data  : 'nombre'},
-            {"title": "Precio", data : 'precioAccesorio'},
-            {"title": "Cod. Instalacion", data  : 'codInstalacion'},
-            {"title": "Precio Instalacion", data : 'precioInstalacion'},
-            {"title": "Mensualidad", data : 'precioMensualidad'},
-            {"title": "Descripcion", data : 'descripcion'},
+            {"title": "Codigo", data: 'codAccesorio'},
+            {"title": "Nombre", data: 'nombre'},
+            {"title": "Precio", data: 'precioAccesorio'},
+            {"title": "Cod. Instalacion", data: 'codInstalacion'},
+            {"title": "Precio Instalacion", data: 'precioInstalacion'},
+            {"title": "Mensualidad", data: 'precioMensualidad'},
+            {"title": "Descripcion", data: 'descripcion'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
@@ -153,7 +153,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal' >Desactivar</button>";
                 }
@@ -202,7 +202,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
@@ -247,7 +247,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
@@ -293,7 +293,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
@@ -338,7 +338,7 @@ var App = {
                 "data": "",
                 "render": function(data, type, obj, meta) {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarClientes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarCliente'>Desactivar</button>";*/
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarCliente'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarClientes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                             <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
@@ -506,6 +506,9 @@ var App = {
         });
     },
     request: function(json) {
+
+        $('#myModal').modal('show');
+
         $.ajax({
             url: 'actions.php',
             action: json.action,
@@ -519,13 +522,18 @@ var App = {
             success: function(response) {
                 if (typeof json.success === 'function')
                     json.success(response);
+
+                $('#myModal').modal('hide');
             },
             complete: function() {
                 if (typeof json.complete === 'function')
                     json.complete();
+
+                $('#myModal').modal('hide');
             },
             error: function(e) {
                 console.log('error', e);
+                $('#myModal').modal('hide');
             }
         });
     },
@@ -549,4 +557,28 @@ var App = {
             "footerCallback": footerCallback
         });
     },
+    initSpiner: function() {
+        var opts = {
+            lines: 15, // The number of lines to draw
+            length: 18, // The length of each line
+            width: 10, // The line thickness
+            radius: 25, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 44, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '50%', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        var target = document.getElementById('spiner');
+        var spinner = new Spinner(opts).spin(target);
+        target.appendChild(spinner.el);
+    }
+
 }

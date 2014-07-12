@@ -15,6 +15,7 @@
 <!-- SB Admin Scripts - Include with every page -->
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/sb-admin.js"></script>
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/admin.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/spin.min.js"></script>
 
 <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/demo/dashboard-demo.js"></script>
