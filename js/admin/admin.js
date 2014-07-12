@@ -21,9 +21,14 @@ var App = {
         $(document).on('click', 'button[ui-sref]', App.showModals);
 
         // Administracion de Usuarios
-        $(document).on('click', 'button[ui-sref=gestionarUsuarios]', App.showUser);
-        $(document).on('click', 'button[sref=guardarUsuario]', App.saveUser);
-        $(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUser);
+        $(document).on('click', 'button[ui-sref=gestionarUsuarios]', App.showUsuarios);
+        $(document).on('click', 'button[sref=guardarUsuario]', App.saveUsuario);
+        $(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUsuario);
+
+        // Administracion de Accesorios
+        $(document).on('click', 'button[ui-sref=gestionarAccesorios]', App.showAccesorios);
+        $(document).on('click', 'button[sref=guardarAccesorio]', App.saveAccesorio);
+        $(document).on('click', 'button[sref=inactivarAccesorio]', App.inactiveAccesorio);
 
         // Administracion de Unidades GPS
         $(document).on('click', 'button[ui-sref=gestionarUnidadGps]', App.showUnidadGps);
@@ -39,7 +44,7 @@ var App = {
         $(document).on('click', 'button[ui-sref=gestionarPlanes]', App.showPlan);
         $(document).on('click', 'button[sref=guardarPlan]', App.savePlan);
         $(document).on('click', 'button[sref=inactivarPlan]', App.inactivePlan);
-        
+
         // Administracion de Planes
         $(document).on('click', 'button[ui-sref=gestionarClientes]', App.showCliente);
         $(document).on('click', 'button[sref=guardarCliente]', App.saveCliente);
@@ -113,7 +118,7 @@ var App = {
             }
         });
     },
-    showUser: function(e) {
+    showUsuarios: function(e) {
         var action = $(e.target).attr('rel');
         if (action == "show") {
             var id = $(e.target).attr('id').split('_').pop();
@@ -122,32 +127,31 @@ var App = {
             console.log('Add Usuarios');
         }
     },
-    saveUser: function(e) {
+    saveUsuario: function(e) {
         console.log('Guardar/Modificar Usuarios');
     },
-    inactiveUser: function() {
+    inactiveUsuario: function() {
         console.log('Inactivar Usuarios');
     },
     getAccesorios: function() {
 
         var columns = [
-            {"title": "Codigo"},
-            {"title": "Nombre"},
-            {"title": "Precio"},
-            {"title": "Cod. Instalacion"},
-            {"title": "Precio Instalacion"},
-            {"title": "Mensualidad"},
-            {"title": "Descripcion"},
-            {"title": "Estado"},
+            {"title": "Codigo", data : 'codAccesorio'},
+            {"title": "Nombre", data  : 'nombre'},
+            {"title": "Precio", data : 'precioAccesorio'},
+            {"title": "Cod. Instalacion", data  : 'codInstalacion'},
+            {"title": "Precio Instalacion", data : 'precioInstalacion'},
+            {"title": "Mensualidad", data : 'precioMensualidad'},
+            {"title": "Descripcion", data : 'descripcion'},
             {"title": "Opciones", class: 'text-center'}
         ];
 
         var columnDefs = [{
                 "targets": -1,
                 "data": "",
-                "render": function(data, type, full, meta) {
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' >Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' >Desactivar</button>";
+                "render": function(data, type, obj, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";
                 }
             }];
 
@@ -157,16 +161,25 @@ var App = {
             },
             success: function(response) {
 
-                var dataSet = [];
-                $.each(response.accesorios, function(i, a) {
-                    var row = [a.codAccesorio, a.nombre, a.precioAccesorio, a.codInstalacion, a.precioInstalacion, a.precioMensualidad, a.descripcion, a.esta_activo, ''];
-                    dataSet.push(row);
-                });
-
-                App.generateTable('accesorios', dataSet, columns, columnDefs);
+                App.generateTable('accesorios', response.accesorios, columns, columnDefs);
             }
         });
 
+    },
+    showAccesorios: function(e) {
+        var action = $(e.target).attr('rel');
+        if (action == "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Accesorio', id);
+        } else {
+            console.log('Agregar Accesorio');
+        }
+    },
+    saveAccesorio: function() {
+        console.log('Guardar/Modificar Accesorio');
+    },
+    inactiveAccesorio: function() {
+        console.log('Inactivar Accesorio');
     },
     getUnidadesGPS: function() {
 
