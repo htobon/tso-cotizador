@@ -507,7 +507,7 @@ var App = {
     },
     request: function(json) {
 
-        $('#myModal').modal('show');
+        $('#loading').modal('show');
 
         $.ajax({
             url: 'actions.php',
@@ -523,23 +523,24 @@ var App = {
                 if (typeof json.success === 'function')
                     json.success(response);
 
-                $('#myModal').modal('hide');
+                $('#loading').modal('hide');
             },
             complete: function() {
                 if (typeof json.complete === 'function')
                     json.complete();
 
-                $('#myModal').modal('hide');
+                $('#loading').modal('hide');
             },
             error: function(e) {
                 console.log('error', e);
-                $('#myModal').modal('hide');
+                $('#loading').modal('hide');
             }
         });
     },
     generateTable: function(table, data, columns, columnDefs, footerCallback) {
 
         $('#' + table).dataTable({
+            "destroy": true,
             "paging": true,
             "ordering": false,
             "info": false,
