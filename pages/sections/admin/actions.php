@@ -34,40 +34,72 @@ class Action {
         //Success
         return $this->_response(1, NULL, array('usuarios' => $usuarios));
     }
-    
+
+    public function getUsuario() {
+        if (isset($_POST['usuario_id']) && $_POST['usuario_id'] != 0) {
+
+            $usuario_id = $_POST['usuario_id'];
+            $usuario = UsuarioDB::getUsuarioPorID($usuario_id);
+            return $this->_response(1, NULL, array('usuario' => $usuario));
+        }
+    }
+
+    public function saveUsuario() {
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        exit();
+        if (isset($_POST['usuario'])) {
+
+            $usuario = $_POST['usuario'];
+            
+            $isValid = UsuarioDB::validarEmail($usuario['email']);
+            
+            //return $this->_response(1, NULL, array('usuario' => $usuario));
+        }
+    }
+
+    public function updateUsuario() {
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        exit();
+    }
+
     public function getAccesorios() {
         $accesorios = AccesoriosDB::getAccesorios();
         //Success
         return $this->_response(1, NULL, array('accesorios' => $accesorios));
     }
-    
+
     public function getUnidadesGPS() {
         $unidades = UnidadesGpsDB::getUnidadesGpsActivas();
         //Success
         return $this->_response(1, NULL, array('unidades' => $unidades));
     }
+
     public function getTiposContratos() {
         $tiposContratos = TiposContratoDB::getTiposContrato();
         //Success
         return $this->_response(1, NULL, array('tiposContratos' => $tiposContratos));
     }
+
     public function getPlanes() {
         $planes = PlanesDB::getPlanes();
         //Success
         return $this->_response(1, NULL, array('planes' => $planes));
     }
-    
+
     public function getClientes() {
         $clientes = ClienteDB::getClientes();
         //Success
         return $this->_response(1, NULL, array('clientes' => $clientes));
     }
-    
+
     public function reporteCotizaciones() {
         $cotizaciones = CotizacionDB::listarCotizaciones();
         //Success        
         return $this->_response(1, NULL, array('cotizaciones' => $cotizaciones));
-        
     }
 
     public function getListFiles() {

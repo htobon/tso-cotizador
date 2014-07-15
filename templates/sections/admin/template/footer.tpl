@@ -19,6 +19,12 @@
 
 <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/admin/demo/dashboard-demo.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/main.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.validity.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.extensions.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.numeric.extensions.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.regex.extensions.js"></script>
 </body>
 
 </html>

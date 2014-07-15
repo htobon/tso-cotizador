@@ -26,6 +26,7 @@ var App = {
         $(document).on('click', 'button[sref=guardarUsuario]', App.saveUsuario);
         $(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUsuario);
 
+
         // Administracion de Accesorios
         $(document).on('click', 'button[ui-sref=gestionarAccesorios]', App.showAccesorios);
         $(document).on('click', 'button[sref=guardarAccesorio]', App.saveAccesorio);
@@ -56,6 +57,8 @@ var App = {
 
         //http://markusslima.github.io/bootstrap-filestyle/
         $(":file").filestyle();
+
+        App.maskedInputs();
     },
     changeView: function(e) {
 
@@ -87,6 +90,12 @@ var App = {
                 App.events();
             }
         });
+    },
+    maskedInputs: function() {
+        // Formulario de Usuarios        
+        $('#email_usuario').inputmask("email");
+
+
     },
     getUsuarios: function() {
 
@@ -121,18 +130,124 @@ var App = {
         });
     },
     showUsuarios: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
         var action = $(e.target).attr('rel');
-        if (action == "show") {
+
+        if (action === "show") {
             var id = $(e.target).attr('id').split('_').pop();
             console.log('Mostrar Usuarios', id);
-        } else {
-            console.log('Add Usuarios');
+
+            App.request({
+                data: {
+                    action: 'getUsuario',
+                    usuario_id: id
+                },
+                success: function(response) {
+                    var usuario = response.usuario;
+
+                    $('#btn_guardar_usuario').attr('rel', usuario.id)
+                    $('#codigo_usuario').val(usuario.codigo);
+                    $('#nombres_usuario').val(usuario.nombres);
+                    $('#apellidos_usuario').val(usuario.apellidos);
+                    $('#telefono_usuario').val(usuario.telefono);
+                    $('#email_usuario').val(usuario.correo);
+                    $('#rol_usuario option[value="' + usuario.rol + '"]').attr('selected', 'selected');
+                }
+            });
         }
     },
     saveUsuario: function(e) {
-        console.log('Guardar/Modificar Usuarios');
-    },
+
+        var error = false;
+        var usuario_id = $(e.target).attr('rel');
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden")
+
+        if ($("#codigo_usuario").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un código<br/>");
+            error = true;
+        }
+        if ($("#nombres_usuario").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese los Nombre del usuario<br/>");
+            error = true;
+        }
+        if ($("#apellidos_usuario").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese los apellido del usuario<br/>");
+            error = true;
+        }
+        if ($("#telefono_usuario").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el telefono del usuario<br/>");
+            error = true;
+        }
+
+        var isValidEmail = $.inputmask.isValid($("#email_usuario").val(), {alias: "email"});
+
+        if ($("#email_usuario").val() === '' || !isValidEmail) {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un email valido para el usuario<br/>");
+            error = true;
+        }
+        console.log(usuario_id);
+        if (usuario_id === "" || usuario_id === undefined || usuario_id === "0") {
+            // La Clave del usuario es obligatoria cuando se crea un usuario
+            if ($("#clave_usuario").val() === '') {
+                $("#msj_error").removeClass("hidden")
+                $("#msj_error").append(" - Ingrese la clave del usuario<br/>");
+                error = true;
+            }
+        }
+
+        if (!error) {
+
+            var usuario = {
+                id: usuario_id,
+                codigo: $("#codigo_usuario").val(),
+                nombres: $("#nombres_usuario").val(),
+                apellidos: $("#apellidos_usuario").val(),
+                telefono: $("#telefono_usuario").val(),
+                email: $("#email_usuario").val(),
+                clave: $("#clave_usuario").val(),
+                rol: $("#rol_usuario").val()
+            };
+
+            var action = "";
+            if (usuario_id === "" || usuario_id === undefined || usuario_id === "0") {
+                action = 'saveUsuario';
+            } else {
+                action = 'updateUsuario';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    usuario: usuario
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+
+        }
+    }
+    ,
     inactiveUsuario: function() {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
         console.log('Inactivar Usuarios');
     },
     getAccesorios: function() {

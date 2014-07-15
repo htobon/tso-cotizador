@@ -88,6 +88,24 @@ class UsuarioDB {
             return true;
         }
     }
+    
+    /*
+     * Valida si un email existe o no.
+     */
+
+    static function validarEmail($correo) {
+        $conn = getConn();
+        $sql = "SELECT count(id) as cantidad FROM tso_usuarios WHERE correo = ? ;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $correo);
+        $stmt->execute();
+        $res = $stmt->fetch();
+        if ($res["cantidad"] == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /**
      * Esta funcion retorna todos los usuarios presentes en la bd
@@ -95,7 +113,7 @@ class UsuarioDB {
      */
     static function getUsuarios() {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_usuarios";
+        $sql = "SELECT * FROM tso_usuarios WHERE esta_activo= true; ";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $resultado = $stmt->fetchAll();
