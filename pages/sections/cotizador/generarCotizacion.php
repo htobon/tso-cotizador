@@ -106,13 +106,13 @@ if (Sesion::sesionActiva()) {
                 $csv->generarArchivosPlano();
 
                 // Enviar por Correo Electronico
-                $enviarCorreo = new sendPdfEmail("Cotizacion #{$serial} TSO-mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
+                $enviarCorreo = new sendPdfEmail("Cotizacion {$serial} TSO-Mobile", "cotizacion-{$serial}.pdf", $cotizacionPdf);
                 $enviarCorreo->setTo($cotizacion["nombre_contacto"], $cotizacion["correo_contacto"], $cotizacion["correo_alterno_contacto"]);
                 $enviarCorreo->setFrom($usuario->nombres . " " . $usuario->apellidos, $usuario->correo, $usuario->firma);
 
                 if ($enviarCorreo->enviarEmail()) {
                     $_pdf->deletePdf();
-                    $mensajeCorreosEnviados = "Cotizacion Enviada a : {$cotizacion["correo_contacto"]}";
+                    $mensajeCorreosEnviados = "Cotizacion enviada a: {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {
                         $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
                     }
@@ -120,7 +120,7 @@ if (Sesion::sesionActiva()) {
                     //echo "Se Envia Correo - funcion Enviar";
                 } else {
 
-                    $mensajeCorreosEnviados = "No se Puedo enviar Email a : {$cotizacion["correo_contacto"]}";
+                    $mensajeCorreosEnviados = "No se pudo enviar el email a : {$cotizacion["correo_contacto"]}";
                     if (!empty($cotizacion["correo_alterno_contacto"])) {
                         $mensajeCorreosEnviados .=" - {$cotizacion["correo_alterno_contacto"]}";
                     }
