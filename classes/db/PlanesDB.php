@@ -19,7 +19,7 @@ class PlanesDB {
 
     public static function getPlanes() {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_planes_servicio";
+        $sql = "SELECT * FROM tso_planes_servicio WHERE esta_activo = true ;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $planesData = $stmt->fetchAll();
@@ -113,9 +113,9 @@ class PlanesDB {
     public static function actualizarPlan($plan) {
         $conn = getConn();
         // Insertamos el nuevo registro
-        self::agregarPlan($plan);
+        $std = self::agregarPlan($plan);
         // Desactivamos el plan actual
-        $conn->update("tso_planes_servicios", array('esta_activo' => false), array('id' => $plan["id"]));
+        $conn->update("tso_planes_servicio", array('esta_activo' => false), array('id' => $plan["id"]));
 
         return (array) $std;
     }

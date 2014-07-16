@@ -116,6 +116,8 @@ var App = {
         // Formulario Unidades GPS
         $("#precio_unidad_gps, #precio_instalacion_unidad_gps").inputmask('decimal', {digits: 2, rightAlign: false, radixPoint: ".", autoGroup: true, groupSeparator: ",", groupSize: 3});
 
+        // Formulario de Planes
+        $("#precio_plan").inputmask('decimal', {digits: 2, rightAlign: false, radixPoint: ".", autoGroup: true, groupSeparator: ",", groupSize: 3});
 
     },
     putArguments: function(e) {
@@ -512,7 +514,7 @@ var App = {
             App.request({
                 data: {
                     action: action,
-                    unidad_gps: unidad_gps
+                    unidad_gps: plan
                 },
                 success: function(response) {
 
@@ -624,7 +626,7 @@ var App = {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                      <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactivePlan' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -639,19 +641,134 @@ var App = {
 
     },
     showPlan: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
         var action = $(e.target).attr('rel');
-        if (action == "show") {
+
+        if (action === "show") {
             var id = $(e.target).attr('id').split('_').pop();
-            console.log('Mostrar Plan', id);
-        } else {
-            console.log('Agregar Plan');
+
+            App.request({
+                data: {
+                    action: 'getPlan',
+                    plan_id: id
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    var plan = response.plan;
+
+                    $('#codigo_plan').attr('disabled', 'disabled');
+                    $('#btn_guardar_plan').attr('rel', plan.id)
+
+                    $('#codigo_plan').val(plan.codigo);
+                    $('#nombre_plan').val(plan.nombre);
+                    $('#precio_plan').val(plan.precio);
+                }
+            });
         }
     },
-    savePlan: function() {
-        console.log('Guardar/Modificar Plan');
+    savePlan: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var error = false;
+        var plan_id = $(e.target).attr('rel');
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden")
+
+        if ($("#codigo_plan").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un código<br/>");
+            error = true;
+        }
+        if ($("#nombre_plan").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el nombre del plan.<br/>");
+            error = true;
+        }
+
+        if ($("#precio_plan").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el precio del plan.<br/>");
+            error = true;
+        }
+
+        if (!error) {
+
+            var plan = {
+                id: plan_id,
+                codigo: $("#codigo_plan").val(),
+                nombre: $("#nombre_plan").val(),
+                precio: $("#precio_plan").val().replace(',', '')
+            };
+
+            var action = "";
+            if (plan_id === "" || plan_id === undefined || plan_id === "0") {
+                action = 'savePlan';
+            } else {
+                action = 'updatePlan';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    plan: plan
+                },
+                success: function(response) {
+
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getPlanes();
+                    }
+                }
+            });
+
+        }
+
     },
-    inactivePlan: function() {
-        console.log('Inactivar Plan');
+    inactivePlan: function(id) {
+        console.log('Inactivar Plan', id);
+
+        App.request({
+            data: {
+                action: 'inactivePlan',
+                plan_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getPlanes();
+                }
+            }
+        });
     },
     getClientes: function() {
 

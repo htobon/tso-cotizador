@@ -125,7 +125,7 @@ class Action {
 
             $unidad_gps = $_POST['unidad_gps'];
 
-            
+
             $result = UnidadesGpsDB::agregarUnidad($unidad_gps);
             if ($result == 1) {
 
@@ -151,7 +151,7 @@ class Action {
             }
         }
     }
-    
+
     public function inactiveUnidadGPS() {
 
         if (isset($_POST['unidad_gps_id'])) {
@@ -179,6 +179,62 @@ class Action {
         return $this->_response(1, NULL, array('planes' => $planes));
     }
 
+    public function getPlan() {
+        if (isset($_POST['plan_id']) && $_POST['plan_id'] != 0) {
+
+            $plan_id = $_POST['plan_id'];
+            $plan = PlanesDB::getPlanePorId($plan_id);
+            return $this->_response(1, NULL, array('plan' => $plan));
+        }
+    }
+    
+    public function savePlan() {
+
+        if (isset($_POST['plan'])) {
+
+            $plan = $_POST['plan'];
+
+
+            $result = PlanesDB::agregarPlan($plan);
+            
+            if ($result) {
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
+        }
+    }
+
+    public function updatePlan() {
+        
+        if (isset($_POST['plan'])) {
+
+            $plan = $_POST['plan'];
+
+            $result = PlanesDB::actualizarPlan($plan);
+            if ($result) {
+                return $this->_response(1, 'Registro Actualizado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }        
+    }
+
+    public function inactivePlan() {
+
+        if (isset($_POST['plan_id'])) {
+
+            $plan_id = $_POST['plan_id'];
+
+            $result = PlanesDB::desactivarPlan($plan_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    
     public function getClientes() {
         $clientes = ClienteDB::getClientes();
         //Success
