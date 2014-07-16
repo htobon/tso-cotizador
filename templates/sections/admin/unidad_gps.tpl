@@ -13,6 +13,9 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
+                    <div class="alert alert-success alert-dismissable hidden" id="msj_success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>                    
+                    </div>
                     <div class="table-responsive">                       
                         <table class="table table-striped table-bordered table-hover" id="unidadesgps"></table>
                     </div>

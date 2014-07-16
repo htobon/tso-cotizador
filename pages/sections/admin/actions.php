@@ -68,6 +68,7 @@ class Action {
     }
 
     public function updateUsuario() {
+
         if (isset($_POST['usuario'])) {
 
             $usuario = $_POST['usuario'];
@@ -80,7 +81,9 @@ class Action {
             }
         }
     }
+
     public function inactiveUsuario() {
+
         if (isset($_POST['usuario_id'])) {
 
             $usuario_id = $_POST['usuario_id'];
@@ -104,6 +107,64 @@ class Action {
         $unidades = UnidadesGpsDB::getUnidadesGpsActivas();
         //Success
         return $this->_response(1, NULL, array('unidades' => $unidades));
+    }
+
+    public function getUnidadGPS() {
+
+        if (isset($_POST['unidad_gps_id']) && $_POST['unidad_gps_id'] != 0) {
+
+            $unidad_gps_id = $_POST['unidad_gps_id'];
+            $unidad_gps = UnidadesGpsDB::getUnidadesGpsPorId($unidad_gps_id);
+            return $this->_response(1, NULL, array('unidad_gps' => $unidad_gps));
+        }
+    }
+
+    public function saveUnidadGPS() {
+
+        if (isset($_POST['unidad_gps'])) {
+
+            $unidad_gps = $_POST['unidad_gps'];
+
+            
+            $result = UnidadesGpsDB::agregarUnidad($unidad_gps);
+            if ($result == 1) {
+
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
+        }
+    }
+
+    public function updateUnidadGPS() {
+
+        if (isset($_POST['unidad_gps'])) {
+
+            $unidad_gps = $_POST['unidad_gps'];
+
+            $result = UnidadesGpsDB::updateUnidad($unidad_gps);
+            if ($result) {
+                return $this->_response(1, 'Registro Actualizado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    
+    public function inactiveUnidadGPS() {
+
+        if (isset($_POST['unidad_gps_id'])) {
+
+            $unidad_gps_id = $_POST['unidad_gps_id'];
+
+            $result = UnidadesGpsDB::desactivarUnidad($unidad_gps_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
     }
 
     public function getTiposContratos() {

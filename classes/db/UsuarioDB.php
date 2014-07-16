@@ -164,10 +164,10 @@ class UsuarioDB {
         
         $sql_aux = " ";
         if(!empty($usuario['clave'])){
-            $sql_aux = " password=md5('{$usuario['clave']}')";
+            $sql_aux = " password=md5('{$usuario['clave']}'), ";
         }
         
-        $sql = "UPDATE tso_usuarios set salesforce_id= 1, codigo=?, nombres=?, apellidos=?, telefono=?, correo=?, {$sql_aux}, rol=? where id=?";
+        $sql = "UPDATE tso_usuarios set salesforce_id= '1', codigo=?, nombres=?, apellidos=?, telefono=?, correo=?, {$sql_aux} rol=? where id=?";
         $stmt = $conn->prepare($sql);
         
         $stmt->bindValue(1, $usuario['codigo']);

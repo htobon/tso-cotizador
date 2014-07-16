@@ -122,16 +122,38 @@ class UnidadesGpsDB {
         $conn = getConn();
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindValue(1, $unidad->nombre);
-        $stmt->bindValue(2, $unidad->codUnidad);
-        $stmt->bindValue(3, $unidad->codInstalacion);
-        $stmt->bindValue(4, $unidad->precioInstalacion);
-        $stmt->bindValue(5, $unidad->precioUnidad);
-        $stmt->bindValue(6, $unidad->descripcion);
-        $stmt->bindValue(7, $unidad->image);
+        $stmt->bindValue(1, $unidad['nombre']);
+        $stmt->bindValue(2, $unidad['cod_unidad']);
+        $stmt->bindValue(3, $unidad['cod_instalacion']);
+        $stmt->bindValue(4, $unidad['precio_instalacion']);
+        $stmt->bindValue(5, $unidad['precio_unidad']);
+        $stmt->bindValue(6, $unidad['descripcion']);
+        $stmt->bindValue(7, "image");
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
+    }
+    
+    static function updateUnidad($unidad) {
+        
+        $conn = getConn();
+        
+        $sql = "UPDATE tso_unidades_gps set nombre= ? , cod_unidad=?, cod_instalacion=?, precio_instalacion=?, precio_unidad=?, descripcion=?, image=? where id=?";
+        $stmt = $conn->prepare($sql);
+        
+        $stmt->bindValue(1, $unidad['nombre']);
+        $stmt->bindValue(2, $unidad['cod_unidad']);
+        $stmt->bindValue(3, $unidad['cod_instalacion']);
+        $stmt->bindValue(4, $unidad['precio_instalacion']);
+        $stmt->bindValue(5, $unidad['precio_unidad']);
+        $stmt->bindValue(6, $unidad['descripcion']);
+        $stmt->bindValue(7, "image");
+        $stmt->bindValue(8, $unidad['id']);
+        
+        $inserted_rows = $stmt->execute();
+
+        return ($inserted_rows > 0) ? true : false;
+        
     }
 
 }

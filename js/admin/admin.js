@@ -113,6 +113,24 @@ var App = {
         // Formulario de Usuarios        
         $('#email_usuario').inputmask("email");
 
+        // Formulario Unidades GPS
+        $("#precio_unidad_gps, #precio_instalacion_unidad_gps").inputmask('decimal', {digits: 2, rightAlign: false, radixPoint: ".", autoGroup: true, groupSeparator: ",", groupSize: 3});
+
+
+    },
+    putArguments: function(e) {
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+        var id = $(this).data('id');
+        var fn = $(this).data('fn');
+
+        $("#modal").removeAttr('data-id');
+        $("#modal").removeAttr('data-fn');
+
+        $("#modal").attr('rel', $(this).data('id'));
+        $("#modal").attr('data-fn', $(this).data('fn'));
+
 
     },
     getUsuarios: function() {
@@ -222,7 +240,7 @@ var App = {
             $("#msj_error").append(" - Ingrese un email valido para el usuario<br/>");
             error = true;
         }
-        console.log(usuario_id);
+
         if (usuario_id === "" || usuario_id === undefined || usuario_id === "0") {
             // La Clave del usuario es obligatoria cuando se crea un usuario
             if ($("#clave_usuario").val() === '') {
@@ -266,7 +284,9 @@ var App = {
                     } else {
                         //Success
                         $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
                         $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
                         $("#msj_success").append(response.message);
                         $("#msj_success").fadeOut(2600, "linear");
                         App.getUsuarios();
@@ -275,21 +295,6 @@ var App = {
             });
 
         }
-    },
-    putArguments: function(e) {
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
-        var id = $(this).data('id');
-        var fn = $(this).data('fn');
-
-        $("#modal").removeAttr('data-id');
-        $("#modal").removeAttr('data-fn');
-
-        $("#modal").attr('rel', $(this).data('id'));
-        $("#modal").attr('data-fn', $(this).data('fn'));
-
-
     },
     inactiveUsuario: function(id) {
 
@@ -309,7 +314,9 @@ var App = {
                 } else {
                     //Success
                     $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
                     $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
                     $("#msj_success").append(response.message);
                     $("#msj_success").fadeOut(2600, "linear");
                     App.getUsuarios();
@@ -387,7 +394,7 @@ var App = {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                      <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUnidadGps'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='unidadgps_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUnidadGps' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactiveUnidadGps' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -403,19 +410,158 @@ var App = {
 
     },
     showUnidadGps: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
         var action = $(e.target).attr('rel');
-        if (action == "show") {
+
+        if (action === "show") {
             var id = $(e.target).attr('id').split('_').pop();
-            console.log('Mostrar Unidad Gps', id);
-        } else {
-            console.log('Agregar Unidad Gps');
+
+            App.request({
+                data: {
+                    action: 'getUnidadGPS',
+                    unidad_gps_id: id
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    var unidad_gps = response.unidad_gps;
+
+                    $('#codigo_unidad_gps').attr('disabled', 'disabled');
+                    $('#btn_guardar_unidad_gps').attr('rel', unidad_gps.id)
+
+                    $('#codigo_unidad_gps').val(unidad_gps.codUnidad);
+                    $('#codigo_instalacion_unidad_gps').val(unidad_gps.codInstalacion);
+                    $('#nombre_unidad_gps').val(unidad_gps.nombre);
+                    $('#descripcion_unidad_gps').val(unidad_gps.descripcion);
+                    $('#precio_unidad_gps').val(unidad_gps.precioUnidad);
+                    $('#precio_instalacion_unidad_gps').val(unidad_gps.precioInstalacion);
+                }
+            });
         }
     },
-    saveUnidadGps: function() {
-        console.log('Guardar/Modificar Unidad');
+    saveUnidadGps: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var error = false;
+        var unidad_gps_id = $(e.target).attr('rel');
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden")
+
+        if ($("#codigo_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un código<br/>");
+            error = true;
+        }
+        if ($("#codigo_instalacion_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el codigo de la instalación.<br/>");
+            error = true;
+        }
+        if ($("#nombre_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el nombre de la unidad.<br/>");
+            error = true;
+        }
+        if ($("#descripcion_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese la descripcion.<br/>");
+            error = true;
+        }
+
+
+        if ($("#precio_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el precio unitario.<br/>");
+            error = true;
+        }
+
+        if ($("#precio_instalacion_unidad_gps").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el precio de la instalación.<br/>");
+            error = true;
+        }
+
+
+        if (!error) {
+
+            var unidad_gps = {
+                id: unidad_gps_id,
+                nombre: $("#nombre_unidad_gps").val(),
+                cod_unidad: $("#codigo_unidad_gps").val(),
+                cod_instalacion: $("#codigo_instalacion_unidad_gps").val(),
+                precio_unidad: $("#precio_unidad_gps").val().replace(',', ''),
+                precio_instalacion: $("#precio_instalacion_unidad_gps").val().replace(',', ''),
+                descripcion: $("#descripcion_unidad_gps").val()
+            };
+
+            var action = "";
+            if (unidad_gps_id === "" || unidad_gps_id === undefined || unidad_gps_id === "0") {
+                action = 'saveUnidadGPS';
+            } else {
+                action = 'updateUnidadGPS';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    unidad_gps: unidad_gps
+                },
+                success: function(response) {
+
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getUnidadesGPS();
+                    }
+                }
+            });
+
+        }
+
     },
-    inactiveUnidadGps: function() {
-        console.log('Inactivar Unidad');
+    inactiveUnidadGps: function(id) {
+        console.log('Inactivar Unidad', id);
+
+        App.request({
+            data: {
+                action: 'inactiveUnidadGPS',
+                unidad_gps_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getUnidadesGPS();
+                }
+            }
+        });
     },
     getContratos: function() {
 
