@@ -45,25 +45,53 @@ class Action {
     }
 
     public function saveUsuario() {
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        exit();
+
         if (isset($_POST['usuario'])) {
 
             $usuario = $_POST['usuario'];
-            
+
             $isValid = UsuarioDB::validarEmail($usuario['email']);
-            
-            //return $this->_response(1, NULL, array('usuario' => $usuario));
+
+            if (!$isValid) {
+                $result = UsuarioDB::addUsuario($usuario);
+                if ($result == 1) {
+
+                    return $this->_response(1, 'Registro Ingresado Correctamente', array());
+                } else {
+
+                    return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+                }
+            } else {
+                return $this->_response(0, 'El email ya está registrado', array());
+            }
         }
     }
 
     public function updateUsuario() {
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        exit();
+        if (isset($_POST['usuario'])) {
+
+            $usuario = $_POST['usuario'];
+
+            $result = UsuarioDB::updateUsuario($usuario);
+            if ($result) {
+                return $this->_response(1, 'Registro Actualizado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    public function inactiveUsuario() {
+        if (isset($_POST['usuario_id'])) {
+
+            $usuario_id = $_POST['usuario_id'];
+
+            $result = UsuarioDB::inactiveUsuario($usuario_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
     }
 
     public function getAccesorios() {

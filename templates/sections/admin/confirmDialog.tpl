@@ -11,7 +11,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger">Inactivar</button>
+            <button type="button" class="btn btn-danger" sref='inactivar_registro'>Inactivar</button>
         </div>
     </div>
 </div>

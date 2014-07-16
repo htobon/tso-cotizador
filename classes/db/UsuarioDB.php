@@ -88,7 +88,7 @@ class UsuarioDB {
             return true;
         }
     }
-    
+
     /*
      * Valida si un email existe o no.
      */
@@ -136,6 +136,62 @@ class UsuarioDB {
             return $usuarios;
         }
         return NULL;
+    }
+
+    static function addUsuario($usuario) {
+
+        $sql = "INSERT INTO tso_usuarios (salesforce_id, codigo, nombres, apellidos, telefono, correo, password, rol) 
+                values ('1', ?,?,?,?,?,md5(?),?);";
+
+        $conn = getConn();
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(1, $usuario['codigo']);
+        $stmt->bindValue(2, $usuario['nombres']);
+        $stmt->bindValue(3, $usuario['apellidos']);
+        $stmt->bindValue(4, $usuario['telefono']);
+        $stmt->bindValue(5, $usuario['email']);
+        $stmt->bindValue(6, $usuario['clave']);
+        $stmt->bindValue(7, $usuario['rol']);
+
+        $inserted_rows = $stmt->execute();
+        return ($inserted_rows == 1);
+    }
+    
+    public static function updateUsuario($usuario) {
+
+        $conn = getConn();
+        
+        $sql_aux = " ";
+        if(!empty($usuario['clave'])){
+            $sql_aux = " password=md5('{$usuario['clave']}')";
+        }
+        
+        $sql = "UPDATE tso_usuarios set salesforce_id= 1, codigo=?, nombres=?, apellidos=?, telefono=?, correo=?, {$sql_aux}, rol=? where id=?";
+        $stmt = $conn->prepare($sql);
+        
+        $stmt->bindValue(1, $usuario['codigo']);
+        $stmt->bindValue(2, $usuario['nombres']);
+        $stmt->bindValue(3, $usuario['apellidos']);
+        $stmt->bindValue(4, $usuario['telefono']);
+        $stmt->bindValue(5, $usuario['email']);
+        $stmt->bindValue(6, $usuario['rol']);
+        $stmt->bindValue(7, $usuario['id']);
+        
+        $inserted_rows = $stmt->execute();
+
+        return ($inserted_rows > 0) ? true : false;
+    }
+    
+    public static function inactiveUsuario($id) {
+
+        $conn = getConn();       
+        $sql = "UPDATE tso_usuarios set esta_activo = false where id=?";
+        $stmt = $conn->prepare($sql);        
+        $stmt->bindValue(1, $id);        
+        $inserted_rows = $stmt->execute();
+
+        return ($inserted_rows > 0) ? true : false;
     }
 
 }

@@ -12,6 +12,9 @@
                     <button class="btn btn-outline btn-default" type="button" data-toggle="modal" ui-sref='gestionarUsuarios' data-target="#modal" rel="add" >Agregar Usuario</button>
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-success alert-dismissable hidden" id="msj_success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>                    
+                    </div>
                     <div class="table-responsive">                       
                         <table class="table table-striped table-bordered table-hover" id="usuarios"></table>
                     </div>

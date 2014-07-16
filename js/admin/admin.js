@@ -9,6 +9,7 @@ var App = {
         App.changeView();
     },
     events: function() {
+
         $('a[ui-sref]').click(App.changeView);
         $('a[ui-sref=usuarios]').click(App.getUsuarios);
         $('a[ui-sref=accesorios]').click(App.getAccesorios);
@@ -21,10 +22,12 @@ var App = {
 
         $(document).on('click', 'button[ui-sref]', App.showModals);
 
+
         // Administracion de Usuarios
         $(document).on('click', 'button[ui-sref=gestionarUsuarios]', App.showUsuarios);
         $(document).on('click', 'button[sref=guardarUsuario]', App.saveUsuario);
-        $(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUsuario);
+        $(document).on('click', 'button[ui-sref=confirmDialog]', App.putArguments);
+        //$(document).on('click', 'button[sref=inactivarUsuario]', App.inactiveUsuario);
 
 
         // Administracion de Accesorios
@@ -54,6 +57,21 @@ var App = {
 
         //Reporte
         $(document).on('click', '#cotizaciones  button', App.verPdf);
+
+
+        // Dialog Confirm
+        $(document).on('click', 'button[sref=inactivar_registro]', function(e) {
+
+            if (isJqmGhostClick(e)) {
+                return false;
+            }
+
+            var id = $("#modal").attr('rel');
+            var fn = $("#modal").data('fn');
+
+            App[fn](id);
+
+        });
 
         //http://markusslima.github.io/bootstrap-filestyle/
         $(":file").filestyle();
@@ -113,10 +131,12 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+
+
                     /*return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                      <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarUsuario'>Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='usuario_" + obj.id + "' rel='show' type='button' ui-sref='gestionarUsuarios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactiveUsuario' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -150,6 +170,8 @@ var App = {
                     var usuario = response.usuario;
 
                     $('#btn_guardar_usuario').attr('rel', usuario.id)
+                    $('#email_usuario').attr('disabled', 'disabled')
+
                     $('#codigo_usuario').val(usuario.codigo);
                     $('#nombres_usuario').val(usuario.nombres);
                     $('#apellidos_usuario').val(usuario.apellidos);
@@ -204,7 +226,7 @@ var App = {
         if (usuario_id === "" || usuario_id === undefined || usuario_id === "0") {
             // La Clave del usuario es obligatoria cuando se crea un usuario
             if ($("#clave_usuario").val() === '') {
-                $("#msj_error").removeClass("hidden")
+                $("#msj_error").removeClass("hidden");
                 $("#msj_error").append(" - Ingrese la clave del usuario<br/>");
                 error = true;
             }
@@ -236,19 +258,65 @@ var App = {
                     usuario: usuario
                 },
                 success: function(response) {
-                    console.log(response);
+
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getUsuarios();
+                    }
                 }
             });
 
         }
-    }
-    ,
-    inactiveUsuario: function() {
-
+    },
+    putArguments: function(e) {
         if (isJqmGhostClick(e)) {
             return false;
         }
-        console.log('Inactivar Usuarios');
+        var id = $(this).data('id');
+        var fn = $(this).data('fn');
+
+        $("#modal").removeAttr('data-id');
+        $("#modal").removeAttr('data-fn');
+
+        $("#modal").attr('rel', $(this).data('id'));
+        $("#modal").attr('data-fn', $(this).data('fn'));
+
+
+    },
+    inactiveUsuario: function(id) {
+
+        console.log('Inactivar usuario', id)
+
+        App.request({
+            data: {
+                action: 'inactiveUsuario',
+                usuario_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getUsuarios();
+                }
+            }
+        });
+
     },
     getAccesorios: function() {
 
