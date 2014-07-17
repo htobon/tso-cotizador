@@ -53,5 +53,39 @@ class DuracionesContratoDB {
             return null;
         }
     }
+
+    public static function agregarDuracionContrato($duracion_contrato) {
+
+        $conn = getConn();
+        
+        unset($duracion_contrato["id"]);
+        
+        $conn->insert("tso_duracion_contratos", $duracion_contrato);
+        return (count($duracion_contrato) <= 0 ) ? null : $duracion_contrato;
+    }
+
+    public static function modificarDuracionContrato($duracion_contrato) {
+        
+        $conn = getConn();
+        // Insertamos el nuevo registro
+        $std = self::agregarDuracionContrato($duracion_contrato);
+        // Desactivamos el plan actual
+        $conn->update("tso_duracion_contratos", array('esta_activo' => false), array('id' => $duracion_contrato["id"]));
+
+        return (array) $std; 
+    }
+
+    public static function inactivarDuracionContrato($id) {
+        
+        $conn = getConn();
+        $sql = "UPDATE tso_duracion_contratos SET esta_activo = FALSE WHERE id = ?";
+        $values = array($id);
+
+        $count = $conn->executeUpdate($sql, $values);
+
+        return ($count > 0) ? true : false;
+        
+    }
+
 }
-    
+

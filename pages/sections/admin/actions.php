@@ -10,6 +10,7 @@ use db\TiposContratoDB;
 use db\UnidadesGpsDB;
 use db\AccesoriosDB;
 use db\UsuarioDB;
+use db\DuracionesContratoDB;
 
 if (isset($_POST['action'])) {
     $action = new Action();
@@ -173,6 +174,66 @@ class Action {
         return $this->_response(1, NULL, array('tiposContratos' => $tiposContratos));
     }
 
+    public function getMeses() {
+        $duraciones = DuracionesContratoDB::getDuracionesContratoActivas();
+        //Success
+        return $this->_response(1, NULL, array('duraciones_contrato' => $duraciones));
+    }
+
+    public function getDuracionContrato() {
+        if (isset($_POST['duracion_id']) && $_POST['duracion_id'] != 0) {
+
+            $duracion_id = $_POST['duracion_id'];
+            $duracion_contrato = DuracionesContratoDB::getDuracionContratoPorId($duracion_id);
+            return $this->_response(1, NULL, array('duracion_contrato' => $duracion_contrato));
+        }
+    }
+    
+    public function saveDuracionContrato() {
+        
+        if (isset($_POST['duracion_contrato'])) {
+
+            $duracion = $_POST['duracion_contrato'];
+
+
+            $result = DuracionesContratoDB::agregarDuracionContrato($duracion);
+
+            if ($result) {
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
+        }
+        
+    }
+    public function updateDuracionContrato() {
+        
+        if (isset($_POST['duracion_contrato'])) {
+
+            $duracion_contrato = $_POST['duracion_contrato'];
+
+            $result = DuracionesContratoDB::modificarDuracionContrato($duracion_contrato);
+            if ($result) {
+                return $this->_response(1, 'Registro Actualizado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    public function inactiveDuracionContrato() {
+        if (isset($_POST['duracion_id'])) {
+
+            $duracion_id = $_POST['duracion_id'];
+
+            $result = DuracionesContratoDB::inactivarDuracionContrato($duracion_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+
     public function getPlanes() {
         $planes = PlanesDB::getPlanes();
         //Success
@@ -187,7 +248,7 @@ class Action {
             return $this->_response(1, NULL, array('plan' => $plan));
         }
     }
-    
+
     public function savePlan() {
 
         if (isset($_POST['plan'])) {
@@ -196,7 +257,7 @@ class Action {
 
 
             $result = PlanesDB::agregarPlan($plan);
-            
+
             if ($result) {
                 return $this->_response(1, 'Registro Ingresado Correctamente', array());
             } else {
@@ -206,7 +267,7 @@ class Action {
     }
 
     public function updatePlan() {
-        
+
         if (isset($_POST['plan'])) {
 
             $plan = $_POST['plan'];
@@ -217,7 +278,7 @@ class Action {
             } else {
                 return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
             }
-        }        
+        }
     }
 
     public function inactivePlan() {
@@ -234,7 +295,7 @@ class Action {
             }
         }
     }
-    
+
     public function getClientes() {
         $clientes = ClienteDB::getClientes();
         //Success

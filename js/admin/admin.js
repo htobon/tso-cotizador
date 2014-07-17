@@ -15,6 +15,7 @@ var App = {
         $('a[ui-sref=accesorios]').click(App.getAccesorios);
         $('a[ui-sref=unidad_gps]').click(App.getUnidadesGPS);
         $('a[ui-sref=contratos]').click(App.getContratos);
+        $('a[ui-sref=meses]').click(App.getDuracionesContrato);
         $('a[ui-sref=planes]').click(App.getPlanes);
         $('a[ui-sref=clientes]').click(App.getClientes);
         $('a[ui-sref=cotizacionesGeneradas]').click(App.reporteCotizaciones);
@@ -41,16 +42,21 @@ var App = {
         $(document).on('click', 'button[sref=inactivarUnidadGps]', App.inactiveUnidadGps);
 
         // Administracion de Tipos de Contrato
-        $(document).on('click', 'button[ui-sref=gestionarContratos]', App.showContratos);
-        $(document).on('click', 'button[sref=guardarContrato]', App.saveContratos);
-        $(document).on('click', 'button[sref=inactivarContrato]', App.inactiveContratos);
+        /*$(document).on('click', 'button[ui-sref=gestionarContratos]', App.showContratos);
+         $(document).on('click', 'button[sref=guardarContrato]', App.saveContratos);
+         $(document).on('click', 'button[sref=inactivarContrato]', App.inactiveContratos);*/
+
+        // Administracion de Duraciones de Contrato
+        $(document).on('click', 'button[ui-sref=gestionarMeses]', App.showDuracionesContrato);
+        $(document).on('click', 'button[sref=guardarDuracionContrato]', App.saveDuracionesContrato);
+
 
         // Administracion de Planes
         $(document).on('click', 'button[ui-sref=gestionarPlanes]', App.showPlan);
         $(document).on('click', 'button[sref=guardarPlan]', App.savePlan);
         $(document).on('click', 'button[sref=inactivarPlan]', App.inactivePlan);
 
-        // Administracion de Planes
+        // Administracion de Clientes
         $(document).on('click', 'button[ui-sref=gestionarClientes]', App.showCliente);
         $(document).on('click', 'button[sref=guardarCliente]', App.saveCliente);
         $(document).on('click', 'button[sref=inactivarCliente]', App.inactiveCliente);
@@ -577,10 +583,10 @@ var App = {
                 "targets": -1,
                 "data": "",
                 "render": function(data, type, obj, meta) {
+
                     /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarContrato'>Desactivar</button>";*/
-                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='contrato_" + obj.id + "' rel='show' type='button' ui-sref='gestionarContratos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";*/
+                    return "<button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal'>Desactivar</button>";
                 }
             }];
 
@@ -595,20 +601,147 @@ var App = {
         });
 
     },
-    showContratos: function(e) {
+    getDuracionesContrato: function() {
+
+        var columns = [
+            {"title": "Codigo", data: 'id'},
+            {"title": "Cantidad Meses", data: 'cantidadMeses'},
+            {"title": "Opciones", class: 'text-center'}
+        ];
+
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, obj, meta) {
+
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='duracion_" + obj.id + "' rel='show' type='button' ui-sref='gestionarMeses' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactiveDuracionesContrato' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                }
+            }];
+
+        App.request({
+            data: {
+                action: 'getMeses'
+            },
+            success: function(response) {
+
+                App.generateTable('duracionesContrato', response.duraciones_contrato, columns, columnDefs);
+            }
+        });
+
+    },
+    showDuracionesContrato: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
         var action = $(e.target).attr('rel');
-        if (action == "show") {
+
+        if (action === "show") {
             var id = $(e.target).attr('id').split('_').pop();
             console.log('Mostrar Tipo Contrato', id);
-        } else {
-            console.log('Agregar Tipo Contrato');
+
+            App.request({
+                data: {
+                    action: 'getDuracionContrato',
+                    duracion_id: id
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    var duracion = response.duracion_contrato;
+
+                    $('#btn_guardar_mes').attr('rel', duracion.id);
+
+                    $('#cantidad_meses').val(duracion.cantidadMeses);
+                }
+            });
         }
     },
-    saveContratos: function() {
-        console.log('Guardar/Modificar Tipo Contrato');
+    saveDuracionesContrato: function(e) {
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+        var error = false;
+        var duracion_id = $(e.target).attr('rel');
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden")
+
+        if ($("#cantidad_meses").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese cantidad de Meses<br/>");
+            error = true;
+        }
+
+
+        if (!error) {
+
+            var duracion_contrato = {
+                id: duracion_id,
+                cantidad_meses: $("#cantidad_meses").val()
+            };
+
+            var action = "";
+            if (duracion_id === "" || duracion_id === undefined || duracion_id === "0") {
+                action = 'saveDuracionContrato';
+            } else {
+                action = 'updateDuracionContrato';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    duracion_contrato: duracion_contrato
+                },
+                success: function(response) {
+
+                    console.log(response);
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getDuracionesContrato();
+                    }
+                }
+            });
+
+        }
     },
-    inactiveContratos: function() {
-        console.log('Inactivar Tipo Contrato');
+    inactiveDuracionesContrato: function(id) {
+        console.log('Inactivar duracion Contrato', id);
+        App.request({
+            data: {
+                action: 'inactiveDuracionContrato',
+                duracion_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getDuracionesContrato();
+                }
+            }
+        });
     },
     getPlanes: function() {
 

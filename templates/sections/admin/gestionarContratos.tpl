@@ -9,12 +9,12 @@
             <form role="form">
                 <div class="form-group">
                     <label>Codigo Contrato</label>
-                    <input class="form-control" placeholder="Ingrese el codigo del contrato">
+                    <input class="form-control" placeholder="Ingrese el codigo del contrato" disabled="disabled">
                     <p class="help-block"></p>
                 </div>                
                 <div class="form-group">
                     <label>Nombre Contrato</label>
-                    <input class="form-control" placeholder="Ingrese el nombre del contrato">
+                    <input class="form-control" placeholder="Ingrese el nombre del contrato" disabled="disabled">
                     <p class="help-block"></p>
                 </div>  
             </form>
