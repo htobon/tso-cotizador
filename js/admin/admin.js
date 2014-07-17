@@ -16,6 +16,7 @@ var App = {
         $('a[ui-sref=unidad_gps]').click(App.getUnidadesGPS);
         $('a[ui-sref=contratos]').click(App.getContratos);
         $('a[ui-sref=meses]').click(App.getDuracionesContrato);
+        $('a[ui-sref=descuentos]').click(App.getDescuentos);
         $('a[ui-sref=planes]').click(App.getPlanes);
         $('a[ui-sref=clientes]').click(App.getClientes);
         $('a[ui-sref=cotizacionesGeneradas]').click(App.reporteCotizaciones);
@@ -49,6 +50,10 @@ var App = {
         // Administracion de Duraciones de Contrato
         $(document).on('click', 'button[ui-sref=gestionarMeses]', App.showDuracionesContrato);
         $(document).on('click', 'button[sref=guardarDuracionContrato]', App.saveDuracionesContrato);
+
+        // Administracion de Descuentos
+        $(document).on('click', 'button[ui-sref=gestionarDescuentos]', App.showDescuento);
+        $(document).on('click', 'button[sref=guardarDescuento]', App.saveDescuento);
 
 
         // Administracion de Planes
@@ -124,6 +129,10 @@ var App = {
 
         // Formulario de Planes
         $("#precio_plan").inputmask('decimal', {digits: 2, rightAlign: false, radixPoint: ".", autoGroup: true, groupSeparator: ",", groupSize: 3});
+
+        // Formulario Descuentos
+        $("#cantidad_minima, #cantidad_maxima").inputmask('integer', {rightAlign: false});
+        $("#descuento").inputmask('integer');
 
     },
     putArguments: function(e) {
@@ -739,6 +748,167 @@ var App = {
                     $("#msj_success").append(response.message);
                     $("#msj_success").fadeOut(2600, "linear");
                     App.getDuracionesContrato();
+                }
+            }
+        });
+    },
+    getDescuentos: function() {
+
+        var columns = [
+            {"title": "Codigo", data: 'id'},
+            {"title": "Cantidad Mínima", data: 'cantidadMin'},
+            {"title": "Cantidad Máxima", data: 'cantidadMax'},
+            {"title": "Descuento", data: 'formato_descuento', class: 'text-center'},
+            {"title": "Opciones", class: 'text-center'}
+        ];
+
+        var columnDefs = [{
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, obj, meta) {
+                    /*return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='plan_" + obj.id + "' rel='show' type='button' ui-sref='gestionarPlanes' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                     <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarPlan'>Desactivar</button>";*/
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='descuento_" + obj.id + "' rel='show' type='button' ui-sref='gestionarDescuentos' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactiveDescuento' data-toggle='modal' data-target='#modal'>Desactivar</button>";
+                }
+            }];
+
+        App.request({
+            data: {
+                action: 'getDescuentos'
+            },
+            success: function(response) {
+                App.generateTable('descuentos', response.descuentos, columns, columnDefs);
+            }
+        });
+
+    },
+    showDescuento: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var action = $(e.target).attr('rel');
+
+        if (action === "show") {
+            var id = $(e.target).attr('id').split('_').pop();
+            console.log('Mostrar Dscuento', id);
+
+            App.request({
+                data: {
+                    action: 'getDescuento',
+                    descuento_id: id
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    var descuento = response.descuento;
+
+                    $('#btn_guardar_descuento').attr('rel', descuento.id);
+
+                    $('#cantidad_minima').val(descuento.cantidadMin);
+                    $('#cantidad_maxima').val(descuento.cantidadMax);
+                    $('#descuento').val(descuento.descuento);
+                }
+            });
+        }
+    },
+    saveDescuento: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var error = false;
+        var descuento_id = $(e.target).attr('rel');
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden")
+
+        if ($("#cantidad_minima").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese la cantidad mínima.<br/>");
+            error = true;
+        }
+        if ($("#cantidad_maxima").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese la cantidad máxima.<br/>");
+            error = true;
+        }
+
+        if ($("#descuento").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese el valor del descuento.<br/>");
+            error = true;
+        }
+
+        if (!error) {
+
+            var descuento = {
+                id: descuento_id,
+                cantidad_min: $("#cantidad_minima").val(),
+                cantidad_max: $("#cantidad_maxima").val(),
+                descuento: $("#descuento").val()
+            };
+
+            var action = "";
+            if (descuento_id === "" || descuento_id === undefined || descuento_id === "0") {
+                action = 'saveDescuento';
+            } else {
+                action = 'updateDescuento';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    descuento: descuento
+                },
+                success: function(response) {
+
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getDescuentos();
+                    }
+                }
+            });
+
+        }
+    },
+    inactiveDescuento: function(id) {
+
+        console.log('Inactivar descuento', id);
+        
+        App.request({
+            data: {
+                action: 'inactiveDescuento',
+                descuento_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getDescuentos();
                 }
             }
         });

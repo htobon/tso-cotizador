@@ -12,7 +12,7 @@
                 </div>               
                 <div class="form-group">
                     <label>Cantidad Meses</label>
-                    <input class="form-control" placeholder="Ingrese cantidad de meses" id="cantidad_meses" type="number">
+                    <input class="form-control" placeholder="Ingrese cantidad de meses" id="cantidad_meses" type="number" maxlength="3">
                     <p class="help-block"></p>
                 </div> 
             </form>

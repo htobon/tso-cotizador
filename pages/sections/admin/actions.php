@@ -11,6 +11,7 @@ use db\UnidadesGpsDB;
 use db\AccesoriosDB;
 use db\UsuarioDB;
 use db\DuracionesContratoDB;
+use db\DescuentosDB;
 
 if (isset($_POST['action'])) {
     $action = new Action();
@@ -234,6 +235,68 @@ class Action {
         }
     }
 
+    public function getDescuentos() {
+        $descuentos = DescuentosDB::getDescuentosActivos();
+        //Success
+        return $this->_response(1, NULL, array('descuentos' => $descuentos));
+    }
+    
+    public function getDescuento() {
+        if (isset($_POST['descuento_id']) && $_POST['descuento_id'] != 0) {
+
+            $descuento_id = $_POST['descuento_id'];
+            $descuento = DescuentosDB::getDescuentosPorId($descuento_id);
+            return $this->_response(1, NULL, array('descuento' => $descuento));
+        }
+    }
+
+    public function saveDescuento() {
+
+        if (isset($_POST['descuento'])) {
+
+            $descuento = $_POST['descuento'];
+
+
+            $result = DescuentosDB::agregarDescuento($descuento);
+
+            if ($result==1) {
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
+        }
+    }
+    
+     public function updateDescuento() {
+
+        if (isset($_POST['descuento'])) {
+
+            $descuento = $_POST['descuento'];
+
+            $result = DescuentosDB::actualizarDescuento($descuento);
+            if ($result) {
+                return $this->_response(1, 'Registro Actualizado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    
+     public function inactiveDescuento() {
+
+        if (isset($_POST['descuento_id'])) {
+
+            $descuento_id = $_POST['descuento_id'];
+
+            $result = DescuentosDB::desactivarDescuento($descuento_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    
     public function getPlanes() {
         $planes = PlanesDB::getPlanes();
         //Success

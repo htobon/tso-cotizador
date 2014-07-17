@@ -65,7 +65,7 @@ class DescuentosDB {
 
     public static function getDescuentosActivos() {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_descuentos_cantidad_vehiculos WHERE esta_activo = TRUE";
+        $sql = "SELECT *, CONCAT(descuento,'%') as formato_descuento FROM tso_descuentos_cantidad_vehiculos WHERE esta_activo = TRUE order by cantidad_min ; ";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $descuentosData = $stmt->fetchAll();
@@ -77,6 +77,7 @@ class DescuentosDB {
                 $descuento->cantidadMin = $d["cantidad_min"];
                 $descuento->cantidadMax = $d["cantidad_max"];
                 $descuento->descuento = $d["descuento"];
+                $descuento->formato_descuento = $d["formato_descuento"];
                 $descuento->estaActivo = $d["esta_activo"];
                 array_push($descuentos, $descuento);
             }
@@ -111,9 +112,9 @@ class DescuentosDB {
         $conn = getConn();
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindValue(1, $descuento->cantidadMin);
-        $stmt->bindValue(2, $descuento->cantidadMax);
-        $stmt->bindValue(3, $descuento->descuento);
+        $stmt->bindValue(1, $descuento['cantidad_min']);
+        $stmt->bindValue(2, $descuento['cantidad_max']);
+        $stmt->bindValue(3, $descuento['descuento']);
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
@@ -134,7 +135,7 @@ class DescuentosDB {
         $agregado = self::agregarDescuento($descuento);
         if ($agregado) {
             // Desactivamos el descuento actual
-            $desactivado = self::desactivarDescuento($descuento->id);
+            $desactivado = self::desactivarDescuento($descuento['id']);
             if ($desactivado) {
                 return true;
             }

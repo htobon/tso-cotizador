@@ -84,6 +84,9 @@
                                         <a href="#" ui-sref="meses" >Duraciones Contrato</a>
                                     </li>
                                     <li>
+                                        <a href="#" ui-sref="descuentos" >Descuentos</a>
+                                    </li>
+                                    <li>
                                         <a href="#" ui-sref="planes">Planes</a>
                                     </li>
                                 </ul>
