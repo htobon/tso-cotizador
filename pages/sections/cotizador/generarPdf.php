@@ -148,10 +148,11 @@ class generarPdf {
         $fecha = date_format($date, 'd/m/Y');
         $this->pdf->setNormalFont(14);
         $this->pdf->Cell(0, 0, "{$fecha}", 0, 1, 'R', 0, '', 0, false, 'T', 'M');
+        $this->pdf->Cell(0, 0, "Nombre: {$this->cotizacion->nombre_contacto}", 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+        $this->pdf->setBoldFont(14);
         $this->pdf->Cell(0, 0, "Cotización #{$this->cotizacion->id}", 0, 1, 'R', 0, '', 0, false, 'T', 'M');        
 
-        $this->pdf->Cell(0, 0, "Nombre: {$this->cotizacion->nombre_contacto}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
-        
+        $this->pdf->setNormalFont(14);        
         $this->pdf->Cell(0, 0, "Dirección: {$this->cliente->nombre}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
         $this->pdf->Cell(0, 0, "Email: {$this->cotizacion->correo_contacto}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
         //$this->pdf->Cell(0, 0, 'Email Opcional: {}', 0, 1, 'L', 0, '', 0, false, 'T', 'B');

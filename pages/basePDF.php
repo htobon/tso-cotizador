@@ -47,82 +47,117 @@ class MYPDF extends TCPDF {
     public function Footer() {
 
         // Ubica la posicion a 15mm del borde inferior
-        $this->SetY(-20);
-
-        // Separator line
-        $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
-        $this->line(10, 275, 195, 275);
+        $this->SetY(-25);
 
         $this->setTextBlue();
+        $this->setBoldFont(15);
+        $this->Cell(15, 6, "Líder", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->setNormalFont(15);
+        $this->Cell(85, 6, "Latinoamericano  en Gestión Satelital", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->setBoldFont(15);
+        $this->Cell(0, 6, "www.tsomobile.com", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->Ln(2);
+        // Separator line
+        $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
+        $this->line(14, 276, 195, 276);
 
-        // Primera linea
-        $this->setBoldFont();
+        /**/
+        $this->setTextBlue();
+        $this->setNormalFont(7.5);
 
-        $label = "Cali:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->Cell(33, 6, "Calle 30 Norte #2Bis - 61", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(27, 6, "PBX: +57 (2)6410990", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(25, 6, "Carrera 17ª #24-73", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(30, 6, "CEL: +57 314-5300277", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(35, 6, "Carrera 43ª No 71 sur - 103", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(0, 6, "CEL: +57 316-7549187", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
-        $this->setNormalFont();
-        $label = "Calle 30 Norte 2 Bis - 61";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->Cell(33, 8, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(27, 8, "FAX: +57 (2)3957060", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(25, 8, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(30, 8, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(35, 8, "Oficina 406 Edificio Alondras", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(0, 8, "", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
-        $this->setBoldFont();
-        $label = "PBX:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+        $this->setBoldFont(9);
+        $this->Cell(33, 10, "Cali", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(27, 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(25, 10, "Cartagena", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(30, 10, "", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(35, 10, "Medellín", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
+        $this->Cell(0, 10, "", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
 
-        $this->setNormalFont();
-        $label = "+ (57) 2 641-0990";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
-        $this->setBoldFont();
+        /**/
+        /* $this->setTextBlue();
 
-        $this->setBoldFont();
-        $label = "FAX:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          // Primera linea
+          $this->setBoldFont();
 
-        $this->setNormalFont();
-        $label = "+ (57) 2 395-7060";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, true, 'L', 0, '', 0, false, 'T', 'M');
+          $label = "Cali:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+
+          $this->setNormalFont();
+          $label = "Calle 30 Norte 2 Bis - 61";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+
+          $this->setBoldFont();
+          $label = "PBX:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+
+          $this->setNormalFont();
+          $label = "+ (57) 2 641-0990";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          $this->setBoldFont();
+
+          $this->setBoldFont();
+          $label = "FAX:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+
+          $this->setNormalFont();
+          $label = "+ (57) 2 395-7060";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, true, 'L', 0, '', 0, false, 'T', 'M');
 
 
-        // Segunda linea
-        $this->setBoldFont();
-        $label = "PBX Bogotá:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          // Segunda linea
+          $this->setBoldFont();
+          $label = "PBX Bogotá:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
-        $this->setNormalFont();
-        $label = "+ (57) 2 395-7060";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, true, 'L', 0, '', 0, false, 'T', 'M');
+          $this->setNormalFont();
+          $label = "+ (57) 2 395-7060";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, true, 'L', 0, '', 0, false, 'T', 'M');
 
 
-        // Tercera línea
-        $this->setBoldFont();
+          // Tercera línea
+          $this->setBoldFont();
 
-        $label = "Contacto:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          $label = "Contacto:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
-        $this->setNormalFont();
-        $label = "Pedro Paramo";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          $this->setNormalFont();
+          $label = "Pedro Paramo";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
-        $this->setBoldFont();
-        $label = "Email:";
-        $cellWidth = $this->GetStringWidth($label) + 3;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          $this->setBoldFont();
+          $label = "Email:";
+          $cellWidth = $this->GetStringWidth($label) + 3;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
 
-        $this->setNormalFont();
-        $label = "paramo@tsomobile.com";
-        $cellWidth = $this->GetStringWidth($label) + 5;
-        $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
-        $this->setBoldFont();
+          $this->setNormalFont();
+          $label = "paramo@tsomobile.com";
+          $cellWidth = $this->GetStringWidth($label) + 5;
+          $this->Cell($cellWidth, 6, $label, 0, false, 'L', 0, '', 0, false, 'T', 'M');
+          $this->setBoldFont(); */
     }
 
     public function setBoldFont($size = 10) {
