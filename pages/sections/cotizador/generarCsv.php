@@ -28,8 +28,10 @@ class generarCsv {
         // Generar Cabecera de la Cotización
         $this->ruta = $this->directorio_csv . $this->nombre_archivo;
         $date = date_create($this->cotizacion->fecha);
-        $fecha = date_format($date, 'd-m-Y');
-        $fecha_cierre = date("t-m-Y", strtotime($fecha));
+        //$fecha = date_format($date, 'd-m-Y');
+        //$fecha_cierre = date("t-m-Y", strtotime($fecha));
+        $fecha = date_format($date, 'm-d-Y');
+        $fecha_cierre = date("m-t-Y", strtotime($this->cotizacion->fecha));
 
         $cabecera = array();
         if (!file_exists($this->ruta)) {
@@ -48,7 +50,7 @@ class generarCsv {
 
         $datos = array(
             $this->cotizacion_id,
-            "Cotizacion",
+            "Cotización",
             $fecha_cierre,
             $this->cotizacion->tipo_contrato,
             $this->cotizacion->codigo_plan,
