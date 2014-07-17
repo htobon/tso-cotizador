@@ -249,7 +249,7 @@ class generarPdf {
             $this->pdf->MultiCell(0, $h, '$' . $this->formatMoney($precioTotal), 0, 'R', false, 1, '', '', true);
         }
 
-        //$this->pdf->Ln(5);
+        $this->pdf->Ln(5);
     }
 
     private function imprimirDatosInstalaciones() {
@@ -424,7 +424,7 @@ class generarPdf {
         $this->pdf->setNormalFont(14);
         //$this->pdf->Cell(0, 14, "Valor", 0, 0, 'R', 0, '', 0, false, 'M', 'B');
 
-        $this->pdf->Ln();
+        $this->pdf->Ln(5);
     }
 
     private function imprimirDescuentos() {
@@ -541,8 +541,8 @@ class generarPdf {
 
 
         // Tipo Plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
-        $this->pdf->Ln();
+        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Ln(5);
 
         $this->pdf->setNormalFont(14);
         $this->pdf->setTextBlack();
