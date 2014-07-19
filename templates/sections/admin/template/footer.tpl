@@ -25,6 +25,7 @@
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.extensions.js"></script>
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.numeric.extensions.js"></script>
 <script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.inputmask.regex.extensions.js"></script>
+<script src="{$smarty.const.SMARTY_ROOT_URI}/js/jquery.form.js"></script>
 </body>
 
 </html>

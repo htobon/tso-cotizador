@@ -6,6 +6,9 @@
             <h4 class="modal-title" id="modal_title">Administrar Usuarios</h4>
         </div>
         <div class="modal-body">
+            <div class="row">
+
+            </div>
             <form role="form" id="form-usuarios">
                 <div class="alert alert-danger alert-dismissable hidden" id="msj_error">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>                    
@@ -35,7 +38,7 @@
                 <label>Contraseña *</label>
                 <div class="form-group input-group">
                     <span class="input-group-addon">@</span>
-                    <input class="form-control" placeholder="Password" name="password" type="password" value="" id="clave_usuario">
+                    <input class="form-control" placeholder="Password" type="password" value="" id="clave_usuario">
                 </div>
                 <div class="form-group">
                     <label>Rol</label>
@@ -45,11 +48,23 @@
                         <option value="Vendedor">Vendedor</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Adjuntar Firma Digital</label>
-                    <input type="file" class="filestyle">
-                </div>
             </form>            
+
+            <label>Adjuntar Firma Digital</label>
+            <form id="upload_image" action="ajaxupload.php" method="POST" enctype="multipart/form-data">                    
+                <div class="form-group col-md-8" >
+                    <input type="file" name="photo" type="file" accept="image/*" /><br/>
+                </div>
+                <div class="form-group col-md-4" >
+                    <input id="" type="submit" value="cargar" class="btn btn-success">
+                </div>
+
+            </form>
+            <!-- preview action or error msgs -->
+            <div class="form-group">
+                <div id="preview" style="display:none"></div>
+            </div>
+            <!-- -->
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

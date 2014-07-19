@@ -86,8 +86,40 @@ var App = {
 
         //http://markusslima.github.io/bootstrap-filestyle/
         $(":file").filestyle();
-
         App.maskedInputs();
+
+
+        //http://hayageek.com/jquery-ajax-form-submit/
+        $("#upload_image").submit(function(e){
+            console.log('Multiform submit');
+
+            var formObj = $(this);
+            var formURL = formObj.attr("action");
+            var formData = new FormData(this);
+            $.ajax({
+                url: formURL,
+                type: 'POST',
+                data: formData,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data, textStatus, jqXHR)
+                {
+                    console.log(data);
+                    $('#preview').html(data).fadeIn();
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                }
+            });
+            e.preventDefault(); //Prevent Default action. 
+            //e.unbind();
+
+            return false;
+        });
+        //$("#multiform").submit();
+
     },
     changeView: function(e) {
 
@@ -213,6 +245,11 @@ var App = {
                     $('#telefono_usuario').val(usuario.telefono);
                     $('#email_usuario').val(usuario.correo);
                     $('#rol_usuario option[value="' + usuario.rol + '"]').attr('selected', 'selected');
+
+                    var html = "<img height='100' width='500' src='/firmas/" + usuario.firma + "' />";
+
+                    $('#preview').html(html).fadeIn();
+                    ;
                 }
             });
         }
@@ -888,7 +925,7 @@ var App = {
     inactiveDescuento: function(id) {
 
         console.log('Inactivar descuento', id);
-        
+
         App.request({
             data: {
                 action: 'inactiveDescuento',

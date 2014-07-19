@@ -13,6 +13,7 @@ use db\UsuarioDB;
 use db\DuracionesContratoDB;
 use db\DescuentosDB;
 
+
 if (isset($_POST['action'])) {
     $action = new Action();
     $function = $_POST['action'];
@@ -189,9 +190,9 @@ class Action {
             return $this->_response(1, NULL, array('duracion_contrato' => $duracion_contrato));
         }
     }
-    
+
     public function saveDuracionContrato() {
-        
+
         if (isset($_POST['duracion_contrato'])) {
 
             $duracion = $_POST['duracion_contrato'];
@@ -205,10 +206,10 @@ class Action {
                 return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
             }
         }
-        
     }
+
     public function updateDuracionContrato() {
-        
+
         if (isset($_POST['duracion_contrato'])) {
 
             $duracion_contrato = $_POST['duracion_contrato'];
@@ -221,6 +222,7 @@ class Action {
             }
         }
     }
+
     public function inactiveDuracionContrato() {
         if (isset($_POST['duracion_id'])) {
 
@@ -240,7 +242,7 @@ class Action {
         //Success
         return $this->_response(1, NULL, array('descuentos' => $descuentos));
     }
-    
+
     public function getDescuento() {
         if (isset($_POST['descuento_id']) && $_POST['descuento_id'] != 0) {
 
@@ -259,15 +261,15 @@ class Action {
 
             $result = DescuentosDB::agregarDescuento($descuento);
 
-            if ($result==1) {
+            if ($result == 1) {
                 return $this->_response(1, 'Registro Ingresado Correctamente', array());
             } else {
                 return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
             }
         }
     }
-    
-     public function updateDescuento() {
+
+    public function updateDescuento() {
 
         if (isset($_POST['descuento'])) {
 
@@ -281,8 +283,8 @@ class Action {
             }
         }
     }
-    
-     public function inactiveDescuento() {
+
+    public function inactiveDescuento() {
 
         if (isset($_POST['descuento_id'])) {
 
@@ -296,7 +298,7 @@ class Action {
             }
         }
     }
-    
+
     public function getPlanes() {
         $planes = PlanesDB::getPlanes();
         //Success
