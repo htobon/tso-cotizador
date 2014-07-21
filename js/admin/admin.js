@@ -246,7 +246,7 @@ var App = {
                     $('#email_usuario').val(usuario.correo);
                     $('#rol_usuario option[value="' + usuario.rol + '"]').attr('selected', 'selected');
 
-                    var html = "<img height='100' width='500' src='/firmas/" + usuario.firma + "' />";
+                    var html = "<img height='100' width='500' src='/images/firmas/" + usuario.firma + "' />";
 
                     $('#preview').html(html).fadeIn();
                     ;

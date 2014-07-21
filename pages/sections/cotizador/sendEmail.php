@@ -81,10 +81,10 @@ class sendPdfEmail {
 
         $mail->Subject = $this->subject;
 
-        //$firma_html = "<img src='{$_SERVER['SERVER_NAME']}/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
+        //$firma_html = "<img src='{$_SERVER['SERVER_NAME']}/images/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>";
         
-        //$mail->AddEmbeddedImage( __DIR__ . "/../../../firmas/{$this->firma}", 'logo_2u');
-        //$mail->AddEmbeddedImage("http://www.tsocotizador.info/firmas/{$this->firma}", 'logo_2u');
+        //$mail->AddEmbeddedImage( __DIR__ . "/../../../images/firmas/{$this->firma}", 'logo_2u');
+        //$mail->AddEmbeddedImage("http://www.tsocotizador.info/images/firmas/{$this->firma}", 'logo_2u');
 
         $message = "<html>
                         <body>
@@ -93,7 +93,7 @@ class sendPdfEmail {
                             <p>Adjunto enviamos nuestra propuesta econ&oacute;mica. Estamos seguros de que nuestra compa&ntilde;&iacute;a podr&aacute; brindarle los mejores y m&aacute;s completos servicios de Monitoreo y Rastreo Satelital.
                             Quedamos atentos para ayudarles en la toma de la mejor decisi&oacute;n y resolver todas sus inquietudes.</p>
                             <p>Atentamente,</p>
-                            <img src='http://www.tsocotizador.info/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>
+                            <img src='".SMARTY_IMG_URI."/firmas/{$this->firma}' alt='firma'  height='150' width='800'/>
                         </body>
                     </html>";
 
