@@ -13,7 +13,6 @@ use db\UsuarioDB;
 use db\DuracionesContratoDB;
 use db\DescuentosDB;
 
-
 if (isset($_POST['action'])) {
     $action = new Action();
     $function = $_POST['action'];
@@ -59,6 +58,17 @@ class Action {
                 $result = UsuarioDB::addUsuario($usuario);
                 if ($result == 1) {
 
+                    // Mover Firma Digital 
+                    $folder_tmp = __DIR__ . "/../../../tmp/{$usuario['firma']}";
+                    $folder_firmas = __DIR__ . "/../../../images/firmas/{$usuario['firma']}";
+
+                    $msj = ' Error Cargando Firma Digital';
+                    if (copy($folder_tmp, $folder_firmas)) {
+                        unlink($folder_tmp);
+                        $msj = 'Exito';
+                    }
+
+
                     return $this->_response(1, 'Registro Ingresado Correctamente', array());
                 } else {
 
@@ -76,8 +86,28 @@ class Action {
 
             $usuario = $_POST['usuario'];
 
+
+
             $result = UsuarioDB::updateUsuario($usuario);
             if ($result) {
+
+                if (!empty($usuario['firma'])) {
+                    // Mover Firma Digital 
+                    $folder_tmp = __DIR__ . "/../../../tmp/{$usuario['firma']}";
+                    $folder_firmas = __DIR__ . "/../../../images/firmas/{$usuario['firma']}";
+
+                    $msj = ' Error Cargando Firma Digital';
+                    if (copy($folder_tmp, $folder_firmas)) {
+                        unlink($folder_tmp);
+                        if (!empty($usuario['firma_actual'])) {
+                            $folder_firmas = __DIR__ . "/../../../images/firmas/{$usuario['firma_actual']}";
+                            if (file_exists($folder_firmas))
+                                unlink($folder_firmas);
+                        }
+                        $msj = 'Exito';
+                    }
+                }
+
                 return $this->_response(1, 'Registro Actualizado Correctamente', array());
             } else {
                 return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
@@ -98,6 +128,10 @@ class Action {
                 return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
             }
         }
+    }
+
+    public function deleteImageTmp() {
+        
     }
 
     public function getAccesorios() {

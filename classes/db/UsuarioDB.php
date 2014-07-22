@@ -140,8 +140,8 @@ class UsuarioDB {
 
     static function addUsuario($usuario) {
 
-        $sql = "INSERT INTO tso_usuarios (salesforce_id, codigo, nombres, apellidos, telefono, correo, password, rol) 
-                values ('1', ?,?,?,?,?,md5(?),?);";
+        $sql = "INSERT INTO tso_usuarios (salesforce_id, codigo, nombres, apellidos, telefono, correo, password, rol, firma_digital) 
+                values ('1', ?,?,?,?,?,md5(?),?,?);";
 
         $conn = getConn();
         $stmt = $conn->prepare($sql);
@@ -153,6 +153,7 @@ class UsuarioDB {
         $stmt->bindValue(5, $usuario['email']);
         $stmt->bindValue(6, $usuario['clave']);
         $stmt->bindValue(7, $usuario['rol']);
+        $stmt->bindValue(8, $usuario['firma']);
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);
@@ -166,6 +167,10 @@ class UsuarioDB {
         if(!empty($usuario['clave'])){
             $sql_aux = " password=md5('{$usuario['clave']}'), ";
         }
+        
+         if(!empty($usuario['firma'])){             
+            $sql_aux = " firma_digital='{$usuario['firma']}', ";
+         }
         
         $sql = "UPDATE tso_usuarios set salesforce_id= '1', codigo=?, nombres=?, apellidos=?, telefono=?, correo=?, {$sql_aux} rol=? where id=?";
         $stmt = $conn->prepare($sql);

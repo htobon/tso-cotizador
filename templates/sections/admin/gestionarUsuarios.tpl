@@ -51,12 +51,14 @@
             </form>            
 
             <label>Adjuntar Firma Digital</label>
+            <input type="hidden" id="firma_actual" >
             <form id="upload_image" action="ajaxupload.php" method="POST" enctype="multipart/form-data">                    
                 <div class="form-group col-md-8" >
                     <input type="file" name="photo" type="file" accept="image/*" /><br/>
                 </div>
                 <div class="form-group col-md-4" >
                     <input id="" type="submit" value="cargar" class="btn btn-success">
+                    <input id="delete_image" type="button" value="borrar" class="btn btn-danger" disabled="disabled">
                 </div>
 
             </form>

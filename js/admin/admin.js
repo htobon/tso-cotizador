@@ -84,41 +84,13 @@ var App = {
 
         });
 
-        //http://markusslima.github.io/bootstrap-filestyle/
         $(":file").filestyle();
         App.maskedInputs();
+        
+        $("#upload_image").submit(App.uploadFirmaDigital);
+        $("#").click()
 
-
-        //http://hayageek.com/jquery-ajax-form-submit/
-        $("#upload_image").submit(function(e){
-            console.log('Multiform submit');
-
-            var formObj = $(this);
-            var formURL = formObj.attr("action");
-            var formData = new FormData(this);
-            $.ajax({
-                url: formURL,
-                type: 'POST',
-                data: formData,
-                mimeType: "multipart/form-data",
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data, textStatus, jqXHR)
-                {
-                    console.log(data);
-                    $('#preview').html(data).fadeIn();
-                },
-                error: function(jqXHR, textStatus, errorThrown)
-                {
-                }
-            });
-            e.preventDefault(); //Prevent Default action. 
-            //e.unbind();
-
-            return false;
-        });
-        //$("#multiform").submit();
+        
 
     },
     changeView: function(e) {
@@ -236,6 +208,7 @@ var App = {
                 success: function(response) {
                     var usuario = response.usuario;
 
+
                     $('#btn_guardar_usuario').attr('rel', usuario.id)
                     $('#email_usuario').attr('disabled', 'disabled')
 
@@ -245,15 +218,52 @@ var App = {
                     $('#telefono_usuario').val(usuario.telefono);
                     $('#email_usuario').val(usuario.correo);
                     $('#rol_usuario option[value="' + usuario.rol + '"]').attr('selected', 'selected');
+                    $('#firma_actual').val(usuario.firma);
 
-                    var html = "<img height='100' width='500' src='/images/firmas/" + usuario.firma + "' />";
-
-                    $('#preview').html(html).fadeIn();
+                    if (usuario.firma !== '') {
+                        var html = "<img height='100' width='500' src='/images/firmas/" + usuario.firma + "' />";
+                        $('#preview').html(html).fadeIn();
+                    }
                     ;
                 }
             });
         }
     },
+    uploadFirmaDigital: function(e) {
+
+        console.log('Multiform submit');
+
+        var formObj = $(this);
+        var formURL = formObj.attr("action");
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data, textStatus, jqXHR)
+            {
+                console.log(data);
+                var file = data.split('/').pop();
+
+                console.log(file);
+                $('#preview').html(data).fadeIn();
+                $('#delete_image').removeAttr('disabled');
+            },
+            error: function(jqXHR, textStatus, errorThrown)
+            {
+            }
+        });
+        e.preventDefault(); //Prevent Default action. 
+        //e.unbind();
+
+        return false;
+
+    }
+    ,
     saveUsuario: function(e) {
 
         var error = false;
@@ -304,6 +314,12 @@ var App = {
             }
         }
 
+        var firma = '';
+
+        var image = $('img').attr('id');
+        if (image)
+            firma = image.split('_').pop();
+        
         if (!error) {
 
             var usuario = {
@@ -314,7 +330,9 @@ var App = {
                 telefono: $("#telefono_usuario").val(),
                 email: $("#email_usuario").val(),
                 clave: $("#clave_usuario").val(),
-                rol: $("#rol_usuario").val()
+                rol: $("#rol_usuario").val(),
+                firma_actual: $('#firma_actual').val(),
+                firma: firma
             };
 
             var action = "";
