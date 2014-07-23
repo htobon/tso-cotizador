@@ -12,6 +12,9 @@ use db\AccesoriosDB;
 use db\UsuarioDB;
 use db\DuracionesContratoDB;
 use db\DescuentosDB;
+use db\AccesoriosPlanesDB;
+use db\AccesoriosGpsDB;
+
 
 if (isset($_POST['action'])) {
     $action = new Action();
@@ -138,6 +141,20 @@ class Action {
         $accesorios = AccesoriosDB::getAccesorios();
         //Success
         return $this->_response(1, NULL, array('accesorios' => $accesorios));
+    }
+    
+    public function getAccesorio() {
+        
+        if (isset($_POST['accesorio_id']) && $_POST['accesorio_id'] != 0) {
+
+            $accesorio_id = $_POST['accesorio_id'];
+            $accesorio = AccesoriosDB::getAccesoriosPorId($accesorio_id);
+            
+            $restricciones_planes = AccesoriosPlanesDB::getRestriccionesPorAccesorio($accesorio_id);
+            $restricciones_unidades = AccesoriosGpsDB::getRestriccionesPorAccesorio($accesorio_id);
+            
+            return $this->_response(1, NULL, array('accesorio' => $accesorio, 'restricciones_planes'=>$restricciones_planes, 'restricciones_unidades'=>$restricciones_unidades));
+        }
     }
 
     public function getUnidadesGPS() {

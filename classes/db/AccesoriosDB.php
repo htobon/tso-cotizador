@@ -19,7 +19,7 @@ class AccesoriosDB {
 
     public static function getAccesorios() {
         $conn = getConn();
-        $sql = "SELECT * FROM tso_accesorios";
+        $sql = "SELECT * FROM tso_accesorios where esta_activo = true;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $accesoriosData = $stmt->fetchAll();

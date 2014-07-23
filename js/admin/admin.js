@@ -86,11 +86,11 @@ var App = {
 
         $(":file").filestyle();
         App.maskedInputs();
-        
+
         $("#upload_image").submit(App.uploadFirmaDigital);
         $("#").click()
 
-        
+
 
     },
     changeView: function(e) {
@@ -137,6 +137,10 @@ var App = {
         // Formulario Descuentos
         $("#cantidad_minima, #cantidad_maxima").inputmask('integer', {rightAlign: false});
         $("#descuento").inputmask('integer');
+
+        // Formulario de Accesorios
+        $("#precio_accesorio, #precio_instalacion_accesorio, #precio_mesualidad_accesorio").inputmask('decimal', {digits: 2, rightAlign: false, radixPoint: ".", autoGroup: true, groupSeparator: ",", groupSize: 3});
+
 
     },
     putArguments: function(e) {
@@ -319,7 +323,7 @@ var App = {
         var image = $('img').attr('id');
         if (image)
             firma = image.split('_').pop();
-        
+
         if (!error) {
 
             var usuario = {
@@ -417,7 +421,7 @@ var App = {
                     /*return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
                      <button class='btn btn-outline btn-danger btn-xs' type='button' sref='inactivarAccesorio' >Desactivar</button>";*/
                     return "<button class='btn btn-outline btn-primary btn-xs' id='accesorio_" + obj.id + "' rel='show' type='button' ui-sref='gestionarAccesorios' data-toggle='modal' data-target='#modal'>Modificar</button>\n\
-                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-toggle='modal' data-target='#modal' >Desactivar</button>";
+                            <button class='btn btn-outline btn-danger btn-xs' type='button' ui-sref='confirmDialog' data-id='" + obj.id + "' data-fn='inactiveAccesorio' data-toggle='modal' data-target='#modal' >Desactivar</button>";
                 }
             }];
 
@@ -433,13 +437,117 @@ var App = {
 
     },
     showAccesorios: function(e) {
+
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
         var action = $(e.target).attr('rel');
-        if (action == "show") {
+
+        App.request({
+            data: {
+                action: 'getUnidadesGPS'
+            },
+            success: function(response) {
+                console.log('UnidadesGPS', response.unidades);
+
+                var unidades = response.unidades;
+
+
+                if (unidades.length > 0) {
+                    $.each(unidades, function(i, u) {
+
+                        var $div = $('<div/>').addClass('checkbox');
+                        var $label = $('<label/>').html(u.nombre).attr('for', 'chk_' + u.id);
+                        var $checkbox = $('<input/>').attr({id: 'chk_unidad_' + u.id, type: 'checkbox'}).val(u.id);
+
+                        //add to parent
+                        $label.appendTo($div);
+                        $checkbox.appendTo($div);
+                        $div.appendTo($('#unidades'));
+
+                    });
+                }
+
+
+
+            }
+        });
+
+        App.request({
+            data: {
+                action: 'getPlanes'
+            },
+            success: function(response) {
+                console.log('Planes', response.planes);
+
+                var planes = response.planes;
+
+                if (planes.length > 0) {
+                    $.each(planes, function(i, p) {
+
+                        var $div = $('<div/>').addClass('checkbox');
+                        var $label = $('<label/>').html(p.nombre).attr('for', 'chk_' + p.id);
+                        var $checkbox = $('<input/>').attr({id: 'chk_plan_' + p.id, type: 'checkbox'}).val(p.id);
+
+                        //add to parent
+                        $label.appendTo($div);
+                        $checkbox.appendTo($div);
+                        $div.appendTo($('#planes'));
+
+                    });
+                }
+
+            }
+        });
+
+        if (action === "show") {
             var id = $(e.target).attr('id').split('_').pop();
             console.log('Mostrar Accesorio', id);
-        } else {
-            console.log('Agregar Accesorio');
+
+            // Accesorios
+            App.request({
+                data: {
+                    action: 'getAccesorio',
+                    accesorio_id: id
+                },
+                success: function(response) {
+
+                    console.log(response);
+
+                    var accesorio = response.accesorio;
+                    var restriciones_planes = response.restricciones_planes;
+                    var restriciones_unidades = response.restricciones_unidades;
+
+                    $('#btn_guardar_accesorio').attr('rel', accesorio.id)
+                    $('#codigo_accesorio').attr('disabled', 'disabled')
+
+                    $('#codigo_accesorio').val(accesorio.codAccesorio);
+                    $('#nombre_accesorio').val(accesorio.nombre);
+                    $('#descripcion_accesorio').val(accesorio.descripcion);
+                    $('#beneficios_accesorio').val(accesorio.beneficios);
+                    $('#aplicacion_accesorio').val(accesorio.aplicacion);
+                    $('#precio_accesorio').val(accesorio.precioAccesorio);
+                    $('#precio_instalacion_accesorio').val(accesorio.precioInstalacion);
+                    $('#precio_mesualidad_accesorio').val(accesorio.precioMensualidad);
+
+                    if (restriciones_planes.length > 0) {
+                        $.each(restriciones_planes, function(i, plan) {
+                            $('#chk_plan_'+plan.planes_id).prop('checked', true);
+                            
+                        });
+                    }
+                    if (restriciones_unidades.length > 0) {
+                        $.each(restriciones_unidades, function(i, unidad) {
+                            $('#chk_unidad_'+unidad.unidad_gps_id).prop('checked', true);
+                        });
+                    }
+
+                }
+            });
         }
+
     },
     saveAccesorio: function() {
         console.log('Guardar/Modificar Accesorio');
