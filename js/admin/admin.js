@@ -459,7 +459,7 @@ var App = {
                     $.each(unidades, function(i, u) {
 
                         var $div = $('<div/>').addClass('checkbox');
-                        var $label = $('<label/>').html(u.nombre).attr('for', 'chk_' + u.id);
+                        var $label = $('<label/>').html(u.nombre).attr('for', 'chk_unidad_' + u.id);
                         var $checkbox = $('<input/>').attr({id: 'chk_unidad_' + u.id, type: 'checkbox'}).val(u.id);
 
                         //add to parent
@@ -488,7 +488,7 @@ var App = {
                     $.each(planes, function(i, p) {
 
                         var $div = $('<div/>').addClass('checkbox');
-                        var $label = $('<label/>').html(p.nombre).attr('for', 'chk_' + p.id);
+                        var $label = $('<label/>').html(p.nombre).attr('for', 'chk_plan_' + p.id);
                         var $checkbox = $('<input/>').attr({id: 'chk_plan_' + p.id, type: 'checkbox'}).val(p.id);
 
                         //add to parent
@@ -534,13 +534,13 @@ var App = {
 
                     if (restriciones_planes.length > 0) {
                         $.each(restriciones_planes, function(i, plan) {
-                            $('#chk_plan_'+plan.planes_id).prop('checked', true);
-                            
+                            $('#chk_plan_' + plan.planes_id).prop('checked', true);
+
                         });
                     }
                     if (restriciones_unidades.length > 0) {
                         $.each(restriciones_unidades, function(i, unidad) {
-                            $('#chk_unidad_'+unidad.unidad_gps_id).prop('checked', true);
+                            $('#chk_unidad_' + unidad.unidad_gps_id).prop('checked', true);
                         });
                     }
 
@@ -549,8 +549,120 @@ var App = {
         }
 
     },
-    saveAccesorio: function() {
-        console.log('Guardar/Modificar Accesorio');
+    saveAccesorio: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var error = false;
+        var accesorio_id = $(e.target).attr('rel');
+
+        console.log('Guardar/Modificar Accesorio', accesorio_id);
+
+        $("#msj_error").empty();
+        $("#msj_error").addClass("hidden");
+
+        if ($("#codigo_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un código<br/>");
+            error = true;
+        }
+        if ($("#nombre_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese un nombre<br/>");
+            error = true;
+        }
+        if ($("#descripcion_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese una descripcion<br/>");
+            error = true;
+        }
+        if ($("#beneficios_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese una beneficio<br/>");
+            error = true;
+        }
+        if ($("#aplicacion_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese una aplicacion del accesorio<br/>");
+            error = true;
+        }
+        if ($("#precio_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese precio del accesorio<br/>");
+            error = true;
+        }
+        if ($("#precio_instalacion_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese precio de la instalacion<br/>");
+            error = true;
+        }
+        if ($("#precio_mesualidad_accesorio").val() === '') {
+            $("#msj_error").removeClass("hidden")
+            $("#msj_error").append(" - Ingrese precio de la mensualidad<br/>");
+            error = true;
+        }
+
+        if (!error) {
+
+            var accesorio = {
+                accesorio_id: accesorio_id,
+                codigo_accesorio: $("#codigo_accesorio").val(),
+                nombre_accesorio: $("#nombre_accesorio").val(),
+                descripcion_accesorio: $("#descripcion_accesorio").val(),
+                beneficios_accesorio: $("#beneficios_accesorio").val(),
+                aplicacion_accesorio: $("#aplicacion_accesorio").val(),
+                precio_accesorio: $("#precio_accesorio").val().replace(',', ''),
+                precio_instalacion_accesorio: $("#precio_instalacion_accesorio").val().replace(',', ''),
+                precio_mesualidad_accesorio: $("#precio_mesualidad_accesorio").val().replace(',', ''),
+            };
+
+            var restricciones_unidades = [];
+            $('#unidades input:checked').each(function() {
+                restricciones_unidades.push($(this).attr('id').split('_').pop());
+            });
+
+            var restricciones_planes = [];
+            $('#planes input:checked').each(function() {
+                restricciones_planes.push($(this).attr('id').split('_').pop());
+            });
+
+            var action = "";
+            if (accesorio_id === "" || accesorio_id === undefined || accesorio_id === "0") {
+                action = 'saveAccesorio';
+            } else {
+                action = 'updateAccesorio';
+            }
+
+            App.request({
+                data: {
+                    action: action,
+                    accesorio: accesorio,
+                    restricciones_unidades : restricciones_unidades,
+                    restricciones_planes : restricciones_planes
+                },
+                success: function(response) {
+
+                    if (response.message_code === 0) {
+                        // Error
+                        $("#msj_error").removeClass("hidden");
+                        $("#msj_error").append(response.message);
+                    } else {
+                        //Success
+                        $('#modal').modal('hide');
+                        $("#msj_success").fadeIn(1600);
+                        $("#msj_success").removeClass("hidden");
+                        $("#msj_success").empty();
+                        $("#msj_success").append(response.message);
+                        $("#msj_success").fadeOut(2600, "linear");
+                        App.getAccesorios();
+                    }
+                }
+            });
+
+        }
+
     },
     inactiveAccesorio: function() {
         console.log('Inactivar Accesorio');

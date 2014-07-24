@@ -15,7 +15,6 @@ use db\DescuentosDB;
 use db\AccesoriosPlanesDB;
 use db\AccesoriosGpsDB;
 
-
 if (isset($_POST['action'])) {
     $action = new Action();
     $function = $_POST['action'];
@@ -142,18 +141,73 @@ class Action {
         //Success
         return $this->_response(1, NULL, array('accesorios' => $accesorios));
     }
-    
+
     public function getAccesorio() {
-        
+
         if (isset($_POST['accesorio_id']) && $_POST['accesorio_id'] != 0) {
 
             $accesorio_id = $_POST['accesorio_id'];
             $accesorio = AccesoriosDB::getAccesoriosPorId($accesorio_id);
-            
+
             $restricciones_planes = AccesoriosPlanesDB::getRestriccionesPorAccesorio($accesorio_id);
             $restricciones_unidades = AccesoriosGpsDB::getRestriccionesPorAccesorio($accesorio_id);
+
+            return $this->_response(1, NULL, array('accesorio' => $accesorio, 'restricciones_planes' => $restricciones_planes, 'restricciones_unidades' => $restricciones_unidades));
+        }
+    }
+
+    public function saveAccesorio() {
+
+        if (isset($_POST['accesorio']) && isset($_POST['restricciones_unidades']) && isset($_POST['restricciones_planes'])) {
+
+            $accesorio = $_POST['accesorio'];
+            $restricciones_unidades = $_POST['restricciones_unidades'];
+            $restricciones_planes = $_POST['restricciones_planes'];
+
+            echo "<pre>";
+            print_r($accesorio);
+            print_r($restricciones_unidades);
+            print_r($restricciones_planes);
+            echo "</pre>";
+            exit();
+
+            $result = UnidadesGpsDB::agregarUnidad($unidad_gps);
+            if ($result == 1) {
+
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
+        }
+    }
+
+    public function updateAccesorio() {
+
+        if (isset($_POST['accesorio']) && isset($_POST['restricciones_unidades']) && isset($_POST['restricciones_planes'])) {
+
+            $accesorio = $_POST['accesorio'];
+            $restricciones_unidades = $_POST['restricciones_unidades'];
+            $restricciones_planes = $_POST['restricciones_planes'];
+
+            echo "<pre>";
+            print_r($accesorio);
+            print_r($restricciones_unidades);
+            print_r($restricciones_planes);
+            echo "</pre>";
+            exit();
             
-            return $this->_response(1, NULL, array('accesorio' => $accesorio, 'restricciones_planes'=>$restricciones_planes, 'restricciones_unidades'=>$restricciones_unidades));
+
+            $result = AccesoriosDB::actualizarAccesorio(json_encode($accesorio));
+            AccesoriosGpsDB::agregarRestricciones($restricciones);
+            AccesoriosPlanesDB::agregarRestricciones($restricciones);
+            if ($result == 1) {
+
+                return $this->_response(1, 'Registro Ingresado Correctamente', array());
+            } else {
+
+                return $this->_response(0, 'Ha ocurrido un error ingresando el registro.', array());
+            }
         }
     }
 

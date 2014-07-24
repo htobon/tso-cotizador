@@ -6,6 +6,10 @@
             <h4 class="modal-title" id="modal_title">Administrar de Accesorios</h4>
         </div>
         <div class="modal-body">
+            <div class="alert alert-danger alert-dismissable hidden" id="msj_error">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>                    
+            </div>
+
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#informacion_general" data-toggle="tab">Informacion General</a></li>
                 <li><a href="#restriciones_planes" data-toggle="tab">Restricciones Planes</a></li>
@@ -87,7 +91,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" sref="guardarCliente" id="btn_guardar_accesorio">Guardar</button>
+            <button type="button" class="btn btn-primary" sref="guardarAccesorio" id="btn_guardar_accesorio">Guardar</button>
         </div>
     </div>   
 </div>
