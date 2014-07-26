@@ -438,7 +438,6 @@ var App = {
     },
     showAccesorios: function(e) {
 
-
         if (isJqmGhostClick(e)) {
             return false;
         }
@@ -454,7 +453,6 @@ var App = {
 
                 var unidades = response.unidades;
 
-
                 if (unidades.length > 0) {
                     $.each(unidades, function(i, u) {
 
@@ -469,9 +467,6 @@ var App = {
 
                     });
                 }
-
-
-
             }
         });
 
@@ -607,15 +602,21 @@ var App = {
         if (!error) {
 
             var accesorio = {
-                accesorio_id: accesorio_id,
-                codigo_accesorio: $("#codigo_accesorio").val(),
-                nombre_accesorio: $("#nombre_accesorio").val(),
-                descripcion_accesorio: $("#descripcion_accesorio").val(),
-                beneficios_accesorio: $("#beneficios_accesorio").val(),
-                aplicacion_accesorio: $("#aplicacion_accesorio").val(),
-                precio_accesorio: $("#precio_accesorio").val().replace(',', ''),
-                precio_instalacion_accesorio: $("#precio_instalacion_accesorio").val().replace(',', ''),
-                precio_mesualidad_accesorio: $("#precio_mesualidad_accesorio").val().replace(',', ''),
+                id: accesorio_id,
+                codAccesorio: $("#codigo_accesorio").val(),
+                codInstalacion: $("#codigo_accesorio").val(),
+                nombre: $("#nombre_accesorio").val(),
+                descripcion: $("#descripcion_accesorio").val(),
+                beneficios: $("#beneficios_accesorio").val(),
+                aplicacion: $("#aplicacion_accesorio").val(),
+                precioAccesorio: $("#precio_accesorio").val().replace(',', ''),
+                precioInstalacion: $("#precio_instalacion_accesorio").val().replace(',', ''),
+                precioMensualidad: $("#precio_mesualidad_accesorio").val().replace(',', ''),
+                image: '',
+                imagen_aplicacion_uno: '',
+                imagen_aplicacion_dos: '',
+                posicionX: '',
+                posicionY: ''
             };
 
             var restricciones_unidades = [];
@@ -639,8 +640,8 @@ var App = {
                 data: {
                     action: action,
                     accesorio: accesorio,
-                    restricciones_unidades : restricciones_unidades,
-                    restricciones_planes : restricciones_planes
+                    restricciones_unidades: restricciones_unidades,
+                    restricciones_planes: restricciones_planes
                 },
                 success: function(response) {
 
@@ -664,8 +665,33 @@ var App = {
         }
 
     },
-    inactiveAccesorio: function() {
-        console.log('Inactivar Accesorio');
+    inactiveAccesorio: function(id) {
+        console.log('Inactivar Accesorio', id);
+
+        App.request({
+            data: {
+                action: 'inactiveAccesorio',
+                accesorio_id: id
+            },
+            success: function(response) {
+
+                if (response.message_code === 0) {
+                    // Error
+                    $("#msj_error").removeClass("hidden");
+                    $("#msj_error").append(response.message);
+                } else {
+                    //Success
+                    $('#modal').modal('hide');
+                    $("#msj_success").fadeIn(1600);
+                    $("#msj_success").removeClass("hidden");
+                    $("#msj_success").empty();
+                    $("#msj_success").append(response.message);
+                    $("#msj_success").fadeOut(2600, "linear");
+                    App.getAccesorios();
+                }
+            }
+        });
+
     },
     getUnidadesGPS: function() {
 

@@ -192,15 +192,16 @@ class AccesoriosDB {
      *                             false si no]
      */
     static function actualizarAccesorio($accesorio) {
+      
         // Insertamos el nuevo registro
         $agregado = self::agregarAccesorio($accesorio);
         // Desactivamos el accesorio actual
-        $desactivado = self::desactivarAccesorio($accesorio->id);
+        $desactivado = self::desactivarAccesorio($accesorio["id"]);
 
         // Obtenemos las restricciones con gps del accesorio actual
-        $restricciones = AccesoriosGpsDB::getRestriccionesPorAccesorio($accesorio->id);
+        $restricciones = AccesoriosGpsDB::getRestriccionesPorAccesorio($accesorio["id"]);
         // Obtenemos el id del registro insertado
-        $accesorioActualizado = self::getAccesorioActivoPorCodigo($accesorio->codAccesorio);
+        $accesorioActualizado = self::getAccesorioActivoPorCodigo($accesorio["codAccesorio"]);
 
         // Actualizamos las restricciones con el nuevo id y las agregamos a la bd
         for ($i = 0; $i < count($restricciones); $i++) {
@@ -217,6 +218,7 @@ class AccesoriosDB {
      * @return [boolean]    [true si el accesorio fue agregado correctamente, false si no]
      */
     static function agregarAccesorio($accesorio) {
+       
         $sql = 'INSERT INTO tso_accesorios (nombre, cod_accesorio, cod_instalacion, precio_instalacion, ';
         $sql .= 'precio_accesorio, precio_mensualidad, descripcion, beneficios, aplicacion, imagen, imagen_aplicacion_uno, ';
         $sql .= 'imagen_aplicacion_dos, posicion_x, posicion_y) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
@@ -224,20 +226,20 @@ class AccesoriosDB {
         $conn = getConn();
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindValue(1, $accesorio->nombre);
-        $stmt->bindValue(2, $accesorio->codAccesorio);
-        $stmt->bindValue(3, $accesorio->codInstalacion);
-        $stmt->bindValue(4, $accesorio->precioInstalacion);
-        $stmt->bindValue(5, $accesorio->precioAccesorio);
-        $stmt->bindValue(6, $accesorio->precioMensualidad);
-        $stmt->bindValue(7, $accesorio->descripcion);
-        $stmt->bindValue(8, $accesorio->beneficios);
-        $stmt->bindValue(9, $accesorio->aplicacion);
-        $stmt->bindValue(10, $accesorio->image);
-        $stmt->bindValue(11, $accesorio->imagen_aplicacion_uno);
-        $stmt->bindValue(12, $accesorio->imagen_aplicacion_dos);
-        $stmt->bindValue(13, $accesorio->posicionX);
-        $stmt->bindValue(14, $accesorio->posicionY);
+        $stmt->bindValue(1, $accesorio["nombre"]);
+        $stmt->bindValue(2, $accesorio["codAccesorio"]);
+        $stmt->bindValue(3, $accesorio["codInstalacion"]);
+        $stmt->bindValue(4, $accesorio["precioInstalacion"]);
+        $stmt->bindValue(5, $accesorio["precioAccesorio"]);
+        $stmt->bindValue(6, $accesorio["precioMensualidad"]);
+        $stmt->bindValue(7, $accesorio["descripcion"]);
+        $stmt->bindValue(8, $accesorio["beneficios"]);
+        $stmt->bindValue(9, $accesorio["aplicacion"]);
+        $stmt->bindValue(10, $accesorio["image"]);
+        $stmt->bindValue(11, $accesorio["imagen_aplicacion_uno"]);
+        $stmt->bindValue(12, $accesorio["imagen_aplicacion_dos"]);
+        $stmt->bindValue(13, $accesorio["posicionX"]);
+        $stmt->bindValue(14, $accesorio>["posicionY"]);
 
         $inserted_rows = $stmt->execute();
         return ($inserted_rows == 1);

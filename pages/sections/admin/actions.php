@@ -164,15 +164,31 @@ class Action {
             $restricciones_unidades = $_POST['restricciones_unidades'];
             $restricciones_planes = $_POST['restricciones_planes'];
 
-            echo "<pre>";
-            print_r($accesorio);
-            print_r($restricciones_unidades);
-            print_r($restricciones_planes);
-            echo "</pre>";
-            exit();
+            $result = AccesoriosDB::agregarAccesorio($accesorio);
 
-            $result = UnidadesGpsDB::agregarUnidad($unidad_gps);
-            if ($result == 1) {
+            if ($result) {
+
+                $accesorioNuevo = AccesoriosDB::getAccesorioActivoPorCodigo($accesorio["codAccesorio"]);
+
+                $accesorios_gps = array();
+
+                foreach ($restricciones_unidades as $value) {
+                    array_push($accesorios_gps, array("accesorio_id" => $accesorioNuevo->id, "unidad_gps_id" => $value));
+                }
+
+                $accesorios_planes = array();
+
+                foreach ($restricciones_planes as $value) {
+                    array_push($accesorios_planes, array("accesorio_id" => $accesorioNuevo->id, "planes_id" => $value));
+                }
+                
+                $agregarRestricionesGps = AccesoriosGpsDB::agregarRestricciones($accesorios_gps);
+                $agregarRestricionesPlanes = AccesoriosPlanesDB::agregarRestricciones($accesorios_planes);
+                
+            }
+
+
+            if ($result && $agregarRestricionesGps && $agregarRestricionesPlanes) {
 
                 return $this->_response(1, 'Registro Ingresado Correctamente', array());
             } else {
@@ -190,18 +206,33 @@ class Action {
             $restricciones_unidades = $_POST['restricciones_unidades'];
             $restricciones_planes = $_POST['restricciones_planes'];
 
-            echo "<pre>";
-            print_r($accesorio);
-            print_r($restricciones_unidades);
-            print_r($restricciones_planes);
-            echo "</pre>";
-            exit();
-            
+            $result = AccesoriosDB::actualizarAccesorio($accesorio);
 
-            $result = AccesoriosDB::actualizarAccesorio(json_encode($accesorio));
-            AccesoriosGpsDB::agregarRestricciones($restricciones);
-            AccesoriosPlanesDB::agregarRestricciones($restricciones);
-            if ($result == 1) {
+            if ($result) {
+
+                $accesorioActualizado = AccesoriosDB::getAccesorioActivoPorCodigo($accesorio["codAccesorio"]);
+
+                $accesorios_gps = array();
+
+                foreach ($restricciones_unidades as $value) {
+                    array_push($accesorios_gps, array("accesorio_id" => $accesorioActualizado->id, "unidad_gps_id" => $value));
+                }
+
+                $accesorios_planes = array();
+
+                foreach ($restricciones_planes as $value) {
+                    array_push($accesorios_planes, array("accesorio_id" => $accesorioActualizado->id, "planes_id" => $value));
+                }
+
+
+                $eliminarRestriccionesGps = AccesoriosGpsDB::eliminarRestriccionesPorAccesorio($accesorioActualizado->id);
+                $agregarRestricionesGps = AccesoriosGpsDB::agregarRestricciones($accesorios_gps);
+
+                $eliminarRestriccionesPlanes = AccesoriosPlanesDB::eliminarRestriccionesPorAccesorio($accesorioActualizado->id);
+                $agregarRestricionesPlanes = AccesoriosPlanesDB::agregarRestricciones($accesorios_planes);
+            }
+
+            if ($result && $eliminarRestriccionesGps && $agregarRestricionesGps && $eliminarRestriccionesPlanes && $agregarRestricionesPlanes) {
 
                 return $this->_response(1, 'Registro Ingresado Correctamente', array());
             } else {
@@ -211,6 +242,21 @@ class Action {
         }
     }
 
+    public function inactiveAccesorio() {
+        
+        if (isset($_POST['accesorio_id'])) {
+
+            $accesorio_id= $_POST['accesorio_id'];
+
+            $result = AccesoriosDB::desactivarAccesorio($accesorio_id);
+            if ($result) {
+                return $this->_response(1, 'Registro Inactivado Correctamente', array());
+            } else {
+                return $this->_response(0, 'Ha ocurrido un error actualizando el registro.', array());
+            }
+        }
+    }
+    
     public function getUnidadesGPS() {
         $unidades = UnidadesGpsDB::getUnidadesGpsActivas();
         //Success
