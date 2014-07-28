@@ -60,6 +60,11 @@ class MYPDF extends TCPDF {
         // Separator line
         $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
         $this->line(14, 276, 195, 276);
+        
+        $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(220,220,220)));
+        $this->line(74.5, 277, 74.5, 290);
+        $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(238,233,233)));
+        $this->line(129, 277, 129, 290);
 
         /**/
         $this->setTextBlue();
