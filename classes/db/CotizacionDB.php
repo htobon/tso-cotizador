@@ -321,8 +321,118 @@ class CotizacionDB {
                 array_push($cotizaciones, $cotizacion);
             }
         }
-        
-         return (count($cotizaciones) <= 0 ) ? null : $cotizaciones;
+
+        return (count($cotizaciones) <= 0 ) ? null : $cotizaciones;
+    }
+
+    public static function filtrarCotizaciones($vendedor_id, $fecha_inicial, $fecha_final) {
+        $conn = getConn();
+
+        $sql_aux = array();
+
+        if (!empty($vendedor_id) && $vendedor_id != 0) {
+            array_push($sql_aux, " usuario_id = {$vendedor_id}");
+        }
+
+        if (!empty($fecha_inicial) && $fecha_inicial != "" && !empty($fecha_final) && $fecha_final != "") {
+            array_push($sql_aux, " a.fecha between '{$fecha_inicial}' and '{$fecha_final}' ");
+        }
+
+        $where = "";
+        if (count($sql_aux))
+            $where = " where " . implode(" AND ", $sql_aux);
+
+        $sql = "SELECT
+                a.id,
+                a.usuario_id, 
+                b.salesforce_id,
+                b.codigo as codigo_vendedor,
+                b.nombres as nombre_vendedor, 
+                a.cliente_id,
+                c.nit, 
+                c.nombre as cliente,
+                a.nombre_contacto,
+                a.correo_contacto,
+                a.correo_alterno_contacto,
+                a.unidad_gps_id,
+                d.cod_unidad,
+                d.nombre as unidad_gps,
+                a.tipo_contrato_id,
+                e.nombre as tipo_contrato,
+                a.plan_servicio_id,
+                f.codigo as codigo_plan,
+                f.nombre as nombre_plan,
+                a.descuento_id,
+                g.descuento,
+                a.duracion_contrato_id,
+                h.cantidad_meses,
+                a.cantidad_vehiculos,
+                a.valor_recurrencia, 
+                CONCAT('$', FORMAT(a.valor_recurrencia, 2)) as formato_valor_recurrencia,
+                a.valor_equipos, 
+                CONCAT('$', FORMAT(a.valor_equipos, 2)) as formato_valor_equipos,
+                a.valor_total,
+                CONCAT('$', FORMAT(a.valor_total, 2)) as formato_valor_total,
+                a.fecha,
+                a.serial
+                FROM tso_cotizaciones a
+                inner join tso_usuarios b on a.usuario_id = b.id
+                inner join tso_clientes c on a.cliente_id = c.id
+                inner join tso_unidades_gps d on a.unidad_gps_id = d.id
+                inner join tso_tipos_contrato e on a.tipo_contrato_id = e.id
+                inner join tso_planes_servicio f on a.plan_servicio_id = f.id
+                inner join tso_descuentos_cantidad_vehiculos g on a.descuento_id = g.id
+                inner join tso_duracion_contratos h on a.duracion_contrato_id = h.id 
+                {$where}
+                order by a.fecha desc";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        $cotizaciones = array();
+        $datos = $stmt->fetchAll();
+
+        foreach ($datos as $_cotizacion) {
+            if (isset($_cotizacion)) {
+                $cotizacion = new stdClass();
+                $cotizacion->id = $_cotizacion['id'];
+                $cotizacion->usuario_id = $_cotizacion['usuario_id'];
+                $cotizacion->salesforce_id = $_cotizacion['salesforce_id'];
+                $cotizacion->codigo_vendedor = $_cotizacion['codigo_vendedor'];
+                $cotizacion->nombre_vendedor = $_cotizacion['nombre_vendedor'];
+                $cotizacion->cliente_id = $_cotizacion['cliente_id'];
+                $cotizacion->nit = $_cotizacion['nit'];
+                $cotizacion->cliente = $_cotizacion['cliente'];
+                $cotizacion->nombre_contacto = $_cotizacion['nombre_contacto'];
+                $cotizacion->correo_contacto = $_cotizacion['correo_contacto'];
+                $cotizacion->correo_alterno_contacto = $_cotizacion['correo_alterno_contacto'];
+                $cotizacion->unidad_gps_id = $_cotizacion['unidad_gps_id'];
+                $cotizacion->cod_unidad = $_cotizacion['cod_unidad'];
+                $cotizacion->unidad_gps = $_cotizacion['unidad_gps'];
+                $cotizacion->tipo_contrato_id = $_cotizacion['tipo_contrato_id'];
+                $cotizacion->tipo_contrato = $_cotizacion['tipo_contrato'];
+                $cotizacion->plan_servicio_id = $_cotizacion['plan_servicio_id'];
+                $cotizacion->codigo_plan = $_cotizacion['codigo_plan'];
+                $cotizacion->nombre_plan = $_cotizacion['nombre_plan'];
+                $cotizacion->descuento_id = $_cotizacion['descuento_id'];
+                $cotizacion->descuento = $_cotizacion['descuento'];
+                $cotizacion->duracion_contrato_id = $_cotizacion['duracion_contrato_id'];
+                $cotizacion->cantidad_meses = $_cotizacion['cantidad_meses'];
+                $cotizacion->cantidad_vehiculos = $_cotizacion['cantidad_vehiculos'];
+                $cotizacion->valor_recurrencia = $_cotizacion['valor_recurrencia'];
+                $cotizacion->formato_valor_recurrencia = $_cotizacion['formato_valor_recurrencia'];
+                $cotizacion->valor_equipos = $_cotizacion['valor_equipos'];
+                $cotizacion->formato_valor_equipos = $_cotizacion['formato_valor_equipos'];
+                $cotizacion->valor_total = $_cotizacion['valor_total'];
+                $cotizacion->formato_valor_total = $_cotizacion['formato_valor_total'];
+                $cotizacion->fecha = $_cotizacion['fecha'];
+                $cotizacion->serial = $_cotizacion['serial'];
+
+                array_push($cotizaciones, $cotizacion);
+            }
+        }
+
+        return (count($cotizaciones) <= 0 ) ? $cotizaciones : $cotizaciones;
     }
 
 }

@@ -181,10 +181,9 @@ class Action {
                 foreach ($restricciones_planes as $value) {
                     array_push($accesorios_planes, array("accesorio_id" => $accesorioNuevo->id, "planes_id" => $value));
                 }
-                
+
                 $agregarRestricionesGps = AccesoriosGpsDB::agregarRestricciones($accesorios_gps);
                 $agregarRestricionesPlanes = AccesoriosPlanesDB::agregarRestricciones($accesorios_planes);
-                
             }
 
 
@@ -243,10 +242,10 @@ class Action {
     }
 
     public function inactiveAccesorio() {
-        
+
         if (isset($_POST['accesorio_id'])) {
 
-            $accesorio_id= $_POST['accesorio_id'];
+            $accesorio_id = $_POST['accesorio_id'];
 
             $result = AccesoriosDB::desactivarAccesorio($accesorio_id);
             if ($result) {
@@ -256,7 +255,7 @@ class Action {
             }
         }
     }
-    
+
     public function getUnidadesGPS() {
         $unidades = UnidadesGpsDB::getUnidadesGpsActivas();
         //Success
@@ -522,6 +521,20 @@ class Action {
         $cotizaciones = CotizacionDB::listarCotizaciones();
         //Success        
         return $this->_response(1, NULL, array('cotizaciones' => $cotizaciones));
+    }
+
+    public function filtrarCotizaciones() {
+
+
+        if (isset($_POST['vendedor_id']) && isset($_POST['fecha_inicial']) && isset($_POST['fecha_final'])) {
+
+            $vendedor_id = $_POST['vendedor_id'];
+            $fecha_inicial = $_POST['fecha_inicial'];
+            $fecha_final = $_POST['fecha_final'];
+
+            $cotizaciones = CotizacionDB::filtrarCotizaciones($vendedor_id, $fecha_inicial, $fecha_final);
+            return $this->_response(1, NULL, array('cotizaciones' => $cotizaciones));
+        }
     }
 
     public function getListFiles() {

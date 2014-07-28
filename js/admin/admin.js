@@ -68,6 +68,8 @@ var App = {
 
         //Reporte
         $(document).on('click', '#cotizaciones  button', App.verPdf);
+        // Filtrar Reporte
+        $(document).on('click', '#filtrar_reporte', App.filtraReporteCotizaciones);
 
 
         // Dialog Confirm
@@ -85,15 +87,38 @@ var App = {
         });
 
         $(":file").filestyle();
+
         App.maskedInputs();
 
         $("#upload_image").submit(App.uploadFirmaDigital);
-        $("#").click()
 
+
+
+
+        var checkin = $('#fecha_inicial').datepicker().on('changeDate', function(ev) {
+            if (ev.date.valueOf() > checkout.date.valueOf()) {
+                var newDate = new Date(ev.date)
+                newDate.setDate(newDate.getDate() + 1);
+                checkout.setValue(newDate);
+            }
+            checkin.hide();
+            $('#fecha_final')[0].focus();
+        }).data('datepicker');
+        var checkout = $('#fecha_final').datepicker({
+            onRender: function(date) {
+                return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+            }
+        }).on('changeDate', function(ev) {
+            checkout.hide();
+        }).data('datepicker');
 
 
     },
     changeView: function(e) {
+
+        /*if (isJqmGhostClick(e)) {
+         return false;
+         }*/
 
         var view = $(this).attr("ui-sref");
 
@@ -105,11 +130,17 @@ var App = {
             url: "/templates/sections/admin/" + view + ".tpl",
             success: function(msg) {
                 $('#contenido').html(msg);
+                App.events();
             }
         });
 
     },
     showModals: function(e) {
+
+        /*if (isJqmGhostClick(e)) {
+         return false;
+         }*/
+
         var view = $(this).attr("ui-sref");
 
         if (!view || 0 === view.length)
@@ -1418,7 +1449,11 @@ var App = {
     inactiveCliente: function() {
         console.log('Inactivar Cliente');
     },
-    reporteCotizaciones: function() {
+    reporteCotizaciones: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
@@ -1449,7 +1484,19 @@ var App = {
                 }
             }];
 
-
+        // Consultar Vendedores
+        App.request({
+            data: {
+                action: 'getUsuarios'
+            },
+            success: function(response) {
+                console.log('usuarios', response.usuarios);
+                $.each(response.usuarios, function(i, usuario) {
+                    console.log(usuario);
+                    $('#vendedores').append('<option value="' + usuario.id + '">' + usuario.nombres + ' ' + usuario.apellidos + ' ( ' + usuario.codigo + ' )' + '</option>');
+                });
+            }
+        });
 
 
         App.request({
@@ -1464,31 +1511,37 @@ var App = {
     },
     totalesReporte: function(row, data, start, end, display) {
 
+        
         var api = this.api(), data;
+        var total_unidades = 0;
+        var total_recurrente = 0;
+        var total_equipos = 0;
+        var total = 0;
 
         data = api.column(5, {page: 'current'}).data();
-        var total_unidades = data.length ? data.reduce(function(a, b) {
+        total_unidades = data.length ? data.reduce(function(a, b) {
             return parseInt(a) + parseInt(b);
         }) : 0;
+        
 
         data = api.column(6, {page: 'current'}).data();
-        var total_recurrente = data.length ? data.reduce(function(a, b) {
+        total_recurrente = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
-        total_recurrente = Number(total_recurrente.toFixed(1)).toLocaleString();
+        total_recurrente = Number(parseFloat(total_recurrente).toFixed(1)).toLocaleString();
 
 
         data = api.column(8, {page: 'current'}).data();
-        var total_equipos = data.length ? data.reduce(function(a, b) {
+        total_equipos = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
-        total_equipos = Number(total_equipos.toFixed(1)).toLocaleString();
+        total_equipos = Number(parseFloat(total_equipos).toFixed(1)).toLocaleString();
 
         data = api.column(10, {page: 'current'}).data();
-        var total = data.length ? data.reduce(function(a, b) {
+        total = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
-        total = Number(total.toFixed(1)).toLocaleString();
+        total = Number(parseFloat(total).toFixed(1)).toLocaleString();
 
         $(api.column(5).footer()).html(total_unidades);
         $(api.column(7).footer()).html('$' + total_recurrente);
@@ -1500,6 +1553,58 @@ var App = {
         var id = $(e.target).attr('id').split('_').pop();
         id = window.btoa(id);
         window.open("/sections/cotizador/showPdf.php?cotizacion=" + id, '_blank');
+    },
+    filtraReporteCotizaciones: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
+        var vendedor_id = $('#vendedores').val();
+        var fecha_inicial = $('#fecha_inicial').val();
+        var fecha_final = $('#fecha_final').val();
+
+        var columns = [
+            {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
+            {"title": "Empresa", "data": 'cliente'},
+            {"title": "No. Cotización", "class": "center", data: 'id'},
+            {"title": "Tipo Contrato", data: 'tipo_contrato'},
+            {"title": "Plan", data: 'nombre_plan'},
+            {"title": "Cnt. Unidades", "class": "center", data: 'cantidad_vehiculos'},
+            {"title": "Valor Recurrente", data: 'valor_recurrencia'},
+            {"title": "Valor Recurrente", data: 'formato_valor_recurrencia'},
+            {"title": "Valor Equipos", data: 'valor_equipos'},
+            {"title": "Valor Equipos", data: 'formato_valor_equipos'},
+            {"title": "Valor Total", data: 'valor_total'},
+            {"title": "Valor Total", data: 'formato_valor_total'},
+            {"title": "Ver PDF"}
+        ];
+
+        var columnDefs = [
+            {
+                "targets": [6, 8, 10],
+                "visible": false
+            },
+            {
+                "targets": -1,
+                "data": "",
+                "render": function(data, type, full, meta) {
+                    return "<button class='btn btn-outline btn-primary btn-xs' type='button' id='btn_" + full.id + "'>ver PDF</button>";
+                }
+            }];
+
+        App.request({
+            data: {
+                action: 'filtrarCotizaciones',
+                vendedor_id: vendedor_id,
+                fecha_inicial: fecha_inicial,
+                fecha_final: fecha_final
+            },
+            success: function(response) {
+                console.log(response.cotizaciones);
+                App.generateTable('cotizaciones', response.cotizaciones, columns, columnDefs, App.totalesReporte);
+            }
+        });
     },
     getFiles: function() {
         App.request({

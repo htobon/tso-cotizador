@@ -20,6 +20,7 @@
         <!-- SB Admin CSS - Include with every page -->
         <link href="{$smarty.const.SMARTY_CSS_URI}/admin/sb-admin.css" rel="stylesheet">
         <link href="{$smarty.const.SMARTY_CSS_URI}/jquery.validity.css" rel="stylesheet" />  
+        <link href="{$smarty.const.SMARTY_CSS_URI}/admin/datepicker.css" rel="stylesheet" />  
 
         
 
