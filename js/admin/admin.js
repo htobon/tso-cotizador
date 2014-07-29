@@ -71,6 +71,26 @@ var App = {
         // Filtrar Reporte
         $(document).on('click', '#filtrar_reporte', App.filtraReporteCotizaciones);
 
+        //Impotar Clientes 
+        $(document).on('click', '#importarClientes', function(e) {
+            if (isJqmGhostClick(e)) {
+                return false;
+            }
+
+            $('#msj_error').html('Opcion No Disponible, Trabajando Actualmente sobre esta funcionalidad!!!!');
+        });
+
+        // Exportar Clientes 
+        $(document).on('click', '#exportarClientes', function(e) {
+
+            if (isJqmGhostClick(e)) {
+                return false;
+            }
+
+            $('#msj_error2').html('Opcion No Disponible, Trabajando Actualmente sobre esta funcionalidad!!!!');
+        });
+
+
 
         // Dialog Confirm
         $(document).on('click', 'button[sref=inactivar_registro]', function(e) {
@@ -189,7 +209,11 @@ var App = {
 
 
     },
-    getUsuarios: function() {
+    getUsuarios: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -432,7 +456,11 @@ var App = {
         });
 
     },
-    getAccesorios: function() {
+    getAccesorios: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'codAccesorio'},
@@ -724,7 +752,12 @@ var App = {
         });
 
     },
-    getUnidadesGPS: function() {
+    getUnidadesGPS: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
 
         var columns = [
             {"title": "Codigo", data: 'codUnidad'},
@@ -912,7 +945,12 @@ var App = {
             }
         });
     },
-    getContratos: function() {
+    getContratos: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
+
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -942,7 +980,11 @@ var App = {
         });
 
     },
-    getDuracionesContrato: function() {
+    getDuracionesContrato: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1084,7 +1126,11 @@ var App = {
             }
         });
     },
-    getDescuentos: function() {
+    getDescuentos: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1245,7 +1291,11 @@ var App = {
             }
         });
     },
-    getPlanes: function() {
+    getPlanes: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -1405,7 +1455,11 @@ var App = {
             }
         });
     },
-    getClientes: function() {
+    getClientes: function(e) {
+
+        if (isJqmGhostClick(e)) {
+            return false;
+        }
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1511,7 +1565,7 @@ var App = {
     },
     totalesReporte: function(row, data, start, end, display) {
 
-        
+
         var api = this.api(), data;
         var total_unidades = 0;
         var total_recurrente = 0;
@@ -1522,7 +1576,7 @@ var App = {
         total_unidades = data.length ? data.reduce(function(a, b) {
             return parseInt(a) + parseInt(b);
         }) : 0;
-        
+
 
         data = api.column(6, {page: 'current'}).data();
         total_recurrente = data.length ? data.reduce(function(a, b) {
@@ -1684,7 +1738,7 @@ var App = {
                 if (typeof json.complete === 'function')
                     json.complete();
 
-                $('#loading').modal('hide');
+                //$('#loading').modal('hide');
             },
             error: function(e) {
                 console.log('error', e);

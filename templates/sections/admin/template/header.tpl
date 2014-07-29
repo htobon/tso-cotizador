@@ -94,7 +94,15 @@
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#" ui-sref="clientes" ><i class="fa fa-user fa-fw"></i> Clientes</a>
+                                <a href="#" ><i class="fa fa-user fa-fw"></i> Clientes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#" ui-sref="clientes" >Lista Clientes</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" ui-sref="exportar_importar_clientes" >Exportar/Importar</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reportes<span class="fa arrow"></span></a>
