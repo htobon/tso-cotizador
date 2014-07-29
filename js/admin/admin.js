@@ -211,9 +211,9 @@ var App = {
     },
     getUsuarios: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -458,9 +458,9 @@ var App = {
     },
     getAccesorios: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'codAccesorio'},
@@ -754,9 +754,9 @@ var App = {
     },
     getUnidadesGPS: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
 
         var columns = [
@@ -947,9 +947,9 @@ var App = {
     },
     getContratos: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
 
         var columns = [
@@ -982,9 +982,9 @@ var App = {
     },
     getDuracionesContrato: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1128,9 +1128,9 @@ var App = {
     },
     getDescuentos: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1293,9 +1293,9 @@ var App = {
     },
     getPlanes: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -1457,9 +1457,9 @@ var App = {
     },
     getClientes: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1505,9 +1505,9 @@ var App = {
     },
     reporteCotizaciones: function(e) {
 
-        if (isJqmGhostClick(e)) {
+        /*if (isJqmGhostClick(e)) {
             return false;
-        }
+        }*/
 
         var columns = [
             {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
