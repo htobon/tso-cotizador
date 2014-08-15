@@ -138,7 +138,7 @@ var App = {
 
         /*if (isJqmGhostClick(e)) {
          return false;
-         }*/
+         } */
 
         var view = $(this).attr("ui-sref");
 
@@ -212,7 +212,8 @@ var App = {
     getUsuarios: function(e) {
 
         if (isJqmGhostClick(e)) {
-            return false;
+            e.preventDefault();
+            return;
         }
 
         console.log('==== Get Users. ======');
@@ -462,6 +463,7 @@ var App = {
 
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
 
@@ -760,6 +762,7 @@ var App = {
     getUnidadesGPS: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
 
@@ -954,6 +957,7 @@ var App = {
     getContratos: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
 
@@ -991,6 +995,7 @@ var App = {
     getDuracionesContrato: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
         console.log('==== Get Durac ======');
@@ -1139,6 +1144,7 @@ var App = {
     getDescuentos: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
 
@@ -1306,6 +1312,7 @@ var App = {
     getPlanes: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
         }
 
@@ -1471,7 +1478,10 @@ var App = {
     getClientes: function(e) {
 
         if (isJqmGhostClick(e)) {
+            e.preventDefault();
             return false;
+        } else {
+
         }
 
         console.log('==== Get Clientes ======');
