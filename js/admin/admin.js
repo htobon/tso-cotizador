@@ -211,9 +211,11 @@ var App = {
     },
     getUsuarios: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+
+        console.log('==== Get Users. ======');
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -458,9 +460,12 @@ var App = {
     },
     getAccesorios: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+
+        console.log('==== Get Accesorios ======');
 
         var columns = [
             {"title": "Codigo", data: 'codAccesorio'},
@@ -754,10 +759,11 @@ var App = {
     },
     getUnidadesGPS: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
 
+        console.log('==== Get unidade ======');
 
         var columns = [
             {"title": "Codigo", data: 'codUnidad'},
@@ -947,9 +953,11 @@ var App = {
     },
     getContratos: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+
+        console.log('==== Get Contra ======');
 
 
         var columns = [
@@ -982,9 +990,11 @@ var App = {
     },
     getDuracionesContrato: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+        console.log('==== Get Durac ======');
+
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1128,9 +1138,11 @@ var App = {
     },
     getDescuentos: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+
+        console.log('==== Get Descu ======');
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1293,10 +1305,11 @@ var App = {
     },
     getPlanes: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
 
+        console.log('==== Get Planes ======');
         var columns = [
             {"title": "Codigo", data: 'codigo'},
             {"title": "Nombre", data: 'nombre'},
@@ -1457,9 +1470,11 @@ var App = {
     },
     getClientes: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
+        if (isJqmGhostClick(e)) {
             return false;
-        }*/
+        }
+
+        console.log('==== Get Clientes ======');
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1506,8 +1521,10 @@ var App = {
     reporteCotizaciones: function(e) {
 
         /*if (isJqmGhostClick(e)) {
-            return false;
-        }*/
+         return false;
+         }*/
+
+        console.log('==== Get Repote ======');
 
         var columns = [
             {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
