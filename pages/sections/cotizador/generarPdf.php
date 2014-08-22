@@ -142,19 +142,19 @@ class generarPdf {
         //$this->pdf->Cell(0, 0, "Fecha", 0, 1, 'R', 0, '', 0, false, 'T', 'M');
 
         $this->pdf->setBoldFont(14);
-        $this->pdf->Cell(0, 0, "Datos Cliente", 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+        $this->pdf->Cell(0, 0, "Señor(es)", 0, 0, 'L', 0, '', 0, false, 'T', 'B');
 
         $date = date_create($this->cotizacion->fecha);
         $fecha = date_format($date, 'd/m/Y');
         $this->pdf->setNormalFont(14);
         $this->pdf->Cell(0, 0, "{$fecha}", 0, 1, 'R', 0, '', 0, false, 'T', 'M');
-        $this->pdf->Cell(0, 0, "Nombre: {$this->cotizacion->nombre_contacto}", 0, 0, 'L', 0, '', 0, false, 'T', 'B');
+        $this->pdf->Cell(0, 0, "{$this->cotizacion->nombre_contacto}", 0, 0, 'L', 0, '', 0, false, 'T', 'B');
         $this->pdf->setBoldFont(14);
         $this->pdf->Cell(0, 0, "Cotización #{$this->cotizacion->id}", 0, 1, 'R', 0, '', 0, false, 'T', 'M');        
 
         $this->pdf->setNormalFont(14);        
-        $this->pdf->Cell(0, 0, "Dirección: {$this->cliente->nombre}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
-        $this->pdf->Cell(0, 0, "Email: {$this->cotizacion->correo_contacto}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
+        $this->pdf->Cell(0, 0, "{$this->cliente->nombre}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
+        $this->pdf->Cell(0, 0, "{$this->cotizacion->correo_contacto}", 0, 1, 'L', 0, '', 0, false, 'T', 'B');
         //$this->pdf->Cell(0, 0, 'Email Opcional: {}', 0, 1, 'L', 0, '', 0, false, 'T', 'B');
 
         $this->pdf->Ln();
@@ -509,6 +509,7 @@ class generarPdf {
 
         $valorPlanMensual = $valorPlanSinDescuento - $valorDescuento;
         $totalPlanMensual = $totalPlanSinDescuento - $totalDescuento;
+        $totalGps = 0;
 
 
         // COMODATO
@@ -541,19 +542,19 @@ class generarPdf {
 
 
         // Tipo Plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Totales:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 18, "Subtotales:", 0, 1, 'L', 0, '', 0, false, 'M', 'B');
         $this->pdf->Ln(5);
 
         $this->pdf->setNormalFont(14);
         $this->pdf->setTextBlack();
-        $this->pdf->SetFillColor(128, 128, 128);
+        $this->pdf->SetFillColor(192, 192, 192 );
 
         if ($this->tipoContrato->id == 2) {
             // COMPRA
             $totalGps = $this->cotizacion->cantidad_vehiculos * $this->unidadGps->precioUnidad;
 
             // Detalle plan
-            $this->pdf->Cell($this->getAnchoColumna1(), 0, "Total Unidad GPS ", 0, 0, 'L', true, '', 0, false, 'M', 'B');
+            $this->pdf->Cell($this->getAnchoColumna1(), 0, "Unidad GPS ", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
             // Cantidad
             $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cotizacion->cantidad_vehiculos, 0, 0, 'C', true, '', 0, false, 'M', 'B');
@@ -567,7 +568,7 @@ class generarPdf {
         }
 
         // Detalle plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Totales Accesorios", 0, 0, 'L', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Accesorios", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
         // Cantidad
         $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadAccesorios, 0, 0, 'C', true, '', 0, false, 'M', 'B');
@@ -581,7 +582,7 @@ class generarPdf {
 
 
         // Detalle plan
-        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Totales Instalaciones", 0, 0, 'L', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Instalaciones", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
         // Cantidad
         $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cantidadInstalaciones, 0, 0, 'C', true, '', 0, false, 'M', 'B');
@@ -590,9 +591,23 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna3(), 0, "$" . $this->formatMoney($this->valorInstalaciones), 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$" . $this->formatMoney($this->totalInstalaciones), 0, 1, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$" . $this->formatMoney($this->totalInstalaciones), 0, 0, 'R', true, '', 0, false, 'M', 'B');
 
         $this->pdf->Ln();
+        
+        // Detalle plan
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Valor Plan {$contrato} Mensual" , 0, 0, 'L', true, '', 0, false, 'M', 'B');
+
+        // Cantidad
+        $this->pdf->Cell($this->getAnchoColumna2(), 0, "-", 0, 0, 'C', true, '', 0, false, 'M', 'B');
+
+        // Precio unitario
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$".$valorPlanMensual , 0, 0, 'C', true, '', 0, false, 'M', 'B');
+
+        // Precio total
+        $this->pdf->Cell(0, 0, "$".$totalPlanMensual, 0, 1, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Ln();
+        
 
         // Detalle plan
         $this->pdf->Cell($this->getAnchoColumna1(), 14, "Valor Plan {$contrato} sin Descuento", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
@@ -617,10 +632,29 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna3(), 14, "$".$valorDescuento, 0, 0, 'C', 0, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 14, "$".$totalDescuento, 0, 0, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 14, "$".$totalDescuento, 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->pdf->Ln();
+        
+        // TOTAL
+        
+        $this->pdf->setBoldFont(14);
+        
+        $this->pdf->Cell($this->getAnchoColumna1(), 0, "Total", 0, 0, 'L', true, '', 0, false, 'M', 'B');
+
+        $this->pdf->setNormalFont(14);
+        
+        // Cantidad
+        $this->pdf->Cell($this->getAnchoColumna2(), 0, $this->cotizacion->cantidad_vehiculos + $this->cantidadAccesorios + $this->cantidadInstalaciones, 0, 0, 'C', true, '', 0, false, 'M', 'B');
+
+        // Precio unitario
+        $this->pdf->Cell($this->getAnchoColumna3(), 0, "$" . $this->formatMoney($this->unidadGps->precioUnidad + $this->valorAccesorios + $this->valorInstalaciones), 0, 0, 'C', true, '', 0, false, 'M', 'B');
+
+        // Precio total
+        $this->pdf->Cell(0, 0, "$" . $this->formatMoney($totalGps + $this->totalAccesorios + $this->totalInstalaciones), 0, 1, 'R', true, '', 0, false, 'M', 'B');
+
         $this->pdf->Ln();
 
-        $this->pdf->SetFillColor(128, 128, 128);
+       /*$this->pdf->SetFillColor(192, 192, 192 );
         // Detalle plan
         $this->pdf->Cell($this->getAnchoColumna1(), 0, "Valor Plan {$contrato} Mensual", 0, 0, 'L', true, '', 0, false, 'M', 'B');
 
@@ -631,9 +665,14 @@ class generarPdf {
         $this->pdf->Cell($this->getAnchoColumna3(), 0, "$".$valorPlanMensual, 0, 0, 'C', true, '', 0, false, 'M', 'B');
 
         // Precio total
-        $this->pdf->Cell(0, 0, "$".$totalPlanMensual, 0, 1, 'R', true, '', 0, false, 'M', 'B');
+        $this->pdf->Cell(0, 0, "$".$totalPlanMensual, 0, 1, 'R', true, '', 0, false, 'M', 'B');*/
 
         $this->pdf->Ln();
+        $this->pdf->Ln();
+        
+        // Mensaje
+        $this->pdf->setItalicFont(9);
+        $this->pdf->Cell(0, 0, "** Cotización válida por 30 días a partir de la fecha ", 0, 1, 'C', false, '', 0, false, 'M', 'B');
     }
 
     private function getAnchoColumna1() {

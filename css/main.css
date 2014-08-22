@@ -1,85 +1,85 @@
 /* General style */
 
 @font-face {
-  font-family: 'myriad_probold';
-  src: url('/fonts/myriadpro-bold-webfont.eot');
-  src: url('/fonts/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/myriadpro-bold-webfont.woff') format('woff'),
-    url('/fonts/myriadpro-bold-webfont.ttf') format('truetype'),
-    url('/fonts/myriadpro-bold-webfont.svg#myriad_probold') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'myriad_probold';
+    src: url('/fonts/myriadpro-bold-webfont.eot');
+    src: url('/fonts/myriadpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/myriadpro-bold-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-bold-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-bold-webfont.svg#myriad_probold') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
 } 
 
 @font-face {
-  font-family: 'myriad_prolight';
-  src: url('/fonts/myriadpro-light-webfont.eot');
-  src: url('/fonts/myriadpro-light-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/myriadpro-light-webfont.woff') format('woff'),
-    url('/fonts/myriadpro-light-webfont.ttf') format('truetype'),
-    url('/fonts/myriadpro-light-webfont.svg#myriad_prolight') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'myriad_prolight';
+    src: url('/fonts/myriadpro-light-webfont.eot');
+    src: url('/fonts/myriadpro-light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/myriadpro-light-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-light-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-light-webfont.svg#myriad_prolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
 } 
 
 @font-face {
-  font-family: 'myriad_prolight_italic';
-  src: url('/fonts/myriadpro-lightit-webfont.eot');
-  src: url('/fonts/myriadpro-lightit-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/myriadpro-lightit-webfont.woff') format('woff'),
-    url('/fonts/myriadpro-lightit-webfont.ttf') format('truetype'),
-    url('/fonts/myriadpro-lightit-webfont.svg#myriad_prolight_italic') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'myriad_prolight_italic';
+    src: url('/fonts/myriadpro-lightit-webfont.eot');
+    src: url('/fonts/myriadpro-lightit-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/myriadpro-lightit-webfont.woff') format('woff'),
+        url('/fonts/myriadpro-lightit-webfont.ttf') format('truetype'),
+        url('/fonts/myriadpro-lightit-webfont.svg#myriad_prolight_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
 }
 
 /* ##################### GENERAL ########################## */
 
 body   { 
-  font-family: myriad_prolight, "Helvetica", Helvetica, Arial, sans-serif; 
-  height: 99% !important;
-  font-size: 1.1em;
+    font-family: myriad_prolight, "Helvetica", Helvetica, Arial, sans-serif; 
+    height: 99% !important;
+    font-size: 1.1em;
 }
 
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper , .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a{  
-  background: #e5e5e5; /* Old browsers */
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background: -moz-linear-gradient(left,  #e5e5e5 0%, #ffffff 40%, #ffffff 45%, #ffffff 50%, #e5e5e5 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#e5e5e5), color-stop(40%,#ffffff), color-stop(45%,#ffffff), color-stop(50%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* IE10+ */
-  background: linear-gradient(to right,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-8 */
+    background: #e5e5e5; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(left,  #e5e5e5 0%, #ffffff 40%, #ffffff 45%, #ffffff 50%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#e5e5e5), color-stop(40%,#ffffff), color-stop(45%,#ffffff), color-stop(50%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(to right,  #e5e5e5 0%,#ffffff 40%,#ffffff 45%,#ffffff 50%,#e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-8 */
 }
 
 .ui-popup-container {
-  left: 0 !important;
+    left: 0 !important;
 }
 .ui-input-text input, .ui-input-search input {
-  background: #fff;
+    background: #fff;
 }
 
 .error {
-  background-color: #A56767;
-  border-color: #9C3E3E;
+    background-color: #A56767;
+    border-color: #9C3E3E;
 }
 .logo {
-  text-align: center;
-  margin-top: 35px;
+    text-align: center;
+    margin-top: 35px;
 }
 
 .logo img {
-  width: 60%;
+    width: 60%;
 }
 
 .content {
-  /*margin-left: 80px;*/
-  /*margin-right: 80px;*/
+    /*margin-left: 80px;*/
+    /*margin-right: 80px;*/
 }
 
 .center_content {
@@ -92,22 +92,22 @@ body   {
 /* ##################### HEADER ######################## */
 
 .top-bar {
-  height: 43px;
-  padding: 0px 9px;
+    height: 43px;
+    padding: 0px 9px;
 }
 
 .top-bar a {
-  color: #FFF;
-  font-size: 19px;
+    color: #FFF;
+    font-size: 19px;
 }
 
 #logout {
-  padding-top: 0.475rem;
-  padding-right: 0.75rem;
-  padding-bottom: 0.4375rem;
-  padding-left: 0.75rem;
-  font-size: 0.7125rem;
-  margin-top: 6px;
+    padding-top: 0.475rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.4375rem;
+    padding-left: 0.75rem;
+    font-size: 0.7125rem;
+    margin-top: 6px;
 }
 
 
@@ -116,22 +116,22 @@ body   {
 
 /* ---------- Container GRID -------- */
 #sidebar a {
-  height: 95%;
-  margin: 0;
-  padding: 0;
+    height: 95%;
+    margin: 0;
+    padding: 0;
 }
 .container {
-  height: 100%;
+    height: 100%;
 }
 
 .container .content {
-  float: left;
-  width: 82.00%;
-  padding: 0 2%;}
+    float: left;
+    width: 82.00%;
+    padding: 0 2%;}
 .container .sidebar {
-  float: left;
-  width: 7%;
-  height: 95%;
+    float: left;
+    width: 7%;
+    height: 95%;
 }
 
 
@@ -140,236 +140,240 @@ body   {
 /* -------- Login ----------- */
 
 .login fieldset {
-  padding: 1em 5em;
+    padding: 1em 5em;
 }
 
 
 /* -------- Menu Principal ----------- */
 
 #menu-principal {
-  margin-top: 35px;
-  padding-bottom: 35px;
+    margin-top: 35px;
+    padding-bottom: 35px;
 }
 #nav-bar{
-  width: 320px;
-  margin: 0 auto;
+    width: 320px;
+    margin: 0 auto;
 }
 .btn {
-  width: 100px;
-  height: 100px;
-  background: url(/images/bn-tpl.png) no-repeat;
-  padding: 15px;
-  font-weight: bold;
-  font-size: 4em;
-  display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url(/images/bn-tpl.png) no-repeat;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 4em;
+    display: inline-block;
 }
 
 
 .btn:hover { 
-  background: url(/images/bn-tpl-hover.png) no-repeat; 
+    background: url(/images/bn-tpl-hover.png) no-repeat; 
 }
 
 .btn a{
-  color: #fff;
-  text-shadow: 1px 1px 2px #9C9C9C;
+    color: #fff;
+    text-shadow: 1px 1px 2px #9C9C9C;
 }
 
 /* -------- CAMION (Simulador & Cotizador) -------- */
 
 .point {
-  position: absolute;
-  width: 2.5%;
-  height: 4%;
-  background: #FFFFFF;
-  border: 1px solid #2464ab;
-  border-radius: 50%;
-  opacity: 0.6;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    position: absolute;
+    width: 2.5%;
+    height: 4%;
+    background: #FFFFFF;
+    border: 1px solid #2464ab;
+    border-radius: 50%;
+    opacity: 0.6;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 
-  -moz-animation: spin .5s infinite linear;
-  -webkit-animation: spin .5s infinite linear;
+    -moz-animation: spin .5s infinite linear;
+    -webkit-animation: spin .5s infinite linear;
 }
 
 .point:hover {
-  background: #E2E2E2;
+    background: #E2E2E2;
 }
 
 .point.seleccionado {
-  border: 5px solid #9689F7;
-  width: 1.7%;
-  height: 2.7%;
-  opacity: 0.8;
+    border: 5px solid #9689F7;
+    width: 1.7%;
+    height: 2.7%;
+    opacity: 0.8;
 }
 
 .point.deshabilitado {
-  border: 5px solid #E98080;
-  width: 1.7%;
-  height: 2.7%;
-  opacity: 0.8;
+    border: 5px solid #E98080;
+    width: 1.7%;
+    height: 2.7%;
+    opacity: 0.8;
 }
 
 .camion {
-  position: relative;
+    position: relative;
 }
 
 .camion img {
-  width:100%;
+    width:100%;
 }
 
 /* -------- Simulador) -------- */
 [id^=modal-accesorio].ui-popup-container.ui-popup-active{
-  width: 80%;
+    width: 80%;
 }
 .modal-accesorio {
-  margin: 1% 10%;
-  min-width: 85%;
-  /* width: 95%; */
-  padding: 1em;
+    margin: 1% 10%;
+    min-width: 85%;
+    /* width: 95%; */
+    padding: 1em;
 }
 .modal-accesorio h2 {
-  font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  padding-left: 10px;
-  color: #2164ac;
-  background: #fff;
+    font-family: "myriad_prolight", "Helvetica", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    padding-left: 10px;
+    color: #2164ac;
+    background: #fff;
 }
 
 .modal-accesorio .accesorio-img { 
-  margin: 5px 19px 0px 0px;
-  box-shadow: 2px 2px 10px #CFCFCF;
-  border: 4px solid #FFF;
-  border-radius: 0.5em;
-  width: 100%;
+    margin: 5px 19px 0px 0px;
+    box-shadow: 2px 2px 10px #CFCFCF;
+    border: 4px solid #FFF;
+    border-radius: 0.5em;
+    width: 100%;
 }
 .modal-accesorio .accesorio-img-app { 
-  padding-right: 5%;
-  max-height: 30%;
-  max-width: 50%;
+    padding-right: 5%;
+    max-height: 30%;
+    max-width: 50%;
 }
 .modal-accesorio .imagen { 
-  width: 25%;
-  float: right;
+    width: 25%;
+    float: right;
 }
 .modal-accesorio .contenido {
-  width: 72%;
-  float: left;
+    width: 72%;
+    float: left;
 }
 
 .modal-accesorio .contenido .ui-corner-all {
-  -webkit-border-radius: 0; 
-  border-radius: 0; 
+    -webkit-border-radius: 0; 
+    border-radius: 0; 
 }
 
 .modal-accesorio .ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head+body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head+body .ui-btn.ui-btn-a:visited {
-  background: #FFFFFF;
-  border-color: #ddd;
-  color: #2164ac;
-  text-shadow: 0 1px 0 #f3f3f3;
+    background: #FFFFFF;
+    border-color: #ddd;
+    color: #2164ac;
+    text-shadow: 0 1px 0 #f3f3f3;
 }
 
 .modal-accesorio .clear {
-  clear: both;
+    clear: both;
 }
 
 .imagenes-aplicacion {
-  text-align: center;
-  height: 100%;
+    text-align: center;
+    height: 100%;
 }
 
 
 /* ---------- Cotizador -------- */
 
 #accesorios-contenido label {
-  font-size: 14px;
-  font-weight: normal;
+    font-size: 14px;
+    font-weight: normal;
 }
 #msgError{
-  color: rgba(255,0,0,0);
+    color: rgba(255,0,0,0);
 }
 
 /* --------- Seleccion adicionales -------- */
 #adicionales .fila {
-  display: inline-block;
-  width: 100%;
+    display: inline-block;
+    width: 100%;
 }
 
 #adicionales .seccion {
-  min-width: 250px;
-  width: 40%;
-  float: left;
-  padding: 2% 2px;
+    min-width: 250px;
+    width: 40%;
+    float: left;
+    padding: 2% 2px;
 }
 #adicionales .seccion h1 {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 #adicionales #accesorios-seleccionados .cantidad label {
-  width: 50%;
+    width: 50%;
 }
 
 #adicionales #accesorios-seleccionados .cantidad .ui-input-text {
-  width: 30%;
+    width: 30%;
 }
 
 #adicionales #tabla-cantidad-accesorios .item {
-  display: none;
+    display: none;
 }
 
 #adicionales #duraciones {
-  display: none;
+    display: none;
 }
 
 /* --------- Previsualización de Cotizacion ------- */
 #prev-cotizacion table{
-  width: 100% 
+    width: 100% 
 }
 #prev-cotizacion th{
-  font-size: 1.5em;
-  padding: 5px 0px;
-  text-align: left;
-  color: #2464ab;
-  border-bottom: 0.12em solid #40588A;
+    font-size: 1.5em;
+    padding: 5px 0px;
+    text-align: left;
+    color: #2464ab;
+    border-bottom: 0.12em solid #40588A;
 
 }
 #prev-cotizacion td:last-of-type{
-  text-align: right;
+    text-align: right;
 }
 /* Ocultando todos los items */
 #prev-cotizacion .item {
-  /* display: none;*/
-  /*color: red;*/
+    /* display: none;*/
+    /*color: red;*/
 }
 
 /* ---------- Footer -------- */
 
 .crm {
-  border-radius: 8px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 7px;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 7px;
 }
 
 .crm:hover {
-  background: #1B5FA8;
+    background: #1B5FA8;
 }
 
 
 #prev-cotizacion .sombrear-tr{
-background-color: lightgray;
-font-weight: bolder;
+    background-color: #CCC;
+    font-weight: bolder;
+}
+
+#prev-cotizacion .item td {
+    padding-left: 15px;
 }
 
 
 .loading
 {   
-   height: 100px;
-   width: 100px;
-   position: fixed;
-   z-index: 1000;
-   left: 50%;
-   top: 50%;
-   margin: -25px 0 0 -25px;
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    margin: -25px 0 0 -25px;
 }
 
 

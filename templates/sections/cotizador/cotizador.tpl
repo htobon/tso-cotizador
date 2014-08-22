@@ -309,7 +309,7 @@
                 {/foreach}
                 <!-- TOTALES -->
                 <tr id="totales">
-                    <th>TOTALES</th>
+                    <th>SUBTOTALES</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -333,6 +333,20 @@
                     <td class="precioTotal">0</td>
 
                 </tr>
+                
+                <tr id="total-plan-mensual" class="item sombrear-tr">
+                    <td>Valor Plan Mensual</td>
+                    <td class="cantidad"></td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                <tr id="total-plan-comodato-mensual" class="item sombrear-tr">
+                    <td>Valor Plan COMODATO Mensual</td>
+                    <td class="cantidad"></td>
+                    <td class="precioUnitario">0</td>
+                    <td class="precioTotal">0</td>            
+                </tr>
+                
                 <br>
 
                 <tr id="total-plan-sin-descuento" class="item">
@@ -357,19 +371,15 @@
                     <td class="cantidad">999</td>
                     <td class="precioUnitario">0</td>
                     <td class="precioTotal">0</td>            
-                </tr>               
-                <tr id="total-plan-mensual" class="item sombrear-tr">
-                    <td>Valor Plan Mensual</td>
-                    <td class="cantidad"></td>
-                    <td class="precioUnitario">0</td>
-                    <td class="precioTotal">0</td>            
+                </tr> 
+                
+                <tr id="" class="item sombrear-tr">
+                    <td>Total</td>
+                    <td class="">0</td>
+                    <td class="">0</td>
+                    <td class="">0</td>            
                 </tr>
-                <tr id="total-plan-comodato-mensual" class="item sombrear-tr">
-                    <td>Valor Plan COMODATO Mensual</td>
-                    <td class="cantidad"></td>
-                    <td class="precioUnitario">0</td>
-                    <td class="precioTotal">0</td>            
-                </tr>
+                
             </table>
         </div>
         <div id="sidebar" class="sidebar">{include file='sidebar-flecha.tpl' direccion="derecha" link="#datos-cliente"}</div>

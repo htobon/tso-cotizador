@@ -55,7 +55,7 @@ class MYPDF extends TCPDF {
         $this->setNormalFont(15);
         $this->Cell(85, 6, "Latinoamericano  en Gestión Satelital", 0, 0, 'L', 0, '', 0, false, 'M', 'B');
         $this->setBoldFont(15);
-        $this->Cell(0, 6, "www.tsomobile.com", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
+        $this->Cell(0, 6, "www.tsomobile.com.co", 0, 1, 'R', 0, '', 0, false, 'M', 'B');
         $this->Ln(2);
         // Separator line
         $this->SetLineStyle(array('width' => 0.25 / $this->k, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(32, 100, 172)));
@@ -171,6 +171,10 @@ class MYPDF extends TCPDF {
 
     public function setNormalFont($size = 10) {
         $this->SetFont('helvetica', '', $size);
+    }
+    
+    public function setItalicFont($size = 10) {
+        $this->SetFont('helvetica', 'I', $size);
     }
 
     public function setTextBlue() {
