@@ -8,8 +8,8 @@ var lastTapTime;
  */
 function isJqmGhostClick(event) {
     var currTapTime = new Date().getTime();
-
-    if (lastTapTime == null || currTapTime > (lastTapTime + 1000)) {
+    console.log("Curent ", currTapTime);
+    if (lastTapTime == null || currTapTime > (lastTapTime + 300)) {
         lastTapTime = currTapTime;
         return false;
     }
@@ -17,17 +17,3 @@ function isJqmGhostClick(event) {
         return true;
     }
 }
-
-/*
- var lastclickpoint, curclickpoint;
- var isJqmGhostClick = function(event) {
- curclickpoint = event.clientX + 'x' + event.clientY;
- var ret = false;
- if (lastclickpoint === curclickpoint) {
- ret = true;
- } else {
- ret = false;
- }
- lastclickpoint = curclickpoint;
- return ret;
- }*/

@@ -11,6 +11,8 @@ var App = {
     events: function() {
 
         $('a[ui-sref]').click(App.changeView);
+        $(document).on('click', 'button[ui-sref]', App.showModals);
+
         $('a[ui-sref=usuarios]').click(App.getUsuarios);
         $('a[ui-sref=accesorios]').click(App.getAccesorios);
         $('a[ui-sref=unidad_gps]').click(App.getUnidadesGPS);
@@ -19,10 +21,10 @@ var App = {
         $('a[ui-sref=descuentos]').click(App.getDescuentos);
         $('a[ui-sref=planes]').click(App.getPlanes);
         $('a[ui-sref=clientes]').click(App.getClientes);
+        $('a[ui-sref=exportar_importar_clientes]').click(App.exportarImportarClientes);
         $('a[ui-sref=cotizacionesGeneradas]').click(App.reporteCotizaciones);
         $('a[ui-sref=archivos]').click(App.getFiles);
 
-        $(document).on('click', 'button[ui-sref]', App.showModals);
 
 
         // Administracion de Usuarios
@@ -95,9 +97,7 @@ var App = {
         // Dialog Confirm
         $(document).on('click', 'button[sref=inactivar_registro]', function(e) {
 
-            if (isJqmGhostClick(e)) {
-                return false;
-            }
+            e.stopImmediatePropagation();
 
             var id = $("#modal").attr('rel');
             var fn = $("#modal").data('fn');
@@ -136,9 +136,7 @@ var App = {
     },
     changeView: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
-         return false;
-         } */
+        console.log('== changeView ==');
 
         var view = $(this).attr("ui-sref");
 
@@ -157,9 +155,7 @@ var App = {
     },
     showModals: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
-         return false;
-         }*/
+        console.log('== showModals == ');
 
         var view = $(this).attr("ui-sref");
 
@@ -195,9 +191,10 @@ var App = {
 
     },
     putArguments: function(e) {
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+
+        e.stopImmediatePropagation();
+        console.log('== putArguments ==');
+
         var id = $(this).data('id');
         var fn = $(this).data('fn');
 
@@ -211,12 +208,10 @@ var App = {
     },
     getUsuarios: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return;
-        }
+        if (e)
+            e.stopImmediatePropagation();
 
-        console.log('==== Get Users. ======');
+        console.log('== getUsuarios ==');
 
         var columns = [
             {"title": "Codigo", data: 'codigo'},
@@ -252,9 +247,8 @@ var App = {
     },
     showUsuarios: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showUsuarios ==');
 
         var action = $(e.target).attr('rel');
 
@@ -293,7 +287,7 @@ var App = {
     },
     uploadFirmaDigital: function(e) {
 
-        console.log('Multiform submit');
+        console.log('== uploadFirmaDigital ==');
 
         var formObj = $(this);
         var formURL = formObj.attr("action");
@@ -324,16 +318,14 @@ var App = {
 
         return false;
 
-    }
-    ,
+    },
     saveUsuario: function(e) {
+
+        e.stopImmediatePropagation();
+        console.log('== saveUsuario ==');
 
         var error = false;
         var usuario_id = $(e.target).attr('rel');
-
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
 
         $("#msj_error").empty();
         $("#msj_error").addClass("hidden")
@@ -423,7 +415,7 @@ var App = {
                         $("#msj_success").empty();
                         $("#msj_success").append(response.message);
                         $("#msj_success").fadeOut(2600, "linear");
-                        App.getUsuarios();
+                        App.getUsuarios(e);
                     }
                 }
             });
@@ -432,7 +424,7 @@ var App = {
     },
     inactiveUsuario: function(id) {
 
-        console.log('Inactivar usuario', id)
+        console.log('== inactiveUsuario ==');
 
         App.request({
             data: {
@@ -461,13 +453,10 @@ var App = {
     },
     getAccesorios: function(e) {
 
+        if (e)
+            e.stopImmediatePropagation();
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
-
-        console.log('==== Get Accesorios ======');
+        console.log('== getAccesorios ==');
 
         var columns = [
             {"title": "Codigo", data: 'codAccesorio'},
@@ -504,9 +493,8 @@ var App = {
     },
     showAccesorios: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showAccesorios ==');
 
         var action = $(e.target).attr('rel');
 
@@ -612,9 +600,8 @@ var App = {
     },
     saveAccesorio: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== saveAccesorio ==');
 
         var error = false;
         var accesorio_id = $(e.target).attr('rel');
@@ -732,7 +719,8 @@ var App = {
 
     },
     inactiveAccesorio: function(id) {
-        console.log('Inactivar Accesorio', id);
+
+        console.log('== inactiveAccesorio ==');
 
         App.request({
             data: {
@@ -761,12 +749,10 @@ var App = {
     },
     getUnidadesGPS: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
+        if (e)
+            e.stopImmediatePropagation();
 
-        console.log('==== Get unidade ======');
+        console.log('== getUnidadesGPS ==');
 
         var columns = [
             {"title": "Codigo", data: 'codUnidad'},
@@ -802,9 +788,8 @@ var App = {
     },
     showUnidadGps: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showUnidadGps ==');
 
         var action = $(e.target).attr('rel');
 
@@ -836,9 +821,8 @@ var App = {
     },
     saveUnidadGps: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== saveUnidadGps ==');
 
         var error = false;
         var unidad_gps_id = $(e.target).attr('rel');
@@ -928,7 +912,8 @@ var App = {
 
     },
     inactiveUnidadGps: function(id) {
-        console.log('Inactivar Unidad', id);
+
+        console.log('== inactiveUnidadGps ==');
 
         App.request({
             data: {
@@ -956,12 +941,9 @@ var App = {
     },
     getContratos: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
-
-        console.log('==== Get Contra ======');
+        if (e)
+            e.stopImmediatePropagation();
+        console.log('== getContratos ==');
 
 
         var columns = [
@@ -994,11 +976,8 @@ var App = {
     },
     getDuracionesContrato: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
-        console.log('==== Get Durac ======');
+        e.stopImmediatePropagation();
+        console.log('== getDuracionesContrato ==');
 
 
         var columns = [
@@ -1030,9 +1009,8 @@ var App = {
     },
     showDuracionesContrato: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showDuracionesContrato ==');
 
         var action = $(e.target).attr('rel');
 
@@ -1058,9 +1036,10 @@ var App = {
         }
     },
     saveDuracionesContrato: function(e) {
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+
+        e.stopImmediatePropagation();
+        console.log('== saveDuracionesContrato ==');
+
         var error = false;
         var duracion_id = $(e.target).attr('rel');
 
@@ -1116,7 +1095,9 @@ var App = {
         }
     },
     inactiveDuracionesContrato: function(id) {
-        console.log('Inactivar duracion Contrato', id);
+
+        console.log('== inactiveDuracionesContrato ==');
+
         App.request({
             data: {
                 action: 'inactiveDuracionContrato',
@@ -1143,12 +1124,9 @@ var App = {
     },
     getDescuentos: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
-
-        console.log('==== Get Descu ======');
+        if (e)
+            e.stopImmediatePropagation();
+        console.log('== getDescuentos ==');
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1181,9 +1159,8 @@ var App = {
     },
     showDescuento: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showDescuento ==');
 
         var action = $(e.target).attr('rel');
 
@@ -1212,9 +1189,8 @@ var App = {
     },
     saveDescuento: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== saveDescuento ==');
 
         var error = false;
         var descuento_id = $(e.target).attr('rel');
@@ -1283,7 +1259,7 @@ var App = {
     },
     inactiveDescuento: function(id) {
 
-        console.log('Inactivar descuento', id);
+        console.log('== inactiveDescuento ==');
 
         App.request({
             data: {
@@ -1311,12 +1287,9 @@ var App = {
     },
     getPlanes: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        }
-
-        console.log('==== Get Planes ======');
+        if (e)
+            e.stopImmediatePropagation();
+        console.log('== getPlanes ==');
         var columns = [
             {"title": "Codigo", data: 'codigo'},
             {"title": "Nombre", data: 'nombre'},
@@ -1347,9 +1320,8 @@ var App = {
     },
     showPlan: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== showPlan ==');
 
         var action = $(e.target).attr('rel');
 
@@ -1378,9 +1350,8 @@ var App = {
     },
     savePlan: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== savePlan ==');
 
         var error = false;
         var plan_id = $(e.target).attr('rel');
@@ -1449,7 +1420,8 @@ var App = {
 
     },
     inactivePlan: function(id) {
-        console.log('Inactivar Plan', id);
+
+        console.log('== inactivePlan ==');
 
         App.request({
             data: {
@@ -1477,14 +1449,10 @@ var App = {
     },
     getClientes: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            e.preventDefault();
-            return false;
-        } else {
+        if (e)
+            e.stopImmediatePropagation();
 
-        }
-
-        console.log('==== Get Clientes ======');
+        console.log(' == getClientes == ');
 
         var columns = [
             {"title": "Codigo", data: 'id'},
@@ -1514,6 +1482,11 @@ var App = {
         });
     },
     showCliente: function(e) {
+
+        e.stopImmediatePropagation();
+
+        console.log('== showCliente == ');
+
         var action = $(e.target).attr('rel');
         if (action == "show") {
             var id = $(e.target).attr('id').split('_').pop();
@@ -1523,18 +1496,21 @@ var App = {
         }
     },
     saveCliente: function() {
-        console.log('Guardar/Modificar Cliente');
+        console.log('== saveCliente ==');
     },
     inactiveCliente: function() {
-        console.log('Inactivar Cliente');
+        console.log('== inactiveCliente ==');
+    },
+    exportarImportarClientes: function(e) {
+
+        e.stopImmediatePropagation();
+
+        console.log(' == exportarImportarClientes == ');
     },
     reporteCotizaciones: function(e) {
 
-        /*if (isJqmGhostClick(e)) {
-         return false;
-         }*/
-
-        console.log('==== Get Repote ======');
+        e.stopImmediatePropagation();
+        console.log('== reporteCotizaciones ==');
 
         var columns = [
             {"title": "Codigo Vendedor", "data": 'codigo_vendedor'},
@@ -1593,6 +1569,8 @@ var App = {
     totalesReporte: function(row, data, start, end, display) {
 
 
+        console.log('== totalesReporte ==');
+
         var api = this.api(), data;
         var total_unidades = 0;
         var total_recurrente = 0;
@@ -1600,12 +1578,14 @@ var App = {
         var total = 0;
 
         data = api.column(5, {page: 'current'}).data();
+        //data = api.column(5).data();
         total_unidades = data.length ? data.reduce(function(a, b) {
             return parseInt(a) + parseInt(b);
         }) : 0;
 
 
         data = api.column(6, {page: 'current'}).data();
+        //data = api.column(6).data();
         total_recurrente = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
@@ -1613,12 +1593,14 @@ var App = {
 
 
         data = api.column(8, {page: 'current'}).data();
+        //data = api.column(8).data();
         total_equipos = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
         total_equipos = Number(parseFloat(total_equipos).toFixed(1)).toLocaleString();
 
         data = api.column(10, {page: 'current'}).data();
+        //data = api.column(10).data();
         total = data.length ? data.reduce(function(a, b) {
             return parseFloat(a) + parseFloat(b);
         }) : 0;
@@ -1631,15 +1613,19 @@ var App = {
 
     },
     verPdf: function(e) {
+
+        e.stopImmediatePropagation();
+        console.log('== verPdf ==');
+
         var id = $(e.target).attr('id').split('_').pop();
         id = window.btoa(id);
         window.open("/sections/cotizador/showPdf.php?cotizacion=" + id, '_blank');
     },
     filtraReporteCotizaciones: function(e) {
 
-        if (isJqmGhostClick(e)) {
-            return false;
-        }
+        e.stopImmediatePropagation();
+        console.log('== filtraReporteCotizaciones ==');
+
 
         var vendedor_id = $('#vendedores').val();
         var fecha_inicial = $('#fecha_inicial').val();
@@ -1687,7 +1673,11 @@ var App = {
             }
         });
     },
-    getFiles: function() {
+    getFiles: function(e) {
+
+        e.stopImmediatePropagation();
+        console.log('== getFiles ==');
+
         App.request({
             data: {
                 action: 'getListFiles'
@@ -1743,6 +1733,8 @@ var App = {
     },
     request: function(json) {
 
+        console.log('== request ==');
+
         $('#loading').modal('show');
 
         $.ajax({
@@ -1774,10 +1766,15 @@ var App = {
         });
     },
     generateTable: function(table, data, columns, columnDefs, footerCallback) {
+        console.log('== generateTable ==');
+        var paging = true;
+        if (table === 'cotizaciones') {
+            paging = false;
+        }
 
         $('#' + table).dataTable({
             "destroy": true,
-            "paging": true,
+            "paging": paging,
             "ordering": false,
             "info": false,
             "language": {
@@ -1818,4 +1815,4 @@ var App = {
         target.appendChild(spinner.el);
     }
 
-}
+};
