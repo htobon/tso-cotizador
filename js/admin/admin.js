@@ -13,6 +13,7 @@ var App = {
         $('a[ui-sref]').click(App.changeView);
         $(document).on('click', 'button[ui-sref]', App.showModals);
 
+        $('a[ui-sref=dashboard]').click(App.dashboard);
         $('a[ui-sref=usuarios]').click(App.getUsuarios);
         $('a[ui-sref=accesorios]').click(App.getAccesorios);
         $('a[ui-sref=unidad_gps]').click(App.getUnidadesGPS);
@@ -205,6 +206,12 @@ var App = {
         $("#modal").attr('data-fn', $(this).data('fn'));
 
 
+    },
+    dashboard: function(e) {
+
+        e.stopImmediatePropagation();
+
+        console.log(' == dasboard == ');
     },
     getUsuarios: function(e) {
 
