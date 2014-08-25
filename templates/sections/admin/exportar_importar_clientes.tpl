@@ -9,15 +9,19 @@
                     Importar Clientes
                 </div>
 
-                <div class="panel-body" id="">
-                    <div class="form-group">
-                        <label>Seleccione el archivo a importar. </label>
-                        <input type="file">
-                    </div> 
-                    <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 10px;" id="importarClientes">Importar Clientes</button>
-                    <p class="help-block"  id="msj_error"></p>
-                </div>
+                <form id="upload_csv" action="csvupload.php" method="POST" enctype="multipart/form-data">    
+
+                    <div class="panel-body" id="">
+                        <div class="form-group">
+                            <label>Seleccione el archivo a importar. </label>
+                            <input type="file" name="file" type="file" accept=".csv" >
+                        </div> 
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: 10px;" id="importarClientes">Importar Clientes</button>                        
+                    </div>
+                </form>
             </div>
+
+
         </div>
 
         <div class="col-lg-6">

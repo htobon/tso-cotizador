@@ -74,15 +74,7 @@ var App = {
         // Filtrar Reporte
         $(document).on('click', '#filtrar_reporte', App.filtraReporteCotizaciones);
 
-        //Impotar Clientes 
-        $(document).on('click', '#importarClientes', function(e) {
-            if (isJqmGhostClick(e)) {
-                return false;
-            }
-
-            $('#msj_error').html('Opcion No Disponible, Trabajando Actualmente sobre esta funcionalidad!!!!');
-        });
-
+        
         // Exportar Clientes 
         $(document).on('click', '#exportarClientes', function(e) {
 
@@ -112,6 +104,7 @@ var App = {
         App.maskedInputs();
 
         $("#upload_image").submit(App.uploadFirmaDigital);
+        $("#upload_csv").submit(App.uploadCsvClientes);
 
 
 
@@ -315,6 +308,35 @@ var App = {
                 console.log(file);
                 $('#preview').html(data).fadeIn();
                 $('#delete_image').removeAttr('disabled');
+            },
+            error: function(jqXHR, textStatus, errorThrown)
+            {
+            }
+        });
+        e.preventDefault(); //Prevent Default action. 
+        //e.unbind();
+
+        return false;
+
+    },
+    uploadCsvClientes: function(e) {
+
+        console.log('== uploadCsvClientes ==');
+
+        var formObj = $(this);
+        var formURL = formObj.attr("action");
+        var formData = new FormData(this);
+        $.ajax({
+            url: formURL,
+            type: 'POST',
+            data: formData,
+            mimeType: "multipart/form-data",
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data, textStatus, jqXHR)
+            {
+                console.log('======= result =====');
             },
             error: function(jqXHR, textStatus, errorThrown)
             {
