@@ -74,7 +74,7 @@ var App = {
         // Filtrar Reporte
         $(document).on('click', '#filtrar_reporte', App.filtraReporteCotizaciones);
 
-        
+
         // Exportar Clientes 
         $(document).on('click', '#exportarClientes', function(e) {
 
@@ -126,6 +126,19 @@ var App = {
             checkout.hide();
         }).data('datepicker');
 
+
+        $('.btn-toggle').click(function() {
+
+            // http://www.bootply.com/92189
+
+            $(this).find('.btn').toggleClass('active');
+
+            if ($(this).find('.btn-primary').size() > 0) {
+                $(this).find('.btn').toggleClass('btn-primary');
+            }
+
+
+        });
 
     },
     changeView: function(e) {
@@ -1524,10 +1537,12 @@ var App = {
             console.log('Agregar Cliente');
         }
     },
-    saveCliente: function() {
+    saveCliente: function(e) {
+        e.stopImmediatePropagation();
         console.log('== saveCliente ==');
     },
-    inactiveCliente: function() {
+    inactiveCliente: function(e) {
+        e.stopImmediatePropagation();
         console.log('== inactiveCliente ==');
     },
     exportarImportarClientes: function(e) {

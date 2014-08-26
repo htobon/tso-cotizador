@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . "/../../../config/smarty.php";
+require_once __DIR__ . "/../../../config/autoloader.php";
+
+use db\ClienteDB;
+
 $valid_exts = array('csv'); // valid extensions
 $path = __DIR__ . "/../../../tmp/"; // upload directory
 
@@ -20,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 while (($datos = fgetcsv($gestor, 1024, ",")) !== false) {
 
                     print_r($datos);
+                    print_r(count($datos));
+                    
 
                     /* $numero = count($datos);
                       echo "<p> $numero de campos en la línea $fila: <br /></p>\n";

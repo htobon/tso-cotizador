@@ -10,6 +10,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <button class="btn btn-outline btn-default" type="button" data-toggle="modal" ui-sref='gestionarClientes' data-target="#modal" rel="add">Agregar Cliente</button>
+
+                    <label> Vendores registran clientes ? </label>
+                    <div class="btn-group btn-toggle"> 
+                        <button class="btn btn-default">SI</button>
+                        <button class="btn btn-primary active">NO</button>
+                    </div>
+
+
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">                       
